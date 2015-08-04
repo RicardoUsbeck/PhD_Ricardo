@@ -1,0 +1,62 @@
+%*******************************************************
+% Titlepage
+%*******************************************************
+
+\renewcommand{\today}{\ifnum\number\day<10 0\fi \number\day.\space%
+\ifcase \month \or Januar \or Februar \or März \or April \or Mai %
+\or Juni \or Juli \or August \or September \or Oktober \or November \or Dezember \fi %
+\number \year} 
+
+\begin{titlepage}
+	% if you want the titlepage to be centered, uncomment and fine-tune the line below (KOMA classes environment)
+	\begin{addmargin}[-1cm]{-3cm}
+    \begin{center}
+        \large  
+
+        \hfill
+
+        \vfill
+
+        \begingroup
+            \color{Maroon}\LARGE{\spacedallcaps{\myTitle}} \\ \bigskip
+        \endgroup
+        
+        \includegraphics[width=6cm]{figures/University_of_Leipzig.png} \\ \medskip
+    
+        Der Fakultät für Mathematik und Informatik \\
+        der Universität Leipzig eingereichte \\\vfill
+        
+        {\Huge DISSERTATION} \vfill\medskip
+    
+        zur Erlangung des akademischen Grades \\\vfill
+        
+        {\LARGE Doctor rerum naturalium}\\
+        (Dr. rer. nat.)\\\vfill
+        
+        im Fachgebiet Informatik vorgelegt von\\\vfill
+        
+        \textbf{M.Sc \myName} \\\vfill
+        
+        geboren am 16.12.1985 in Bad Schlema, Deutschland \\\vfill
+        
+        Leipzig, den \today\vfill
+
+
+
+        
+
+        %\mySubtitle \\ \medskip   
+        
+%        \myDepartment \\                            
+%        \myFaculty \\
+%        \myUni \\ \bigskip
+%        
+%        \todo{Make layout fit uni leipzig standards}
+%
+%        \myTime\ -- \myVersion
+%
+%        \vfill                      
+
+    \end{center}  
+  \end{addmargin}       
+\end{titlepage}   

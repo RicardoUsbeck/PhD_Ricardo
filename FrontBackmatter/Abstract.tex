@@ -1,0 +1,70 @@
+%*******************************************************
+% Abstract
+%*******************************************************
+%\renewcommand{\abstractname}{Abstract}
+\pdfbookmark[1]{Abstract}{Abstract}
+\begingroup
+\let\clearpage\relax
+\let\cleardoublepage\relax
+\let\cleardoublepage\relax
+
+\chapter*{Abstract}
+%\todo{Short summary of the contents in English\dots}
+
+The Data Web has undergone a tremendous growth period.
+It currently consists of more then 3300 publicly available knowledge bases describing millions of resources from various domains, such as life sciences, government or geography, with over 89 billion facts.
+In the same way, the Document Web grew to the state where approximately 4.55 billion websites exist, 300 million photos are uploaded on Facebook as well as 3.5 billion Google searches are performed on average every day.
+%FB: 4.75 billion pieces of content shared daily as of May 2013
+%FB: Photo uploads total 300 million per day.
+%Twitter: 500 million tweets per day
+%1,109,550,121 Websites
+% 3.5 billion searches per day at google
+%\todo[inline]{Start with stats pertaining to the Data Web (2K KBs, 60+ billion facts). Do not use the term Semantic Web. Also bring up stats pertaining to the Web (500K tweets per minute, etc.). 
+%Then speak about the gap between those two, with missing information. 
+%Stuff the section on Wikipedia and co.
+%}
+However, there is a gap between the Document Web and the Data Web, since for example knowledge bases available on the Data Web are most commonly extracted from structured or semi-structured sources, but the majority of information available on the Web is contained in unstructured sources such as news articles, blog post, photos, forum discussions, etc.
+As a result, data on the Data Web not only misses a significant fragment of information but also suffers from a lack of actuality since typical extraction methods are time-consuming and can only be carried out periodically.
+Furthermore, provenance information is rarely taken into consideration and therefore gets lost in the transformation process.
+In addition, users are accustomed to entering keyword queries to satisfy their information needs.
+With the availability of machine-readable knowledge bases, lay users could be empowered to issue more specific questions and get more precise answers.
+
+%State that several challenges need to be addressed to close this gap, especially NER, Cross-Document Coreference Resolution, Relation Extraction. Then state that this thesis addresses the last of the challenges. 
+In this thesis, we address the problem of Relation Extraction, one of the key challenges pertaining to closing the gap between the Document Web and the Data Web by four means.
+First, we present a distant supervision approach that allows finding multilingual natural language representations of formal relations already contained in the Data Web.
+We use these natural language representations to find sentences on the Document Web that contain unseen instances of this relation between two entities. 
+Second, we address the problem of data actuality by presenting a real-time data stream RDF extraction framework and utilize this framework to extract RDF from RSS news feeds.
+Third, we present a novel fact validation algorithm, based on natural language representations, able to not only verify or falsify a given triple, but also to find trustworthy sources for it on the Web and estimating a time scope in which the triple holds true.
+The features used by this algorithm to determine if a website is indeed trustworthy are used as provenance information and therewith help to create metadata for facts in the Data Web.
+Finally, we present a question answering system that uses the natural language representations to map natural language question to formal SPARQL queries, allowing lay users to make use of the large amounts of data available on the Data Web to satisfy their information need.
+
+\newpage
+%
+\pdfbookmark[1]{Zusammenfassung}{Zusammenfassung}
+%\begingroup
+%\let\clearpage\relax
+%\let\cleardoublepage\relax
+%\let\cleardoublepage\relax
+\chapter*{Zusammenfassung}
+Das Data Web hat eine enorme Wachstumsphase erlebt.
+Es besteht aktuell aus mehr als 3300 öffentlich zugänglichen Wissensbasen, die Millionen Ressourcen von unterschiedlichen Domänen, wie etwa Biowissenschaften, Verwaltung und Geografie, mit über 89 Milliarden Fakten beschreiben. 
+In gleicher Weise wuchs das Document Web zu dem Zustand in dem ungefähr 4,55 Milliarden Webseiten existieren und im Tagesdurchschnitt 300 Millionen Fotos auf Facebook hochgeladen und 3,5 Milliarden Google Suchanfragen durchgeführt werden.
+Trotzdem existiert eine Diskrepanz zwischen dem Document Web und dem Data Web, weil zum Beispiel im Data Web verfügbare Wissensbasen im Regelfall nur von strukturierten beziehungsweise teilweise strukturierten Datenquellen extrahiert worden sind. 
+Allerdings befindet sich der Großteil der Daten im Web in unstrukturierten Datenquellen, wie etwa in Nachrichtenartikeln, Blogs, Fotos, Forendiskussionen, etc.
+Als ein Resultat dieser Diskrepanz fehlt den Daten im Data Web nicht nur der Großteil der verfügbaren Informationen, sondern lassen Aktualität vermissen, da typische Extraktionsmethoden zeitaufwendig sind und deshalb nur periodisch ausgeführt werden können. 
+Des Weiteren werden Provenienzinformationen nur selten berücksichtigt und gehen damit im Transformationsprozess verloren.
+Außerdem sind Nutzer an Schlüsselwort-Anfragen gewöhnt, um ihr Informationsbedürfnis zu befriedigen.
+Mit der Verfügbarkeit von maschinenlesbaren Wissensbasen werden auch unerfahrene Nutzer in die Lage versetzt, spezifischere Fragen zu stellen und genauere Antworten zu erhalten.
+
+In dieser Arbeit beschäftigen wir uns mit dem Problem der Relationsextraktion, eine der wichtigsten Herausforderungen, um die Lücke zwischen Document Web und Data Web zu schließen. 
+Dazu stellen wir vier Methoden vor.
+Erstens zeigen wir einen Distant Supervision Ansatz, der es erlaubt multilinguale natürlichsprachliche Repräsentationen von formalen Relationen zu ermitteln, die bereits im Data Web enthalten sind.
+Wir nutzen diese natürlichsprachlichen Repräsentationen, um Sätze im Document Web zu finden, die unbekannte Instanzen dieser Relation zwischen zwei Entitäten enthalten.
+Zweitens beschäftigen wir uns mit dem Problem der Datenaktualität, indem wir ein Echtzeit-RDF-Extraktionsframework für Datenströme vorstellen und dieses Framework anwenden, um RDF aus RSS Nachrichten-Feeds zu extrahieren.
+Drittens präsentieren wir ein neuartiges Fact Validation Verfahren, basierend auf natürlichsprachlichen Repräsentationen formaler Relationen, das nicht nur in der Lage ist, ein gegebenes Tripel zu verifizieren beziehungsweise zu widerlegen, sondern auch vertrauenswürdige Quellen dafür im Web findet und zusätzlich ein Zeitintervall bestimmt, in dem das Triple wahr ist.
+Die Merkmale, die von diesem Algorithmus genutzt werden, um zu bestimmen, ob eine Webseite vertrauenswürdig ist, werden als Provenienzinformationen genutzt und helfen somit Metadaten für Fakten im Data Web zu generieren. 
+Zum Abschluss präsentieren wir ein Question Answering System, das natürlichsprachliche Repräsentationen nutzt, um natürlichsprachliche Fragen auf formale SPARQL-Anfragen abzubilden und es damit unerfahrenen Nutzern ermöglicht, die riesigen Datenvolumen im Data Web nutzbar zu machen um deren Informationsbedürfnis zu befriedigen.
+
+\endgroup			
+
+%\vfill
