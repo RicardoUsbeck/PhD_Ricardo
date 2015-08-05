@@ -1,53 +1,16 @@
-\documentclass{llncs}
-
-\usepackage{graphicx}
-\usepackage{amsmath,amssymb}
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{url}
-\usepackage{float}
-\usepackage{multirow} 
-\usepackage{booktabs}
-%\usepackage[disable]{todonotes}
-\usepackage{todonotes}
-\usepackage{booktabs}
-\usepackage{mdframed}
-\usepackage{wrapfig}
-\usepackage{caption}
-\usepackage{hyperref}
 
 
-\begin{document}
+
+\section{Multilingual Disambiguation of Named Entities Using Linked Data}
 
 
-\title{Multilingual Disambiguation of Named Entities Using Linked Data}
 
 
-\author{
-Ricardo Usbeck$^{\spadesuit\diamondsuit}$ \and 
-Axel-Cyrille Ngonga Ngomo$^{\diamondsuit}$ \and
-Wencan Luo$^{\heartsuit}$  \and 
-Lars Wesemann$^{\spadesuit}$ 
-\institute{
-${\diamondsuit}$ University of Leipzig, Germany , \\
-${\spadesuit}$ R\,\&\,D, Unister~GmbH, Leipzig, Germany, \\
-${\heartsuit}$ University of Pittsburgh, United States of America
-\newline email: \{usbeck$|$ngonga\}@informatik.uni-leipzig.de
-}
-}
-
-\maketitle
-
-\newmdtheoremenv{ex}{Example}
-
-\begin{abstract}
 One key step towards extracting structured data from unstructured data sources is the disambiguation of entities.
 With AGDISTIS, we provide a time-efficient, state-of-the-art, knowledge-base-agnostic and multilingual framework for the disambiguation of RDF resources.
 The aim of this demo is to present the English, German and Chinese version of our framework based on DBpedia.
 We show the results of the framework on texts pertaining to manifold domains including news, sports, automobiles and e-commerce.
 We also summarize the results of the evaluation of AGDISTIS on several languages.
-\end{abstract} 
 
 \section{Introduction}
 A significant portion of the information on the Web is still only available in textual format. 
@@ -77,7 +40,7 @@ This GUI supports the following workflow.
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{GUI.png}
+\includegraphics[width=\textwidth]{chapter_three/unstructured_annotation/fig/GUI.png}
 \caption{Screenshot of the demo with an English example which is already annotated.}
 \label{fig:gui}
 \end{figure}
@@ -129,7 +92,7 @@ in <entity>Washington, D.C.</entity>.'" -d type='agdistis'
 \section{Evaluation}
 \textbf{English and German Evaluation.} AGDISTIS has been evaluated on 8 different datasets from diverse domains such as news, sports or buisiness reports.
 For English datasets AGDISTIS is able to outperform the currently best disambiguation framework, TagMe2, on three out of four datasets by up to 29.5\% F-measure. 
-Considering the only German dataset available for named entity disambiguation, i.e., \url{news.de}~\cite{N3}, we are able to outperform the only competitor DBpedia Spotlight by 3\% F-measure.
+Considering the only German dataset available for named entity disambiguation, i.e., \url{news.de}~\cite{n3}, we are able to outperform the only competitor DBpedia Spotlight by 3\% F-measure.
 
 
 \noindent \textbf{Chinese Evaluation.} We evaluated the Chinese version of AGDISTIS within a question answering setting. 
@@ -149,20 +112,11 @@ The disambiguation steps will then be carried out on this unique graph.
 
 
 
-\begin{wrapfigure}[2]{r}{0.20\textwidth}
- \vspace{-8mm}
- \includegraphics[width=0.20\textwidth]{esf.pdf}
-\end{wrapfigure}
-\textbf{Acknowledgments} This work has been supported by the ESF and the Free State of Saxony and the FP7 project GeoKnow (GA No. 318159).
 
 
-\bibliographystyle{plain}
-\bibliography{myrefs,aksw,limes,references}
 
 
-\end{document}
 
-\begin{comment}
 
 \section{How the Chinese version was generated}
 \label{sec:chinese}
@@ -208,45 +162,4 @@ GOAL is to provide entity linking results to several languages which are show on
 3 finally we will show how the results can be downloaded or seen online and how the annotation of more or less entities changes the behaviour of AGDISTIS
 
 benchmarks will be shown as well and people will be invited to use our for free endpoint for their projects so we can store the use case data and improve our approach similar to the feedback API of spotlight and fox
-\end{comment}
 
-\begin{review}
-\subsection{Reviewer 1} [DONE by fixing the demo.]
-The authors proposed a multilingual disambiguation of named entities system using linked data. The purpose of this paper is to show how AGDISTIS can be used by non-expert based on that system. Through the web site non-expert can get multilingual knowledge which is derived from three different knowledge based such as DBpedia, the German DBpedia and the Chinese DBpedia.
-
-Even though I tried to access the demo site several times, I cannot believe whether this demo site can give the same results which are represented this demo paper as shown figure 1. For instance, when I clicked on the annotate (English only) button I cannot get any text on the result text box. 
-\comment: it seems that the "annotate (English only)" works only for session "English unannotated". Thus, it doesn't make sense that all the sessions have such a choice. 
-
-Also sometimes I have got proxy error. Thus I cannot check this service easily.
-
-In addition, the detail explanation of AGDISTIS will be presented on this conference. Therefore I am still doubtful about the purpose of this demo paper.
-
-Therefore, I would like to decide to reject this paper since that contribution. However, if the authors can update the demo system then I will check this system again and I am going to make a final decision at that time.
-Before submitting of the final version, please check the order of referred papers. [done]
-
-\subsection{Reviewer 2}
-The submission demonstrates AGDISTIS, a system for disambiguating named entities in multilingual texts against a generic RDF knowledge base. While details of AGDISTIS are presented in an accepted ISWC research paper, the proposed demo would allow attendees of the Poster and Demo session to interact with the real system through the submission of both example and arbitrary multilingual texts (English, German, Chinese).
-
-Overall, the paper is well written and the demonstration is clearly described (although I wasn't able to try the online version - I fear I made it crash...). In particular, the demonstrator capability of accepting arbitrary text and invoking also DBpedia Spotlight for comparison would allow attendees to better appreciate the contribution presented at the research track, giving them the possibility to analyze and contrast AGDISTIS performances on borderline cases. For that reason, I reccommend the submission to be accepted as a demo.
-
-As minor notes, it would be nice if the authors could specify whether and how the AGDISTIS software will be made available (source code seems to be available under MIT license) and, if it is the case, how complex would be for a user to reuse AGDISTIS in his own application / research work (e.g., how complex it is to apply it to a specific RDF knowledge base). Moreover, it would be great if the demonstrator could expose some detail on the internal functioning of AGDISTIS, e.g., to help attendees to better understand why and how an entity was selected for linking rather than another candidate.
-
-Typos and other minor issues:
-- pg. 2: ...either annotating the entities manually *OR* having the entities detected automatically -> add OR [fixed]
-- pg. 2: ...the labels of the entities are to *BE* marked... -> add BE [fixed]
-- pg. 3: ...belong to one of the language*S*... -> add S [fixed]
-- pg. 3: ...is language-independent and *IS* combines... -> remove IS [fixed]
-- pg. 3: in the CURL snippet I suggest a more meaningful example than "University of Leipzig in Barack Obama" [fixed]
-- pg. 4: I suggest checing capitalization of words in the references section [fixed]
-
-\subsection{Reviewer 3}
-The paper presents AGDISTIS, a system for multilingual named entity resolution and linking.
-The authors provide a link to a Web interface that make it clear the subject of the demonstration.
-Additionally, the authors provide a detailed documentation about how to use the system by means of HTTP REST API.
-The technical quality and the readability of the paper are good.
-
-However, some points remain unclear:
-* to what extent the system is knowledge-base-agnostic?
-* how is it possible to extend the set of languages that the system is able to deal with?
-
-\end{review}
