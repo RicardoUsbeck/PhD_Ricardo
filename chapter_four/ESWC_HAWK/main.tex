@@ -1,0 +1,114 @@
+\documentclass{llncs}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{float}%figure environment
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{todonotes}
+%\usepackage[disable]{todonotes}
+\usepackage{booktabs}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+%\usepackage{endnotes}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{caption}
+\usepackage{comment}
+\usepackage{times}
+\begin{document}
+
+\title{HAWK -- Hybrid Question Answering\\ using Linked Data}
+\author{
+Ricardo Usbeck\inst{1} \and 
+Axel-Cyrille Ngonga Ngomo\inst{1}\and 
+Lorenz Bühmann\inst{1} \and 
+Christina~Unger\inst{2}
+}
+
+\institute{
+University of Leipzig, Germany\\\email{\{usbeck,ngonga\}@informatik.uni-leipzig.de}\and
+University of Bielefeld, Germany\\\email{cunger@cit-ec.uni-bielefeld.de}
+}
+
+\maketitle
+
+\begin{abstract}
+%The increasing amount of structured and unstructured data creates new opportunities and challenges for satisfying user information needs.
+%Shifting towards conversational search and retrieval of knowledge highlights the need for natural language based information systems.
+The decentral architecture behind the Web has led to pieces of information being distributed across data sources with varying structure. Hence, answering complex questions often requires combining information from structured and unstructured data sources.   
+We present HAWK, a novel entity search approach for Hybrid Question Answering based on combining Linked Data and textual data.
+The approach uses predicate-argument representations of questions to derive equivalent combinations of SPARQL query fragments and text queries. These are executed so as to integrate the results of the text queries into SPARQL and thus generate a formal interpretation of the query.
+%
+%is based on a full-fledged search pipeline which comprises entity annotation, POS tagging, dependency parsing and SPARQL query generation, pruning and ranking.
+We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation tools on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
+%accurate, hybrid SPARQL queries for answering information needs which are able to cover knowledge which is not or cannot be modeled in structured ontologies.
+Our results show that HAWK achieves 0.68 respectively 0.61 F-measure within the training respectively test phases on the Question Answering over Linked Data (QALD-4) hybrid query benchmark. % and 0.60 F-measure on the test dataset.
+\end{abstract}
+
+
+\section{Introduction}
+%\todo[inline]{@Future I: One of the worst intros ever. Redo this!}
+%\todo[inline]{Rewrote it, hope you like it. Greetings to the past! Your future I}
+Recent advances in question answering (QA) over Linked Data provide end users with more and more sophisticated tools for querying linked data by allowing users to express their information need in natural language~\cite{SINA_WebSemantic,tbsl,pythia}. 
+This allows access to the wealth of structured data available on the Semantic Web also to non-experts. However, a lot of information is still available only in textual form, both on the Document Web and in the form of labels and abstracts in Linked Data sources~\cite{rdflivenews}.
+Therefore, a considerable number of questions can only be answered by using hybrid question answering approaches, which  can find and combine information stored in both structured and textual data sources~\cite{combiningLDandIR}.
+
+In this paper, we present HAWK, the (to best of our knowledge) first full-fledged hybrid QA framework for entity search over Linked Data and textual data. 
+%To the best of our knowledge, this is the first hybrid question answering system, combining information from structured and unstructured data.
+Given a textual input query $q$, HAWK implements an 8-step pipeline, which comprises 1) part-of-speech tagging, 2) detecting entities in $q$, 3) dependency parsing and 4) applying linguistic pruning heuristics for an in-depth analysis of the natural language input. 
+The results of these first four steps is a predicate-argument graph annotated with resources from the Linked Data Web. HAWK then 5) assign semantic meaning to nodes and 6) generates basic triple patterns for each component of the input query with respect to a multitude of features. 
+This deductive linking of triples results in a set of SPARQL queries containing text operators as well as triple patterns.
+In order to reduce operational costs, 7) HAWK discards queries using several rules, e.g., by  discarding not connected query graphs.
+Finally, 8) queries are ranked using extensible feature vectors and cosine similarity.
+
+%We evaluate HAWK on the QALD-4 benchmark\footnote{\url{http://www.sc.cit-ec.uni-bielefeld.de/qald/}} for hybrid question answering. 
+%As data source it uses a triple store containing DBpedia 3.9 as well as full-text information based on the Wikipedia abstracts of all loaded resources.
+%The evaluation sections reports on micro F-measure, and analyzes the influence of different entity annotation systems on the overall question answering performance.
+
+%\todo[inline]{@Axel: Contribs}
+Our main contributions can be summarized as follows:
+ \begin{itemize}
+ \item We present the first QA framework tackling hybrid question answering;
+ \item HAWK analyses input queries based on predicate-argument trees to deeply understand and match semantic resources;
+ \item Our framework is generic as it does not rely on templates. It is thus inherently able to cover a wide variety of natural language questions. % as well as knowledge bases with various topologies;
+ \item The modular architecture of HAWK allows simple exchanging of pipeline parts to enhance testing and deployment;
+ %\item HAWK's implementation is open-source under MIT License\footnote{\url{https://github.com/AKSW/hawk}};
+ \item Our evaluation suggests that HAWK is able to achieve F-measures of 0.61 on rather small training datasets.
+ \end{itemize}
+
+The rest of the paper is structured as follows:
+Afterwards, our methodology is explained in detail in Section~\ref{sec:method}.
+HAWK's performance and the influence of entity annotation systems is evaluated in Section~\ref{sec:evaluation}. 
+Section~\ref{sec:relatedwork} discusses related work.  
+Finally, we conclude in Section~\ref{sec:conclusion}. Additional information can be found at our project home page \url{http://aksw.org/Projects/HAWK.html}.
+
+%\todo[inline]{Is Section 2 needed?}
+%\input{definitionhybrid.tex}
+
+
+\input{method.tex}
+
+\input{evaluation.tex}
+\input{relatedwork.tex}
+
+\section{Conclusion}
+\label{sec:conclusion}
+In this paper, we presented HAWK, the first hybrid QA system for the Web of Data. We showed that by using a generic approach to generate SPARQL queries out of predicate-argument structures, HAWK is able to achieve up to 0.68 F-measure on the QALD-4 benchmark. Our work on HAWK however also revealed several open research questions, of which the most important lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. We thus aim to apply an automatic feature engineering approach from deep learning in future works to automatically generate the correct ranking function. Moreover, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. Additionally, we will assess the impact of full-text components over regular LD components for QA, partake in the creation of larger benchmarks (we are working on QALD-5) and aim towards multilingual, schema-agnostic queries. Negations within questions and improved ranking will also be considered. Finally, several components of the HAWK pipeline are computationally very complex. Finding more time-efficient algorithms for these steps will be addressed in future works.
+%\todo[inline]{HAWK considers SELECT queries and generate queries without UNION or OPTIONAL but we are aware of their advantages.}
+
+
+\begin{wrapfigure}[2]{l}{0.20\textwidth}
+ \vspace{-8mm}
+ \includegraphics[width=0.20\textwidth]{esf.pdf}
+\end{wrapfigure}
+\textbf{Acknowledgments}
+This work has been supported by the ESF, the Free State of Saxony and the FP7 project GeoKnow (GA No. 318159).
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}

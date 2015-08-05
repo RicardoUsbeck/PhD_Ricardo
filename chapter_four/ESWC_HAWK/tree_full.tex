@@ -1,0 +1,62 @@
+\begin{tikzpicture}[
+roundnode/.style={rectangle, draw=green!60, fill=green!10, very thick,minimum size=1em},node distance=0.4cm and 0.2cm,scale=0.8, every node/.style={transform shape}
+]
+%Nodes
+\node[roundnode]      (root)                              {died (VBD)};
+
+\node[]                 (aux)       [below=of root] {};
+\node[roundnode]        (1C)       [right=of aux] {in (IN)};
+\node[roundnode]        (1L)       [left=of aux] {recipients(NNS)};
+\node[roundnode]        (1R)       [right=of 1C] {? (.)};
+
+\node[]                 (aux1)     [below=of 1L] {}; 
+\node[roundnode]        (2L1)      [left=of aux1] {Which (WDT)};
+
+\node[roundnode]        (2C)       [below=of 1C] {Battle of Arnhem (CNN)};
+\node[roundnode]        (3R1)      [below=of 2C] {the (DT)};
+
+\node[roundnode]        (3R1)      [below=of 2C] {the (DT)};
+
+\node[]                 (aux3)     [right=of 2L1] {}; 
+\node[]                 (aux4)     [below=of aux3] {}; 
+
+\node[roundnode]        (2L2)      [below=of aux4] {dbr:Victoria\_Cross (ADD)};
+\node[]                 (aux2)     [below=of 2L2] {};
+\node[roundnode]        (3L1)      [left=of aux2] {the (DT)};
+\node[roundnode]        (3L2)      [right=of aux2] {of (IN)};
+
+
+%Lines
+\draw[->] (root.south) -- (1L.north);
+\draw[->] (root.south) -- (1C.north);
+\draw[->] (root.south) -- (1R.north);
+
+\draw[->] (1C.south) -- (2C.north);
+
+\draw[->] (2C.south) -- (3R1.north);
+
+\draw[->] (1L.south) -- (2L1.north);
+\draw[->] (1L.south) -- (2L2.north);
+
+\draw[->] (2L2.south) -- (3L1.north);
+\draw[->] (2L2.south) -- (3L2.north);
+
+\end{tikzpicture}
+%\caption{Dependency-Argument tree for running example.}
+\label{fig:dependency tree}
+
+%>died (0|VBD|0)
+%|=>recipients (1|NNS|0)
+%|==>Which (2|WDT|0)
+%|==>http://dbpedia.org/resource/Victoria_Cross (4|ADD|0)
+%|===>the (5|DT|0)
+%|=>in (6|IN|0)
+%|==>Battle of Arnhem (7|CombinedNN|0)
+%|===>the (8|DT|0)
+%%===>of (9|IN|0)
+%|=>? (11|.|0)
+
+%>died (0|VBD|0)
+%|=>recipients (1|NNS|0)
+%|==>http://dbpedia.org/resource/Victoria_Cross (4|ADD|0)
+%|=>Battle of Arnhem (7|CombinedNN|0)

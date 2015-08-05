@@ -1,0 +1,200 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage{lrec2006}
+\usepackage{graphicx}
+\usepackage[breaklinks]{hyperref}
+\usepackage{todonotes}
+\usepackage{listings}
+
+\newcommand{\linenumberstyle}{\scriptsize}
+\lstdefinelanguage{json} {
+  sensitive=false, 
+  morestring=[b]"', 
+  showstringspaces=false
+}
+\lstset{
+  numberbychapter=false, 
+  language=json, 
+  basicstyle=\scriptsize\ttfamily, 
+  captionpos=b, 
+  % keywordstyle=\color[rgb]{0,0,0.7}, 
+  % stringstyle = \color[rgb]{0,0.5,0}, 
+  % identifierstyle=\color{orange}, 
+  commentstyle=\color[gray]{0.5}, 
+  backgroundcolor=\color[gray]{0.96}, 
+  framexleftmargin=1pt,
+  xleftmargin=4.4pt,
+  xrightmargin=3.4pt,
+  numbers=left, 
+  numberstyle=\linenumberstyle, 
+  frame=single, 
+  aboveskip=1.3em,
+  inputencoding=utf8,
+  extendedchars=true
+}
+
+
+\title{Title of the LREC 2012 Paper}
+
+\name{Author1, Author2, Author3}
+
+\address{ Affiliation1, Affiliation2, Affiliation3 \\
+               Address1, Address2, Address3 \\
+               author1@xxx.yy, author2@zzz.edu, author3@hhh.com\\}
+
+
+\abstract{the main idea is to give an overview of the available benchmarks:\\
+the story is:\\
+- recently uptake of NIF for benchmarks\\
+- general description from page 84 of http://svn.aksw.org/papers/2013/Thesis\_Sebastian/\\
+- overview of existing benchmarks:\\
+- validation with databugger \\ \newline
+\Keywords{NLP, Linked Data, Benchmark, Validation}}
+
+
+
+\begin{document}
+
+\maketitleabstract
+
+%\section{Paper}
+%Each manuscript should be submitted on white \textbf{A4 paper.} The fully justified text should be formatted in two parallel columns, each 8.25 cm wide, and separated by a space of 0.63 cm. Left, right, and bottom margins should be 1.9 cm. and the top margin 2.5 cm. The font for the main body of the text should be Times 10 pt with interlinear spacing of 12 pt.
+%\textbf{Articles must be between 4 and 8 pages in length}, regardless of the mode of presentation (oral or poster).
+
+\section{Introduction}
+
+
+\section{Background(sebastians thesis)}
+\subsection{NIF}
+\subsection{NER Extension of NIF}
+\subsection{Linked Data Principles in NIF (Lim)}
+
+
+
+\section{Existing corpora}
+\todo{provide a summary of the papers and the data}
+
+\subsection{N3 (Ricardo)}
+http://aksw.org/Projects/N3NERNEDNIF.html\\
+\subsection{Magnus}
+\cite{steinmetz-n-2013-statistical}: DBpedia Spotlight dataset, KORE\,50 (AIDA), Wikilinks Corpus \cite{singh-s-2012-wikilinks} subset (triplified by AKSW)\\
+
+\subsection{Wikilinks(Martin)}
+The NIF conversion of the Wikilinks corpus, as described in \cite{Hellmann-2013-iswc}, could be improved by using the expanded dataset. 
+Now every item of the corpus contains the full DOM of a website, its URI as well as a number of mentions that link to the English Wikipedia, including the link text and the context string.
+It still is very large in scale, containing over 3 million items and 40 million mentions.
+However, the compressed size has grown to ~180GB, making it much harder to handle, but at the same time granting much better conversion opportunities.
+For instance, the complete DOM structures can be used to identify the context of the mentions much better and extract more text useable for NER disambiguation.
+You can see an example in Listing~\ref{lst:wikilinks}
+
+The new NIF conversion establishes one \texttt{nif:Context} per item, instead of one per mention, like before.
+The DOM of the website is parsed and every mention's link is found to extract the relevant surrounding HTML element's text.
+This results in a clean and semantically relevant text snippet for each mention, instead of the arbitrary context strings of fixed length that where used before.
+In addition to linking DBpedia via \texttt{itsrdf:taIdentRef}, DBpedia ontology types\footnote{\url{http://downloads.dbpedia.org/3.9/en/instance_types_en.nt.bz2}} where included for every mention having a DBpedia ontology type via \texttt{itsrdf:taClassRef}.
+NERD classes directly mapping the DBpedia ontology types where also included via \texttt{itsrdf:taClassRef}.
+To be able to directly identify a coarse grained instance type (i.e.Person, Location, Organization, etc.), the NERD core class containing the mapped NERD class was added via \texttt{nif:taNerdCoreClassRef}.
+
+
+\begin{lstlisting}[caption={A converted wikilinks item including one mention},label=lst:wikilinks,language={SQL}]
+<http://wiki-link.nlp2rdf.org/linkeddata.php?t=url&f=
+  html&i=http://www.methodinit.org.uk/methodinit/2007/
+  11#char=0,8353>
+  a nif:String , nif:Context , nif:RFC5147String ;
+  nif:isString """A Libertarian and Relativist quote 
+    taken from the Christian Anarchist Leo Tolstoy . 
+    Somewhat compatible with discourse 
+    theory."""^^xsd:string;
+  nif:beginIndex "0"^^xsd:nonNegativeInteger;
+  nif:endIndex "8353"^^xsd:nonNegativeInteger;
+  nif:sourceUrl 
+    <http://www.methodinit.org.uk/methodinit/2007/11> .
+
+<http://wiki-link.nlp2rdf.org/linkeddata.php?t=url&f=
+  html&i=http://www.methodinit.org.uk/methodinit/2007/
+  11#char=70,81>
+  a nif:String , nif:RFC5147String ;
+  nif:referenceContext <http://wiki-link.nlp2rdf.org/
+    linkeddata.php?t=url&f=html&i=
+    http://www.methodinit.org.uk/methodinit/2007/11
+    #char=0,8353> ;
+  nif:anchorOf """Leo Tolstoy"""^^xsd:string ;
+  nif:beginIndex "70"^^xsd:nonNegativeInteger ;
+  nif:endIndex "81"^^xsd:nonNegativeInteger ;
+  a nif:Phrase ;
+  itsrdf:taClassRef  
+    <http://dbpedia.org/ontology/Writer> ;
+  itsrdf:taClassRef  
+    <http://dbpedia.org/ontology/Artist> ;
+  itsrdf:taClassRef  
+    <http://nerd.eurecom.fr/ontology#Artist> ;
+  itsrdf:taClassRef  
+    <http://dbpedia.org/ontology/Person> ;
+  itsrdf:taClassRef  
+    <http://dbpedia.org/ontology/Agent> ;
+  nif:taNerdCoreClassRef  
+    <http://nerd.eurecom.fr/ontology#Person> ;
+  itsrdf:taIdentRef  
+    <http://dbpedia.org/resource/Leo_Tolstoy> .
+\end{lstlisting}
+
+\subsection{wikipedia corpus (Lim with help from Felix, Dimitris)}
+- our wikipedia corpus, i.e. felix xslt script (= Wikilinks Corpus ?)\\
+
+
+\subsection{Overview + Table (Lim)}
+\url{http://svn.aksw.org/papers/2014/ESWC_NLP_Cleansing/}
+
+ 
+\section{Validation (Dimitris)}
+
+
+\section{Towards Standardized NER Benchmarking based on Gate (Milan)}
+
+
+\section{Related Work and Conclusions}
+
+
+%\section{Figures \& Tables}
+
+%\begin{figure}[h]
+%\begin{center}
+% \includegraphics[scale=0.5]{image1.eps} 
+%\caption{The caption of the figure.}
+%\label{fig.1}
+%\end{center}
+%\end{figure}
+
+%\begin{table}[h]
+% \begin{center}
+%\begin{tabular}{|l|l|}
+%      \hline
+%      Level&Tools\\
+%      \hline\hline
+%      Morphology & Pitrat Analyser\\
+%      Syntax & LFG Analyser (C-Structure)\\
+%      Semantics & LFG F-Structures + Sowa's\\
+%      & Conceptual Graphs\\
+%      \hline
+%\end{tabular}
+%\caption{The caption of the table}
+% \end{center}
+%\end{table}
+
+% \section{Copyrights}
+% 
+% The Lan\-gua\-ge Re\-sour\-ce and Evalua\-tion Con\-fe\-rence (LREC) proceedings are published by the European Language Resources Association (ELRA). They include different media that may be used (i.e. hardcopy, CD-ROM, Internet-based/Web, etc.).
+% 
+% ELRA's policy is to acquire copyright for all LREC contributions. In assigning your copyright, you are not forfeiting your right to use your contribution elsewhere. This you may do without seeking permission and is subject only to normal acknowledgement to the LREC proceedings.
+% 
+% \section{Conclusion}
+% 
+% Your submission of a finalized contribution for inclusion in the LREC proceedings automatically assigns the above-mentioned copyright to ELRA.
+% proceedings.
+
+\section{Acknowledgements}
+
+Place all acknowledgements (including those concerning research grants and funding) in a separate section at the end of the article.
+
+\bibliographystyle{lrec2006}
+\bibliography{aksw}
+
+\end{document}

@@ -1,0 +1,66 @@
+\begin{table*}[th]
+\centering
+\begin{tabular}{@{}p{3cm}p{2cm}p{3cm}p{7cm}@{}}
+\toprule
+Problem & Input & Output & Description \\ \midrule
+
+
+Disambiguate to Wikipedia (D2KB) &
+Text, Set of mentions &
+Set of relevant annotations &
+Assign to each input mention its pertinent entity (possibly null) \\ \midrule
+
+Annotate to Wikipedia (A2KB) &
+Text &
+Set of relevant annotations &
+Identify the relevant mentions in the input text and assign to each of them the pertinent entities \\ \midrule
+
+Scored-annotate to Wikipedia (Sa2KB) &
+Text &
+Set of relevant and scored annotations &
+As A2W, but here each annotation is assigned a score representing the likelihood that the annotation is correct \\ \midrule
+
+Concepts to Wikipedia (C2KB) &
+Text &
+Set of relevant tags &
+Tags are taken as the set of relevant entities that are mentioned in the input text \\ \midrule
+
+Scored concepts to Wikipedia (Sc2KB) &
+Text &
+Set of relevant and scored tags &
+As C2W, but here each tag is assigned a score representing the likelihood that the annotation is correct \\ \midrule
+
+Ranked-concepts to Wikipedia (Rc2KB) &
+Text &
+Ranked list of relevant tags &
+Identify the entities mentioned in a text and rank them in terms of their relevance for the topics dealt with in the
+input text\\ \midrule
+
+Classification/Typing to Wikipedia (T2KB) &
+ &
+ &
+\\ \midrule
+
+Entity Salience (ES2KB) &
+  &
+  &
+\\\midrule
+
+Entity Annotation/Detection (A) &
+  &
+  &
+\\
+\midrule
+Word Sense Disambiguation (WSD) &
+  &
+  &
+\\
+\midrule
+Relation Extraction (input text, predicate output: triple (BOA?) &
+  &
+  &\\
+\bottomrule
+\end{tabular}
+\caption{Overview of the different task types.}
+\label{tab:tasktypes}
+\end{table*}

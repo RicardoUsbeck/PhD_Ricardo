@@ -1,0 +1,745 @@
+\documentclass{llncs}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{url}
+\usepackage{float}%figure environment
+\usepackage{multirow} 
+\usepackage{booktabs}
+%\usepackage[disable]{todonotes}
+\usepackage{todonotes}
+\usepackage{booktabs}
+\usepackage{mdframed}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{siunitx}%number formating inside tables
+
+%\newcommand{\footnoteremember}[2]{\footnote{#2}\newcounter{#1}\setcounter{#1}{\value{footnote}}}
+%\newcommand{\footnoterecall}[1]{\footnotemark[\value{#1}]}
+
+\begin{document}
+
+
+%ECAI: \title{AGDISTIS - Agnostic Disambiguation of Named Entities Using Linked Open Data}
+\title{AGDISTIS - Graph-Based Disambiguation of Named Entities using Linked Data}
+
+\author{
+Ricardo Usbeck$^{1,2}$ \and 
+Axel-Cyrille Ngonga Ngomo$^{1}$ \and
+Michael R\"oder$^{1,2}$ \and \\
+Daniel Gerber$^{1}$ \and
+Sandro Athaide Coelho$^{3}$ \and
+S\"oren Auer$^{4}$ \and
+Andreas Both$^{2}$
+\institute{
+${^1}$ University of Leipzig, Germany , ${^2}$ R\,\&\,D, Unister~GmbH, Germany, ${^3}$ Federal University of Juiz de Fora, Brazil, ${^4}$ University of Bonn \& Fraunhofer IAIS, Germany
+\newline email: \{usbeck$|$ngonga\}@informatik.uni-leipzig.de
+}
+}
+
+\maketitle
+
+\newmdtheoremenv{ex}{Example}
+
+\begin{abstract}
+Over the last decades, several billion Web pages have been made available on the Web.
+The ongoing transition from the current Web of unstructured data to the Web of Data yet requires scalable and accurate approaches for the extraction of structured data in RDF (Resource Description Framework) from these websites.
+%Web/news data (WND) is the largest growing source of dynamic information on the Web outlining its importance in the upcoming Web of Data. 
+One of the key steps towards extracting RDF from text is the disambiguation of named entities.
+While several approaches aim to tackle this problem, they still achieve poor accuracy. % which is a permanently growing source of up-to-date information at the Web.
+We address this drawback by presenting AGDISTIS, a novel knowledge-base-agnostic approach for named entity disambiguation.
+Our approach combines the Hypertext-Induced Topic Search (HITS) algorithm with label expansion strategies and string similarity measures.
+Based on this combination, AGDISTIS can efficiently detect the correct URIs for a given set of named entities within an input text. 
+We evaluate our approach on eight different datasets against state-of-the-art named entity disambiguation frameworks.
+%Moreover, we present an extension based on topic modeling which improves the quality of the extraction in difficult cases by up to $3\%$.
+Our results indicate that we outperform the state-of-the-art approach by up to $29\%$ F-measure.
+\end{abstract}
+
+\section{Introduction}
+The vision behind the Web of Data is to provide a new machine-readable layer to the Web where the content of Web pages is annotated with structured data (e.g., RDFa~\cite{RDFa}).
+However, the Web in its current form is made up of at least 15 billion Web pages.\footnote{Data gathered from \url{http://www.worldwidewebsize.com/} on January 4th, 2014.}
+Most of these websites are unstructured in nature.
+Realizing the vision of a usable and up-to-date Web of Data thus requires scalable and accurate natural-language-processing approaches that allow extracting RDF from such unstructured data.
+Three tasks play a central role when extracting RDF from unstructured data: named entity recognition (NER), named entity disambiguation (NED), also known as entity linking~\cite{Mihalcea:2007:WLD:1321440.1321475}, and relation extraction (RE).
+For the first sentence of Example~\ref{ex:obama}, an accurate named entity recognition approach would return the strings \texttt{Barack Obama} and \texttt{Washington, D.C.}.
+A high-quality DBpedia-based named entity disambiguation (NED) approach would use these already recognized named entities and map the strings \texttt{Barack Obama} resp. \texttt{Washington, D.C.} to the resources \texttt{dbr:Barack\_Obama} and \texttt{dbr:Washington,\_D.C.}\footnote{\texttt{dbr:} stands for \url{http://dbpedia.org/resource/}}~\cite{dbpedia-swj}.
+\begin{ex}
+Barack Obama arrived this afternoon in Washington, D.C.. President Obama's wife Michelle accompanied him.
+\label{ex:obama}
+\end{ex}
+While NER has been explored extensively over the last decades~\cite{StanfordNER}, the disambiguation of named entities,\,i.e., the assignment of a resource's URI from an existing knowledge base to a string that was detected to label an entity remains a difficult task.
+
+Current NED approaches suffer from two major drawbacks:
+First, they poorly perform on Web documents~\cite{RatinovRo09}.
+This is due to Web documents containing resources from different domains within a narrow context.
+An accurate processing of Web data has yet been shown to be paramount for the implementation of the Web of Data~\cite{GER+13}.
+%, Web data is a very worthwhile source of latest information which is often not yet captured in any knowledge base. 
+Well-know approaches such as \emph{Spotlight}~\cite{spotlight} and \emph{TagMe 2}~\cite{TagMe2} have been designed to work on a particular knowledge base.
+However, Web data contains resources from many different domains.
+%Ttha named entity disambiguation framework has to be able to work on any knowledge base in order to capture content from different domains.
+Hence, we argue that NED approaches have to be designed in such a way that they are agnostic of the underlying knowledge base.
+%Being capable of using specialized or language-specific knowledge bases should lead to high F-measures. 
+Second, most state-of-the-art approaches rely on exhaustive data mining methods~\cite{Cucerzan07,rat:rot} or algorithms with non-polynomial time complexity~\cite{Kleb11WIMS}.
+However, given the large number of entities that must be disambiguated when processing Web documents, scalable NED approaches are of central importance to realize the Semantic Web vision.
+%\todo[inline]{Micha: The sentence "Hence, we argue that NED..." is not really good. From my point of View it sounds like "A NED-algorithm has to use more than one KB at the same time".}
+
+In this paper, we address these drawbacks by presenting AGDISTIS, a novel NED approach and framework.
+AGDISTIS achieves \emph{higher F-measures} than the state of the art while remaining \emph{polynomial in its time complexity}.
+AGDISTIS achieves these results by combining the HITS algorithm~\cite{HITS} with label expansion and string similarity measures.
+Overall, our contributions can be summed up as follows:
+(1) We present AGDISTIS, an accurate and scalable framework for disambiguating named entities that is agnostic to the underlying knowledge base (KB) and show that we are able to outperform the state of the art by up to $29\%$ F-measure on these datasets.
+%\todo[inline]{description of datasets? multilingual, multi-domain}
+(2) We show that our approach has a quadratic time complexity. Thus, it scales well enough to be used even on large knowledge bases.
+(3) We evaluate AGDISTIS on eight \emph{well-known and diverse open-source datasets}.\footnote{Further data, detailed experimental results and source code for this paper are publicly available on our project homepage \url{http://aksw.org/Projects/AGDISTIS}.} 
+
+The rest of this paper is organized as follows: We first give a brief overview of related work in Section~\ref{sec:relatedwork}. 
+Then, we introduce the AGDISTIS approach in Section~\ref{sec:approach}. %comprising an overview, the way AGDISTIS detects candidates and the disambiguation algorithm itself. 
+%We formalize the task of NED in Section~\ref{sec:ned}.
+After presenting the datasets, we evaluate our approach against the state of the art frameworks AIDA and TagMe 2 and the well-known DBpedia Spotlight. 
+Furthermore, we measure the influence of using surface forms,\,i.e., synonymous label for a specific resource, in Section~\ref{sec:eval}. 
+%\todo{surface form richtig erklärt?}
+%We analyze the contribution of certain properties to our disambiguation approach in the same section. 
+We conclude in Section~\ref{sec:conclusion} by highlighting research questions that emerged from this work.
+%Our approach is open-source and can be found at \url{http://aksw.org/Projects/AGDISTIS}.
+A demo of our approach (integrated into the Named Entity Recognition framework FOX~\cite{FOX}) can be found at \url{http://fox.aksw.org}. 
+
+
+\section{Related Work}
+\label{sec:relatedwork}
+AGDISTIS is related to the research area of Information Extraction~\cite{nad:sek} in general and to NED in particular.
+Several approaches have been developed to tackle NED. 
+Cucerzan presents an approach based on extracted Wikipedia data towards disambiguation of named entities~\cite{Cucerzan07}.
+The author aims to maximize the agreement between contextual information of Wikipedia pages and the input text by using a local approach.
+%\todo{What's a local approach?}
+\emph{Epiphany}~\cite{epiphany} identifies, disambiguates and annotates entities in a given HTML page with RDFa. 
+Ratinov et al.~\cite{rat:rot} described an approach for disambiguating entities from Wikipedia KB. 
+The authors argue that using Wikipedia or other ontologies can lead to better global approaches than using traditional local algorithms which disambiguate each mention separately using,\,e.g., text similarity. %for word sense disambiguation.
+Kleb et al.~\cite{Kleb11WIMS,KlebESWC10} developed and improved an approach using ontologies to mainly identify geographical entities but also people and organizations in an extended version. 
+These approaches use Wikipedia and other Linked Data KBs.
+LINDEN~\cite{LINDEN} is an entity linking framework that aims at linking identified named entities to a knowledge base.
+To achieve this goal, LINDEN collects a dictionary of the surface forms of entities from different Wikipedia sources, storing their count information.
+
+Wikipedia Miner~\cite{milne2008learning} is the oldest approach in the field of \emph{wikification}.
+Based on different machine learning algorithms, the systems disambiguates w.r.t. prior probabilities, relatedness of concepts in a certain window and context quality. 
+The authors evaluated their approach based on a Wikipedia as well as an AQUAINT subset. 
+Unfortunately, the authors do not use the opportunities provided by Linked Data like DBpedia.
+
+Using this data the approach constructs candidate lists and assigns link probabilities and global coherence for each resource candidate.
+The AIDA approach~\cite{AIDA} for NED tasks is based on the YAGO2\footnote{\url{http://www.mpi-inf.mpg.de/yago-naga/yago/}} knowledge base and relies on sophisticated graph algorithms. 
+Specifically, this approach uses dense sub-graphs to identify coherent mentions using a greedy algorithm enabling Web scalability. 
+Additionally, AIDA disambiguates w.r.t.~similarity of contexts, prominence of entities and context windows.
+
+Another approach is DBpedia Spotlight~\cite{spotlight}, a framework for annotating and disambiguating Linked Data Resources in arbitrary texts.
+In contrast to other tools, Spotlight is able to disambiguate against all classes of the DBpedia ontology.
+Furthermore, it is well-known in the Linked Data community and used in various projects showing its wide-spread adoption.\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Known-uses}}
+Based on a vector-space model and cosine similarity DBpedia Spotlight is publicly available via a web service\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Web-service}}.
+
+In 2012, Ferragina et al. published a revised version of their disambiguation system called TagMe 2.
+The authors claim that it is tuned towards smaller texts,\,i.e., comprising around 30 terms.
+TagMe 2 is based on an anchor catolog (\texttt{<a>} tags on Wikipedia pages with a certain frequency), a page catalogue (comprising all original Wikipedia pages,\,i.e., no disambiguations, lists or redirects) and an in-link graph (all links to a certain page within Wikipedia).
+First, TagMe 2 identifies named entities by matching terms with the anchor catalog and second disambiguates the match using the in-link graph and the page catalog via a collective agreement of identified anchors. 
+Last, the approach discards identified named entities considered as non-coherent to the rest of the named entities in the input text.  
+
+In 2014, Babelfy~\cite{babelfy} has been presented to the community.
+Based on random walks and densest subgraph algorithms Babelfy tackles NED and is evaluated with six datasets, one of them the later here used AIDA dataset. 
+In constrast to AGDISTIS, Babelfy differentiates between word sense disambiguation, i.e., resolution of polysemous lexicographic entities like \emph{play}, and entity linking, i.e., matching strings or substrings to knowledge base resources.
+Due to its recent publication Babelfy is not evaluated in this paper.
+
+Recently, Cornolti et al.~\cite{Cornolti} presented a benchmark for NED approaches.
+The authors compared six existing approaches, also using DBpedia Spotlight, AIDA and TagMe 2, against five well-known datasets. % on different tasks and with different measures.
+Furthermore, the authors defined different classes of named entity annotation task, e.g. \emph{`D2W'}, that is the disambiguation to Wikipedia task which is the formal task AGDISITS tries to solve.
+We consider TagMe 2 as state of the art w.r.t. this benchmark although only one dataset has been considered for this specific task.
+We analyze the performance of DBpedia Spotlight, AIDA, TagMe 2 and our approach AGDISTIS on four of the corpora from this benchmark in Section~\ref{sec:eval}.
+
+\section{The AGDISTIS Approach} 
+\label{sec:approach}
+
+\subsection{Named Entity Disambiguation}
+\label{sec:ned}
+
+The goal of AGDISTIS is to detect correct resources from a KB $K$ for a vector $N$ of $n$ a-priori determined named entities $N_1,\ldots,N_n$ extracted from a certain input text $T$.
+In general, several resources from a given knowledge base $K$ can be considered as candidate resources for a given entity $N_i$.
+For the sake of simplicity and without loss of generality, we will assume that each of the entities can be mapped to $m$ distinct candidate resources.
+Let $C$ be the matrix which contains all candidate-entity mappings for a given set of entities.
+The entry $C_{ij}$ stands for the $j^{th}$ candidate resource for the $i^{th}$ named entity. 
+Let $\mu$ be a family of functions which maps each entity $N_i$ to exactly one candidate $C_{ij}$. 
+We call such functions \emph{assignments}.
+The output of an assignment is a vector of resources of length $|N|$ that is such that the $i^{th}$ entry of the vector maps with $N_i$.
+
+Let $\psi$ be a function which computes the similarity between an assignment $\mu(C,N)$ and the vector of named entities $N$.
+The \emph{coherence} function $\phi$ calculates the similarity of the knowledge base $K$ and an assignment $\mu$, cf. Ratinov et al.~\cite{rat:rot}, to ensure the topical consistency of $\mu$.
+The coherence function $\phi$ is implemented by the HITS algorithm, which calculates the most pertinent entities while the similarity function $\psi$ is,\,e.g., string similarity.
+Given this formal model, the goal is to find the assignment $\mu^\star$ with
+\begin{equation*}
+\mu^\star= \operatorname*{arg\,max}\limits_{\mu}\left(\psi(\mu(C,N), N) + \phi(\mu(C,N),K)\right).
+\end{equation*}
+
+The formulation of the problem given above has been proven to be NP-hard, cf. Cucerzan et al.~\cite{Cucerzan07}.
+Thus, for the sake of scalability, AGDISTIS computes an approximation $\mu^{+}$ by using HITS, a fast graph algorithm which runs with an upper bound of $\Theta(k\cdot |V|^2)$ with $k$ the number of iterations and $|V|$ the number of nodes in the graph.
+Furthermore, using HITS leverages 1) scalability, 2) well-researched behaviour and 3) the ability to explicate semantic authority. 
+
+\subsection{Architecture}
+\begin{figure*}[h!tb]
+\centering
+\includegraphics[width=\linewidth]{fig/overview.pdf}
+\caption{Overview of AGDISTIS.}
+\label{overview}
+\end{figure*}
+%\todo[inline]{caption bei Änderung des Titels anpassen}
+
+Our approach to NED thus consists of three main phases as depicted in Figure~\ref{overview}.
+Given an input text $T$ and a named entity recognition function (e.g., FOX~\cite{FOX}), we begin by retrieving all named entities from the input text.
+Thereafter, we aim to detect candidates for each of the detected named entities.
+To this end, we apply several heuristics and make use of known surface forms~\cite{spotlight} for resources from the underlying KB.
+The set of candidates generated by the first step is used to generate a disambiguation graph. 
+Here, we rely on a graph search algorithm which retrieves context information from the underlying KB. 
+Finally, we employ the HITS algorithm to the context graph to find authoritative candidates for the discovered named entities.
+We assume that the resources with the highest authority values represent the correct candidates.
+All algorithms in AGDISTIS have a polynomial time complexity, leading to AGDISTIS also being polynomial in time complexity.
+Choosing candidates relates to the notion of $\phi$ while calculating the authority values confers to $\psi$.
+In the following, we present each of the steps of AGDISTIS in more detail.
+
+\subsection{Candidate Detection}\label{choosing}
+
+In order to find the correct disambiguation for a certain set of named entities, we first need to detect candidate resources in the KB. 
+We begin by creating an index comprising all labels of each resource.
+Our approach can be configured to use any set of properties as labeling properties (e.g., those in Ell et al.~\cite{ELL+11}). 
+For our experiments, we only considered \texttt{rdfs:label} as labeling property.
+In addition, our approach can make use of known \emph{surface forms} for each of the resources in case such knowledge is available~\cite{spotlight}.
+These are simply strings that are used on the Web to refer to given resources.
+Surface forms are simply added to the set of available labels for each resource, cf.\ Section~\ref{eval}.
+In this paper, we do not consider abbreviations although these could be easily regarded by adding further labels into the KB (e.g., via WordNet\footnote{\url{http://wordnet.princeton.edu/}}).
+%\todo[inline]{remove the above sentence because of missing scientific eval?}
+
+Next to searching the index we apply a \emph{string normalization} approach and an \emph{expansion policy} to the input text:
+The string normalization is based on eliminating plural and genitive forms, removing common affixes such as postfixes for enterprise labels and ignoring candidates with time information (years, dates, etc.) within their label.
+For example, the genitive \texttt{New York's} is transformed into \texttt{New York}, the postfix of \texttt{Microsoft Ltd.} is reduced to \texttt{Microsoft} and the time information of \texttt{London 2013} is ignored.
+Our \emph{expansion policy} is a time-efficient approach to coreference resolution, which plays a central role when dealing with text from the Web, cf.~Singh et al.~~\cite{Singh}. 
+In web and news documents, named entities are commonly mentioned in their full length the first time they appear, while the subsequent mentions only consist of a substring of the original mention due to the brevity of most news data.
+For example, a text mentioning Barack Obama's arrival in Washington D.C. will commonly contain \texttt{Barack Obama} in the first mention of the entity and use strings such as \texttt{Obama} or \texttt{Barack} later in the same text (see Example~\ref{ex:obama}).
+We implement this insight by mapping each named entity label (e.g., \texttt{Obama}) which is a substring of another named entity label that was recognized previously (e.g., \texttt{Barack Obama}) to the same resource ,\,i.e., \texttt{dbr:Barack\_Obama}.
+If there are several possible expansions, we choose the shortest as a fast coreference resolution heuristic for web documents.
+Without the expansion policy AGDISTIS suffers from a loss of accuracy of $\approx4\%$.
+
+%This is simply due to humans readers being able to carry out a co-reference analysis on the fly.
+
+%Internally, AGDISTIS begins its disambiguation by employing the string expansion policy\footnoterecall{myfootnote}.
+%Our policy stores all named entity strings in order of their string length.
+%If we recognize an entity string matching a part of an already processed entity, we expand the current string to the one stored earlier.
+%This assumes both named entities mention the same instance.
+
+
+%After expanding named entities we harness additional well-known linguistic heuristics.
+%Named entities occur often in plural and genitive forms,\,i.e., AGDISTIS tries to identify and stem those words. 
+%For example, the genitive form of the named entity \texttt{Obama's} is transformed into \texttt{Obama}.
+%Additionally, AGDISTIS reduces plural strings such as \texttt{Obamas} to the singular form \texttt{Obama}.
+%Another heuristic is to remove common affixes. 
+%For example, we remove affixes which stands for the form of enterprises, such as \emph{corp} and \emph{ltd},\,e.g., \texttt{Hanover Insurance Corp.} is shrunk to \texttt{Hanover Insurance} in order to find candidates for this string in the KB.  	
+%We observed a significant data quality problem considering affixes in the examined knowledge bases.
+%AGDISTIS also eliminates candidates with years and dates within the label so as to be time-independent and to prune the search space.
+%One key advantage of Linked Data is the possibility to retrieve a class for each instance in a KB.
+%By using entity types (obtained via the \texttt{rdf:type} property), a domain fitting of possible candidates is implemented, narrowing the search space. 
+Additionally, AGDISTIS can be configured to fit named entities to certain domains to narrow the search space.
+Since our goal is to disambiguate persons, organizations and places, AGDISTIS only allows candidates of the types mentioned in Table~\ref{tab:tableOfClasses} when run on DBpedia and YAGO2.
+Adding general types will increase the number of candidates and thus decrease the performance.
+Obviously, these classes can be altered by the user as required to fit his purposes. 
+
+\begin{table*}[htb!]
+\centering
+ \caption{DBpedia  and YAGO2 classes used for disambiguation classes. Prefix \texttt{dbo} stands for \texttt{http://dbpedia.org/ontology/}, \texttt{foaf} for \texttt{http://xmlns.com/foaf/0.1/} and \texttt{yago} for \texttt{http://yago-knowledge.org/resource/}.}
+ \begin{tabular}{lll}
+	\toprule
+\textbf{} & \textbf{Class} & \texttt{\textbf{rdf:type}}\\
+\midrule
+DBpedia & Person & dbo:Person, foaf:Person\\
+DBpedia & Organization & dbo:Organization, dbo:WrittenWork (e.g., Journals) \\
+DBpedia & Place & dbo:Place, yago:YagoGeoEntity \\
+\midrule
+YAGO2 & Person & yago:yagoLegalActor  \\
+YAGO2 & Organization & yago:yagoLegalActor, \\
+  &   &  yago:wordnet\_exchange\_111409538 (e.g., NASDAQ) \\
+YAGO2 & Place & yago:YagoGeoEntity \\
+\bottomrule
+\label{tab:tableOfClasses}
+ \end{tabular}
+ \end{table*}
+
+\begin{algorithm}[htb!]
+\KwData{label of a certain named entity $N_i$, $\sigma$ trigram similarity threshold}
+\KwResult{$C$ candidates found}
+$C \longleftarrow \emptyset$\;
+{\bf label } $\longleftarrow$ {\bf normalize(label)}\;
+{\bf label } $\longleftarrow$ {\bf expand(label)}\;
+$ \displaystyle \bar C \longleftarrow$ {\bf searchIndex(label)}\;
+\For{{\bf c} $\in \bar C$}{
+    \If{$\neg${\bf c .matches([0-9]$^+$)}}{
+        %\If{$\neg${\bf isDisambiguationSite(c})} {
+         %          {\bf continue}\;
+          %      }
+        \If{{\bf trigramSimilarity(c, label)}$ \geq \sigma$}{
+            \If{{\bf fitDomain(c)}} {
+                $C \longleftarrow C \cup $ {\bf c}\;
+            }
+        }
+        % The same as the two ifs above but with a continue
+        %\If{{\bf trigramSimilarity(c, label)}$ < \sigma$} {
+        %           {\bf continue}\;
+        %        }
+        %% {\bf c} $\longleftarrow$ {\bf redirect(c)}\;
+        %\If{{\bf fitDomain(c)}} {
+        %     $C \longleftarrow C \cup $ {\bf c}\;
+        %        } 
+        %}
+    }
+}
+\caption{Searching candidates for a label.}
+\label{findingCandidates}
+\end{algorithm}
+
+The resulting candidate detection approach is explicated in Algorithm~\ref{findingCandidates}.
+%If a KB provides redirect and disambiguation URLs, AGDISTIS can benefit from them.
+%\todo[inline]{added  a virtual function in this algorithm 1 for the grammatical functions}
+%For example, it is straightforward to use \texttt{dbo:wikiPageRedirects} for identifying multiple labels for one instance. 
+%Of course AGDISTIS ignores disambiguation entities as they would not help accomplishing the disambiguation goal and finding $\mu^{+}$. 
+%\todo[inline]{AN:What's a disambiguation entity?}
+In its final step, our system compares the heuristically obtained label with the label extracted from the KB by using \emph{trigram similarity} which is an n-gram similarity with $n=3$. 
+
+
+\subsection{Computation of Optimal Assignment}
+
+Given a set of candidate nodes, we begin the computation of the optimal assignment by constructing a disambiguation graph $G_d$ with search depth $d$.
+To this end, we regard the input knowledge base as a directed graph $G_K = (V, E)$ where the vertices $V$ are resources of $K$, the edges $E$ are properties of $K$ and $x,y\in V, (x,y) \in E \Leftrightarrow \exists p : (x, p, y) \mbox{ is an RDF triple in }K$.
+Given the set of candidates $C$, we begin by building an initial graph $G_0 = (V_0, E_0)$ where $V_0$ is the set of all resources in $C$ and $E_0=\emptyset$. %$\forall (x, y) \in V_0^2, (x, y) \in E_0 \Rightarrow (x, y) \in K$.
+Starting with $G_0$ we extend the graph in a breadth-first search manner.
+Therefore, we define the extension of a graph $G_i = (V_i, E_i)$ to a graph $\rho(G_i) = G_{i+1} = (V_{i+1}, E_{i+1})$ with $i=0, \ldots, d$ as follows:
+\begin{equation}
+V_{i+1} = V_i \cup \{y : \exists x \in V_i \wedge (x, y) \in E\}
+\end{equation}
+\begin{equation}
+E_{i+1} = \{(x,y) \in E: x, y \in V_{i+1}\}
+\end{equation}
+We iterate the $\rho$ operator $d$ times on the input graph $G_0$ to compute the initial disambiguation graph $G_d$.
+
+%Empirically, we see no effect on the \mbox{F-measure} when using spread activation instead~\cite{Kleb11WIMS} (despite the obvious extra computational costs).
+
+After constructing the disambiguation graph $G_d$ we need to identify the correct candidate node for a given named entity.
+Using the graph-based HITS algorithm we calculate authoritative values $x_a,y_a$ and hub values $x_h,y_h$ for all $x,y\in V_d$.
+We initialize the authoritative and hub values (3) and afterwards iterate the equations (4) $k$ times as follows: 
+\begin{align*}
+\forall x \in V_d, x_a=x_h=\frac{1}{|V_d|} &\text{ (3) and } 
+x_a\longleftarrow  \sum_{(y,x)\in E_d} y_h, \quad
+y_h\longleftarrow \sum_{(y,x)\in E_d} x_a \text{(4)}
+\end{align*}
+We choose $k$ according to Kleinberg~\cite{HITS},\,i.e., 20 iterations, which suffice to achieve convergence in general. %d authoritative values $x_a$ and hub values $y_h$.
+Afterwards we identify the most authoritative candidate $C_{ij}$ among the set of candidates $C_i$ as correct disambiguation for a given named entity $N_i$. %sort the nodes according to their authoritative values in descending order. 
+%The first candidate for a certain named entity is assumed to be the correct disambiguation.
+When using DBpedia as KB and $C_{ij}$ is a redirect AGDISTIS uses the target resource. %follows redirecting resources transitively. %can use redirections to di%maps redirecting resources to their most authoritative redirection.
+AGDISTIS' whole procedure is presented in Algorithm~\ref{algooverview}.
+As can be seen, we calculate $\mu^{+}$ solely by using polynomial time complex algorithms.
+%Thus, we observe on average better run time performance than the state-of-the-art approach AIDA, see Section~\ref{results}. % Appendix Figure 3).
+%\todo[inline]{Again, we have no Appendix here}
+\begin{algorithm}
+\KwData{$N=\{N_1,N_2\dots N_n\}$ named entities, $\sigma$ trigram similarity threshold, $d$ depth, $k$ number of iterations}
+\KwResult{$C = \{C_1,C_2\dots C_n\}$ identified candidates for named entities}
+$E \longleftarrow \emptyset$\;
+$V \longleftarrow${\bf insertCandidates($N, \sigma$)}\;
+$G \longleftarrow (V,E)$\;
+$G \longleftarrow${\bf breadthFirstSearch($G,d$)}\;
+{\bf HITS($G(V,E), k$)}\;
+{\bf sortAccordingToAuthorityValue(V)}\;
+\For{$N_i \in N$} {
+    \For{$v \in V$}{
+        \If{$v$ {\bf is a candidate for} $N_i$  }{
+              {\bf store($N_i$,$v$)}\;
+              {\bf break}\;
+          }
+     }
+}
+\caption{Disambiguation Algorithm based on HITS and Linked Data.}\label{algooverview}
+\end{algorithm}
+
+For our example, the graph depicted in Figure~\ref{fig:example} shows an excerpt of the input graph for the HITS disambiguation algorithm when relying on DBpedia as knowledge base. 
+%Depending on the used KB properties may exist that lead to bi-directional edges (e.g., \texttt{sex} vs. \texttt{fatherOf}).
+The results can be seen in Table~\ref{tab:example}. 
+%Obviously a disambiguation towards the correct named entity URIs is possible.
+%\todo{what happens if the KB does not contain the correct entity, does the algorithm answer null, but is encompanied with closed world assumption, we know all entities we annotated}
+%Since we assume a closed-world scenario our algorithm supposes every entity to be in the KB.
+
+\begin{figure}[htbp]
+	\begin{minipage}[b]{0.57\textwidth} 
+       % \begin{figure}
+         \centering
+        \includegraphics[width=\linewidth]{fig/exampleGraph.pdf}
+        \caption{One possible graph for the example sentence, with candidate nodes in grey.}
+        \label{fig:example}
+      %  \end{figure}
+    \end{minipage}
+	\hfill
+	\begin{minipage}[b]{0.42\textwidth}
+       % \begin{table}
+        \centering
+        \begin{tabular}{lc}
+            \toprule
+            \textbf{Node}  & \textbf{$x_a$} \\
+            \midrule
+            db:Barack\_Obama & 0.273 \\
+            db:Barack\_Obama,\_Sr. & 0.089 \\
+            db:Washington,\_D.C. & 0.093 \\
+            db:Washington,\_D.C.\_(novel) & 0.000 \\
+            \bottomrule
+        \end{tabular}
+        \captionof{table}{Authority weights for example graph.}
+        \label{tab:example}
+        \vspace{1.8cm}
+       % \end{table}
+	\end{minipage}
+\end{figure}
+
+%%Idea of the extension
+%The most words of a document given to AGDISTIS are no named entities.
+%Therefore, AGDISTIS does not use them in its workflow.
+%Because a human reader would use all words for the disambiguation task we thought of an extension of AGDISTIS which uses the additional words, too.
+%With these words AGDISTIS would be able to recognize the topical structure of the document and could use these information for the disambiguation task.
+%Therefore, we added an extension which uses topic modeling to consider the topical structure.
+
+%%what is topic modeling
+%\emph{Probabilistic topic modeling} is a research area that aims to discover thematic information inside large corpora \cite{Blei:2012:PTM:2133806.2133826}.
+%It is based on the definition of generative models that describe the creation of documents and how this process is influenced by latent topics.
+%A very famous model is \emph{Latent Dirichlet Allocation (LDA)} \cite{Blei:2003:LDA:944919.944937}.
+%Its generative process is based on a set of Topics $T$ and a vocabulary $V$.
+%For the creation of a document $d$ the distribution of the topics inside this document $\theta_d=\left \{P(t_0|d), \ldots, P(t_{|T|}|d) \right \}$ is sampled.
+%After that for every $i$th-word the id $z_i$ of a topic $t_{z_i}$ is sampled from $\theta_d$.
+%Every topic $t \in T$ has a vector $\phi_{t}=\left \{P(w_0|t), \ldots, P(w_{|V|}|t) \right \}$ which defines the probabilities of all words under this topic.
+%After $z_i$ has been sampled the word is sampled from $\phi_{t_{z_i}}$ \cite{Blei:2012:PTM:2133806.2133826}.
+%Figure TODO shows the graphical model of LDA.
+%The figure contains $\alpha$ and $\beta$ which are hyperparameter for the $\theta$ and $\phi$ distributions respectively.
+%\todo[inline]{Add graphic with plate notation}
+
+%In figure TODO all variables are white except the word $w$ which is shaded.
+%This means that $w$ is the only variable which can be observed and all other variables are latent.
+%So starting with the observable words inside of the documents of a corpus the other variables have to be inferenced.
+%Because a direct solution of the inference problem is intractable there are several algorithms for approximating the variables \cite{Blei:2012:PTM:2133806.2133826}.
+%For our experiments we used Mallet which contains an implementation of Gibbs-Sampling \cite{McCallumMALLET,griffiths2004finding}.
+
+%\todo[inline]{* definition \newline* LDA \newline* generative model \newline* how do we use it \newline* where does the model come from\newline * \textbf{what are we doing with the model and the texts}}
+
+\section{Evaluation}
+\label{sec:eval}
+
+\subsection{Experimental Setup}
+\label{eval}
+The aim of our evaluation was two-fold.
+First, we wanted  to determine the F-measure achieved by our approach on different datasets.
+Several definitions of F-measure have been used in previous work on NED.
+Cornolti et al.~\cite{Cornolti} define the micro F-measure (F1) w.r.t. a strong annotation match (i.e., a binary relation) and the possibility of assigning null to an entity.
+This F-measure, which we use throughout our evaluation, aggregates all true/false positives/negatives over all documents.
+Thus, it accounts for larger contexts in documents with more annotations, cf. Cornolti et al.~\cite{Cornolti}.
+
+%In addition to the traditional definition of false and true positives and negatives when given a reference mapping between strings and resources, 
+%we regarded the assignment of a resource to a string as a \emph{false positive} if no resource from the KB mapped with the string or if the string was assigned to the wrong resource.
+%Furthermore, the assignment of a resource was considered a \emph{false negative} if the approach returned that no resource mapped the string although there was a resource in the KB that did.
+
+Second, we wanted to know how AGDISTIS performs in comparison to other state-of-the-art NED approaches. 
+Thus, we compare AGDISTIS with TagMe 2, the best approach according to ~\cite{Cornolti} as well as with AIDA and DBpedia Spotlight because they are well-known in the Linked Data community. 
+AGDISTIS is designed to be agnostic of the underlying knowledge base.
+Thus, we use the German and English DBpedia KB as well as the English YAGO 2 KB. %\footnote{Results using other Linked Data KBs can be found at the project homepage.}
+
+Within our experiments, we ran AGDISTIS with the following parameter settings: 
+the threshold $\sigma$ for the trigram similarity was varied between 0 and 1 in steps of 0.01. 
+Additionally, we evaluated our approach with $d=1,2,3$ to measure the influence of the size of the disambiguation graph on AGDISTIS' F-measure.
+%In this paper we use accuracy to measure directly the percentage of correctly disambiguated entities instead of the also common precision and recall values.
+%We also ran the experiments without using the graph,\,i.e., only applying all heuristics and trigram similarity.
+%We did not consider abbreviations and thus ignored labels shorter than three characters.
+For our experiments, we fitted AGDISTIS to the domain of named entity recognition and only allow candidates of the types mentioned in Table~\ref{tab:tableOfClasses}.
+%While, we were not able to identify all entities in all datasets resulting in a worse F1-measure than possible. 
+%Moreover, %a closed world was assumed,\,i.e., entities that were not in the KB were not considered in our evaluation.
+%We used YAGO2 (English) as well as the German and the English versions of DBpedia as underlying KBs for AGDISTIS.
+%While the results reported in this paper only use the English versions of DBpedia 3.9 as underlying KB, we also evaluated AGDISTIS on YAGO2 and the German version of DBpedia 389. 
+We report more details on the evaluation setup as well as complete results at the project homepage.
+%\todo[inline]{Micha: But this would be possible now, wouldn't it?}
+
+%Note that for most entities from DBpedia a direct matching to YAGO2 entities can easily be applied. 
+%Web news texts are a common input for disambiguation systems~\cite{Cucerzan07,fox}.
+%Third, we wanted to measure how time-efficient AGDISTIS is. 
+%To this end, we compared its runtime with that of AIDA.
+%We were not able to compare AGDISTIS' runtime with that of Spotlight due to Spotlight's high RAM requirements.
+%\todo[inline]{not RAM but webservice}
+%Finally, we analyzed the impact of removing certain properties on the \mbox{F-measure}.
+%We carried out all our experiments on the following four datasets:\newline
+%: (1) a subset of the well-known Reuters-21578 dataset, (2) RSS feeds extracted from 1,500 sources, (3) a German news corpus extracted from \url{news.de} and (4) the original AIDA dataset from~\cite{AIDA}, which contains 1,393 annotated news reports.
+%%For each corpus, we generated a spell-corrected version of annotations. % assuming that a used disambiguation system would incorporate such a module.
+%%\todo[inline]{Discuss whether pointing to a spell corrected version can be left out}
+%We annotated the first dataset manually while the others were already annotated and used in previous works.
+%%Some documents comprise only little or no annotations to account for the sparsity and shortness of WND. 
+%%Furthermore, only the in Table~\ref{tab:tableOfClasses} mentioned resource classes were annotated.
+%%\todo{explain why reagan and not reagan area is annotated}
+%\footnote{To preserve the anonimity of the authors, we refrained from adding a link to the page for downloading the data. A link to this page will be added in the final version of the paper.}
+%The test corpora can be downloaded from \url{https://github.com/XYZ}.%https://github.com/AKSW/AGDISTIS}.
+
+\subsection{Datasets}
+Noisy and incorrect datasets can affect the performance of NED approaches which can be prevented by using well-known datasets.
+We carried out our evaluation on the following eight different, publicly available datasets, which consists of the three corpora from the benchmark dataset \textbf{N3}~\cite{N3}, the original AIDA evaluation corpus\footnote{\url{https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/aida/downloads/}} and four of the five datasets from the Cornolti et al.~\cite{Cornolti} benchmark:
+
+\begin{enumerate}
+\item \textbf{Reuters-21578 Dataset.}
+The first of the N3 datasets comprises 145 news articles randomly sampled from the Reuters-21578 news articles dataset.
+Two domain experts determined the correct URI for each named entity using an online annotation tool reaching a initial voter agreement of $74\%$.
+%Although we have no agreement values for AIDA, we consider 74\% as an upper bound for human capability for NED tasks.
+%In comparison, DBpedia Spotlight achieved a \emph{Fleiss' Kappa} maximum of 0.67~\cite{spotlight} during creation of their dataset.
+%\todo{compare the interrater agreement with the one of AIDA: AIDA didn't mention agreement rate, AIDA used 2 students and resolved in case of conflict}
+In cases where the judges did not agree initially, they concerted each other and reached an agreement.
+This initial agreement rate hints towards the difficulty of the disambiguation task.
+The corpus does not annotate ticker symbols of companies (e.g., \textit{GOOG} for Google Inc.), abbreviations and job descriptions because those are always preceded by the full company name respectively a person's name.
+%Since AGDISTIS relies on a closed-world assumption, 
+%Finally, we generated a default URI for instances which could not be identified within a 5-minute Web search while annotating. 
+
+\item \textbf{\url{news.de} Dataset.}
+This real-world dataset is the second of the N3 datasets and was collected from 2009 to 2011 from the German web news portal \url{news.de} ensuring that each message contains the German word \emph{Golf}.
+This word is a homonym that can semantically mean a geographical gulf, a car model or the sport discipline.
+This dataset contains 53 texts comprising over 600 named entities that were annotated manually by a domain expert.
+Although some meanings of Golf are not within the class range of our evaluation, they are kept for evaluation purposes.
+
+\item \textbf{RSS-500 Dataset.}
+This corpus has been published in Gerber et al.~\cite{GER+13} and is the third of the of the N3 datasets.
+It consists of data scrapped from 1,457 RSS feeds. % as compiled in Goldhahn~\shortcite{GOLDHAHN12.327}.
+The list includes all major worldwide newspapers and a wide range of topics,\,e.g., \emph{World}, \emph{U.S.}, \emph{Business}, \emph{Science} etc.
+This list was crawled for 76 hours, which resulted in a corpus of about 11.7 million sentences.
+A subset of this corpus has been created by randomly selecting $1\%$ of the contained sentences.
+Finally, domain experts annotated 500 sentences manually. 
+Further information about the corpora and the datasets themselves can be found on the project homepage.\footnote{\url{http://aksw.org/Projects/N3NERNEDNIF.html}}
+%These sentences were a subset of those which contained a natural language representation of a formal relation, like ``\ldots, who was born in\ldots '' for \texttt{dpo:birthPlace} (see ~\cite{conf/ekaw/GerberN12}), that occurred more then 5 times in the 1\% corpus. %with DBpedia URIs or created new URIs in case the mentioned entity was not contained in DBpedia.
+
+\item \textbf{AIDA-YAGO2 Dataset.}
+This is the original dataset that was used while evaluating AIDA~\cite{AIDA}, stemming from the CoNLL 2003 shared task~\cite{conll2003} and comprising 1,393 news articles which were annotated manually. % with 34,956 entity mentions.
+%Possible conflicts resulting from two annotators were resolved.
+%AIDA-YAGO2 has 34,956 entity mentions from the YAGO2 ontology.%\footnote{\url{http://www.mpi-inf.mpg.de/yago-naga/yago/}}.
+
+\item  \textbf{AIDA/CO-NLL-TestB} This dataset (like all the subsequent datasets) comes from the Cornolti et al. benchmarks and originates from the evaluation of AIDA~\cite{AIDA}. 
+As mentioned above, this dataset was derived from the CO-NLL 2003 shared task~\cite{conll2003} and comprises 1,393 news articles which were annotated manually. Two students annotated each entity resolving conflicts by the authors of AIDA~\cite{AIDA}. Cornolti et al.'s benchmark consists only of the second test part comprising 231 documents with 19.4 entities per document on average.
+
+\item \textbf{AQUAINT} In this dataset, only the first mention of an entity is annotated. The corpus consists of 50 documents which are on average longer than the AIDA/CO-NLL-TestB documents. Each document contains 14.5 annotated elements on average
+The documents originate from different news services, e.g. Associated Press and have been annotated using voter agreement.
+The dataset was created by Milne et al.~\cite{milne2008learning}.
+
+\item \textbf{IITB} The IITB corpus comprises 103 manually annotated documents. Each document contains 109.1 entities on average.
+This dataset displays the highest entity/document-density of all corpora.
+This corpus has been presented by Kulkarni et al.~\cite{kulkarni2009collective} in 2009.
+
+\item \textbf{MSNBC} This corpus contains 20 news documents with 32.9 entities per document. This corpus was presented in 2007 by Cucerzan et al.~\cite{Cucerzan07}.
+\end{enumerate}
+
+We did not use the \textbf{Meij} dataset from Cornolti et al. since it comprises only tweets from twitter with 1.6 entities per document. The number of entities available in the datasets is shown in Table~\ref{tab:data}.
+%\todo{leave the computer stuff out?}
+All experiments were carried out on a MacBook Pro with a 2.7GHz Intel Core i7 processor and 4 GB 1333MHz DDR3 RAM using Mac OS 10.7. 
+\begin{table*}[tb!]
+\centering
+\caption{Test corpora specification including the number of documents (\#Doc.) and the number of named entities (\#Ent.) per dataset}
+\label{tab:data}
+\begin{tabular}{lcrrrc}
+\toprule
+\textbf{Corpus} & \textbf{Language} & \textbf{\#Doc.} & \textbf{\#Ent.} & \textbf{Ent./Doc.} & \textbf{Annotation}\\
+\midrule
+AIDA/CO-NLL-TestB  & English & 231 & 4458 &19.40& voter agreement\\
+AQUAINT & English & 50 & 727 & 14.50 &voter agreement\\
+IITB & English & 103 & 11,245 & 109.01 &domain expert\\
+MSNBC & English & 20 & 658 &31.90 &domain expert\\
+Reuters-21578  & English & 145 & 769 &5.30 &voter agreement\\
+RSS 500 & English & 500 & 1,000 & 2.00&domain expert \\
+\url{news.de} & German & 53 & 627 & 11.83 &domain expert\\
+AIDA-YAGO2 & English & 1,393 & 34,956 &25.07 &voter agreement\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+%\begin{figure*}[tb!]
+%    \centering
+%        \includegraphics[width=\linewidth]{fig/qrtoolnew.png}
+%    \caption{GUI of our annotation tool.}
+%    \label{fig:qrtool}
+%\end{figure*}
+
+\subsection{Results}
+\label{results}
+
+\begin{table*}[hb!]
+\centering
+\caption{Evaluation of AGDISTIS against AIDA and DBpedia Spotlight. Bold indicates best \mbox{F-measure}.} \label{tab:evalold} 
+\begin{tabular}{c ccc ccc c c}
+\toprule
+\textbf{Corpus}  & \multicolumn{6}{c}{\textbf{AGDISTIS}}	& \textbf{AIDA} & \textbf{Spotlight}\\\midrule
+\textbf{$K$}& \multicolumn{3}{c}{{DBpedia}}& \multicolumn{3}{c}{{YAGO2}}	& {YAGO2} & {DBpedia}\\\midrule
+				& \mbox{F-measure} 		& $\quad \sigma \quad $ & $\quad d \quad $ 	& \mbox{F-measure} & $\quad \sigma \quad $ & $\quad d \quad $ & \mbox{F-measure}  & \mbox{F-measure}\\
+\cmidrule(r){2-4}  \cmidrule(r){5-7} \cmidrule{8-8} \cmidrule{9-9}
+Reuters-21578	&  	\textbf{0.78}	&  			0.87		&  		2		& 	0.60	&  0.29		&  	3	&  	0.62		& 	0.56	\\
+RSS-500 		&  	\textbf{0.75}	&  			0.76		&  		2		& 	0.53	&  0.82		&   2 	&  	0.60		& 	0.56	\\
+\url{news.de} 	&  	\textbf{0.87}	&  			0.71		&  		2		& 	---		&   ---		&  ----	&  	----		& 	0.84	\\
+AIDA-YAGO2	   	&  		0.73		&  			0.89		&  		2		& 	0.58	&  0.76		&   2 	&\textbf{0.83}	& 	0.57	\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+First, we evaluate AGDISTIS against AIDA and DBpedia Spotlight on three different knowledge bases using N3 corpora and the AIDA-YAGO2 corpus. 
+
+AGDISTIS performs best on the \url{news.de} corpus, achieving a maximal 0.87 \mbox{F-measure} for $\sigma = 0.71$ and $d = 2$ (see Table~\ref{tab:evalold}).
+Our approach also outperforms the state of the art on Reuters-21578 corpus (see Figure~\ref{fig:reuters}), where it reaches 0.78 \mbox{F-measure} for $\sigma = 0.87$ and $d = 2$.
+Considering the AIDA-YAGO2 dataset AGDISTIS achieves an \mbox{F-measure} of 0.73 for $\sigma = 0.89$ and $d = 2$.
+%In combination with the results on RSS-500, 
+Our results suggest that $d=2, \sigma=0.82$ and using DBpedia as KB are a good setting for AGDISTIS and suffice to perform well. %The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of up to $6\%$ \mbox{F-measure}.
+In the only case where $\sigma=0.29$ leads to better results (Reuters-21578 corpus), the setting $0.7<\sigma<0.9$ is only outperformed by 0.03 F-measure using YAGO as KB for AGDISTIS.
+
+\begin{table}
+    \centering
+\caption{Performance of AGDISTIS, DBpedia Spotlight and TagMe 2 on four different datasets using micro F-measure (\textbf{F1}).}
+\begin{tabular}[tb]{@{}lllll@{}}
+\toprule
+Dataset                            & Approach          & \textbf{F1-measure}             & \textbf{Precision} & \textbf{Recall} \\ \midrule
+\multirow{3}{*}{\begin{minipage}{0.8in}\textbf{AIDA/CO-NLL-TestB}\end{minipage}} & TagMe 2           & 0.565          & 0.58      & 0.551  \\
+                                   & DBpedia Spotlight & 0.341          & 0.308     & 0.384  \\
+                                   & AGDISTIS          & \textbf{0.596} & \textbf{0.642}     & \textbf{0.556}  \\ \midrule
+\multirow{3}{*}{\textbf{AQUAINT}}  & TagMe 2           & 0.457          & 0.412     & \textbf{0.514}  \\
+                                   & DBpedia Spotlight & 0.26           & 0.178     & 0.48   \\
+                                   & AGDISTIS          & \textbf{0.547} & \textbf{0.777}     & 0.422  \\\midrule
+\multirow{3}{*}{\textbf{IITB}}     & TagMe 2           & 0.408          & 0.416     & 0.4    \\
+                                   & DBpedia Spotlight & \textbf{0.46}  & 0.434     & \textbf{0.489}  \\
+                                   & AGDISTIS          & 0.31           & \textbf{0.646}     & 0.204  \\\midrule
+\multirow{3}{*}{\textbf{MSNBC}}    & TagMe 2           & 0.466          & 0.431     & 0.508  \\
+                                   & DBpedia Spotlight & 0.331          & 0.317     & 0.347  \\
+                                   & AGDISTIS          & \textbf{0.761} & \textbf{0.796}     & \textbf{0.729}  \\ \bottomrule
+\end{tabular}
+\label{tab:evalnew}
+\end{table}
+
+Second, we compared our approach with TagMe 2 and DBpedia using the datasets already implemented in the framework of Cornolti et al.
+AGDISTIS has been setup to use a breadth-first search depth $d=2$ and a trigram similarity of $\sigma=0.82$.
+All approaches used disambiguate w.r.t. the English DBpedia.
+%TagMe 2 and DBpedia Spotlight are easily to test via web services while AIDA needs to be installed locally and run on a large machine. 
+AIDA was ommitted from this evaluation because it has been shown to be outperformed by TagMe 2 in~\cite{Cornolti} on the datasets we consider. 
+
+AGDISTIS achieves \mbox{F-measures} between $0.31$ (IITB) and $0.76$ (MSNBC) (see Table~\ref{tab:evalnew}).
+We outperform the currently best disambiguation framework, TagMe 2, on three out of four datasets by up to $29.5\%$ F-measure. 
+Our poor performance on IITB is due to AGDISTIS not yet implementing a paragraph-wise disambiguation policy. 
+By now, AGDISTIS performs disambiguation on full documents.
+The large number of resources in the IITB documents thus lead to our approach generating very large disambiguation graphs.
+The explosion of errors within these graphs results in an overall poor disambiguation.
+We will address this drawback in future work by fitting AGDISTIS with a preprocessor able to extract paragraphs from input texts.
+The local vector-space model used by Spotlight performs best in this setting. 
+
+%\todo[inline]{Micha: the part "The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of up to $6\%$ \mbox{F-measure}" occurs two times. Remove one of them.}  
+\begin{figure}[htb!]\centering
+        \includegraphics[width=0.9\linewidth]{fig/reuters.pdf}
+        %\includegraphics[width=0.9\linewidth]{fig/bfs_depth_diag.pdf}
+    \caption{\mbox{F-measure} on the \textbf{Reuters-21578} corpus using DBpedia as KB.}  \label{fig:reuters}
+\end{figure}
+
+Delving deeper into AGDISTIS' results lead to the following insights:
+(1) Varying the search depth $d$ does not significantly improve \mbox{F-measure} because within the underlying documents there are many similar named entities forming a shallow semantic background. However, using only string similarity measures ($d=0$) results in lower F-measure (see Figure \ref{fig:reuters}). % while the optimum has been found using $d=2$. %, see Figure~(\todo[inline]{here was a reference to a reuters figure}). 
+(2) The expansion policy can have considerable knock-on effects: Either the first entity and its expansions are disambiguated correctly or the wrong disambiguation of the first entity leads to an avalanche of false results in a loss of $\approx 4\%$ accuracy.
+%\todo[inline]{Micha: Why accuracy while you always talk about F-measure?}
+(3) We observed a significant enhancement of AGDISTIS when adding surface forms to the labels of resources as explained in Section~\ref{choosing}.
+Employing additional labels (such as surface forms gathered from Wikipedia) increased the \mbox{F-measure} of AGDISTIS by up to $4\%$. 
+(5) Using $n=1,2,4$ as n-gram similarity has been proven to perform worse than using trigram similarity,\,i.e., $n=3$.
+Our results suggest that $d=2$ while using DBpedia as KB is a good setting for AGDISTIS and suffice to perform well. 
+The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of up to $6\%$ \mbox{F-measure} while $\sigma<0.7$ and $\sigma>0.9$ leads to a loss of F-measure.
+
+Overall, our results suggest that $\sigma=0.82$ and $d=2$ is generally usable across datasets and knowledge bases leading to high quality results.\footnote{See also \url{http://139.18.2.164/rusbeck/agdistis/supplementary.pdf} and \url{http://139.18.2.164/rusbeck/agdistis/appendix.pdf}}
+%Thus, in the following, we use $\sigma=0.82$. 
+
+%This is done by selecting all resources as candidates that are such that the similarity of at least one of its labels and the 
+%The best similarity thresholds $\sigma$ w.r.t. disambiguation \mbox{F-measure} achieved by our approach were determined empirically iterating $\sigma$ between 0 and 1 in steps of 0.01. 
+%Setting $\sigma=0.82$ turned out to be the best threshold independent of the analysed dataset.%\footnote{See our project side for further evaluation \url{http://aksw.org/Projects/AGDISTIS}}% (cf. Section~\ref{eval}).
+%as shown in Figure~\ref{fig:influenceOfSurfaceForms}.
+%This explains the worse results achieved by AGDISTIS when using YAGO2 as KB. 
+
+%\begin{figure}[htb!]\centering
+%        \includegraphics[width=0.9\linewidth]{fig/reutersWithoutSurfaceFormsAndBFS2.pdf}
+        %\includegraphics[width=0.9\linewidth]{fig/surface_forms_diag.pdf}
+%    \caption{Influence of surface forms on the Reuters-21578 corpus and DBpedia as KB.}\label{fig:influenceOfSurfaceForms}
+%\end{figure}
+%\todo[inline]{@axel: not using any graph just trigram sim is worse than the rest}
+% for AGDISTIS are worse since our approach could not make use of surface forms as explained above. %, redirects or disambiguation entities, as explained above.
+%Yet, given that a 1-1 mapping exists between YAGO2 and DBpedia URIs, we will consider the results of DBpedia for AGDISTIS in the following comparisons with other tools.
+%\todo[inline}]{AN:Formally wrong. Either a 1-1 mapping exists or it does not}
+%If there is no 1-1 mapping, the result of the disambiguation is counted as \emph{false positive}, which then results in low \mbox{F-measures} using YAGO2 as KB.
+%\todo{look at table caption please}
+
+
+%\textbf{Comparison with AIDA.} 
+%\todo[inline]{renew numbers}
+%We compared our approach to AIDA by using the \textit{Cocktailparty configuration}\footnote{\url{https://github.com/yago-naga/aida}} (which is the recommended configuration for the framework) and applied the same restrictions that we used for AGDISTIS.
+%The results of this evaluation on AIDA can be seen in Table~(\todo[inline]{here was a reference to the eval result}).
+%Overall, AIDA performs well on arbitrary entities. 
+%Yet, it is clearly outperformed by our approach on specific persons and organizations. 
+%\todo[inline]{the statement above cant be seen in table 4, therefore we need to compare by type or clarify this sentence}
+%In comparison to AIDA, AGDISTIS performs best on the Reuters-21578  where it surpasses AIDA by $\approx 0.16$ \mbox{F-measure}.
+%Here AGDISTIS benefits from surface forms and its expansion policy.
+%Furthermore, AGDISTIS outperforms AIDA with the RSS-500 corpus by $\approx 0.15$ \mbox{F-measure}.
+%This corpus differs considerably from the Reuters-21578 corpus due to the small disambiguation contexts and graphs evolving from two named entities per text only.
+%Note that AGDISTIS also outperforms AIDA for our overall default setting of $\sigma = 0.81$, apart from the result on the AIDA-YAGO2 corpus.
+%AIDA could not be run on the \url{news.de} corpus as it can only deal with English.
+%Here, the \emph{language-independence} of AGDISTIS provides a significant improvement of the state of the art.
+%AIDA performs better on AIDA-YAGO2 achieving an \mbox{F-measure} of 0.83 due to the large contexts of the documents (see Table~(\todo[inline]{here was a reference to a data table})).
+%This is clearly due to AGDISTIS being tuned towards smaller contexts since these are more common in WND, see Table~(\todo[inline]{here was a reference to a data table}).
+%In particular, the AIDA-YAGO2 corpus contains many sport teams from cities and countries like \texttt{Barcelona} where AGDISTIS identifies \texttt{dbr:Barcelona} and \texttt{dbr:FC\_Barcelona} as resources. Since \texttt{dbr:Barcelona} has a higher authoritative score than \texttt{dbr:FC\_Barcelona}, AGDISTIS' disambiguation results in a \emph{false positive} in this particular case.
+%As shown in Table~\ref{eval} using YAGO2 leads to worse results since AGDISTIS (in contrast to AIDA) does not possess surface forms for YAGO2.
+%\todo[inline]{No appendiy, how to solve this?}
+
+%\textbf{Comparison with DBpedia Spotlight.}
+%\todo[inline]{renew the numbers}
+%In order to compare DBpedia Spotlight with AGDISTIS Cornolti et al.~\cite{Cornolti} used Spotlight's Web services.\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Web-service}}
+
+%The results of the evaluation are shown in Table~\ref{tab:eval}.
+%Spotlight performs best on the \url{news.de} dataset (\mbox{F-measure} = 0.84) and worst on the Reuters-21578 dataset (\mbox{F-measure} = 0.56), Table~(\todo[inline]{here was a reference to the eval result}).
+%This is possibly due to the datasets age of over 20 years and missing historic data in DBpedia.
+%When evaluated against the AIDA-YAGO2 corpus Spotlight achieves a \mbox{F-measure} of 0.57.
+%Using the RSS-500 dataset Spotlight is only able to generate a \mbox{F-measure} of 0.56.
+%\todo[inline]{renew the number}
+%AGDISTIS outperforms Spotlight by at least $\approx 0.15$ \mbox{F-measure}. % using DBpedia as KB. on each English dataset.
+
+%AGDISTIS performs better on two of the datasets and is even usable for the German dataset as it is agnostic towards the language of the used KB.
+%As can be seen in Figure \ref{fig:relation} the number of entities per text is an important criteria for disambiguation.
+
+%\textbf{Run time analysis.}
+%On average AGDISTIS is more time-efficient than AIDA with respect to the best %corresponding configuration.
+%While AGDISTIS finished its computation on Reuters-21578 corpus in 549\,seconds (s), AIDA needed more than twice as much time,\,i.e., 1,296\,s.
+%This behavior can also be seen on the short documents of the RSS-500 dataset, where AIDA needed 4,919\,s and our approach only 623\,s.
+%Moreover, AGDISTIS outperforms AIDA with 3,946\,s to 51,435\,s run time on the AIDA-YAGO2 corpus.
+%\todo[inline]{is not comparable anymore since we needed to run it in the cloud}
+%Details can be found on the project website.
+
+\section{Conclusion}
+\label{sec:conclusion}
+%\todo[inline]{Micha: AIDA is missing in the conclusion.}
+We presented AGDISTIS a novel named entity disambiguation that combines the scalable HITS algorithm and breadth-first search with linguistic heuristics.
+Our approach outperforms the state-of-the-art algorithms TagMe 2, AIDA and DBpedia Spotlight while remaining quadratic in its time complexity. 
+Moreover, our evaluation suggests that while the approach performs well in and of itself, it can benefit from being presented with more linguistic information such as surface forms. 
+%Furthermore, we measured the effect of evolving the structure of the underlying knowledge base.
+%We observed the significance of properties on the \mbox{F-measure} performance of our system.
+%Our results suggest that only a few RDF properties contribute significantly to enhancing the performance of AGDISTIS.
+We see this work as the first step in a larger research agenda.
+Based on AGDISTIS, we aim to develop a new paradigm for realizing NLP services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
+Other than most work, which mainly uses statistics and heuristics, we aim to truly exploit the graph structure and semantics of the background knowledge.
+
+Since AGDISTIS is agnostic of the underlying knowledge base and language-independent, it can profit from growing KBs as well as multilingual Linked Data.
+In the future, we will thus extend AGDISTIS by using different underlying KBs and even more domain-specific datasets.
+An evaluation of Babelfy against our approach will be published on the project website.
+Moreover, we will implement a sliding-window-based extension of AGDISTIS to account for large amounts of entities per document.
+%A novel avenue of research would be combining AGDISTIS with topic modelling~\cite{Blei:2003:LDA:944919.944937}. Preliminary experiments in this direction show that we can improve the F-measure of our approach by at least 1\% on all datasets.
+%In the future we intend to look for larger, more domain-specific and even more insightful disambiguation datasets to refine and test AGDISTIS.
+%Moreover, a deeper evaluation of ontology structures towards disambiguation accuracies is needed.
+%Answering those research questions will expose possible performance-enhancing extensions.
+%
+
+\begin{wrapfigure}[2]{r}{0.18\textwidth}
+ \vspace{-8mm}
+ \includegraphics[width=0.18\textwidth]{esf.pdf}
+\end{wrapfigure}
+\textbf{Acknowledgments.} Parts of this work were supported by the ESF and the Free State of Saxony and the FP7 project GeoKnow (GA No. 318159).
+
+
+\bibliographystyle{abbrv}
+\bibliography{myrefs,aksw,limes,references}
+
+\end{document}

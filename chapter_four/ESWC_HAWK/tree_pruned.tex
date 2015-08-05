@@ -1,0 +1,21 @@
+\begin{tikzpicture}[
+roundnode/.style={rectangle, draw=green!60, fill=green!10, very thick,minimum size=1em},node distance=0.4cm and 0.2cm,scale=0.8, every node/.style={transform shape}
+]
+%Nodes
+\node[roundnode]      (root)                              {died (VBD)};
+
+\node[]                 (aux)      [below=of root] {};
+\node[]                 (aux1)      [below=of aux] {};
+\node[roundnode]        (1L)       [below=of aux1] {recipients (NNS)};
+\node[roundnode]        (2C)       [right=of aux] {Battle of Arnhem (CNN)};
+
+\node[roundnode]        (2L2)      [below=of 1L] {dbr:Victoria\_Cross (ADD)};
+
+%Lines
+\draw[->] (root.south) -- (1L.north);
+
+\draw[->] (root.south) -- (2C.north);
+
+\draw[->] (1L.south) -- (2L2.north);
+\end{tikzpicture}
+\label{fig:prunedtree}

@@ -1,0 +1,46 @@
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwData{Tokenized question ($list$) with Part-of-Speech-tags (POS-tags)}
+	subsequence = ()\;
+	\For{$t \in [0,|list|]$ }{
+			token = list.get($t$)\;
+			%// look for start "RB|JJ|NN(.)*"
+			\eIf{$subsequence = \emptyset$}{
+			    \lIf{$pos(t) \in (\mathrm{CD|JJ|NN(.)^*|RB(.)^*})$} {
+				subsequence.add(token)
+				}
+			}
+			%// split "of the" or "of all" via pos\_i=IN and pos\_i+1=DT
+			{
+    			\uIf{$t + 1 < |list| \wedge pos(t) \in (\mathrm{IN}) \wedge pos(t+1) \in (\mathrm{(W)?DT})$} {
+    				\lIf{$subsequence.size() >= 2$} {
+    					combine(subsequence)
+    				}
+    		        subsequence = ()\;
+    			}
+    		%	// do not combine NNS and NNPS but combine "stage name", "British Prime minister"
+    			\uElseIf{$pos(t - 1) \in (\mathrm{NNS}) \wedge pos(t) \in (\mathrm{NNP(S)?})$} {
+    			    \lIf{$subsequence.size() > 2$} {
+    					combine(subsequence)
+    				}
+    		        subsequence = ()\;
+    			}
+    		%	// finish via VB* or IN -> null or IN -> DT or WDT (now a that or which follows)
+    			\uElseIf{$!pos(t - 1) \in (\mathrm{JJ|HYPH}) \wedge (pos(t) \in (\mathrm{VB|WDT|IN})))$} {
+    		%		// more than one token, so summarizing makes sense
+    			    \lIf{$subsequence.size() > 1$} {
+    					combine(subsequence)
+    				}
+    		        subsequence = ()\;
+    			}
+    		    \uElseIf{$pos(t) \in (\mathrm{NN(.)^*|RB|CD|CC|JJ|DT|IN|PRP|HYPH|VBN})$} {
+    				subsequence.add(token)
+    			}
+    			\uElse{
+    		        subsequence = ()\;
+    			}
+    		}
+        }
+\caption{Algorithm for combining noun phrases}
+\end{algorithm}
+\label{listing:nouncombiner}

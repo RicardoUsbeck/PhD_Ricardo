@@ -1,0 +1,42 @@
+\begin{comment}
+\subsection{Initialization of $L$ and $R$}
+In most approaches, the matrices $L$ and $R$ are initialized by using random values.
+While this approach still leads to converging results in practical applications, it is unsatisfactory as the results of the factorization may be different across different initializations.
+We address the initialization problem by using a correlation-based approach.
+The intuition behind our approach is that the latent features describe a space whose basic vectors stand for weakly correlated dimensions. 
+We can thus initialize the matrices $L$ (and analogously the matrix $R$) by detecting the rows (resp. columns) that display the smallest correlation to other rows and using those as our initialization for $L$.
+We go about implementing this intuition as follows: Let 
+\begin{equation}
+B = M \times M^\top \mbox{ and } A = \frac{B}{\max\limits_{i, j} b_{ij}}.
+\end{equation}
+The matrix $A$ encompasses how correlated the rows in $M$ are.
+We assign each row $a_{i}$ a weight $w_i = \sum_{j=1}{n} a_{ij}$.
+The weight $w_i$ tells us how correlated $a_i$ is to $a_1 \ldots a_n$.
+We now sort the rows according to their weights in ascending order and select the r rows with the smallest weight.
+These rows are then used to initialize $L$, ergo $l_1 = a_k$ with $\forall i \neq k, w_i \geq w_k$.  
+
+The matrix $R$ can be initialized analogously by setting 
+\begin{equation}
+B = M^\top \times M \mbox{ and } A = \frac{B}{\max\limits_{i, j} b_{ij}}.
+\end{equation}
+\todo{Add example}
+
+\begin{itemize}
+\item use FOX to do NER over several documents \todo{No need for FOX in the experiments. Simply use the benchmarks directly.} 
+\todo{Now it is implemented and getting back to the original work would be cumbersome.} 
+\item describe an entity by its neighbors, i.e., window size and latent features
+\item use cosine similarity as a baseline
+\item cluster those entities across documents using Axels framework
+\item named entities are the same resources if they end up in the same cluster...\todo[inline]{RU: I fear the noise hear when number of clusters is too low}
+\item formulate good URIs for them, see http://www.w3.org/TR/cooluris/
+
+\end{itemize}
+
+LR^T = 
+
+  5,103 1,896 -0,712 1,555
+  3,412 1,274 -0,450 1,085
+  1,540 1,040  1,780 3,949
+  1,169 0,799  1,394 3,073
+ -0,438 0,543  3,076 5,125
+\end{comment}

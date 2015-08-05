@@ -1,0 +1,39 @@
+\begin{table}[htb!]
+\centering
+\caption{Triple patterns for generating SPARQL queries while traversal.}
+\begin{tabular}{ll}
+\toprule
+\textbf{Node POS-tag and non-empty annotations} & \textbf{Query Fragment} \\
+\midrule
+VB(.)* & \texttt{?proj Annotation ?const.} \\
+VB(.)* & \texttt{?const Annotation ?proj.} \\
+VB(.)* & \texttt{?const ?proot ?proj.} \\
+NN(.)*$|$WRB & \texttt{?proj  Annotation ?const.} \\
+NN(.)*$|$WRB & \texttt{?const Annotation ?proj.} \\
+NN(.)*$|$WRB & \texttt{?proj a Annotation.} \\
+NN(.)*$|$WRB & \texttt{?const a Annotation.} \\
+NN(.)*$|$WRB & \texttt{?const text:query (node label)} \\
+WP& \texttt{?const a Annotation.} \\
+WP& \texttt{?proj a Annotation.} \\
+%WP$|$NN(.)*$|$WRB& ignore \\
+in all cases & add empty triple pattern\\
+\midrule
+\textbf{Node POS-tag and empty annotations} & \textbf{Query Fragment} \\
+\midrule
+CNN$|$NNP(.)*$|$JJ$|$CD&  \texttt{?proj text:query (node label)} \\
+CNN$|$NNP(.)*$|$JJ$|$CD&\texttt{?const text:query (node label)} \\
+VB(.)*& \texttt{?proj text:query (node label)} \\
+VB(.)*&\texttt{?const text:query (node label)} \\
+ADD& \texttt{?proj ?pbridge nodeURI.} \\
+ADD& \texttt{FILTER (?proj IN (nodeURI))} \\
+ADD&  \texttt{?proj text:query (node label)} \\
+ADD& \texttt{?const text:query (node label)} \\
+NN$|$NNS& \texttt{?proj text:query (node label)} \\
+NN$|$NNS& \texttt{?const text:query (node label)} \\
+%NN(.)*$|$WP$|$ADD$|$VB(.)*$|$CombinedNN$|$JJ$|$CD& ignore node \\
+in all cases & add empty triple pattern \\
+\bottomrule
+\end{tabular}
+
+\label{tab:triple_patterns}
+\end{table}

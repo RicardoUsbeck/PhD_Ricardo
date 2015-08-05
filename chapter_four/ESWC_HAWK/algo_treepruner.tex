@@ -1,0 +1,24 @@
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwData{Dependency-argument tree with Part-of-Speech-tags}
+Queue queue = [tree.getRoot()]\;
+\While{$queue != \emptyset$} {
+	node = queue.poll()\;
+    \If{$pos(node) \in (\mathrm{WDT|POS|WP\$|PRP\$|RB|PRP|DT|IN|PDT})$} {
+	tree.remove(node)\;
+}
+	queue.add(node.getChildren())\;
+}
+\If{$root.label == ("Give")$} {
+	\For{$childNode \in root.getChildren()$} {
+		\lIf{$childNode == "me"$} {
+			tree.remove(childNode)
+		}
+	}
+}
+\lIf{root.label $\in\{ "List", "Give"\}$}{
+	tree.remove(root)
+}
+\caption{Algorithm for pruning noisy nodes}
+\end{algorithm}
+\label{listing:lingpruning}

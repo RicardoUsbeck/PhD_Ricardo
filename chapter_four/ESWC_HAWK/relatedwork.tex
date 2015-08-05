@@ -1,0 +1,102 @@
+\section{Related Work} 
+\label{sec:relatedwork}
+Hybrid question answering is related to the fields of hybrid search and question answering over structured data. In the following, we thus give a brief overview of the state of the art in these two areas of research.
+
+First, we present hybrid search approaches which use a combination of structured as well as unstructured data to satisfy an user's information need. 
+Semplore~\cite{Zhang:2007a} is the first known hybrid search engine by IBM.
+It combines existing information retrieval index structures and functions to index RDF data as well as textual data. 
+Semplore focuses on scalable algorithms and is evaluated on an early QALD dataset.
+Bhagdev et al.~\cite{Bhagdev:2008:HSE} describe an approach to hybrid search combining keyword searches, Semantic Web inferencing and querying. 
+The proposed K-Search outperforms both keyword search and pure semantic search strategies.
+Additionally, an user study reveals the acceptance of the Hybrid Search paradigm by end users.
+%K-Search retrieves only documents where a full-text match and an ontology match via SPARQL is available, loosing possible matching documents.
+%Results achieved with K-Search are not replicable because of the closed nature of the underlying data.
+%Especially, the authors point out the importance of keywords-in-context queries. 
+%For example, semantic search can only deliver which component of an engine is located on or nearby another. 
+%A full text search will reveal which part of an engine broke at a certain event. 
+%But with a keyword-in-context search you can derive which greater parts are affected or which common producer all parts have.
+%Unfortunately, the paper lacks of formalisation and implementation details, neither an online demo is available.
+%K-Search follows a formula-based search and hence exacerbate the input of arbitrary queries for all kinds of users.
+%K-Search is a simple combination of IE and set operations over documents and triples enabling HS.
+A personalized hybrid search implementing a  hotel search service as use case is presented in~\cite{DBLP:journals/kbs/Yoo12}. 
+%An question- and answer-based system to infer the users personal preferences is introduced. 
+By combining rule-based personal knowledge inference over subjective data, such as expensive locations, and reasoning, the personalized hybrid search has been proven to return a smaller amount of data thus resulting in more precise answers. 
+%Additionally, Yoo presents an architectures for hybrid search and a novel hotel ontology derived from crowd data. 
+Unfortunately, the paper does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
+%Donghee Yoo presented in 2012 a personalized hybrid search~\cite{DBLP:journals/kbs/Yoo12} and implemented a personalized, hotel search service as use case.
+%The author distinguishes between frequently updated and static data to choose whether to use query rewriting or query reasoning. 
+%Moreover, an question-- and answer--based system to infer the users personal preferences is introduced. 
+%By combining rule-based personal knowledge inference over subjective data (e.g. \emph{cheap hotels}) and reasoning over non-frequently changed datasets the personalized hybrid search has been proven to return a smaller amount of data claimed to be more precise.
+%Unfortunately, the paper does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
+All presented approaches fail to answer natural-language questions.
+Besides keyword-based search queries, some search engines already understand natural language questions. Question answering is more difficult than keyword-based searches since retrieval algorithms need to understand complex grammatical constructs.
+% thus impede speech input and conversational opportunities. 
+
+%Using the whole available knowledge in the Web of Data requires queries to run simultaneously on a large number of stores. Providing federated search algorithms is a key technology to leverage real-time QA systems. (Nikolov et al. 2013) present a federated SPARQL search engine - FedSearch - which provides a hybrid combination of SPARQL and a full-text search tackling data heterogeneity . FedSearch is able to execute top-k search. Their vendor independent approach of full text search outperforms the state of the art in federated querying.
+%\todo[inline]{Is there a benchmark for federated queries over Linked Data?}
+%\todo[inline]{Benchmark data is not available anymore: http://wiki.aksw.org/projects/lodquery}
+%\todo[inline]{SINA does not work. Make sure Hydra works all the time}
+%\subsection{Question Answering}
+Second, we explain several QA approaches in the following.
+{Schlaefer et al.~\cite{ephyra2007}} describe \emph{Ephyra}, an open-source question answering system and its extension with factoid and list questions via semantic technologies.
+%Using semantic technology like Wordnet as well as a answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules.
+%\todo[inline]{Instead of their hand-coded answer-type-hierarchy, we could make use of relations extracted from ontologies.The authors use a AdaBoost based classifier for answer merging}
+Using Wordnet as well as an answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules. The disadvantage of this system lies in the hand-coded answer type hierarchy. % which prohibits its multi-lingual use.
+%Ephyra is an open source QA system presented by (Schlaefer et al., 2007). It is able to deal with standard natural language questions as well as with factoid and list questions via semantic technologies. 
+Cimiano et al.~\cite{orakel} developed \emph{ORAKEL} to work on structured knowledge bases.
+The system is capable of adjusting its natural language interface using a refinement process on unanswered questions. 
+Using F-logic and SPARQL as transformation objects for natural language user queries it fails to make use of Semantic Web technologies such entity disambiguation.
+{Lopez et al.~\cite{PowerAqua}} introduce \emph{PowerAqua}, another open source system, which is agnostic of the underlying yet heterogeneous sets of knowledge bases. 
+It detects on-the-fly the needed ontologies to answer a certain question, maps the users query to Semantic Web vocabulary and composes the retrieved (fragment-)information to an answer. However, PowerAqua is outperformed by TBSL (see below) in terms of accuracy w.r.t. the state-of-the-art QALD 3 benchmark.
+{Damljanovic et al.~\cite{freya}} present \emph{FREyA} to tackle ambiguity problems when using natural language interfaces. 
+Many ontologies in the Semantic Web contain hard to map relations, e.g., questions starting with 'How long$\ldots$' can be disambiguated to a time or a distance. 
+By incorporating user feedback and syntactic analysis FREyA is able to learn the users query formulation preferences increasing the systems question answering precision. 
+{Cabrio et al.~\cite{qakis}} present a demo of \emph{QAKiS}, an agnostic QA system grounded in ontology-relation matches. 
+The relation matches are based on surface forms extracted from Wikipedia to enforce a wide variety of context matches, e.g., a relation birthplace(person, place) can be explicated by X was born in Y or Y is the birthplace of X. 
+Unfortunately, QAKiS matches only one relation per query and moreover relies on basic heuristics which do not account for the variety of natural language in general.
+{Unger et al.~\cite{pythia}} describe \emph{Pythia}, a question answering system based on two steps.
+First, it uses a domain-independent representation of a query such as verbs, determiners and wh-words.
+Second, Pythia is based on a domain-dependent, ontology-based interface to transform queries into F-logic.
+%The system has been evaluated on the geosystem ontology\footnote{\url{ftp://ftp.cs.utexas.edu/pub/mooney/nl-ilp-data/geosystem/}} and 880 annotated questions reaching an F-measure of 73.3\%.
+Unfortunately, Pythia does not scale for larger domains since manual mapping of ontology terms via LexInfo is required.
+%\todo[inline]{Use http://www8.cs.umu.se/~mjm/pubs/nldb09a.pdf to categorize otgher approaches}
+Moreover, Unger et al.~\cite{tbsl} present a manually curated, template-based approach, dubbed \emph{TBSL}, to match a question against a specific SPARQL query. 
+Combining natural language processing capabilities with Linked Data leads to good benchmark results on the QALD-3 benchmark (see below).
+TBSL cannot be used to a wider variety of natural language questions due to its limited repertoire of 22 templates.
+{Shekarpour et al.~\cite{SINA_WebSemantic}} develop \emph{SINA} a keyword and natural language query search engine which is aware of the underlying semantics of a keyword query. 
+The system is based on Hidden Markov Models for choosing the correct dataset to query.
+%Underlying is a SPARQL generation process which means SINA is only capable of dealing with Linked Data and cannot benefit from the wealth of unstructured information in the current Web.
+%Due to the costly Hidden Markov Models SINAs answer time (on average 3.9s) is above enduser expectations.
+%$(Shekarpour et al.,2013) introduce SINA a keyword and natural language query search engine which is aware of the underlying semantics of a keyword query. Based on Hidden Markov Models for choosing the correct dataset to query and a underlying  SPARQL generation process enables SINA to benefit from Linked Data. So far SINA is not capable of working with unstructured information and time inefficient as well.
+%HMM is a very costly algorithm which can be substituted by a tuned dynamic programming algorithm tuned with a larger number of logs.
+%SINA needs at leas 3.9s to answer a question which is unacceptable since users do not wait for more than 1s until they want to see the SERP.
+\emph{Treo}~\cite{treo} emphasis the connection between the semantic matching of input queries and the semantic distributions underlying knowledge bases.
+The tool provides an entity search, a semantic relatedness measure, and a search based on spreading activation.
+Recently, Peng et al.~\cite{DBLP:journals/corr/PengZZ14} describe an approach for hybrid QA mapping keywords as well as resource candidates to modified SPARQL queries. 
+Due to its novelty we were not able to compare it to HAWK.
+
+Several industry-driven QA-related projects have emerged over the last years. 
+For example, DeepQA of IBM Watson~\cite{watson}, which was able to win the Jeopardy! challenge against human experts. 
+%The results of this project are yet not open-source and are thus of limited use for the QA community. 
+%Moreover, the Watson API is restricted to only a few users. 
+Further, {KAIST's Exobrain\footnote{\url{http://exobrain.kr/}}} project aims to learn from large amounts of data while ensuring a natural interaction with end users. 
+However, it is yet limited to Korean for the moment. % and does not aim to enable an open-source access to its components.
+
+The field HAWK refers to is hybrid question answering for the Semantic Web, i.e., QA based on hybrid data (RDF and textual data).
+To the best of our knowledge, none of the previous works has addressed this question so far.
+%\todo[inline]{ On The Marriage of SPARQL and Keywords
+%  by Peng Peng, Lei Zou, Dongyan Zhao
+%* Semplore: An IR Approach to Scalable Hybrid Query of Semantic Web Data
+%  byLei Zhang, QiaoLing Liu, JieZhang, HaoFen Wang, Yue Pan, Yong Yu
+%   Venses is hybrid in the sense that it combines different rule systems while the second paper simply combines different algorithms on text (QA4MRE data).
+%  * VENSES GetAsk: a System for Hybrid Question Answering And Answer Recovery using Text Entailment
+%•	A Hybrid Question Answering System based on Information Retrieval and Answer Validation}
+%Lukovnikov presents~\cite{SESSA} a novel spread-activation-based entity search tool. 
+%SESSA disambiguates and segments user input keyword queries using n-gram hierachies which are then the starting points for a coloured spread-activation algorithm. 
+%This approach is the state of the art with respect to the QALD-3 entity-search benchmark with 56,9\% F-measure.
+%In~\cite{fedsearch} a federated SPARQL search engine--FedSearch-- is presented. 
+%Especially, the authors present a hybrid combination of SPARQL an full-text search tackling data heterogeneity and lacking statistical data.
+%Their system is able to execute top-k search.
+%Since SPARQL lacks full-text search support the authors propose a triple-store-independent way of querying different RDF stores such as OWLIM, Virtuoso and LuceneSail.
+%Their vendor independent approach of keyword query search pattern is evaluated next to several optimizations against two benchmarks showing superior performs against other state-of-the-art systems-
+For further insights please refer to~\cite{Kolomiyets:2011,DBLP:journals/semweb/LopezUSM11} which present surveys on existing question answering approaches.
