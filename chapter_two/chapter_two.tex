@@ -1,45 +1,13 @@
-\documentclass{IOS-Book-Article}
+\chapter{Preliminaries}
 
-% \usepackage{natbib}
-\usepackage{graphicx}
-\usepackage{todonotes}
-\usepackage{url}
-\usepackage{wrapfig}
-
-\sloppy
-
-\begin{document}
-
-\thispagestyle{empty}
-\pagestyle{headings}
-\setcounter{page}{21}
-\runningauthor{Jentzsch et. al}
-\runningtitle{Introduction to Linked Data}
-
-\begin{frontmatter}                           % The preamble begins here.
-
-\title{An Incomplete and Simplifying Introduction to Linked Data}
-\author[A]{\fnms{Anja} \snm{Jentzsch}},
-\author[C]{\fnms{Ricardo} \snm{Usbeck}} and
-\author[B]{\fnms{Denny} \snm{Vrande\v{c}i\'{c}}}
-
-\address[A]{Hasso-Plattner-Institut, Potsdam, Germany;\\ E-mail: Anja.Jentzsch@hpi.uni-potsdam.de}
-\address[B]{Wikimedia Deuschland, Germany;}
-\address[C]{Agile Knowledge Engineering and Semantic Web (AKSW), Leipzig University, Leipzig, Germany; E-mail: ricardo.usbeck@informatik.uni-leipzig.de}
-
-\date{July 2013}
-
-\maketitle
-
-\begin{abstract}
+%\begin{abstract}
 Linked Data is becoming an increasingly popular method to publish data.
 It is based on a simple set of rules and a number of widely adopted standards.
 This introductory article aims at capturing the simplicity of Linked Data, and the concepts behind the related standards.
 It will help the reader to understand the basic elements of Linked Data and its related technologies.
 Using the example of a calendar app, we will highlight the practical advantages of using Linked Data for writing apps and publishing data in a completely decoupled way.
-\end{abstract}
+%\end{abstract}
 
-\end{frontmatter}
 
 \section{Introduction}
 \label{intro}
@@ -138,7 +106,7 @@ The following example graph is visualized in Figure~\ref{fig:graph}.
 \end{verbatim}
 
 \begin{figure}
-\includegraphics[width=\linewidth]{fig_graph.pdf}
+\includegraphics[width=\linewidth]{chapter_two/fig_graph.pdf}
 \caption{Example of Linked Data used for the calender application}
 \label{fig:graph}
 \end{figure}
@@ -464,20 +432,3 @@ The growing number of intelligent apps and devices in our environment will have 
 Imagining a future where our calendar app can support the flight finder app by restricting the departure and arrival times based on our agenda and the locations of our meetings and the airport, has become much easier today than it used to be only a few years ago.
 Such a future is much easier to achieve when the applications and devices can all communicate in the same common and standard data model, and using the same interfaces.
 
-\section*{Acknowledgements}
-
-We thank the students, who listened to previous versions of the contents of this chapters, during courses given at KIT and FU Berlin, and during several summer school courses (ESWC summer school, Berkeley Summer School for Semantic Technologies, Asian Summer School for the Semantic Web).
-Their questions and the discussions with them helped enormously in sharpening the didactic approach and our own ideas of the topic.
-Writing of this chapter was partially funded by the EU project RENDER (FP7 Grant agreement ICT-257790-STREP).\footnote{\texttt{http://www.render-project.eu}}
-\begin{wrapfigure}[2]{l}{0.22\textwidth}
- \vspace{-4mm}
- \includegraphics[width=0.22\textwidth]{esf.pdf}
-\end{wrapfigure}
-This work has been supported by the ESF and the Free State of Saxony.
-
-\normalfont
-
-\bibliographystyle{plain}
-\bibliography{references}
-
-\end{document}
