@@ -1,0 +1,32 @@
+
+
+pdf("reuters.pdf",width=8,height=6)
+
+par(cex = 1.3)
+par(mar = c(4.1,3.8,1,1))
+
+data_trigram<- read.csv("trigramOnlyreuters2.txt",sep="\t",header=F)
+data_HITS1<- read.csv("reuters_1.txt",sep="\t",header=F)
+data_HITS2<- read.csv("reuters_2.txt",sep="\t",header=F)
+data_HITS3<- read.csv("reuters_3.txt",sep="\t",header=F)
+plot(data_trigram[,2],data_trigram[,1],xlab="Trigram similarity",ylab="f-measure",pch=0, xlim=c(0.49,1),ylim=c(0.64,0.8))
+points(data_HITS1[,2],data_HITS1[,1],pch=2)
+points(data_HITS2[,2],data_HITS2[,1],pch=4)
+points(data_HITS3[,2],data_HITS3[,1],pch=8)
+legend(0.825,0.74,c("trigram-only","bfs = 1","bfs = 2","bfs = 3"),pch=c(0,2,4,8))
+
+dev.off()
+
+
+pdf("reutersWithoutSurfaceFormsAndBFS2.pdf",width=8,height=6)
+
+par(cex = 1.3)
+par(mar = c(4.1,3.8,1,1))
+
+dat_wo <- read.csv("reuters_WithoutSurfaceforms_2.txt",sep="\t",header=T)
+dat_hits<- read.csv("reuters_2.txt",sep="\t",header=F)
+plot(dat_wo[,2],dat_wo[,1],xlab="Trigram similarity",ylab="f-measure",pch=0,xlim=c(0.49,1),ylim=c(0.64,0.8))
+points(dat_hits[,2],dat_hits[,1],pch=2)
+legend(0.74,0.72,c("without surface forms, d=2","with surface forms, d=2"),pch=c(0,2))
+
+dev.off()

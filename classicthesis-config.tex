@@ -286,45 +286,27 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 %\lstdefinestyle{rdf}{numberblanklines=true, morekeywords={}}
 %\lstdefinestyle{sparql}{numberblanklines=true, morekeywords={SELECT,WHERE FILTER, GROUP BY, IN, AS}}
-\lstdefinestyle{N3}{numberblanklines=true, morekeywords={foaf, prefix}}
+%\lstdefinestyle{N3}{numberblanklines=true, morekeywords={foaf, prefix}}
 
-\usepackage{lipsum}
+%%%%%%%%%%%%%%%%%%%%%%%%% START AGDDISTIS %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{url}
+\usepackage{float}%figure environment
+\usepackage{multirow} 
+\usepackage{booktabs}
+%\usepackage[disable]{todonotes}
 \usepackage{todonotes}
-\usepackage{paralist}
-\usepackage{amsmath}%, amsthm, amssymb, array}
-\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{mdframed}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{siunitx}%number formating inside tables
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%% START TBSL %%%%%%%%%%%%%%%%%%%%%%%%%
-
-\usepackage{enumitem}
-%\usepackage[usenames,dvipsnames]{color}
-%\usepackage[table]{xcolor}
-\newcommand{\sparqlwo}[2]{{\texttt{#1 \char '173} \\[1.5pt] \hspace*{.5cm}\parbox{6cm}{\tt #2} \\ \texttt{\char '175} }}
-\newcommand{\sparql}[3]{{\texttt{#1 \char '173} \\[1.5pt] \hspace*{.5cm}\parbox{6cm}{\tt #2} \\ \texttt{\char '175} \\ \texttt{#3} }}
-\newcommand{\slot}[3]{$\langle\texttt{#1},\text{#2},\text{\sf #3}\rangle$}
-\newcommand{\argmax}{\operatornamewithlimits{arg\,max}}
-\newcommand{\argmin}{\operatornamewithlimits{arg\,min}}
-
-\usepackage{qtree}
-
-\newcommand{\Drs}[2]{%%%%%%%%%%%%%%%%%%%%%%%%%
-\(                   % begin maths mode
- \begin{array}{|l|}  %
- \hline              % top line
-   \begin{array}{l}  %
-    #1                % `Universe'
-    \end{array} \\   %  end the `universe' part
- \hline              % line between Universe and Conditions
-    \begin{array}{l} %
-    #2                % the conditions
-    \end{array} \\   % end the conditions part
- \hline              % bottom line
-\end{array}          %
-\)                   % end maths mode
-                     }%%%%%%%%%%%%%%%%%%%%%%%%%
-                     
-%%%%%%%%%%%%%%%%%%%%%%%%% END TBSL %%%%%%%%%%%%%%%%%%%%%%%%%                    
+                  
 
 % landscape tables
 % option 1
