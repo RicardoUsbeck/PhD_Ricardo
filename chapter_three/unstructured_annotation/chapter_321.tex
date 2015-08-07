@@ -1,23 +1,9 @@
-\documentclass{llncs}
 
-\usepackage[utf8]{inputenc}
-\usepackage{url}
-%\usepackage{amsmath,amssymb}
-%\usepackage{graphicx}
-%\usepackage{float}%figure environment
-\usepackage[table,xcdraw]{xcolor}
-\usepackage{todonotes}
-%\usepackage[disable]{todonotes}
-\usepackage{booktabs}
-%\usepackage{wrapfig}
-\usepackage{multirow}
-%\usepackage{endnotes}
-%\usepackage[ruled,vlined]{algorithm2e}
-%\usepackage{caption}
-%\usepackage{comment}
-%\usepackage{times}
+%\usepackage[table,xcdraw]{xcolor}
+%\usepackage{booktabs}
+%\usepackage{multirow}
 
-\usepackage{listings} 
+%\usepackage{listings} 
 \lstset{
   basicstyle=\footnotesize\ttfamily,
   breaklines=true,
@@ -31,32 +17,29 @@
   stringstyle=\tiny
 }
 
-\DeclareUnicodeCharacter{0177}{\p1}
+%\DeclareUnicodeCharacter{0177}{\p1}
 
 
-\begin{document}
+\chapter{Type Annotation on Unstructured Texts}
+%\title{CETUS -- A Baseline Approach to Type Extraction}
+%\author{
+%Michael Röder\inst{1} \and
+%Ricardo Usbeck\inst{1} \and
+%Axel-Cyrille Ngonga Ngomo\inst{1}
+%}
+%\institute{
+%University of Leipzig, Germany\\\email{\{roeder,usbeck,ngonga\}@informatik.uni-leipzig.de}
+%}
 
-\title{CETUS -- A Baseline Approach to Type Extraction}
-\author{
-Michael Röder\inst{1} \and
-Ricardo Usbeck\inst{1} \and
-Axel-Cyrille Ngonga Ngomo\inst{1}
-}
 
-\institute{
-University of Leipzig, Germany\\\email{\{roeder,usbeck,ngonga\}@informatik.uni-leipzig.de}
-}
-
-\maketitle
-
-\begin{abstract}
+%\begin{abstract}
 The concurrent growth of the Document Web and the Data Web demands accurate information extraction tools to bridge the gap between the two.
 In particular, the extraction of knowledge on real-world entities is indispensable to populate knowledge bases on the Web of Data. 
 Here, we focus on the recognition of types for entities to populate knowledge bases and enable subsequent knowledge extraction steps.
 We present CETUS, a baseline approach to entity type extraction tool.
 CETUS is based on a three-step pipeline comprising i) offline, knowledge-driven type pattern extraction from natural-language corpora based on grammar-rules, ii) an analysis of input text to extract types and iii) the mapping of the extracted type evidence to a subset of the DOLCE+DnS Ultra Lite ontology classes.
 We implement and compare two approaches for the third step using the YAGO ontology as well as the FOX entity recognition tool.
-\end{abstract}
+%\end{abstract}
 
 
 \section{Introduction}
@@ -73,11 +56,11 @@ Here the subset refers to \texttt{dul:Person}, \texttt{dul:Place}, \texttt{dul:O
 CETUS is a fast and easy to implement baseline approach to path a way to novel research insights.
 CETUS' pipeline is divided into three subsequent parts: i) an a-priori pattern extraction, ii) a grammar-based analysis of the input document and iii) a mapping the type evidence to the DOLCE+DnS Ultra Lite classes. 
 CETUS implements two approaches for the third step using the YAGO ontology as well as the FOX entity recognition tool.
-We will explain these parts in detail in the Sections~\ref{sec:patternExt},~\ref{sec:docAnalysis},~\ref{sec:linkingyago} and~\ref{sec:typeLinking} respectively, before we conclude in Section~\ref{sec:conclusion}. The source code of CETUS can be found at \url{https://github.com/AKSW/Cetus}.
+We will explain these parts in detail in the Sections~\ref{sec:patternExt},~\ref{sec:docAnalysis},~\ref{sec:linkingyago} and~\ref{sec:typeLinking} respectively, before we conclude in Section~\ref{cha321:sec:conclusion}. The source code of CETUS can be found at \url{https://github.com/AKSW/Cetus}.
 
 \section{Related Work}
 
-Next to the above mentioned challenges about entity linking, several tools have been introduced with the ability to type entities, e.g., FOX~\cite{fox}.
+Next to the above mentioned challenges about entity linking, several tools have been introduced with the ability to type entities, e.g., FOX~\cite{FOX}.
 However, these tools differ in two major aspects compared to CETUS.
 First, existing tools contain only very general type hierarchies while our approach generates novel and fine grained classes, see Section~\ref{sec:docAnalysis}.
 Second, CETUS is the first tool to mark the part of a given document that contains the type evidence, i.e., a string indicating the choosen type.
@@ -259,11 +242,11 @@ After a class has been created, the first word is removed and the next class is 
 Every following class is a super class of the classes generated before.
 Finally, the entity is connected to all generated classes.
 
-For our example, three classes would be generated and linked to the entity as shown in Listing~\ref{lst:localHierarchy}\footnote{The \texttt{rdfs} prefix stands for \url{http://www.w3.org/2000/01/rdf-schema#} while the prefix \texttt{ex} could stay for every user defined vocabulary, e.g., \url{http://example.com/}.}.
+For our example, three classes would be generated and linked to the entity as shown in Listing~\ref{lst:localHierarchy}\footnote{The \texttt{rdfs} prefix stands for \url{http://www.w3.org/2000/01/rdf-schema\#} while the prefix \texttt{ex} could stay for every user defined vocabulary, e.g., \url{http://example.com/}.}.
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.8]{localHierarchy.pdf}
+\includegraphics[scale=0.8]{chapter_three/unstructured_annotation/fig/localHierarchy.pdf}
 \caption{Schema of the generated local hierarchy of the example.}
 \label{fig:localHierarchy}
 \end{figure}
@@ -300,7 +283,7 @@ The linking of the generated classes to a KB can be done in two different ways.
 Our first approach, CETUS$_{YAGO}$,  uses the labels of the automatically generated classes to find a matching class inside another, well-known KB.
 CETUS uses the YAGO ontology~\cite{mahdisoltani2014yago3} which comprises a large class hierarchy and, thus, increases the chance to match one of these classes.
 YAGO itself contains more than 10 mio. entities and exceeds 350.000 classes.
-Our second approach serves as a baseline to our own baseline approach and uses the FOX~\cite{fox} tool.
+Our second approach serves as a baseline to our own baseline approach and uses the FOX~\cite{FOX} tool.
 
 First, we created an index containing the surface forms of the YAGO classes with a mapping to the class URIs.
 Second, CETUS needs to match every generated class using the approach from Section~\ref{sec:docAnalysis} to one of the labels of the YAGO classes.
@@ -333,7 +316,7 @@ The result for our running example can be seen in Figure~\ref{fig:localYAGOHiera
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.8]{localYAGOHierarchy.pdf}
+\includegraphics[scale=0.8]{chapter_three/unstructured_annotation/fig/localYAGOHierarchy.pdf}
 \caption{Resulting type hierarchy that is created based on the YAGO ontology.}
 \label{fig:localYAGOHierarchy}
 \end{figure}
@@ -388,21 +371,15 @@ Thus, the created classes would be defined as subclasses of \texttt{dul:Person} 
 
 \begin{figure}[htb!]
 \centering
-\includegraphics[scale=0.8]{localFOXHierarchy.pdf}
+\includegraphics[scale=0.8]{chapter_three/unstructured_annotation/fig/localFOXHierarchy.pdf}
 \caption{Resulting type hierarchy that is created based on the results of FOX.}
 \label{fig:localFOXHierarchy}
 \end{figure}
 
 \section{Conclusion}
-\label{sec:conclusion}
+\label{cha321:sec:conclusion}
 
 We presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
 Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---have been explained in detail.
 We showed how the first one uses a label matching for determining a super type for the automatically generated classes while the second is based on one of the various, existing entity typing tools.
 
-\textbf{Acknowledgements} This work has been supported by the FP7 project GeoKnow (GA No. 318159) and the BMWI Project SAKE (Project No. 01MD15006E).
-
-\bibliographystyle{abbrv}
-\bibliography{references}
-
-\end{document}
