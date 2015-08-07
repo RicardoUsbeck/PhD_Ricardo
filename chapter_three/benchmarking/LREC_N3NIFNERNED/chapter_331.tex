@@ -1,27 +1,12 @@
-\documentclass[10pt, a4paper]{article}
-\usepackage{lrec2006}
 
-\usepackage{wrapfig}
-\usepackage[hyphens]{url}
-\usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{multirow}
-% START: algorithm description and math functions (Disheng)
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{amsfonts}
-\usepackage{amssymb,tikz}
-\usepackage{amsmath,amssymb}
-\usepackage{amsmath}
 % END %
-\usepackage{subfig}
-\usepackage{pifont}
-\usepackage{epstopdf}
-\usepackage{flushend}
-\usepackage{dcolumn}
-\usepackage{todonotes}
+%\usepackage{subfig}
+%\usepackage{pifont}
+%\usepackage{epstopdf}
+%\usepackage{flushend}
+%\usepackage{todonotes}
 
-\usepackage{listings} 
+%\usepackage{listings} 
 \lstset{
 basicstyle=\footnotesize\ttfamily,
 stringstyle=\tiny,
@@ -36,32 +21,32 @@ morecomment=[s][\color{red}]{"}{"}
 
  
 
-\begin{document}
-\title{$\mbox{N}^3$ - A Collection of Datasets for Named Entity Recognition and Disambiguation in the NLP Interchange Format}
+%\begin{document}
+\chapter{$\mbox{N}^3$ - A Collection of Datasets for Named Entity Recognition and Disambiguation in the NLP Interchange Format}
 
-\name{Michael R{\"o}der$^{1,2,\star}$, Ricardo Usbeck$^{1,2,\star}$, Sebastian Hellmann$^{1}$, Daniel Gerber$^1$ \& Andreas Both$^{1,2}$}
+%\name{Michael R{\"o}der$^{1,2,\star}$, Ricardo Usbeck$^{1,2,\star}$, Sebastian Hellmann$^{1}$, Daniel Gerber$^1$ \& Andreas Both$^{1,2}$}
 %\institute{First Institute Name \email{email address} \and Second Institute Name\thanks{Thank you to...} \email{email address}}
-\address{
-$^{1}$ Agile Knowledge Engineering and Semantic Web, University Leipzig, Germany \\
-$^{2}$ R\,\&\,D, Unister GmbH, Germany}
+%\address{
+%$^{1}$ Agile Knowledge Engineering and Semantic Web, University Leipzig, Germany \\
+%$^{2}$ R\,\&\,D, Unister GmbH, Germany}
 
-\abstract{
+%\abstract{
 Extracting Linked Data following the Semantic Web principle from unstructured sources has become a key challenge for scientific research. % as well as new business models. \todo{Jens: Which business models? This just appears in the abstract and not the introduction.}
 Named Entity Recognition and Disambiguation are two basic operations in this extraction process.
 %\todo{Jens: maybe "One step towards the realization of ..." - avoid repeating "key driver"} 
 One step towards the realization of the Semantic Web vision and the development of highly accurate tools is the availability of data for validating the quality of processes for Named Entity Recognition and Disambiguation as well as for algorithm tuning.
 This article presents three novel, manually curated and annotated corpora ($\mbox{N}^3$). All of them are based on a free license and stored in the NLP Interchange Format to leverage the Linked Data character of our datasets. %\todoanbo{make more catchy} % for interoperability reasons.
-\\ \newline \Keywords{Datasets, NLP Interchange Format, Named Entity Detection, Named Entity Disambiguation}
-}
+%\\ \newline \Keywords{Datasets, NLP Interchange Format, Named Entity Detection, Named Entity Disambiguation}
+%}
 
-\maketitleabstract
+%\maketitleabstract
 
 \section{Introduction}
 
 Automatically extracting and linking Named Entities (NEs) to a particular knowledge base (KB) from unstructured, natural language text is an extremely challenging task~\cite{Cucerzan07}. 
 Leveraging Linked Data can help developing tools to automatically extract semantic data~\cite{GER+13,AIDA,spotlight,Usbeck2013}.
 
-The tasks of Named Entity Recognition (NER) and Named Entity Disambiguation (NED) are part of the research area of Information Extraction (IE)~\cite{fox}.
+The tasks of Named Entity Recognition (NER) and Named Entity Disambiguation (NED) are part of the research area of Information Extraction (IE)~\cite{FOX}.
 NER is the task of identifying entities of certain types.
 %why not use the NERD core classes? 
 NED is the task of disambiguating pre-identified named entities towards a certain KB.
@@ -162,7 +147,7 @@ The \texttt{Reuters-128} corpus has most documents, although many of these docum
 
 \begin{figure*}[tb!]
   \centering
-  \includegraphics[width=\linewidth]{NE_per_doc.pdf}
+  \includegraphics[width=\linewidth]{chapter_three/benchmarking/LREC_N3NIFNERNED/NE_per_doc.pdf}
   \caption{Distribution of NEs per document. We omitted two outliers from the News-100 corpus containing 55 and 63 NEs.}
   \label{fig:nePerDoc}
 \end{figure*}
@@ -190,13 +175,13 @@ In particular, we chose 128 articles containing at least one NE, as described in
 Compared to the \texttt{News-100} corpus the documents of \texttt{Reuters-128} are significantly shorter and thus carry a smaller context, as can be seen in Table \ref{tab:corpus_stats}.
 \begin{figure*}[tb]
 \centering
-\includegraphics[width=\linewidth]{qrtool.png}
+\includegraphics[width=\linewidth]{chapter_three/benchmarking/LREC_N3NIFNERNED/qrtool.png}
 \caption{GUI of our annotation tool.}
 \label{fig:qrtool}
 \end{figure*}
 
 To create the annotation of NEs with URIs, we implemented a supporting judgement tool (see Figure~\ref{fig:qrtool})\footnote{\url{https://github.com/RicardoUsbeck/QRTool}}. The input for the tool was a subset of more than 150 Reuters-21578 news articles sampled randomly.
-First, FOX~\cite{fox} was used for recognizing a first set of NEs. 
+First, FOX~\cite{FOX} was used for recognizing a first set of NEs. 
 This reduced the amount of work to a feasible portion regarding the size of this dataset.
 
 Afterwards, the domain experts corrected the  mistakes of FOX manually using the annotation tool.
@@ -292,18 +277,4 @@ Especially, we aim at providing a structured and standardized language resource 
 Our datasets link NLP algorithms to the Semantic Web by leveraging the power of NIF and Linked Data.
 In the future, the enlargement of the corpora and the improvement of their quality through the community are major issues that need to be worked on. 
 Furthermore, converting more existing datasets to NIF and re-bundle them in order to provide even more insightful NER and NED benchmarks is the next step of research in this area.
-
-\bibliographystyle{lrec2006}
-\bibliography{myrefs,aksw,limes,references}
-
-\section*{Acknowledgments}
-\begin{wrapfigure}[3]{l}{0.22\textwidth}
- \vspace{-5mm}
- \includegraphics[width=0.22\textwidth]{esf.pdf}
-\end{wrapfigure}
-We thank Luise Erfurth and Didier Cherix for helping us creating annotations of the datasets and Jens Lehmann for his feedback. A special thanks goes to \url{news.de} for allowing us to use their articles. Parts of this work were supported by the ESF and the Free State of Saxony.
-
-
-
-\end{document}
 

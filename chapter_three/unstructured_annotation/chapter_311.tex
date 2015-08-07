@@ -174,7 +174,7 @@ In this paper, we do not consider abbreviations although these could be easily r
 Next to searching the index we apply a \emph{string normalization} approach and an \emph{expansion policy} to the input text:
 The string normalization is based on eliminating plural and genitive forms, removing common affixes such as postfixes for enterprise labels and ignoring candidates with time information (years, dates, etc.) within their label.
 For example, the genitive \texttt{New York's} is transformed into \texttt{New York}, the postfix of \texttt{Microsoft Ltd.} is reduced to \texttt{Microsoft} and the time information of \texttt{London 2013} is ignored.
-Our \emph{expansion policy} is a time-efficient approach to coreference resolution, which plays a central role when dealing with text from the Web, cf.~Singh et al.~~\cite{Singh}. 
+Our \emph{expansion policy} is a time-efficient approach to coreference resolution, which plays a central role when dealing with text from the Web, cf.~Singh et al.~~\cite{singh}. 
 In web and news documents, named entities are commonly mentioned in their full length the first time they appear, while the subsequent mentions only consist of a substring of the original mention due to the brevity of most news data.
 For example, a text mentioning Barack Obama's arrival in Washington D.C. will commonly contain \texttt{Barack Obama} in the first mention of the entity and use strings such as \texttt{Obama} or \texttt{Barack} later in the same text (see Example~\ref{ex:obama}).
 We implement this insight by mapping each named entity label (e.g., \texttt{Obama}) which is a substring of another named entity label that was recognized previously (e.g., \texttt{Barack Obama}) to the same resource ,\,i.e., \texttt{dbr:Barack\_Obama}.
