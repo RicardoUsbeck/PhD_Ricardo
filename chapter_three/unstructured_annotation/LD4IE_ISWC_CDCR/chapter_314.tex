@@ -1,29 +1,28 @@
-\documentclass{llncs}
 
-\usepackage{graphicx}
-\usepackage{subfigure}
-\usepackage{amsmath,amssymb}
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{url}
-\usepackage{float}
-\usepackage{multirow} 
-\usepackage{booktabs}
+%\usepackage{graphicx}
+%\usepackage{subfigure}
+%\usepackage{amsmath,amssymb}
+%\usepackage[english]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[ruled,vlined]{algorithm2e}
+%\usepackage{url}
+%\usepackage{float}
+%\usepackage{multirow} 
+%\usepackage{booktabs}
 %\usepackage[disable]{todonotes}
-\usepackage{todonotes}
-\usepackage{booktabs}
-\usepackage{mdframed}
-\usepackage{wrapfig}
-\usepackage{caption}
-\usepackage{tikz}
-\usepackage{verbatim}
-\usepackage{afterpage}
+%\usepackage{todonotes}
+%\usepackage{booktabs}
+%\usepackage{mdframed}
+%\usepackage{wrapfig}
+%\usepackage{caption}
+%\usepackage{tikz}
+%\usepackage{verbatim}
+%\usepackage{afterpage}
 %\usepackage[active,tightpage]{preview}
 %\PreviewEnvironment{tikzpicture}
 %\setlength\PreviewBorder{5pt}%
 
-\usepackage{siunitx}%number formatting inside tables
+%\usepackage{siunitx}%number formatting inside tables
 \sisetup{
 round-mode = places,
 detect-family = true,
@@ -32,36 +31,36 @@ detect-weight=true,
 detect-inline-weight = math
 }%
 
-\begin{document}
+%\begin{document}
 
 
-\title{Cross-Document Co-reference Resolution using Latent Features}
+\chapter{Cross-Document Co-reference Resolution using Latent Features}
 
 
-\author{
-Axel-Cyrille Ngonga Ngomo$^{\diamondsuit}$ \and
-Michael R\"oder$^{\spadesuit\diamondsuit}$ \and 
-Ricardo Usbeck$^{\spadesuit\diamondsuit}$ 
-\institute{
-${\diamondsuit}$ University of Leipzig, Germany, 
-${\spadesuit}$ R\,\&\,D, Unister~GmbH, Leipzig, Germany, 
-\newline email: \{ngonga$|$usbeck\}@informatik.uni-leipzig.de
-}
-}
+%\author{
+%Axel-Cyrille Ngonga Ngomo$^{\diamondsuit}$ \and
+%Michael R\"oder$^{\spadesuit\diamondsuit}$ \and 
+%Ricardo Usbeck$^{\spadesuit\diamondsuit}$ 
+%\institute{
+%${\diamondsuit}$ University of Leipzig, Germany, 
+%${\spadesuit}$ R\,\&\,D, Unister~GmbH, Leipzig, Germany, 
+%\newline email: \{ngonga$|$usbeck\}@informatik.uni-leipzig.de
+%}
+%}
 
-\maketitle
+%\maketitle
 
-\newmdtheoremenv{ex}{Example}
+%\newmdtheoremenv{ex}{Example}
 \newcommand{\goodgap}{%
 \hspace{\subfigtopskip}%
 \hspace{\subfigbottomskip}}
 
-\begin{abstract}
+%\begin{abstract}
 Over the last years, entity detection approaches which combine named entity recognition and entity linking have been used to detect mentions of RDF resources from a given reference knowledge base in unstructured data. In this paper, we address the problem of assigning a single URI to named entities which stand for the same real-object across documents but are not yet available in the reference knowledge base. This task is known as cross-document co-reference resolution and has been addressed by manifold approaches in the past. We present a preliminary study of a novel take on the task based on the use of latent features derived from matrix factorizations combined with parameter-free graph clustering. 
 %We study whether this approach achieves better results than the simple approaches used in most tools so far by measuring the accuracy of the clusters we detect on several benchmark datasets.
 We study the influence of different parameters (window size, rank, hardening) on our approach by comparing the F-measures we achieve on the $\mbox{N}^3$ benchmark.
 Our results suggest that using latent features leads to higher F-measures with an increase of up to 20.5\% on datasets of the $\mbox{N}^3$ collection.
-\end{abstract} 
+%\end{abstract} 
 
 %\todo[inline]{Full paper with a maximum of 12 pages including references
 %Short paper with a maximum of 6 pages including references}
@@ -86,11 +85,11 @@ The similarity of the latent representation of the entity mentions is then trans
 All entity mentions which belong to the same cluster are regarded as mentions of the same real-world object and are assigned to the same URI.
 Our approach is open-source and available at \url{http://github.com/AKSW/CoreferenceResolution}.
 
-The rest of this paper is organized as follows:
+The rest of this paper is organized as follows:v
 First, we give an overview of previous CDCR approaches.
 Then, we present our approach in detail.
-In Section~\ref{sec:eval}, we evaluate our approach on the $\mbox{N}^3$ benchmark dataset~\cite{N3} and compare it with a baseline approach.
-We conclude the paper and discuss future work in Section~\ref{sec:conclusion}.
+In Section~\ref{cha314:sec:evalval}, we evaluate our approach on the $\mbox{N}^3$ benchmark dataset~\cite{n3} and compare it with a baseline approach.
+We conclude the paper and discuss future work in Section~\ref{cha314:sec:conclusion}.
 %Most entity detection frameworks assume that they can map detected named entities to resources in knowledge bases and assign automatically generated URIs to named entities which stand for unknown resources.
 %As they solve the URI generation problem locally, ...
 %Over the last years, cross-document co-reference resolution approaches have been devised to help detect which
@@ -163,7 +162,7 @@ Hence, they are all assigned the same URI.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.9\textwidth]{SystemOverview.pdf}
+\includegraphics[width=0.9\textwidth]{chapter_three/unstructured_annotation/LD4IE_ISWC_CDCR/cdcr_SystemOverview.pdf}
 \caption{The five steps of our approach.}
 \label{fig:SystemOverview}
 \end{figure}
@@ -179,9 +178,9 @@ In these tokenized documents, the context of a named entity mention is defined a
 The contexts are stored in a matrix $M$ containing a row for every named entity mention and a column for every indexed word.
 The entries of the matrix are the counts of the words inside the entity mention's context.
 As an example, let us consider the sentence 
-\begin{example}
+\begin{ex}
 \texttt{Yesterday, VW's CEO presented the new \underline{Golf} in Munich}.
-\end{example}
+\end{ex}
 from which the stopwords \{\texttt{the}, \texttt{in}\} are removed.
 For the window size $\sigma = 1$, we get the bag-of-word multiset \{\texttt{new} (1), \texttt{Munich} (1)\} as representation of ``Golf''.
 Within the vector space spawned by (\texttt{presented}, \texttt{new}, \texttt{Munich}, \texttt{Germany}), this mention has the vector representation $(0, 1, 1, 0)$.
@@ -358,7 +357,7 @@ In the subsequent section, we show empirically that using $L$ to generate $G$ le
 
 \section{Evaluation}
 
-\label{sec:eval}
+\label{cha314:sec:evalval}
 
 \subsection{Experimental Setup}
 
@@ -370,7 +369,7 @@ We addressed the second goal by creating a baseline as follows: We ran our pipel
 The similarity threshold for the graph generation is set to $\theta=0.1$ for all our experiments.
 
 \subsubsection{Datasets}
-We use the three corpora of the $\mbox{N}^3$ collection~\cite{N3} in our experiments.
+We use the three corpora of the $\mbox{N}^3$ collection~\cite{n3} in our experiments.
 %\todo[inline]{Actually here could be an error, which leads to very high f-measure}
 %Each corpus was annotated manually, i.e., each entity mention was mapped to an URI from DBpedia~\cite{lehmann2014dbpedia} or a URI from the \url{http://aksw.org/} namespace if no corresponding resource could be found in DBpedia.
 %
@@ -434,7 +433,7 @@ This might mean that a small set of words is already sufficient to disambiguate 
 
 \begin{figure}[t!]
 \centering
-\includegraphics[width = \textwidth]{results_Flow.pdf}
+\includegraphics[width = \textwidth]{chapter_three/unstructured_annotation/LD4IE_ISWC_CDCR/cdcr_results_Flow.pdf}
 \caption{Precision, recall and F1-score of our approach with different ranks (left) and different window sizes (right) compared to the baseline (BL). The diagrams show the results for the flow maximization hardening.}
 \label{fig:results}
 \end{figure}
@@ -485,7 +484,7 @@ We will address this question in future work by disambiguating using a combinati
 %We also measured the runtime of our approach across all experiments. Our results suggest that our approach can actually lead to significantly smaller runtimes. However, the settings in which we achieve the best runtimes correspond to settings in which the overall runtime of our approach is comparable to that of the baseline. This is obviously a satisfactory results as it means that we can achieve better F-measure without requiring significantly higher processing times.
 
 \section{Conclusion}
-\label{sec:conclusion}
+\label{cha314:sec:conclusion}
 In this paper, we presented a CDCR approach based on latent features.
 We showed that our approach can outperform our baseline by more than 10\% F-measure.
 %Moreover, we showed that our approach scales well and can thus be used on large datasets.
@@ -495,19 +494,9 @@ To this end, we plan to use the derivative of the mean squared error $||M - LR^{
 Finally, we will develop a deterministic approach to initialize $L$ and $R$. 
 Preliminary results on random matrices show that we can already reduce the initial value of $||E||^2_F$ by more approximately 40\%, leading to a significantly faster convergence of the factorization.
 
-\section*{Acknowledgments}
-\begin{wrapfigure}[2]{l}{0.20\textwidth}
- \vspace{-8mm}
- \includegraphics[width=0.20\textwidth]{esf.pdf}
-\end{wrapfigure}
-This work has been supported by the ESF and the Free State of Saxony and the FP7 project GeoKnow (GA No. 318159).
 
 
-\bibliographystyle{abbrv}
-\bibliography{myrefs,aksw,limes,references}
-
-
-\end{document}
+%\end{document}
 
 
 \begin{comment}
@@ -526,3 +515,47 @@ This work has been supported by the ESF and the Free State of Saxony and the FP7
 	\label{tab:improvements}
 \end{table}
 \end{comment}
+
+\begin{comment}
+\subsection{Initialization of $L$ and $R$}
+In most approaches, the matrices $L$ and $R$ are initialized by using random values.
+While this approach still leads to converging results in practical applications, it is unsatisfactory as the results of the factorization may be different across different initializations.
+We address the initialization problem by using a correlation-based approach.
+The intuition behind our approach is that the latent features describe a space whose basic vectors stand for weakly correlated dimensions. 
+We can thus initialize the matrices $L$ (and analogously the matrix $R$) by detecting the rows (resp. columns) that display the smallest correlation to other rows and using those as our initialization for $L$.
+We go about implementing this intuition as follows: Let 
+\begin{equation}
+B = M \times M^\top \mbox{ and } A = \frac{B}{\max\limits_{i, j} b_{ij}}.
+\end{equation}
+The matrix $A$ encompasses how correlated the rows in $M$ are.
+We assign each row $a_{i}$ a weight $w_i = \sum_{j=1}{n} a_{ij}$.
+The weight $w_i$ tells us how correlated $a_i$ is to $a_1 \ldots a_n$.
+We now sort the rows according to their weights in ascending order and select the r rows with the smallest weight.
+These rows are then used to initialize $L$, ergo $l_1 = a_k$ with $\forall i \neq k, w_i \geq w_k$.  
+
+The matrix $R$ can be initialized analogously by setting 
+\begin{equation}
+B = M^\top \times M \mbox{ and } A = \frac{B}{\max\limits_{i, j} b_{ij}}.
+\end{equation}
+\todo{Add example}
+
+\begin{itemize}
+\item use FOX to do NER over several documents \todo{No need for FOX in the experiments. Simply use the benchmarks directly.} 
+\todo{Now it is implemented and getting back to the original work would be cumbersome.} 
+\item describe an entity by its neighbors, i.e., window size and latent features
+\item use cosine similarity as a baseline
+\item cluster those entities across documents using Axels framework
+\item named entities are the same resources if they end up in the same cluster...\todo[inline]{RU: I fear the noise hear when number of clusters is too low}
+\item formulate good URIs for them, see http://www.w3.org/TR/cooluris/
+
+\end{itemize}
+
+LR^T = 
+
+  5,103 1,896 -0,712 1,555
+  3,412 1,274 -0,450 1,085
+  1,540 1,040  1,780 3,949
+  1,169 0,799  1,394 3,073
+ -0,438 0,543  3,076 5,125
+\end{comment}
+
