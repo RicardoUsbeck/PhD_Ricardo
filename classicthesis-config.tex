@@ -73,13 +73,16 @@
 % Packages with options that might require adjustments
 % ******************************************************************** 
 %\PassOptionsToPackage{latin9}{inputenc}	% latin9 (ISO-8859-9) = latin1+"Euro sign"
-% \usepackage{inputenc}				
+% \usepackage{inputenc}	
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{listings} 
+
+\usepackage[english]{babel}					
 \usepackage[T1]{fontenc}
 
 %\PassOptionsToPackage{ngerman,american}{babel}   % change this to your language(s)
 % Spanish languages need extra options in order to work with this template
 %\PassOptionsToPackage{spanish,es-lcroman}{babel}
- \usepackage{babel}					
 
 %\PassOptionsToPackage{square,numbers}{natbib}
 % \usepackage{natbib}		
@@ -243,7 +246,6 @@
 % ****************************************************************************************************
 % 5. Setup code listings
 % ****************************************************************************************************
-\usepackage{listings} 
 \lstset{
     numberbychapter=false,
     numbers=left,
@@ -294,8 +296,7 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
-\usepackage[utf8]{inputenc}
-\usepackage[ruled,vlined]{algorithm2e}
+%\usepackage[utf8]{inputenc}
 \usepackage{url}
 \usepackage{float}%figure environment
 \usepackage{multirow} 
@@ -324,7 +325,7 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 %\usepackage{refcheck}
 
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 % fix the duplicate todo notes
 \let\marginpar\oldmarginpar
 
