@@ -14,7 +14,9 @@
 % 1. Configure classicthesis for your needs here, e.g., remove "drafting" below 
 % in order to deactivate the time-stamp on the pages
 % ****************************************************************************************************
-\PassOptionsToPackage{eulerchapternumbers,listings,drafting,%
+\PassOptionsToPackage{table}{xcolor}
+
+\PassOptionsToPackage{eulerchapternumbers,listings,%
 				 pdfspacing,%floatperchapter,%linedheaders,%
 				 subfig,beramono,eulermath,parts}{classicthesis}										
 % ********************************************************************
@@ -274,10 +276,10 @@
 }
 
 % Turtle box
+%\usepackage[table,xcdraw]{xcolor}
 %\usepackage{color}
-%\usepackage{xcolor}
-\definecolor{olivegreen}{rgb}{0.1,0.6,0.3}
-\definecolor{grey}{rgb}{0.2,0.2,0.2}
+%\definecolor{olivegreen}{rgb}{0.1,0.6,0.3}
+%\definecolor{grey}{rgb}{0.2,0.2,0.2}
 \lstdefinelanguage{ttl}{
 sensitive=true,
 showstringspaces=false,
@@ -299,7 +301,7 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
-%\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{url}
 \usepackage{float}%figure environment
 \usepackage{multirow} 

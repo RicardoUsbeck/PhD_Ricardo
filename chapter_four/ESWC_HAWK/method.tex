@@ -1,5 +1,5 @@
 \section{Method}
-\label{sec:method}
+\label{chahawk:sec:method}
 
 In the following, we describe the architecture and methodology of HAWK. We explain our approach by using the following running example:
 \texttt{Which recipients of the Victoria Cross died in the Battle of Arnhem?}
@@ -8,13 +8,13 @@ While this question cannot be answered by using solely DBpedia or Wikipedia abst
 In order to find out whether the returned resources died in the Battle of Arnhem, the free text abstract of those resources need to be checked. For example, the abstract for John Hollington Grayburn contains the following information: 
 `he went into action in the Battle of Arnhem [...] but was killed after standing up in full view of a German tank'.
 
-Figure~\ref{fig:architecture} gives an overview of the architecture of HAWK. In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
+Figure~\ref{chahawk:fig:architecture} gives an overview of the architecture of HAWK. In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\linewidth]{HAWK_architecture}
+\includegraphics[width=0.8\linewidth]{chapter_four/ESWC_HAWK/HAWK_architecture}
 \caption{Architectural overview of HAWK.}
-\label{fig:architecture}
+\label{chahawk:fig:architecture}
 \end{figure}
 
 
@@ -46,7 +46,7 @@ Additionally, we implemented two artificial spotters for evaluation:
 
 For our running example, an optimal spotter identifies \texttt{Victoria\_Cross} and \texttt{Battle\_of\_Arnhem} as resources form DBpedia.
 HAWK annotates the POS-tag \texttt{ADD} to it. % for our running example from above.
-The influence of the entity annotation module is evaluated in Section~\ref{sec:evaluation}.
+The influence of the entity annotation module is evaluated in Section~\ref{chahawk:sec:evaluation}.
 
 \subsection{Dependency Parsing}
 HAWK performs noun phrase detection for semantically meaningful word groups not yet recognized by the entity annotation system also known as chunking.
@@ -55,11 +55,11 @@ Input tokens will be combined following manually-crafted linguistic heuristics d
 Thus, the input is a natural language question (list of keywords) and the output is a list of chunks, see Algorithm~1.
 HAWK's modular structure allows for an easy exchange of the POS-tagger or dependency parser.
 
-\input{algo_nouncombiner.tex}
+\input{chapter_four/ESWC_HAWK/algo_nouncombiner.tex}
 
 Subsequently, in order to capture linguistic and semantic relations, HAWK parses the query using dependency parsing and semantic role labeling~\cite{choi2011getting}.
 The dependency parser is given the chunked question. 
-The generated pre\-dicate-argument tree is directed, acyclic, and all its nodes contain their POS-tags as well as their labels, see Figure~\ref{fig:dependency_tree}.
+The generated pre\-dicate-argument tree is directed, acyclic, and all its nodes contain their POS-tags as well as their labels, see Figure~\ref{chahawk:fig:dependency_tree}.
 
 
 \subsection{Linguistic Pruning}
@@ -67,22 +67,22 @@ The generated pre\-dicate-argument tree is directed, acyclic, and all its nodes 
 The natural language input can contain tokens that are meaningless for retrieving the target information or even introduce noise in the process.
 HAWK therefore prunes nodes from the predicate-argument tree based on their POS-tags, e.g., deleting all \texttt{DET} nodes, interrogative phrases such as \texttt{Give me} or \texttt{List}, and auxiliary tokens such as \texttt{did}.
 Algorithm~2 details the algorithm for removing nodes.
-Figure~\ref{fig:prunedtree} depicts the predicate-argument tree obtained for our running example after pruning.% of unnecessary nodes.
+Figure~\ref{chahawk:fig:prunedtree} depicts the predicate-argument tree obtained for our running example after pruning.% of unnecessary nodes.
 
-\input{algo_treepruner.tex}
+\input{chapter_four/ESWC_HAWK/algo_treepruner.tex}
 
 \begin{minipage}{0.57\textwidth} 
 \centering
-\includegraphics[width=\linewidth]{hawk_tree_full}
+\includegraphics[width=\linewidth]{chapter_four/ESWC_HAWK/hawk_tree_full}
 \captionof{figure}{Predicate-argument tree for the example question `Which recipients of the Victoria Cross died in the Battle of Arnhem?'}
-\label{fig:dependency_tree}
+\label{chahawk:fig:dependency_tree}
 \end{minipage}
 \hfill
 \begin{minipage}{0.36\textwidth}
 \centering
-\includegraphics[width=\linewidth]{hawk_tree_pruned}
+\includegraphics[width=\linewidth]{chapter_four/ESWC_HAWK/hawk_tree_pruned}
 \captionof{figure}{Tree after pruning. Argument edges are ordered from left to right.}
-\label{fig:prunedtree}
+\label{chahawk:fig:prunedtree}
 \end{minipage}
 
 \subsection{Semantic Annotation}
@@ -132,7 +132,7 @@ or it will be lead to a full-text lookup to be resolved to a knowledge base reso
 %\end{table}
 
 \subsection{Generating SPARQL Queries}
-\label{sec:full-text}
+\label{chahawk:sec:full-text}
 
 The core of HAWK is the generation of SPARQL queries from annotated and pruned predicate-argument trees.
 %\todo[inline]{The indexed properties used for  text searches will be described in Section 2.6. }
@@ -187,7 +187,7 @@ Table~\ref{tab:triple_patterns_example} shows generated triple patterns for part
 \label{tab:triple_patterns_example}
 \end{table}
 
-\input{pattern.tex}
+\input{chapter_four/ESWC_HAWK/pattern.tex}
 
 During this process, each iteration of the traversal appends the generated patterns to each of the already existing SPARQL queries. 
 This combinatorial effort results in covering every possible SPARQL graph pattern given the predicate-argument tree.
@@ -227,7 +227,7 @@ Comparing the results to the gold standard answer set, HAWK stores all queries r
 Afterwards the stored queries are used to calculate an average feature vector comprising simple features mimicking a centroid-based cosine ranking.
 HAWK's ranking calculation comprises the following components:
 \begin{itemize}
-\item \textbf{NR\_OF\_TERMS} calculates the number of nodes used to form the full-text query part as described in Section~\ref{sec:full-text}.
+\item \textbf{NR\_OF\_TERMS} calculates the number of nodes used to form the full-text query part as described in Section~\ref{chahawk:sec:full-text}.
 \item \textbf{NR\_OF\_CONSTRAINTS} counts the amount of triple patterns per SPARQL query.
 \item \textbf{NR\_OF\_TYPES} sums the amount of patterns of the form \texttt{?var rdf:type cls}.
 \item \textbf{PREDICATES} generates a vector containing an entry for each predicate used in the SPARQL query.
@@ -237,7 +237,7 @@ HAWK's ranking calculation comprises the following components:
 
 While running the \emph{test phase} of HAWK, the cosine similarity between each SPARQL query using the above mentioned features and the average feature vector of training queries is calculated.
 Moreover, HAWK determines the target cardinality $x$, i.e., \texttt{LIMIT x}, of each query using the indicated cardinality of the first seen POS-tag of the input query, e.g., the POS-tag \texttt{NNS} demands the plural while \texttt{NN} demands the singular case and thus leads to different \texttt{x}.
-The performance of this ranking approach is evaluated in Section~\ref{sec:evaluation}.
+The performance of this ranking approach is evaluated in Section~\ref{chahawk:sec:evaluation}.
 %\todo[inline]{Show two queries, their vectors and their score.}
 
 %\subsection{Demo}

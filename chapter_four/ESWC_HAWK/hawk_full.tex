@@ -1,42 +1,28 @@
-\documentclass{llncs}
-
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage{url}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{float}%figure environment
-\usepackage[table,xcdraw]{xcolor}
-\usepackage{todonotes}
-%\usepackage[disable]{todonotes}
-\usepackage{booktabs}
-\usepackage{wrapfig}
-\usepackage{multirow}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
+%\usepackage{tikz}
+%\usetikzlibrary{positioning}
 %\usepackage{endnotes}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{caption}
-\usepackage{comment}
-\usepackage{times}
-\begin{document}
+%\usepackage[ruled,vlined]{algorithm2e}
+%\usepackage{caption}
+%\usepackage{comment}
+%\usepackage{times}
+%\begin{document}
 
-\title{HAWK -- Hybrid Question Answering\\ using Linked Data}
-\author{
-Ricardo Usbeck\inst{1} \and 
-Axel-Cyrille Ngonga Ngomo\inst{1}\and 
-Lorenz Bühmann\inst{1} \and 
-Christina~Unger\inst{2}
-}
+\chapter{HAWK -- Hybrid Question Answering using Linked Data}
+%\author{
+%Ricardo Usbeck\inst{1} \and 
+%Axel-Cyrille Ngonga Ngomo\inst{1}\and 
+%Lorenz Bühmann\inst{1} \and 
+%Christina~Unger\inst{2}
+%}
 
-\institute{
-University of Leipzig, Germany\\\email{\{usbeck,ngonga\}@informatik.uni-leipzig.de}\and
-University of Bielefeld, Germany\\\email{cunger@cit-ec.uni-bielefeld.de}
-}
+%\institute{
+%University of Leipzig, Germany\\\email{\{usbeck,ngonga\}@informatik.uni-leipzig.de}\and
+%University of Bielefeld, Germany\\\email{cunger@cit-ec.uni-bielefeld.de}
+%}
 
-\maketitle
+%\maketitle
 
-\begin{abstract}
+%\begin{abstract}
 %The increasing amount of structured and unstructured data creates new opportunities and challenges for satisfying user information needs.
 %Shifting towards conversational search and retrieval of knowledge highlights the need for natural language based information systems.
 The decentral architecture behind the Web has led to pieces of information being distributed across data sources with varying structure. Hence, answering complex questions often requires combining information from structured and unstructured data sources.   
@@ -47,7 +33,7 @@ The approach uses predicate-argument representations of questions to derive equi
 We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation tools on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
 %accurate, hybrid SPARQL queries for answering information needs which are able to cover knowledge which is not or cannot be modeled in structured ontologies.
 Our results show that HAWK achieves 0.68 respectively 0.61 F-measure within the training respectively test phases on the Question Answering over Linked Data (QALD-4) hybrid query benchmark. % and 0.60 F-measure on the test dataset.
-\end{abstract}
+%\end{abstract}
 
 
 \section{Introduction}
@@ -81,34 +67,20 @@ Our main contributions can be summarized as follows:
  \end{itemize}
 
 The rest of the paper is structured as follows:
-Afterwards, our methodology is explained in detail in Section~\ref{sec:method}.
-HAWK's performance and the influence of entity annotation systems is evaluated in Section~\ref{sec:evaluation}. 
-Section~\ref{sec:relatedwork} discusses related work.  
-Finally, we conclude in Section~\ref{sec:conclusion}. Additional information can be found at our project home page \url{http://aksw.org/Projects/HAWK.html}.
+Afterwards, our methodology is explained in detail in Section~\ref{chahawk:sec:method}.
+HAWK's performance and the influence of entity annotation systems is evaluated in Section~\ref{chahawk:sec:evaluation}. 
+Section~\ref{chahawk:sec:relatedwork} discusses related work.  
+Finally, we conclude in Section~\ref{chahawk:sec:conclusion}. Additional information can be found at our project home page \url{http://aksw.org/Projects/HAWK.html}.
 
 %\todo[inline]{Is Section 2 needed?}
 %\input{definitionhybrid.tex}
 
-
-\input{method.tex}
-
-\input{evaluation.tex}
-\input{relatedwork.tex}
+\input{chapter_four/ESWC_HAWK/method.tex}
+\input{chapter_four/ESWC_HAWK/evaluation.tex}
+\input{chapter_four/ESWC_HAWK/relatedwork.tex}
 
 \section{Conclusion}
-\label{sec:conclusion}
+\label{chahawk:sec:conclusion}
 In this paper, we presented HAWK, the first hybrid QA system for the Web of Data. We showed that by using a generic approach to generate SPARQL queries out of predicate-argument structures, HAWK is able to achieve up to 0.68 F-measure on the QALD-4 benchmark. Our work on HAWK however also revealed several open research questions, of which the most important lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. We thus aim to apply an automatic feature engineering approach from deep learning in future works to automatically generate the correct ranking function. Moreover, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. Additionally, we will assess the impact of full-text components over regular LD components for QA, partake in the creation of larger benchmarks (we are working on QALD-5) and aim towards multilingual, schema-agnostic queries. Negations within questions and improved ranking will also be considered. Finally, several components of the HAWK pipeline are computationally very complex. Finding more time-efficient algorithms for these steps will be addressed in future works.
 %\todo[inline]{HAWK considers SELECT queries and generate queries without UNION or OPTIONAL but we are aware of their advantages.}
 
-
-\begin{wrapfigure}[2]{l}{0.20\textwidth}
- \vspace{-8mm}
- \includegraphics[width=0.20\textwidth]{esf.pdf}
-\end{wrapfigure}
-\textbf{Acknowledgments}
-This work has been supported by the ESF, the Free State of Saxony and the FP7 project GeoKnow (GA No. 318159).
-
-\bibliographystyle{abbrv}
-\bibliography{references}
-
-\end{document}

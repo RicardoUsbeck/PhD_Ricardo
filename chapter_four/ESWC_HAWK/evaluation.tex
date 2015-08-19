@@ -1,12 +1,12 @@
 
 \section{Evaluation}
-\label{sec:evaluation}
+\label{chahawk:sec:evaluation}
 
 \subsection{Benchmark}
 
 We evaluate HAWK against the QALD~\cite{qald4} benchmark.
 %The available benchmarks target diverse domains such as medicine, music or general knowledge. 
-QALD has been used widely to evaluate question answering systems, e.g., TBSL, SINA, FREyA or QAKiS, which are presented in Section~\ref{sec:relatedwork}.
+QALD has been used widely to evaluate question answering systems, e.g., TBSL, SINA, FREyA or QAKiS, which are presented in Section~\ref{chahawk:sec:relatedwork}.
 In the recent fourth installment of QALD, hybrid questions on structured and unstructured data became a part of the benchmark.
 To evaluate HAWK, we focus on this hybrid training dataset comprising 25 questions, 17 out of which are entity searches using only DBpedia type information, no aggregation process and require only \texttt{SELECT}-queries. 
 The available test dataset comprises only 10 question with 6 entity searches and linguistic structures that are completely different from the training dataset.
@@ -19,13 +19,13 @@ To the best of our knowledge there is no other published approach on hybrid ques
 \subsection{Influence of the Entity Annotation System}
 First, we evaluated the influence of the applied entity annotation systems to the overall ability to produce correct answers.
 Thus, HAWK has been run using DBpedia Spotlight, TagMe, Fox and Wikipedia Miner. 
-Additionally, an optimal entity annotator derived from the gold standard as well as an union of all entity annotation results was analysed. %while assuming with an perfect ranking systems. %, see Figure~\ref{fig:spiderOfEntityAnnotators}.
+Additionally, an optimal entity annotator derived from the gold standard as well as an union of all entity annotation results was analysed. %while assuming with an perfect ranking systems. %, see Figure~\ref{chahawk:fig:spiderOfEntityAnnotators}.
 
 %\begin{figure}
 %\centering
 %\includegraphics[width=\linewidth]{bars}
 %\caption{Entity annotations systems performance with optimal ranking}
-%\label{fig:spiderOfEntityAnnotators}
+%\label{chahawk:fig:spiderOfEntityAnnotators}
 %\end{figure}
 Our results suggest that HAWK is able to retrieve correct answers with an F-measure of 0.68 using FOX as entity annotation system and assuming an optimal ranking.
 Furthermore, the optimal ranker is only able to achieve an F-measure of 0.58 since HAWK can cope better with missing annotation results and is tuned towards retrieving full-text information.
@@ -37,25 +37,25 @@ Thus, the Union annotator achieves only an F-measure of 0.10.\footnote{Details o
 \subsection{Influence of the Ranking Method}
 Next, evaluating the effectiveness of the feature-based ranking has to include an in-depth analysis of the contribution of each feature to the overall result.
 Thus, we calculated the power set of the set of features and evaluated each feature group using the F-measure reached by the top n queries. 
-Figures~\ref{fig:ranking_1} and ~\ref{fig:ranking_2} show the F-measure@N for all query result sets of size $N$ from all 17 questions. 
+Figures~\ref{chahawk:fig:ranking_1} and ~\ref{chahawk:fig:ranking_2} show the F-measure@N for all query result sets of size $N$ from all 17 questions. 
 %\todo[inline]{What exactly is shown in Figure 4 - i.e. there are F1/Precision/Recall scores for each of the 17 questions the system could answer, but how is the score calculated? I.e. either the systems get the right answer or not? Or is this based on top-N answers? Or based on how many correct answers from all the candidate queries?}
 %\begin{minipage}{0.49\textwidth} 
 %\centering
 \begin{figure}[htb!]
-\includegraphics[width=\linewidth]{onefeature}
+\includegraphics[width=\linewidth]{chapter_four/ESWC_HAWK/onefeature}
 %\captionof{figure}{F-measures on training dataset using $N=[1,\ldots,10]$ and one feature.}
 \caption{F-measures on training dataset using $N=[1,\ldots,10]$ and one feature.}
-\label{fig:ranking_1}
+\label{chahawk:fig:ranking_1}
 \end{figure}
 %\end{minipage}
 %\hfill
 %\begin{minipage}{0.49\textwidth}
 %\centering
 \begin{figure}[htb!]
-\includegraphics[width=\linewidth]{twofeature}
+\includegraphics[width=\linewidth]{chapter_four/ESWC_HAWK/twofeature}
 %\captionof{figure}{F-measures on training dataset using $N=[1,\ldots,10]$ and two features.}
 \caption{F-measures on training dataset using $N=[1,\ldots,10]$ and two features.}
-\label{fig:ranking_2}
+\label{chahawk:fig:ranking_2}
 \end{figure}
 %\end{minipage}
 
@@ -63,28 +63,28 @@ Figures~\ref{fig:ranking_1} and ~\ref{fig:ranking_2} show the F-measure@N for al
 %\centering
 %\includegraphics[width=\linewidth]{ranking_1}
 %\captionof{figure}{F-measures on training dataset using $N=[1,\ldots,10]$ and one feature.}
-%\label{fig:ranking_1}
+%\label{chahawk:fig:ranking_1}
 %\end{minipage}
 %\hfill
 %\begin{minipage}{0.49\textwidth}
 %\centering
 %\includegraphics[width=\linewidth]{ranking_2}
 %\captionof{figure}{F-measures on training dataset using $N=[1,\ldots,10]$ and two features.}
-%\label{fig:ranking_2}
+%\label{chahawk:fig:ranking_2}
 %\end{minipage}
 
 %\begin{minipage}{0.49\textwidth} 
 %\centering
 %\includegraphics[width=\linewidth]{ranking_3}
 %\captionof{figure}{F-measures on training dataset using $N=[1,\ldots,10]$ and three features.}
-%\label{fig:ranking_3}
+%\label{chahawk:fig:ranking_3}
 %\end{minipage}
 %\hfill
 %\begin{minipage}{0.49\textwidth}
 %\centering
 %\includegraphics[width=\linewidth]{ranking_45}
 %\captionof{figure}{F-measures on training dataset using $N=[1,\ldots,10]$ and using four and five features.}
-%\label{fig:ranking_45}
+%\label{chahawk:fig:ranking_45}
 %\end{minipage}
 
 Delving deeper into this analysis, we find:
@@ -111,4 +111,4 @@ Without matching entity annotations a full-text search retrieves too many matche
 \item \textbf{Query structure: } Queries like 11 or 15 inherit complex query structures leading to a multitude of interpretations while generating the SPARQL query graph.
 \end{itemize}
 
-\input{table_train}
+\input{chapter_four/ESWC_HAWK/table_train}
