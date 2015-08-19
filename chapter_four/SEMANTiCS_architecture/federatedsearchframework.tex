@@ -1,51 +1,23 @@
-% THIS IS SIGPROC-SP.TEX - VERSION 3.1
-% WORKS WITH V3.2SP OF ACM_PROC_ARTICLE-SP.CLS
-% APRIL 2009
-%
-% It is an example file showing how to use the 'acm_proc_article-sp.cls' V3.2SP
-% LaTeX2e document class file for Conference Proceedings submissions.
-% ----------------------------------------------------------------------------------------------------------------
-% This .tex file (and associated .cls V3.2SP) *DOES NOT* produce:
-%       1) The Permission Statement
-%       2) The Conference (location) Info information
-%       3) The Copyright Line with ACM data
-%       4) Page numbering
-% ---------------------------------------------------------------------------------------------------------------
-% It is an example which *does* use the .bib file (from which the .bbl file
-% is produced).
-% REMEMBER HOWEVER: After having produced the .bbl file,
-% and prior to final submission,
-% you need to 'insert'  your .bbl file into your source .tex file so as to provide
-% ONE 'self-contained' source file.
-%
-% Questions regarding SIGS should be sent to
-% Adrienne Griscti ---> griscti@acm.org
-%
-% Questions/suggestions regarding the guidelines, .tex and .cls files, etc. to
-% Gerald Murray ---> murray@hq.acm.org
-%
-% For tracking purposes - this is V3.1SP - APRIL 2009
+%\documentclass{acm_proc_article-sp}
 
-\documentclass{acm_proc_article-sp}
+%\usepackage{url}
+%\usepackage{graphicx}
+%\usepackage{wrapfig}
+%\usepackage{fancybox}
+%%\usepackage{todonotes}
+%\usepackage[disable]{todonotes}
 
-\usepackage{url}
-\usepackage{graphicx}
-\usepackage{wrapfig}
-\usepackage{fancybox}
-%\usepackage{todonotes}
-\usepackage[disable]{todonotes}
+%\usepackage{listings}
 
-\usepackage{listings}
-
-\newtheorem{req}{Requirement}
-\newtheorem{definition}{Definition}
-\newtheorem{ex}{Example}
+%\newtheorem{req}{Requirement}
+%\newtheorem{definition}{Definition}
+%\newtheorem{ex}{Example}
 
 \newcommand{\code}[1]{\texttt{#1}}
-\newcommand{\eg}{e.g.,~}
-\newcommand{\ie}{i.e.,~}
-\newcommand{\Ie}{That is,~}
-\newcommand{\Eg}{For example,~}
+%\newcommand{\eg}{e.g.,~}
+%\newcommand{\ie}{i.e.,~}
+%\newcommand{\Ie}{That is,~}
+%\newcommand{\Eg}{For example,~}
 % \newcommand{\url}[1]{\href{#1}{#1}}
 
 
@@ -61,9 +33,9 @@
 \hyphenation{func-tio-na-li-ties}
 
 
-\begin{document}
+%\begin{document}
 \lstset{language=Java}
-\title{A Service-oriented Search Framework for Full Text, Geospatial and Semantic Search}
+\chapter{A Service-oriented Search Framework for Full Text, Geospatial and Semantic Search}
 %
 % You need the command \numberofauthors to handle the 'placement
 % and alignment' of the authors beneath the title.
@@ -89,16 +61,16 @@
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
 
-\numberofauthors{6} %  in this sample file, there are a *total*
+%\numberofauthors{6} %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
 % reasons) and the remaining two appear in the \additionalauthors section.
 %
-\newcommand{\unisterAddr}{
-       \affaddr{R\&D, Unister GmbH}\\
+%\newcommand{\unisterAddr}{
+%       \affaddr{R\&D, Unister GmbH}\\
 %    \affaddr{Barfussgaesschen 11}\\
-    \affaddr{Leipzig (Germany)}\\
-}
-\author{
+%    \affaddr{Leipzig (Germany)}\\
+%}
+%\author{
 % You can go ahead and credit any number of authors here,
 % e.g. one 'row of three' or two rows (consisting of one row of three
 % and a second row of one, two or three).
@@ -110,42 +82,42 @@
 % e-mail address with \email.
 %
 % 1st. author
-\alignauthor
-Andreas Both\\
-       \unisterAddr
-       \email{andreas.both@unister.de}
-% 2nd. author
-\alignauthor
-Axel-Cyrille Ngonga Ngomo\\
-       \affaddr{Universit\"at Leipzig, IFI/AKSW }\\
-%       \affaddr{Leipzig }\\
-       \affaddr{Leipzig (Germany)}\\
-       \email{ngonga@informatik.uni-leipzig.de}
+%\alignauthor
+%Andreas Both\\
+%       \unisterAddr
+%       \email{andreas.both@unister.de}
+%% 2nd. author
+%\alignauthor
+%Axel-Cyrille Ngonga Ngomo\\
+%       \affaddr{Universit\"at Leipzig, IFI/AKSW }\\
+%%       \affaddr{Leipzig }\\
+%       \affaddr{Leipzig (Germany)}\\
+%       \email{ngonga@informatik.uni-leipzig.de}
 % 3rd. author
-\alignauthor 
-Ricardo Usbeck\\
-       \affaddr{Universit\"at Leipzig, IFI/AKSW}\\
-       \affaddr{Unister GmbH, Leipzig}\\
-       \email{usbeck@informatik.\\uni-leipzig.de}
-\and  % use '\and' if you need 'another row' of author names
+%\alignauthor 
+%Ricardo Usbeck\\
+%       \affaddr{Universit\"at Leipzig, IFI/AKSW}\\
+%       \affaddr{Unister GmbH, Leipzig}\\
+%       \email{usbeck@informatik.\\uni-leipzig.de}
+%\and  % use '\and' if you need 'another row' of author names
 % 4th. author
-\alignauthor        
-Denis Lukovnikov\\
-       \affaddr{Universit\"at Leipzig, IFI/AKSW }\\
+%\alignauthor        
+%Denis Lukovnikov\\
+%       \affaddr{Universit\"at Leipzig, IFI/AKSW }\\
 %       \affaddr{Leipzig }\\
-       \affaddr{Leipzig (Germany)}\\
-       \email{lukovnikov@informatik.uni-leipzig.de}
+%       \affaddr{Leipzig (Germany)}\\
+%       \email{lukovnikov@informatik.uni-leipzig.de}
 % 5th. author
-\alignauthor 
-Christiane Lemke\\
-       \unisterAddr
-       \email{christiane.lemke@unister.de}
+%\alignauthor 
+%Christiane Lemke\\
+%       \unisterAddr
+%       \email{christiane.lemke@unister.de}
 % 6th. author
-\alignauthor 
-Maximilian Speicher\\
-       \affaddr{TU Chemnitz, VSR}\\
-       \affaddr{Unister GmbH, Leipzig}\\
-       \email{speim@hrz.tu-chemnitz.de}
+%\alignauthor 
+%Maximilian Speicher\\
+%       \affaddr{TU Chemnitz, VSR}\\
+%       \affaddr{Unister GmbH, Leipzig}\\
+%       \email{speim@hrz.tu-chemnitz.de}
   % use '\and' if you need 'another row' of author names
 % 5th. author
 %\alignauthor Sean Fogarty\\
@@ -159,14 +131,14 @@ Maximilian Speicher\\
 %       \affaddr{8600 Datapoint Drive}\\
 %       \affaddr{San Antonio, Texas 78229}\\
 %       \email{cpalmer@prl.com}
-} % author
-\date{15 June 2014}
+%} % author
+%\date{15 June 2014}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
 
-\maketitle
-\begin{abstract}
+%\maketitle
+%\begin{abstract}
 Over the last decade, a growing importance of search engines could be observed. 
 An increasing amount of knowledge is exposed and connected within the Linked Open Data Cloud, which raises users' expectations to be able to search for any information that is directly or indirectly contained. 
 However, diverse data types require tailored search functionalit\-ies\----such as semantic, geospatial and full text search. 
@@ -177,13 +149,13 @@ In addition, we introduce an application layer on top of these services that ena
 This allows for the implementation of a distributed search that leverages the identification of the optimal search service for each query and subquery.
 This is achieved by connecting powerful tools like \textit{Openlink Virtuoso}, \textit{ElasticSearch} and \textit{PostGIS} within a single framework. 
 %Finally, we will isolate the performance challenges.
-\end{abstract}
+%\end{abstract}
 % A category with the (minimum) three required fields
 %\category{TODO}{TODO}{TODO}
 %A category including the fourth, optional field follows...
 %\category{TODO}{TODO}{TODO}[TODO]
 
-\terms{Distributed Search, Semantic Web, Information Retrieval}
+%\terms{Distributed Search, Semantic Web, Information Retrieval}
 
 % \keywords{ACM proceedings, \LaTeX, text tagging} % NOT required for Proceedings
 
@@ -239,14 +211,14 @@ However, there is no need for using a particular data store for semantic data (\
 Our main contribution is an engineering approach for creating a scalable search solution capable of conducting semantic search with geospatial aspects as well as information retrieval from text documents. The benefits of the different search systems are combined and integrated in order to better deliver on the expectations of the users. 
 %Hence, our main contribution is an engineering approach for creating a scalable search functionality that is capable of conducting semantic search (including geospatial aspects) as well as information retrieval from text documents.
  
-The rest of the paper is organized as follows. Section \ref{sec:related} addresses related work while Section \ref{sec:architecture} describes general requirements for our approach as well as its architecture.
-Subsequently, we present our approach to search query representation in Section~\ref{sec:searchqueryanalysis} and introduce our approach to interpreting search queries in Section~\ref{sec:queryinterpretation}.
-Section~\ref{sec:federated} describes our federated search architecture, before giving concluding remarks in Section~\ref{sec:conclusion}.
+The rest of the paper is organized as follows. Section \ref{chafedsearch:sec:related} addresses related work while Section \ref{chafedsearch:sec:architecture} describes general requirements for our approach as well as its architecture.
+Subsequently, we present our approach to search query representation in Section~\ref{chafedsearch:sec:searchqueryanalysis} and introduce our approach to interpreting search queries in Section~\ref{chafedsearch:sec:queryinterpretation}.
+Section~\ref{chafedsearch:sec:federated} describes our federated search architecture, before giving concluding remarks in Section~\ref{chafedsearch:sec:conclusion}.
 %\todo[inline]{AnBo: Check outline.}
 
 
 \section{Related Work}
-\label{sec:related}
+\label{chafedsearch:sec:related}
 Our approach is related to the research area of search over Linked Data and thus to keyword search and question answering (QA) over Linked Data.
 % Therefore, we call it Semantic Entity Search. 
 % Question Answering attempts to find an answer to user queries posed in natural language. 
@@ -320,14 +292,13 @@ In particular, it is not connected to SPARQL or RDF.
 However, the concepts can be combined aiming for the best of both worlds, e.g., as~\cite{yu2011linked} has shown for the e-learning domain.
 
 
-
-\section{High-Level Architecture and \\General Requirements}\label{sec:architecture}
-\begin{figure*}[t]
+\section{High-Level Architecture and General Requirements}\label{chafedsearch:sec:architecture}
+\begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{highlevelarchitecture2}
+\includegraphics[width=\textwidth]{chapter_four/SEMANTiCS_architecture/highlevelarchitecture2}
 \caption{High-level architecture of our distributed search framework.}
 \label{fig:highlevelarchitecture}
-\end{figure*}
+\end{figure}
 
 
 The concept of a service-oriented search framework poses several specific requirements that have to be met to rea\-lize a corresponding architecture.
@@ -348,14 +319,14 @@ The communication with the search services has to be stateless and transparent.
 \end{req}
 Derived from the required stateless and transparent communication, each search service has to encode all information about itself via its interface ,\ie in the message during the communication\footnote{This requirement is comparable to REStful communication~\cite{richardson2008restful} via the stateless HTTP protocol \url{http://tools.ietf.org/html/rfc7231}.}.
 Hence, the information about each search service has be retrieved by querying the implemented interface methods.
-\todo[inline]{I don't get the last two sentences, to which requirement they belong and what they have to do with the next sentences? -CL\\Better? -- AnBo}
+%\todo[inline]{I don't get the last two sentences, to which requirement they belong and what they have to do with the next sentences? -CL\\Better? -- AnBo}
 However, to provide a structured search query, an analysis of the textual user input is needed, which we consider to be beyond the scope of this paper. 
 We will assume the search query is already available in a structured representation (\eg by having used approaches like~\cite{similarity,aqualog,tbsl}).
 %For the sake of the limited space, we assume each search query to be already analyzed.
 %That is, it was transformed into a structured representation, e.g., by using approaches like~\cite{similarity,aqualog,tbsl}.
-\begin{req}
-The search query requires a structured representation which encapsulates information about all re\-le\-vant parts of the search query.
-\label{req:allrelevantparts}
+
+\begin{req}\label{req:allrelevantparts}
+The search query requires a structured representation which encapsulates information about all relevant parts of the search query. 
 \end{req}
 
 Hence, the high-level infrastructure of a federated search requires a two-step process:
@@ -386,7 +357,7 @@ The structured search query representation has to be independent from the implem
 In the following, we will describe the data structure required for the representation of an analyzed search query.
 
 
-\section{Search Query Representation}\label{sec:searchqueryanalysis}
+\section{Search Query Representation}\label{chafedsearch:sec:searchqueryanalysis}
 
 Understanding what the user is looking for is the starting point of every information retrieval process.
 Yet, in the following section, the focus is not on the analysis of unstructured search queries.
@@ -423,7 +394,7 @@ For example, it is possible to express an actual search query, \eg \texttt{famil
 Potential target hotels (\code{urn:id:hotel}) are restricted to those being located in the city center of Leipzig (expressed using the relation \code{urn:rel:cityCenter}).
 Furthermore, a target hotel has to be marked (\code{urn:rel:hasFeature}) as family-friendly (\code{urn:id:familyFriendly}) and the description of the hotel has to contain the word \searchword.
 The corresponding search query representation is shown in Figure~\ref{fig:ex1}.
-\begin{figure*}
+\begin{figure}
 \begin{center}
 \begin{tabular}{llll}
 $t_1$ & \placeholder & \code{owl:typeof} & \code{urn:id:hotel} \\
@@ -434,11 +405,11 @@ $t_4$ & \placeholderB & \code{urn:rel:sublabel} & ``\searchword''
 \end{center}
 \caption{Example of a structured search query \texttt{family-friendly hotel in Leipzig} according to our RDF-like representation.}
 \label{fig:ex1}
-\end{figure*}
+\end{figure}
 \newcommand{\sstriplestore}{\code{urn:service:triplestore}}
 \newcommand{\ssfulltext}{\code{urn:service:fulltext}}
 \newcommand{\ssgeo}{\code{urn:service:gis}}
-\begin{figure*}[t]
+\begin{figure}[t]
 \begin{center}
 \begin{tabular}{lllll}
 $t_1$ & \placeholder & \code{owl:typeof} & \code{urn:id:hotel} & ({\sstriplestore},250,500) \\
@@ -450,7 +421,7 @@ $t_4$ & \placeholderB & \code{urn:rel:sublabel} & ``\searchword'' & (\ssfulltext
 \end{center}
 	\caption{Example of an annotated search query \texttt{family-friendly hotel in Leipzig}.}
 	\label{fig:ex2}
-\end{figure*}
+\end{figure}
 
 
 
@@ -481,7 +452,7 @@ A query annotation $a$ is a triple $(i,r,e)$, where $i$ is the IRI of the servic
 \end{definition}
 
 
-\begin{figure*}[p!]
+\begin{figure}[p!]
 \lstset{language=Java}
 \begin{lstlisting}[frame=single]
 /* compute topological order of the triples of the structured search query 
@@ -510,14 +481,14 @@ A scheduleSubQueries(A){
 \end{lstlisting}
 \caption{Exemplary scheduler implementation}
 \label{fig:scheduler}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[p!tb]
+\begin{figure}[p!tb]
 \centering
-\includegraphics[width=\textwidth]{query_plan_tree.pdf}
+\includegraphics[width=\textwidth]{chapter_four/SEMANTiCS_architecture/query_plan_tree.pdf}
 \caption{Scheduled query plan after topological sorting.}
 \label{queryplantree}
-\end{figure*}
+\end{figure}
 
 
 
@@ -525,14 +496,13 @@ This definition satisfies Requirement \ref{req:allrelevantparts}.
 Imagine a user wants to pose the following query to our framework: 
 \begin{ex}
 family-friendly hotel in Leipzig
-\label{ex:obama}
 \end{ex}
 
 The annotated example query is shown in Figure~\ref{fig:ex2}.
 In this example, \ssfulltext\ is an IRI of a service providing a full text search, \sstriplestore\ references a triple store and \ssgeo\ points to a search service encapsulating a GIS server.
 
 
-\section{Search Query Interpretation}\label{sec:queryinterpretation}
+\section{Search Query Interpretation}\label{chafedsearch:sec:queryinterpretation}
 
 \todo[inline]{I don't get the following section at all! From the requirement that a query has to be interpreted by at least one service, how can we conlcude (``hence'') that the query plan is a topologically ordered graph with the result as root node? Maybe provide an example for clarity!? --Max}
 
@@ -554,7 +524,7 @@ A schedule graph is shown in Figure \ref{queryplantree} with respect to our runn
 \todo[inline]{Wo soll das Bild hin? Beschreibung?}
 
 
-\section{Federated Search Architecture}\label{sec:federated}
+\section{Federated Search Architecture}\label{chafedsearch:sec:federated}
 
 In this section, we present our federated search in\-fra\-struc\-ture. 
 Particularly, it contains a service layer to which the diverse search services can be connected. 
@@ -624,7 +594,7 @@ The directory functionality is achieved by the \code{register}\ and \code{deregi
 
 
 
-\section{Conclusions}\label{sec:conclusion}
+\section{Conclusions}\label{chafedsearch:sec:conclusion}
 
 We presented an architecture for a distributed search following the principles of service-oriented architectures. 
 For this, we introduced a descriptive data representation, \ie the data representation does not contain implementation details of the underlying search services. 
@@ -665,12 +635,8 @@ In the context of providing a distributed search, these are the main challenges 
 %- tighter integration
 %- independent from the database of the search services 
 
-\textbf{Acknowledgments} We thank Didier Cherix and Lars Wesemann for their valuable support. This work has been partly supported by the ESF and the Free State of Saxony and by grants from the European Union's 7th Framework Programme provided for the project GeoKnow (GA no. 318159).\\
-% \ovalbox{\includegraphics[height=1cm]{esf.pdf}}\,
- {\includegraphics[height=1cm]{esfpng}}\,
- {\includegraphics[height=1cm]{2000px-seventh_framework_programme_logo}}
 
 
-\bibliographystyle{abbrv}
-\bibliography{sigproc,refs} 
-\end{document}
+%\bibliographystyle{abbrv}
+%\bibliography{sigproc,refs} 
+%\end{document}
