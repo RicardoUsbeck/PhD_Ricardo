@@ -1,60 +1,33 @@
-% For tracking purposes - this is V2.0 - May 2012
 
-\documentclass{llncs}
+%\documentclass{llncs}
 
-\usepackage{url}
-\usepackage{todonotes}
-    \newcommand{\todoanbo}[1]{\todo{AnBo: #1}}
-\usepackage{booktabs}
-\usepackage{multirow}
-% START: algorithm description and math functions (Disheng)
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{amsfonts}
-\usepackage{amssymb,tikz}
-\usepackage{amsmath,amssymb}
-\usepackage{amsmath}
-\usepackage{times}
-% END %
-\usepackage{subfig}
-\usepackage{pifont}
-\usepackage{epstopdf}
-\usepackage{flushend}
-\usepackage{epsfig}
-\usepackage{wrapfig}
-\newcommand{\tick}[0]{\ding{51}}
-\newcommand{\cross}[0]{\ding{55}}
-\newcommand{\examples}{\mbox{\ensuremath{E}}}
-\newcommand{\lab}[1]{\ensuremath{label(#1)}}
-\newcommand{\labf}[0]{\ensuremath{label}}
-\DeclareMathOperator*{\argmax}{\arg\!\max}
-\begin{document}
+%\begin{document}
  
 
-\title{Web-Scale Extension of RDF Knowledge Bases from Templated Websites}
+\chapter{Web-Scale Extension of RDF Knowledge Bases from Templated Websites}
 
-\author{
-Lorenz B\"uhmann\thanks{Both authors contributed equally to this work.}\inst{1} \and 
-Ricardo Usbeck$^\star$\inst{1}\inst{2}\and
-Axel-Cyrille Ngonga Ngomo\inst{1} \and 
-Muhammad Saleem \inst{1} \and
-Andreas Both \inst{2}\and
-Valter Crescenzi\inst{3} \and       
-Paolo Merialdo\inst{3}\and
-Disheng Qiu\inst{3}
-}
-\institute{Universit\"at Leipzig, IFI/AKSW  
-\email{\{lastname\}@informatik.uni-leipzig.de} \and 
-Unister GmbH, Leipzig
-\email{\{firstname.lastname\}@unister.de}\and
-Universit\`a Roma Tre
-\email{\{lastname\}@dia.uniroma3.it}
-}
+%\author{
+%Lorenz B\"uhmann\thanks{Both authors contributed equally to this work.}\inst{1} \and 
+%Ricardo Usbeck$^\star$\inst{1}\inst{2}\and
+%Axel-Cyrille Ngonga Ngomo\inst{1} \and 
+%Muhammad Saleem \inst{1} \and
+%Andreas Both \inst{2}\and
+%Valter Crescenzi\inst{3} \and       
+%Paolo Merialdo\inst{3}\and
+%Disheng Qiu\inst{3}
+%}
+%\institute{Universit\"at Leipzig, IFI/AKSW  
+%\email{\{lastname\}@informatik.uni-leipzig.de} \and 
+%Unister GmbH, Leipzig
+%\email{\{firstname.lastname\}@unister.de}\and
+%Universit\`a Roma Tre
+%\email{\{lastname\}@dia.uniroma3.it}
+%}
 
-\date{8 October 2013}
+%\date{8 October 2013}
 
-\maketitle
-\begin{abstract}
+%\maketitle
+%\begin{abstract}
 %Over the last years, Linked Open Data has been utilized in several scientific and industrial information systems. 
 %Despite the significant growth of the Linked Open Data Cloud over the last years, 
 Only a small fraction of the information on the Web is represented as Linked Data.
@@ -72,7 +45,7 @@ We evaluate the initial version of REX on three different datasets.
 %We study the effect of the number of examples on the F-measure achieved by our approach. 
 Our results clearly show the potential of using templated Web pages to extend the Linked Data Cloud.
 Moreover, our results indicate the weaknesses of our current implementations and how they can be extended.
-\end{abstract}
+%\end{abstract}
 
 %\begin{itemize}
 %\item Describe the framework (made for generic purpose)
@@ -210,7 +183,7 @@ Then, we present each of its components.
 As running example, we use the extraction of movie directors from web pages.
 
 \subsection{Overview}
-Figure~\ref{fig:architecture} gives an overview of REX. 
+Figure~\ref{charex:fig:architecture} gives an overview of REX. 
 All modules are interfaces, for which we provide at least one implementation.
 Hence, REX can be ran out of the box.
 Given a predicate $p$ and a knowledge base $K$, REX provides a domain identification interface, which allows for detecting Web domains which pertain to this predicate.
@@ -227,9 +200,9 @@ In the following, we detail our current implementation of each of these componen
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width = \textwidth]{rexArchitecture}
+\includegraphics[width = \textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/rexArchitecture}
 \caption{Architecture of REX.}
-\label{fig:architecture}
+\label{charex:fig:architecture}
 \end{figure}
 \subsection{Extraction Layer}
 REX's data extraction layer consists of two main components:
@@ -290,7 +263,7 @@ We call this second implementation of the example generator interface the \emph{
 %- Several approaches in the literature to generate wrappers
 %Several years of reasearch on data extraction from web pages have produced a large number of proposals for producing web wrappers (see~\cite{} for a survey). 
 
-\input{alfred}
+\input{chapter_three/semi_structured_annotation/ISWC_REX/alfred}
 
 \subsection{Generation Layer}
 Now that data has been extracted from the websites, REX is ready to generate RDF out of them. 
@@ -430,27 +403,27 @@ All extraction runtime experiments were carried out on single nodes of an Amazon
 
 \begin{figure*}[h!tb]
         \centering
-        \subfloat[Directors from IMDB, prominence-based sampling]{\label{fig:pDirector}\includegraphics[width=.33\textwidth]{no-random-director.pdf}}~
-        \subfloat[Actors from IMDB, prominence-based sampling]{\label{fig:pActors}\includegraphics[width=.33\textwidth]{no-random-starring.pdf}}~
-        \subfloat[Authors from Goodreads, prominence-based sampling]{\label{fig:pAuthor}\includegraphics[width=.33\textwidth]{no-random-author.pdf}}
+        \subfloat[Directors from IMDB, prominence-based sampling]{\label{charex:fig:pDirector}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/no-random-director.pdf}}~
+        \subfloat[Actors from IMDB, prominence-based sampling]{\label{charex:fig:pActors}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/no-random-starring.pdf}}~
+        \subfloat[Authors from Goodreads, prominence-based sampling]{\label{charex:fig:pAuthor}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/no-random-author.pdf}}
 
-        \subfloat[Directors from IMDB, uniform sampling]{\label{fig:uDirector}\includegraphics[width=.33\textwidth]{random-director.pdf}}~
-        \subfloat[Actors from IMDB, uniform sampling]{\label{fig:uActors}\includegraphics[width=.33\textwidth]{random-starring.pdf}}~
-        \subfloat[Authors from Goodreads, uniform sampling]{\label{fig:uAuthor}\includegraphics[width=.33\textwidth]{random-author.pdf}}
+        \subfloat[Directors from IMDB, uniform sampling]{\label{charex:fig:uDirector}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/random-director.pdf}}~
+        \subfloat[Actors from IMDB, uniform sampling]{\label{charex:fig:uActors}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/random-starring.pdf}}~
+        \subfloat[Authors from Goodreads, uniform sampling]{\label{charex:fig:uAuthor}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/random-author.pdf}}
         
-        \subfloat[Teams from ESPNFC, prominence-based sampling]{\label{fig:pTeam}\includegraphics[width=.33\textwidth]{no-random-team.pdf}}~
-        \subfloat[Teams from ESPNFC, uniform sampling]{\label{fig:uTeam}\includegraphics[width=.33\textwidth]{random-team.pdf}}~
-        \subfloat[Average computational time and F-measure over all datasets]{\label{fig:runtime}\includegraphics[width=.33\textwidth]{time-F.pdf}}
+        \subfloat[Teams from ESPNFC, prominence-based sampling]{\label{charex:fig:pTeam}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/no-random-team.pdf}}~
+        \subfloat[Teams from ESPNFC, uniform sampling]{\label{charex:fig:uTeam}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/random-team.pdf}}~
+        \subfloat[Average computational time and F-measure over all datasets]{\label{charex:fig:runtime}\includegraphics[width=.33\textwidth]{chapter_three/semi_structured_annotation/ISWC_REX/time-F.pdf}}
 \caption{Overall evaluation results of the extraction of pairs. Figures (a)-(h) show the average precision, recall and F-measure achieved the generated XPaths for the prominence-based and uniform sampling. The x-axis shows the number of examples and the number of sample pages retrieved in the format $|E|$/$|Q|$. Figure (i) shows the average computational time and the corresponding F-measures for different sizes of $|I|$.}
-\label{fig:overall-XPaths}
+\label{charex:fig:overall-XPaths}
 \end{figure*}
 
 %\todo[inline]{RU: I think we need to define which f-measure was used here. AN: Done}
-The results of our experiments on altering the number of examples used for learning are shown in Figures~\ref{fig:pDirector}-\ref{fig:uTeam}. 
+The results of our experiments on altering the number of examples used for learning are shown in Figures~\ref{charex:fig:pDirector}-\ref{charex:fig:uTeam}. 
 Due to space limitations, we show the average results over all the pairs extraction by our wrapper induction approach for each of the domains.
 The results achieved using the prominence-based sampling show the expected trend: on pages that use a consistent template (such as the director pages in \url{imdb.com}), our approach requires as few as around 70 pages for $|Q|$. 
-Once this value is reached, REX can compute high-quality extraction rules and achieves an F-measure of 0.97 (see Figures~\ref{fig:pDirector}).
-For pages that change template based on the prominence of the entities they describe (like the actors' pages, see Figure~\ref{fig:pActors}), our approach requires more training data to achieve a high F-measure.
+Once this value is reached, REX can compute high-quality extraction rules and achieves an F-measure of 0.97 (see Figures~\ref{charex:fig:pDirector}).
+For pages that change template based on the prominence of the entities they describe (like the actors' pages, see Figure~\ref{charex:fig:pActors}), our approach requires more training data to achieve a high F-measure.
 The increase of F-measure is clearly due to an increase in precision, pointing to REX being able to better choose across different alternative XPaths when provided with more information.
 The results of \url{goodreads.com} support our conjecture. 
 With more training data, we get an increase in precision to up to 1 while the recall drops, leading to an overall F-measure of 0.89 for 40k examples.
@@ -498,7 +471,7 @@ Property & \#Possible & \#Triples generated & \#Consistent & \#Correct & \#New  
 \end{table}
 The results based on the uniform sampling strategy reveal another trait of REX. 
 As expected, the coverage achieved using uniform sampling is clearly smaller in all cases. 
-%Still, when a small number of examples $|E|$ is provided, the uniform sampling returns better results than the prominence-based sampling (compare results with $|E| = 10k$ on Figures~\ref{fig:pDirector} and~\ref{fig:uDirector}, Figures~\ref{fig:pActors} and~\ref{fig:uActors}, Figures~\ref{fig:pAuthor} and~\ref{fig:uAuthor} as well as Figures~\ref{fig:pTeam} and~\ref{fig:uTeam}) in all settings.  
+%Still, when a small number of examples $|E|$ is provided, the uniform sampling returns better results than the prominence-based sampling (compare results with $|E| = 10k$ on Figures~\ref{charex:fig:pDirector} and~\ref{charex:fig:uDirector}, Figures~\ref{charex:fig:pActors} and~\ref{charex:fig:uActors}, Figures~\ref{charex:fig:pAuthor} and~\ref{charex:fig:uAuthor} as well as Figures~\ref{charex:fig:pTeam} and~\ref{charex:fig:uTeam}) in all settings.  
 %This is simply due to the examples selected by the uniform sampling better reflecting the different types of templates in the dataset.
 %The main drawback of the uniform sampling strategy is that the instances it selects generally contain a larger percentage of erroneous resources than the data selected by the prominence-based sampling strategy.
 %The effect of this larger percentage of erroneous resources increases when making use of larger sizes of uniformly %sampled examples $E$ if the fraction of pages with noisy data in $Q$ increases.
@@ -521,7 +494,7 @@ Still, for very noisy domains with an inconsistent use of templates, our approac
 
 \subsubsection{Runtime Performance}
 We evaluated the runtime performance of our approach by using 40k examples and the prominence-based distribution while altering the size of $I$.
-As expected, setting $|I|$ to a low value (e.g.,~1) leads to less rules being generated and thus to an overall better runtime performance (see~Figure~\ref{fig:runtime}).
+As expected, setting $|I|$ to a low value (e.g.,~1) leads to less rules being generated and thus to an overall better runtime performance (see~Figure~\ref{charex:fig:runtime}).
 By setting $I$ to a low value, REX can be used to get a quick overview of possible extraction results, a
 characteristic of our system that could result beneficial for end users.
 Yet, it also leads to worse overall F-measures.
@@ -564,7 +537,7 @@ Still, our results clearly show the potential of our approach, as 60.68\% of the
 %    \item Players' pages the team that the player has played with, is in different parts of the page and sometimes the data is in contradiction
 %    \item Teams' pages same problem
 % \end{itemize}
-% \item In Figure~\ref{fig:overall-XPaths} we show the quality of the learned XPaths considering as input a given number of pairs.
+% \item In Figure~\ref{charex:fig:overall-XPaths} we show the quality of the learned XPaths considering as input a given number of pairs.
 % \item Bigger is the set $Q$ better are the scores
 % \item We could obtain really accurate XPaths learning from a small fraction of pages (from 0.5\% to 1.16\%)
 %\end{itemize}
@@ -716,15 +689,15 @@ We thus regard this framework as a basis for populating the Web of Data using We
 %Use output of AlfREX as input for Alfred
 
 %Carry out better disambiguation by simply extracting more information on the resources where we are not sure
-\begin{wrapfigure}[2]{r}{0.18\textwidth}
- \vspace{-8mm}
- \includegraphics[width=0.18\textwidth]{esf.pdf}
-\end{wrapfigure}
-\textbf{Acknowledgments.} Parts of this work were supported by the ESF and the Free State of Saxony. We thank M.~Speicher \& M.~R\"oder.
+%\begin{wrapfigure}[2]{r}{0.18\textwidth}
+% \vspace{-8mm}
+% \includegraphics[width=0.18\textwidth]{esf.pdf}
+%\end{wrapfigure}
+%\textbf{Acknowledgments.} Parts of this work were supported by the ESF and the Free State of Saxony. We thank M.~Speicher \& M.~R\"oder.
 %\todo[inline]{How do we engage the wrapper breakage problem?}
  
-\bibliographystyle{abbrv}
-\bibliography{sigproc}  
+%\bibliographystyle{abbrv}
+%\bibliography{sigproc}  
 %\balancecolumns
  
-\end{document}
+%\end{document}
