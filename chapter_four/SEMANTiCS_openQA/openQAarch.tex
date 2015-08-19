@@ -1,24 +1,24 @@
-\documentclass{acm_proc_article-sp}
-\usepackage{times}
-\usepackage{microtype}
-\usepackage{url}
-\usepackage{graphics}
-\usepackage{graphicx}
-\usepackage{listings}
-\usepackage{wrapfig}
+%\documentclass{acm_proc_article-sp}
+%\usepackage{times}
+%\usepackage{microtype}
+%\usepackage{url}
+%\usepackage{graphics}
+%\usepackage{graphicx}
+%\usepackage{listings}
+%\usepackage{wrapfig}
 
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
 \lstset{basicstyle=\scriptsize \ttfamily, 
 numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt}
 
-\usepackage{caption}
-\DeclareCaptionType{copyrightbox}
-\usepackage{subcaption}
+%\usepackage{caption}
+%\DeclareCaptionType{copyrightbox}
+%\usepackage{subcaption}
 
-\usepackage{color}
-\usepackage[pdftex]{hyperref}
-\usepackage[]{algorithm2e}
-\usepackage{todonotes}
+%\usepackage{color}
+%\usepackage[pdftex]{hyperref}
+%\usepackage[]{algorithm2e}
+%\usepackage{todonotes}
 %\usepackage[disable]{todonotes}%
 
 
@@ -35,71 +35,71 @@ linkcolor=black,
 urlcolor=black,
 breaklinks=true,
 }
-\newcommand{\comment}[1]{}
+%\newcommand{\comment}[1]{}
 \definecolor{Orange}{rgb}{1,0.5,0}
-\newtheorem{definition}{Definition}
-\newcommand{\urlfn}[1]{\footnote{\scriptsize\url{#1}}}
+%\newtheorem{definition}{Definition}
+%\newcommand{\urlfn}[1]{\footnote{\scriptsize\url{#1}}}
 
-\usepackage{enumitem}
-\setitemize{noitemsep,topsep=-6pt,parsep=0pt,partopsep=0pt}
+%\usepackage{enumitem}
+%\setitemize{noitemsep,topsep=-6pt,parsep=0pt,partopsep=0pt}
 
-\pagenumbering{arabic}  % Arabic page numbers for submission.  Remove this line to eliminate page numbers for the camera ready copy
-\usepackage{cleveref}
+%\pagenumbering{arabic}  % Arabic page numbers for submission.  Remove this line to eliminate page numbers for the camera ready copy
+%\usepackage{cleveref}
 
 
-\widowpenalty = 10000
-\clubpenalty = 10000
-\begin{document}
+%\widowpenalty = 10000
+%\clubpenalty = 10000
+%\begin{document}
 %\crefname{section}{Section}{Sections}
 %\crefname{figure}{Figure}{Figures}
 %\crefname{table}{Table}{Tables}
 % To make various LaTeX processors do the right thing with page size.
-\special{papersize=8.5in,11in}
-\setlength{\paperheight}{11in}
-\setlength{\paperwidth}{8.5in}
-\setlength{\pdfpageheight}{\paperheight}
-\setlength{\pdfpagewidth}{\paperwidth}
-\inputencoding{utf8}
+%\special{papersize=8.5in,11in}
+%\setlength{\paperheight}{11in}
+%\setlength{\paperwidth}{8.5in}
+%\setlength{\pdfpageheight}{\paperheight}
+%\setlength{\pdfpagewidth}{\paperwidth}
+%\inputencoding{utf8}
 % Use this command to override the default ACM copyright statement
 % (e.g. for preprints). Remove for camera ready copy.
 % \toappear{Submitted for review to WebSci 2012.}
 % Ricardo Usbeck, Axel-Cyrille Ngonga Ngomo, Konrad H\"offner
 
-\title{Towards an Open Question Answering Architecture}
+\chapter{Towards an Open Question Answering Architecture}
 %\title{Towards Open Interoperable Question Answering Modules} % Jens: just a title suggestion
-\numberofauthors{3}
-\author{
-  \alignauthor Edgard Marx\\
-    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
-    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
-    \email{marx@informatik.uni-leipzig.de}
-	\alignauthor Ricardo Usbeck\\
-       \affaddr{Universit\"at Leipzig, IFI/AKSW}\\
-       \affaddr{Unister GmbH, Leipzig}\\
-       \email{usbeck@informatik.\\uni-leipzig.de}
-	\alignauthor Axel-Cyrille Ngonga Ngomo\\
-    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
-    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
-    \email{ngomo@informatik.uni-leipzig.de}
-	\and
-	\alignauthor Konrad H\"offner\\
-    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
-    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
-    \email{hoffner@informatik.uni-leipzig.de}
-  \and
-	\alignauthor Jens Lehmann\\
-    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
-    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
-    \email{lehmann@informatik.uni-leipzig.de} \and 
-  \alignauthor S\"oren Auer\\
-    \affaddr{CS/EIS, Universit\"at Bonn}\\
-    \affaddr{R\"omerstra\ss e 164, 53117 Bonn, Germany}\\
-    \email{auer@cs.uni-bonn.de} 
-}
+%\numberofauthors{3}
+%\author{
+%  \alignauthor Edgard Marx\\
+%    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
+%    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
+%    \email{marx@informatik.uni-leipzig.de}%
+%	\alignauthor Ricardo Usbeck\\
+%       \affaddr{Universit\"at Leipzig, IFI/AKSW}\\
+%       \affaddr{Unister GmbH, Leipzig}\\
+%       \email{usbeck@informatik.\\uni-leipzig.de}%
+%	\alignauthor Axel-Cyrille Ngonga Ngomo\\
+%    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
+%    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
+%    \email{ngomo@informatik.uni-leipzig.de}%
+%	\and
+%	\alignauthor Konrad H\"offner\\
+%    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
+%    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
+%    \email{hoffner@informatik.uni-leipzig.de}
+%  \and%
+%	\alignauthor Jens Lehmann\\
+%    \affaddr{AKSW/BIS, Universit\"at Leipzig}\\
+%    \affaddr{PO Box 100920, 04109 Leipzig, Germany}\\
+%    \email{lehmann@informatik.uni-leipzig.de} \and 
+%  \alignauthor S\"oren Auer\\
+%    \affaddr{CS/EIS, Universit\"at Bonn}\\
+%    \affaddr{R\"omerstra\ss e 164, 53117 Bonn, Germany}\\
+%    \email{auer@cs.uni-bonn.de} 
+%}
 
-\maketitle
+%\maketitle
 
-\begin{abstract} 
+%\begin{abstract} 
 Billions of facts pertaining to a multitude of domains are now available on the Web as RDF data.
 However, accessing this data is still a difficult endeavour for non-expert users.
 In order to meliorate the access to this data, approaches imposing minimal hurdles to their users are required.
@@ -109,10 +109,10 @@ In addition, developing and evaluating question answering systems remains a very
 To overcome these obstacles, we present a modular and extensible open-source question answering framework.
 We demonstrate how the framework can be used by integrating two state-of-the-art question answering systems.
 As a result our evaluation shows that overall better results can be achieved by the use of combination rather than individual stand-alone versions.
-\end{abstract}
+%\end{abstract}
 
 \section{Introduction}
-\label{sec:introduction}
+\label{chaopenqa:sec:introduction}
 
 Since its inception, the Web has been used by millions of users with the aim of sharing, reproducing and linking information.
 More and more structured data, e.g.,~using the Resource Description Framework (RDF), is made available by users, services and more recently sensors.
@@ -137,13 +137,13 @@ The proposed framework can facilitate the evaluation by promoting the modulariza
 Moreover, our experiments reveal a considerable improvement of correct answers by combining question answering systems, i.e., $87.5\%$ using the QALD-3 benchmark.
 
 The remainder of this paper is structured as follows.
-\Cref{sec:rel} presents an background overview and related work.
-\Cref{sec:design} introduces the framework architecture and its components.
-\Cref{sec:impl} details the implemented components and used technologies.
-\Cref{sec:eval} presents the achieved results.
-Finally, \cref{sec:conc} concludes with an outlook on future work.
+Section~\ref{chaopenqa:sec:rel} presents an background overview and related work.
+Section~\ref{chaopenqa:sec:design} introduces the framework architecture and its components.
+Section~\ref{chaopenqa:sec:impl} details the implemented components and used technologies.
+Section~\ref{chaopenqa:sec:eval} presents the achieved results.
+Finally, Section~ref{chaopenqa:sec:conc} concludes with an outlook on future work.
 \\\\
-\section{Background and Related Work}\label{sec:rel}
+\section{Background and Related Work}\label{chaopenqa:sec:rel}
 
 The World Wide Web Consortium recommend the use of Linked Data (LD) standard to represent and publish open data\footnote{\url{http://www.w3.org/standards/semanticweb}}.
 The LD standard uses for the representation of data (facts, rules and their relationships) the \emph{RDF} format.
@@ -213,18 +213,18 @@ Finally, the possible graph pattern combinations are used to build SPARQL querie
 As each of these systems has its strengths and weaknesses, we move a step further, adopting a composed solution.
 
 \section{Framework Design}
-\label{sec:design}
+\label{chaopenqa:sec:design}
 
 \begin{figure*}[bht]
 	\centering
-	\includegraphics[width=.97\textwidth]{images/architecture.pdf}
+	\includegraphics[width=.97\textwidth]{chapter_four/SEMANTiCS_openQA/images/architecture.pdf}
 	\caption{openQA Architecture Overview.}
-	\label{fig:architecture}
+	\label{chaopenqa:fig:architecture}
 	\vspace{-4.0mm}
 \end{figure*}
 We propose a framework for combining different approaches to question answering.
 The design was made taking into account the architecture of classic and over linked data QA systems, search engines, smart assistants as well as hybrid systems such as IBM Watson \footnote{\url{http://www.ibm.com/smarterplanet/us/en/ibmwatson}}.
-In the following, we explain our \emph{openQA} framework architecture which consists of four main modules comprising several sub modules, see~\Cref{fig:architecture}.
+In the following, we explain our \emph{openQA} framework architecture which consists of four main modules comprising several sub modules, see Section~\ref{chaopenqa:fig:architecture}.
 The framework has a main work-flow comprising four stages (\emph{interpretation}, \emph{retrieval}, \emph{synthesis},  %and %\emph{resolution}, 
 \emph{renderization}) and adjacent modules (\emph{context} and \emph{service}).
 The adjacent modules are intended to be accessed by any of the components of the main work-flow.
@@ -255,7 +255,7 @@ The answer formulation process is composed by four different stages:
 	Answers may be extracted from different sources, be ambiguous and redundant.
 	To alleviate this issues the \emph{Synthesis} stage processes all information from different retrieval sub-modules.
 	Results that appear multiple times are fused with an occurrence attribute that helps to rank, cluster and estimate the confidence of the retrieved answer candidates.
-	The \emph{Synthesis} process is closed by \textit{\Cref{def:synthesis}}.
+	The \emph{Synthesis} process is closed by \textit{Section \ref{def:synthesis}}.
 
 \end{enumerate}
 \vspace{-5mm}
@@ -307,17 +307,17 @@ They intend to facilitate the encapsulation, addition and sharing of application
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{images/sample_page.pdf}	
+	\includegraphics[width=\columnwidth]{chapter_four/SEMANTiCS_openQA/images/sample_page.pdf}	
 	\caption{Screenshot of the demo available at \url{http://openqa.aksw.org}.}
-	\label{fig:demo}
+	\label{chaopenqa:fig:demo}
 	\vspace{-4.0mm}
 \end{figure}
 
 \section{Implementation}
-\label{sec:impl}
+\label{chaopenqa:sec:impl}
 
 The framework is implemented as open-source and additionally provides several built-in components and information about: (1) possible log messages, (2) used memory, (3) errors as well as (4) answered and not answered queries.
-\Cref{fig:architecture} gives an overview of the implemented modules in gray.
+Figure~\ref{chaopenqa:fig:architecture} gives an overview of the implemented modules in gray.
 Moreover, a test integration framework was developed in order to run evaluation queries on \emph{openQA} and the underlying modules.
 
 \paragraph{\textbf{Combining Approaches}}
@@ -326,13 +326,13 @@ Moreover, a test integration framework was developed in order to run evaluation 
 Regarding \emph{Knowledge Summarization}, an algorithm based on \emph{Relin}~\cite{cheng2011relin} has been added.
 \emph{SINA} and \emph{TBSL} were combined as interpretation modules.
 The framework can handle SPARQL queries over a retrieval component based on the \emph{Jena}\footnote{\url{http://jena.apache.org}} client.
-The synthesis module is inspired by~\cite{conf/aswc/LopezNFSUM09} and formalized by \Cref{def:synthesis} in which $pos(r) = - \log(|r|/|R|)$, i.e., the more occurrences an answer has, the more confidence it provides.
+The synthesis module is inspired by~\cite{conf/aswc/LopezNFSUM09} and formalized by definition \ref{def:synthesis} in which $pos(r) = - \log(|r|/|R|)$, i.e., the more occurrences an answer has, the more confidence it provides.
 The renderization module of \emph{openQA} uses \emph{Infograph}.
 \emph{Infograph} is a render API developed for \emph{openQA} that can render (1) SPARQL queries, (2) literals and (3) entities from knowledge bases.
 Infograph is capable of differentiating entities with and without geographic information as well as automatically generate entity descriptions based on their attributes via \emph{SPARQL2NL}~\cite{sparql2nl-demo}, in case the entity does not have a description.
 
 \section{Evaluation}
-\label{sec:eval}
+\label{chaopenqa:sec:eval}
 
 The evaluation of the described framework was performed measuring improvement of correct answered queries in QALD-3 by combining the participant systems.
 Furthermore, the framework was assessed with the fourth version of the same benchmark (QALD-4), by using stand-alone versions of \emph{TBSL} and \emph{SINA} as well as a combination of both.
@@ -342,7 +342,7 @@ According to QALD benchmark the result from the synthesis operations should be e
 \[\forall x \ C(x) \iff \bigvee_{i=1}^n R_i(x)\]
 
 \vspace{-4.0mm}
-The QALD-3 evaluation (\Cref{fig:combining}) shows that a significant improvement of correct answers can be achieved (87.5\%) by using a theoretical combination of all the participant systems.
+The QALD-3 evaluation (Figure~\ref{chaopenqa:fig:combining}) shows that a significant improvement of correct answers can be achieved (87.5\%) by using a theoretical combination of all the participant systems.
 
 Regarding QALD-4, we measure a combination of the current implemented versions of \emph{SINA} and \emph{TBSL} (trained respectively using QALD-2 and QALD-1). 
 As both systems were still under major revision, the tests were focused in how much improvement could be achieved under their combination. 
@@ -350,19 +350,19 @@ The results reveal that a combination of both systems is also better than a stan
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\columnwidth]{images/right_answers.pdf}	
+	\includegraphics[width=\columnwidth]{chapter_four/SEMANTiCS_openQA/images/right_answers.pdf}	
 	\caption{Correct answers on combining QALD-3 systems.}
-	\label{fig:combining}
+	\label{chaopenqa:fig:combining}
 \end{figure}
 
-The framework (\Cref{fig:demo}) is available over two public instances,
+The framework (Figure~\ref{chaopenqa:fig:demo}) is available over two public instances,
 one using \emph{SINA} (\url{http://sina.aksw.org}) and another using both, \emph{SINA} and \emph{TBSL} (\url{http://openqa.aksw.org}).
 As the live instances rely on the public \emph{DBpedia} endpoint, the user's experience can be affected by instabilities.
 Regarding this, a demo video is also available at \url{http://www.aksw.org/Projects/openQA}.
 
 \vspace{8.0mm}
 \section{Conclusions and Future Work}
-\label{sec:conc}
+\label{chaopenqa:sec:conc}
 
 The proposed architecture is part of a larger research agenda which aims to define and develop a common framework for question answering systems.
 %It is also a complement of work of set of specialists and technologies.
@@ -371,13 +371,7 @@ The achieved results indicate that the \emph{openQA} architecture can be used as
 The next efforts will consist of integrating unstructured sources, such as text extracted data from web pages and document bases.
 Furthermore, we want to extend the implemented modules with non-commercial APIs from other question answering systems and evaluate them against several well-know benchmarks. 
 
-\textbf{Acknowledgments}
-\begin{wrapfigure}[2]{r}{4.4cm}
- \vspace{-8mm}
- {\includegraphics[height=1cm]{esf.pdf}}\,{\includegraphics[height=1cm]{7fp.png}}
-\end{wrapfigure}
-This work has been supported by the ESF and the Free State of Saxony and the FP7 project GeoKnow (GA No. 318159) and by CNPq, under the program Ciências Sem Fronteiras.
-\vspace{-5mm}
-\bibliographystyle{abbrv}
-\bibliography{aksw,references}
-\end{document}
+%\vspace{-5mm}
+%\bibliographystyle{abbrv}
+%\bibliography{aksw,references}
+%\end{document}
