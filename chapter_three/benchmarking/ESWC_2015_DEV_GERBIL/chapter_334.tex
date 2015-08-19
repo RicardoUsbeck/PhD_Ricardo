@@ -1,90 +1,28 @@
-\documentclass{llncs}
-
-\usepackage{graphicx}
-\usepackage{pifont}
-\usepackage{amsmath,amssymb}
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{hyperref}
-\usepackage{float} 
-\usepackage{multirow} 
-\usepackage{booktabs}
-%\usepackage[disable]{todonotes}
-\usepackage{todonotes}
-\usepackage{mdframed}
-\usepackage{wrapfig}
-\usepackage{booktabs}
-\usepackage{tabulary}
-\usepackage{caption}
-\usepackage{comment}
-\usepackage{tikz}
-\usepackage{xspace}
-\usepackage{times}
-\usepackage{minted}
-
-\usepackage{subfigure}
-
-\newcommand{\haken}{{\ding{51}}}
-\newcommand*\rot{\rotatebox{87}}
-\newcommand{{\overalldatasets}}{11\xspace}
-%ACE2004
-%AQUAINT
-%MSNBC
-%IITB
-%Meij
-%AIDA/CoNLL
-%N3 - reuters-128
-%N3 - rss-500
-%KORE50
-%Spotlight Corpus
-%Microposts
-\newcommand{{\numberOfadditionaldata}}{6\xspace}
-%N3 - reuters-128,N3 - rss-500,KORE50,Spotlight Corpus, Microposts, Ace2004
-\newcommand{{\overallGERBILannotators}}{9\xspace}
-%without NIF-based Annotator
-%Wikipedia Miner
-%Spotlight
-%TagMe 2
-%KEA
-%WAT
-%AGDISTIS
-%Babelfy
-%NERD-ML
-%Dexter
-\newcommand{{\numberOfBATAnnotators}}{5\xspace}
-%AIDA , Illionois Wikifier + Spotlight, Miner, TagMe
-\newcommand{{\numberOfadditionalAnnotators}}{6\xspace}
-%KEA, WAT, AGDISTIS, Babelfy, NERD-ML, Dexter
-\newcommand{{\overallNrOfMatchingTypes}}{3\xspace}
-%Strong Annotation Matching, Weak Annotation Matching, Strong Entity Matching
 
 
-\begin{document}
+\chapter{Developing a Sustainable Platform for Entity Annotation Benchmarks}
 
-\title{Developing a Sustainable Platform for Entity Annotation Benchmarks}
+%\author{
+%Michael Röder \and
+%Ricardo Usbeck \and 
+%Axel-Cyrille Ngonga Ngomo
+%}
 
-\author{
-Michael Röder \and
-Ricardo Usbeck \and 
-Axel-Cyrille Ngonga Ngomo
-}
+%\institute{
+%University of Leipzig, Germany\\\email{\{roeder,usbeck,ngonga\}@informatik.uni-leipzig.de}
+%}
 
-\institute{
-University of Leipzig, Germany\\\email{\{roeder,usbeck,ngonga\}@informatik.uni-leipzig.de}
-}
-
-\maketitle
+%\maketitle
 %\todo[inline]{Focus on lessons learnt, mention how people can use your software. Accepted development papers will be published in the CEUR-WS workshop proceedings series.}
 
-\begin{abstract}
+%\begin{abstract}
 The existing entity annotation systems that drive the extraction of RDF from unstructured data are hard to compare as their evaluation relies on different data sets and measures. 
 %growing amount of unstructured data on the Document Web and the rising number of tools for structured data from the Web of Data created the need for a growing
 %number of entity annotation systems is hard to compare, making it difficult for developers to decide their published experiments are nearly unrepeatable and the diversity of data sets is tremendous.
 We developed GERBIL, an evaluation framework for semantic entity annotation that provides developers, end users and researchers with easy-to-use interfaces for the agile, fine-grained and uniform evaluation of 9 annotation tools on 11 different data sets within 6 different experimental settings on 6 different measures. 
 In this paper, we present the developed interfaces, data flows and data structures. Moreover, we show how GERBIL supports a better reproducibility and archiving of experimental results.
 %Finally, we will explain how to use GERBIL from various perspectives and discuss why this community effort will support semantic annotation research in the long term.
-\end{abstract}
+%\end{abstract}
 
 
 \section{Introduction}
@@ -93,16 +31,16 @@ The need for extracting structured data from text has led to the development of 
 While these tools do provide evaluation results, these results are rarely fully comparable as they commonly rely on different data sets or different measures. This is partly due to data preparation being a tedious problem in the annotation domain due to the different formats of the gold standards as well as the different data representations across reference data sets.
 %These restrictions have led to authors evaluating their approaches on data sets (1) that are available to them and (2) for which writing a parser as well as of (3) an evaluation tool can be carried out with reasonable effort.
 %Furthermore, diverse (4) quality measures have been developed and used actively across the annotation research community to evaluate the same task, leading to different results across publications which are not easily comparable. 
-Recently, benchmarking frameworks such as the BAT-framework~\cite{Cornolti} or NERD-ML~\cite{rizzo2014} for entity annotation systems have began addressing the problem on reproducible experiments for entity annotation.
+Recently, benchmarking frameworks such as the BAT-framework~\cite{cornolti} or NERD-ML~\cite{rizzo2014} for entity annotation systems have began addressing the problem on reproducible experiments for entity annotation.
 With GERBIL\footnote{More information and a demo can be found at \url{http://gerbil.aksw.org}} 
  we aim to unify experiment setups, ease implementation and testing effort as well as contribute to an open, repeatable, publishable and archivable open science area to foster an active community of entity annotation tool developers. 
 
-GERBIL goes beyond the state of the art by extending the BAT-framework~\cite{Cornolti} as well as Nerd-ML~\cite{rizzo2014} in several dimensions. In particular we provide fine-grained diagnostics for annotation tools, enhanced reproducibility through archiving experiments and assigning URIs to them, easily publishable results by providing results both as RDF (for machines) and tables (for humans).
+GERBIL goes beyond the state of the art by extending the BAT-framework~\cite{cornolti} as well as Nerd-ML~\cite{rizzo2014} in several dimensions. In particular we provide fine-grained diagnostics for annotation tools, enhanced reproducibility through archiving experiments and assigning URIs to them, easily publishable results by providing results both as RDF (for machines) and tables (for humans).
 Overall, we provide the following features:
 
 \textbf{Feature 1: Extensible experiment types.}
 An experiment type defines the way used to solve a certain problem when extracting information.
-GERBIL extends the six experiment types provided by the BAT framework~\cite{Cornolti} (including entity recognition and disambiguation) towards more general, URI based experiments.
+GERBIL extends the six experiment types provided by the BAT framework~\cite{cornolti} (including entity recognition and disambiguation) towards more general, URI based experiments.
 %Additionally, we are working on the implementation of an entity typing experiment as it is defined in the Open Knowledge Extraction Challenge 2015\footnote{\url{http://2015.eswc-conferences.org/important-dates/call-OKEC}}.
 % as well as it implements 3 experiment types for the Open Knowledge Extraction Challenge 2015\footnote{\url{http://2015.eswc-conferences.org/important-dates/call-OKEC}}.
 %\todo[inline]{Micha: Ich finde das nicht so gut, dass wir immer Dinge ins Paper schreiben, die wir noch gar nicht gemacht haben. Wir können gern reinschreiben, dass wir das "Entity Typing" als weiteren Experimenttyp einbringen. Aber mehr haben wir im Moment ja noch gar nicht.}
@@ -112,13 +50,13 @@ With this extension, our framework can deal with gold standard data sets and ann
 GERBIL offers three types of matching between a gold standard and the results of annotation systems: a \emph{strong entity matching} for URIs, as well as a  \emph{strong} and a \emph{weak annotation matching} for entities.
 
 \textbf{Feature 3: Measures.}
-Currently, GERBIL offers six measures subdivided into two groups: the micro- and the macro-group of precision, recall and f-measure. As shown in Figure~\ref{fig:spiderfmeasure}, these results are displayed using interactive spider diagrams that allow the user to easily (1) get an overview of the performance of single tools and (2) compare tools.% with each other.
+Currently, GERBIL offers six measures subdivided into two groups: the micro- and the macro-group of precision, recall and f-measure. As shown in Figure~\ref{cha334:fig:spiderfmeasure}, these results are displayed using interactive spider diagrams that allow the user to easily (1) get an overview of the performance of single tools and (2) compare tools.% with each other.
 %and (3) gather diagnostic insights on the performance of tools on particular data sets.
 
 Explicit definitions can be found in Usbeck et al.~\cite{GERBIL}.
 
 \textbf{Feature 4: Diagnostics.}
-An important novel feature of our interface is that it displays the correlation between the features of data sets and the performance of tools (see Figure~\ref{fig:spiderfeature}). By these means, we ensure that developers can easily gain an fine-grained overview of the performance of tools
+An important novel feature of our interface is that it displays the correlation between the features of data sets and the performance of tools (see Figure~\ref{cha334:fig:spiderfeature}). By these means, we ensure that developers can easily gain an fine-grained overview of the performance of tools
 %w.r.t. a set of features 
 and thus detect possible areas of improvement for future work. 
 
@@ -127,12 +65,12 @@ and thus detect possible areas of improvement for future work.
 \begin{figure}[htb]
 \centering
 \subfigure[Example spider diagram of recent A2KB experiments with weak annotation matching.]{
-\includegraphics[width=0.48\textwidth]{results.pdf}
-\label{fig:spiderfmeasure}
+\includegraphics[width=0.48\textwidth]{chapter_three/benchmarking/ESWC_2015_DEV_GERBIL/results.pdf}
+\label{cha334:fig:spiderfmeasure}
 }~
 \subfigure[Spider diagram of correlations between annotation results and data set features.]{
-\includegraphics[width=0.48\textwidth]{correlations.pdf}
-\label{fig:spiderfeature}
+\includegraphics[width=0.48\textwidth]{chapter_three/benchmarking/ESWC_2015_DEV_GERBIL/correlations.pdf}
+\label{cha334:fig:spiderfeature}
 }
 \caption {Spider diagrams generated by the GERBIL interface.}
 \end{figure}
@@ -146,7 +84,7 @@ The latest version of GERBIL offers \overalldatasets data sets.
 Thanks to the large number of formats, topics and features of the data sets, GERBIL allows carrying out diverse experiments.
 
 \textbf{Feature 7: Output.}
-\label{sec:output}
+\label{cha334:sec:output}
 GERBIL's experimental output is represented as a table containing the results, as well as embedded JSON-LD\footnote{\url{http://www.w3.org/TR/json-ld/}} RDF data for the sake of archiving experiment results and additional information, e.g., the version of GERBIL that has been used.
 Moreover, GERBIL generates a permanent URI for each experimental result.
 
@@ -164,7 +102,7 @@ We conclude by pointing at future work.
 
 
 \section{GERBIL's interfaces, dataflow, structure}
-\label{sec:architecture}
+\label{cha334:sec:architecture}
 
 \begin{comment}
 \subsection{Uses Cases}
@@ -177,7 +115,7 @@ The results will be displayed as table and embedded JSON-LD RDF via a time-stamp
 
 \textbf{Run evaluations based on novel data sets.}
 GERBIL differentiates three ways of integrating such data sets.
-(1) A user can upload a NIF-based corpus (see Section~\ref{sec:datastructures}) via our web-interface. 
+(1) A user can upload a NIF-based corpus (see Section~\ref{cha334:sec:datastructures}) via our web-interface. 
 This allows the usage of \emph{closed source} data sets, e.g., business-relevant data or just experimental data not yet ready to be published.
 Apart from the experiment results calculated with it, GERBIL will keep \emph{no} other data of such a data set.
 (2) GERBIL is able to download NIF-based data sets from \url{datahub.io}.% which will be available after manual revision or
@@ -197,7 +135,7 @@ To lower barriers, we provide a NIF converter in Java \footnote{\url{https://git
 \end{comment}
 
 \subsection{Datastructures}
-\label{sec:datastructures}
+\label{cha334:sec:datastructures}
 
 GERBIL unifies the different formats used by existing datasets and annotators.
 To this end, GERBIL's interfaces are mainly based on the \emph{NLP Interchange Format} (NIF).
@@ -259,11 +197,11 @@ An example JSON-LD for an archived experiment can be found below.
 \subsection{Workflow}
 \begin{figure}[tb]
     \centering
-    \includegraphics[width=0.9\linewidth]{gerbiloverview.eps}
+    \includegraphics[width=0.9\linewidth]{chapter_three/benchmarking/ESWC_2015_DEV_GERBIL/gerbiloverview.eps}
     \caption{Overview of GERBIL's abstract architecture. Interfaces to users and providers of data sets and annotators are marked in blue.}
-    \label{fig:architecture}
+    \label{cha334:fig:architecture}
 \end{figure}
-Figure \ref{fig:architecture} shows the architecture of GERBIL with the data sets at the bottom, the annotators in the top and the user interface as well as user defined annotator and data set at the right.
+Figure \ref{cha334:fig:architecture} shows the architecture of GERBIL with the data sets at the bottom, the annotators in the top and the user interface as well as user defined annotator and data set at the right.
 A GERBIL session starts at the configuration screen with which a user defines the experiment he is interested in.
 Each experiment is divided into tasks.
 A task comprises the evaluation of a single annotator using a single data set, is encapsulated into fault-tolerant classes and runs inside an own thread.
@@ -301,7 +239,7 @@ Thus, this type information can be used to evaluate the typing performance of an
 %Moreover, the research and development unit of the University Leipzig Computation Center will keep daily backups to ensure long-term quotability.
 
 \section{Conclusion and Future Work}
-\label{sec:conclusion}
+\label{cha334:sec:conclusion}
 In this paper, we presented GERBIL, a platform for the evaluation, publishing and archiving of semantic entity annotation experiments.
 GERBIL extends the state-of-the-art benchmarks by dealing with data sets and annotators that link to different knowledge bases. 
 Furthermore it offers extensible interfaces, reliable experiment descriptions as well as diagnostics and decision support.
@@ -314,10 +252,9 @@ Finally, we will devise a solution to ensure that GERBIL remains available to th
 %As GERBIL has been launched within several PhD projects funded by European Social Fund and several other European and German research grants the deployment of GERBIL is safeguarded within the next five years.
 %Furthermore, we have two fallback solutions: (1) the research group AKSW and the university computing center which currently already hosts more than 30 open source projects announced a strong partnership with the GERBIL platform.
 %(2) GERBIL is open source software which can be maintained and hosted by anybody.
-\textbf{Acknowledgments.} Parts of this work were supported by the FP7 project GeoKnow (GA No. 318159) and the BMWi project SAKE (GA No. 01MD15006E). 
 
-\bibliographystyle{abbrv}
-\bibliography{myrefs}
+%\bibliographystyle{abbrv}
+%\bibliography{myrefs}
 
 
-\end{document}
+%\end{document}
