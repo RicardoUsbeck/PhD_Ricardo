@@ -1,41 +1,41 @@
 
-\documentclass{llncs}
+%\documentclass{llncs}
 
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[hyphenbreaks]{breakurl}
-\usepackage[hyphens]{url}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{float}%figure environment
-\usepackage[table,xcdraw]{xcolor}
-\usepackage{todonotes}
+%\usepackage[english]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[hyphenbreaks]{breakurl}
+%\usepackage[hyphens]{url}
+%\usepackage{amsmath,amssymb}
+%\usepackage{graphicx}
+%\usepackage{float}%figure environment
+%\usepackage[table,xcdraw]{xcolor}
+%\usepackage{todonotes}
 %\usepackage[disable]{todonotes}
-\usepackage{booktabs}
-\usepackage{wrapfig}
-\usepackage{multirow}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
+%\usepackage{booktabs}
+%\usepackage{wrapfig}
+%\usepackage{multirow}
+%\usepackage{tikz}
+%\usetikzlibrary{positioning}
 %\usepackage{endnotes}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{caption}
-\usepackage{comment}
-\usepackage{times}
-\begin{document}
+%\usepackage[ruled,vlined]{algorithm2e}
+%\usepackage{caption}
+%\usepackage{comment}
+%\usepackage{times}
+%\begin{document}
 
-\title{HAWK@QALD5 -- Trying to answer hybrid questions with various simple ranking techniques}
-\author{
-Ricardo Usbeck\inst{1} \and 
-Axel-Cyrille Ngonga Ngomo\inst{1}
-}
+\chapter{HAWK@QALD5 -- Trying to answer hybrid questions with various simple ranking techniques}
+%\author{
+%Ricardo Usbeck\inst{1} \and 
+%Axel-Cyrille Ngonga Ngomo\inst{1}
+%}
 
-\institute{
-University of Leipzig, Germany\\\email{\{usbeck,ngonga\}@informatik.uni-leipzig.de}
-}
+%\institute{
+%University of Leipzig, Germany\\\email{\{usbeck,ngonga\}@informatik.uni-leipzig.de}
+%}
 
-\maketitle
+%\maketitle
 
-\begin{abstract}
+%\begin{abstract}
 The growing amount of data available in the Document Web as well as in the Linked Data Web has lead to an information gap.
 Information needed to answer complex questions might often require full-text data as well as Linked Data.
 Thus, HAWK combines unstructured and structured data sources.   
@@ -43,7 +43,7 @@ Thus, HAWK combines unstructured and structured data sources.
 In this article, we introduce HAWK, a novel entity search approach for hybrid question answering based on combining Linked Data and textual data.
 In this article, we compare three ranking mechanism and evaluate their performance on the QALD-5 challenge. 
 Finally, we identify the weak points of our current version of HAWK and give directions for future development.
-\end{abstract}
+%\end{abstract}
 
 
 \section{Introduction}
@@ -51,14 +51,14 @@ The fifth challenge on Question Answering over Linked Data (QALD-5)\footnote{\ur
 In this paper, we present our framework HAWK, the second best performing system w.r.t. hybrid question answering. 
 The need for this challenge becomes obvious by comparing the growing amount of data, in the Document Web and the Linked Data Web, which introduces an information gap, i.e., a considerable number of complex questions can only be answered by using hybrid question answering approaches, which can find and combine information stored in both structured and textual data sources~\cite{combiningLDandIR}.
 
-In this paper, we will outline the single steps performed by HAWK to answer hybrid questions in Section~\ref{sec:method}.
-Section~\ref{sec:discussion} discusses problems and opportunities within the current implementation.
-Finally, we conclude in Section~\ref{sec:conclusion} and explain future research directions.
+In this paper, we will outline the single steps performed by HAWK to answer hybrid questions in Section~\ref{chaclef:sec:method}.
+Section~\ref{chaclef:sec:discussion} discusses problems and opportunities within the current implementation.
+Finally, we conclude in Section~\ref{chaclef:sec:conclusion} and explain future research directions.
 The source code of HAWK, benchmark data, a link to the demo, further information as well as evaluation results can be retrieved from the project website \url{http://aksw.org/Projects/hawk}.
 
 
 \section{Method}
-\label{sec:method}
+\label{chaclef:sec:method}
 
 In the following, we will shortly describe the 8-step, modular pipeline of HAWK absed on the following running example: \texttt{Which anti-apartheid activist was born in Mvezo?}
 For more information please have a look at the full method description~\cite{HAWK_2015}.
@@ -91,7 +91,7 @@ Here, the \texttt{anti-apartheid activist} would be detected as noun phrase.
 HAWK has now captured entities from a given knowledge base, noun phrases as well as the semantic structure of the sentence. 
 Still, this structure contains tokens that are meaningless for retrieving the target information or even introduce noise in the process.
 Thus, HAWK prunes nodes from the predicate-argument tree based on their POS-tags, e.g., deleting all \texttt{DET} nodes, interrogative phrases such as \texttt{Give me} or \texttt{List}, and auxiliary tokens such as \texttt{did}.
-The linguistically pruned dependency tree with combined noun phrases for our running example would only contain \texttt{born} as a root node with two children, namely \texttt{anti-apartheid activist} and \url{http://dbpedia.org/resource/Mvezo}\footnote{Thereafter, we assume \texttt{dbo} stands for \url{http://dbpedia.org/ontology}, \texttt{dbr} for \url{http://dbpedia.org/resource/} and \texttt{rdfs} for \url{http://www.w3.org/2000/01/rdf-schema#} }.
+The linguistically pruned dependency tree with combined noun phrases for our running example would only contain \texttt{born} as a root node with two children, namely \texttt{anti-apartheid activist} and \url{http://dbpedia.org/resource/Mvezo}\footnote{Thereafter, we assume \texttt{dbo} stands for \url{http://dbpedia.org/ontology}, \texttt{dbr} for \url{http://dbpedia.org/resource/} and \texttt{rdfs} for \url{http://www.w3.org/2000/01/rdf-schema\#} }.
 
 \textbf{5. Semantic Annotation.}
 Now, the tree structure contains only semantically meaningful (combined) token and entities, i.e, individuals from the underlying knowledge base. 
@@ -159,7 +159,7 @@ An optimal ranking will reveal that the winning SPARQL query for our running exa
 
 
 \section{Evaluation and Discussion}
-\label{sec:discussion}
+\label{chaclef:sec:discussion}
 \sloppy
 The QALD-5 benchmark has a training and a test dataset for question answering containing a subset of hybrid benchmark questions.
 In particular, HAWK is currently only capable of answering questions demanding a single or a set of URIs from a target knowledge base. 
@@ -173,12 +173,14 @@ Please note, that for the feature-based ranker the training data was taken from 
 \begin{table}[h]
 \centering
 \caption{Results of the QALD-5 challenge for different ranking algorithms. Number in brackets show the amount of generated answers, i.e., HAWK outputs at least one result set.}
+\resizebox{\textwidth}{!}{ 
 \begin{tabular}{@{}lrrr@{}}
 \toprule
 Dataset           & \multicolumn{1}{l}{Optimal Ranking} & \multicolumn{1}{l}{Feature-based Ranking} & \multicolumn{1}{l}{Overlap-based Ranking} \\ \midrule
 QALD-5 - training & 0.30 (15 out of 26)                 & 0.06 (22 out of 26)                       & 0.08 (22 out of 26)                       \\
 QALD-5 - test     & 0.1 (1 out of 10)                   & 0.10 (3 out of 10)                        & 0.10 (3 out of 10)                        \\ \bottomrule
 \end{tabular}
+}
 \label{tab:eval_qald5}
 \end{table}
 
@@ -201,10 +203,11 @@ To experience the run times for single queries please visit our demo at \url{htt
 % \usepackage{booktabs}
 % \usepackage[table,xcdraw]{xcolor}
 % If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
-\begin{table}[h]
+\begin{table}[htb]
 \centering
 \caption{Detailed results of HAWK at the QALD-5 challenge.}
 \scriptsize
+\resizebox{\textwidth}{!}{ 
 \begin{tabular}{@{}lp{0.4\linewidth}lllllllll@{}}
 \toprule
          &                                                                                                             & \multicolumn{3}{l}{{\bf Feature-based Ranking}}     & \multicolumn{3}{l}{{\bf Overlap-based Ranking}}                                   & \multicolumn{3}{l}{{\bf Optimal Ranking}}                                      \\ \midrule
@@ -245,12 +248,13 @@ To experience the run times for single queries please visit our demo at \url{htt
 59       & Which movie by the Coen brothers stars John Turturro in the role of a New York City playwright?             & 1.00                        & 1.00                         & 1.00                         & 1.00                      & 1.00                      & 1.00                      & 1.00                     & 1.00                     & 1.00                     \\
 60       & Which of the volcanoes that erupted in 1550 is still active?                                                & \cellcolor[HTML]{BBDAFF}    & \cellcolor[HTML]{BBDAFF}     & \cellcolor[HTML]{BBDAFF}     & \cellcolor[HTML]{BBDAFF}  & \cellcolor[HTML]{BBDAFF}  & \cellcolor[HTML]{BBDAFF}  & \cellcolor[HTML]{BBDAFF} & \cellcolor[HTML]{BBDAFF} & \cellcolor[HTML]{BBDAFF} \\ \bottomrule
 \end{tabular}
+}
 \label{tab:eval_qal5_detail}
 
 \end{table}
 
 \section{Conclusion}
-\label{sec:conclusion}
+\label{chaclef:sec:conclusion}
 
 In this paper we presented HAWK, the first hybrid QA system for the Web of Data. We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, HAWK is able to achieve an F-measure of up to 0.3 on the QALD-5 training benchmark. 
 These results demand novel approaches for capturing the semantic meanings of natural language questions with hybrid SPARQL queries.
@@ -259,12 +263,10 @@ So far, our experiments reveal that the mere finding of the right features for t
 Finally, several components of the HAWK pipeline are computationally very complex.
 Finding more time-efficient algorithms for these steps will be addressed in future work.
 
-\vspace{.2cm}
+%\vspace{.2cm}
 
-\textbf{Acknowledgments}
-This work has been supported by the FP7 project GeoKnow (GA No. 318159) and the BMBF project SAKE.
 
-\bibliographystyle{abbrv}
-\bibliography{llncs}
+%\bibliographystyle{abbrv}
+%\bibliography{llncs}
 
-\end{document}
+%\end{document}
