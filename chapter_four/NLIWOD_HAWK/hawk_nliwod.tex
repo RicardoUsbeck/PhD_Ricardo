@@ -1,42 +1,42 @@
 
-\documentclass{llncs}
+%\documentclass{llncs}
 
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[hyphenbreaks]{breakurl}
-\usepackage[hyphens]{url}
-\usepackage{amsmath,amssymb}
-\usepackage{graphicx}
-\usepackage{float}%figure environment
-\usepackage[table,xcdraw]{xcolor}
-\usepackage{todonotes}
+%\usepackage[english]{babel}
+%\usepackage[utf8]{inputenc}
+%\usepackage[hyphenbreaks]{breakurl}
+%\usepackage[hyphens]{url}
+%\usepackage{amsmath,amssymb}
+%\usepackage{graphicx}
+%\usepackage{float}%figure environment
+%\usepackage[table,xcdraw]{xcolor}
+%\usepackage{todonotes}
 %\usepackage[disable]{todonotes}
-\usepackage{booktabs}
-\usepackage{wrapfig}
-\usepackage{multirow}
-\usepackage{tikz}
-\usetikzlibrary{positioning,shapes,arrows}
+%\usepackage{booktabs}
+%\usepackage{wrapfig}
+%\usepackage{multirow}
+%\usepackage{tikz}
+%
 %\usepackage{endnotes}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{caption}
-\usepackage{comment}
-\usepackage{times}
-\begin{document}
+%\usepackage[ruled,vlined]{algorithm2e}
+%\usepackage{caption}
+%\usepackage{comment}
+%\usepackage{times}
+%\begin{document}
 
-\title{Answering Boolean Hybrid Questions with HAWK}
-\author{
-Ricardo Usbeck\inst{1} \and 
-Erik Körner\inst{1} \and
-Axel-Cyrille Ngonga Ngomo\inst{1}
-}
+\chapter{Answering Boolean Hybrid Questions with HAWK}
+%\author{
+%Ricardo Usbeck\inst{1} \and 
+%Erik Körner\inst{1} \and
+%Axel-Cyrille Ngonga Ngomo\inst{1}
+%}
 
-\institute{
-University of Leipzig, Germany\\\email{\{usbeck,ngonga\}@informatik.uni-leipzig.de}
-}
+%\institute{
+%University of Leipzig, Germany\\\email{\{usbeck,ngonga\}@informatik.uni-leipzig.de}
+%}
 
-\maketitle
+%\maketitle
 
-\begin{abstract}
+%\begin{abstract}
 %The increasing amount of structured and unstructured data creates new opportunities and challenges for satisfying user information needs.
 %Shifting towards conversational search and retrieval of knowledge highlights the need for natural language based information systems.
 The decentral architecture behind the Web has led to pieces of information being distributed across data sources with varying structure. Hence, answering complex questions often requires combining information from structured and unstructured data sources.   
@@ -47,7 +47,7 @@ Especially, we introduce our preliminary approach towards answering ASK queries.
 %We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation tools on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
 %accurate, hybrid SPARQL queries for answering information needs which are able to cover knowledge which is not or cannot be modeled in structured ontologies.
 Our results show that these developments lead to HAWK achieving 0.74 F-measure on the ASK queries contained in the Question Answering over Linked Data (QALD-5) hybrid query benchmark assuming an given optimal ranking function. % and 0.60 F-measure on the test dataset.
-\end{abstract}
+%\end{abstract}
 
 
 \section{Introduction}
@@ -76,21 +76,21 @@ For the sake of this paper, we will assume the implementation of an optimal rank
 Our main contributions can be summarized as follows: (1) We present HAWK, the first QA framework tackling hybrid question answering. (2) HAWK analyses input questions and classifies them according to a simple heuristic. (3) The modular architecture of HAWK allows simple exchanging of pipeline parts to enhance testing and deployment, e.g., novel ranking or classification functions. (4) Our evaluation suggests that HAWK is able to achieve F-measures of 0.74 on QALD-5 hybrid test set.
 
 The rest of the paper is structured as follows:
-In Section~\ref{sec:relatedwork}, we briefly describe related work and in Section~\ref{sec:method} we detail HAWK's architecture.
-HAWK's performance and the influence of entity annotation systems is evaluated in Section~\ref{sec:evaluation}. 
-Finally, we conclude in Section~\ref{sec:conclusion}. 
+In Section~\ref{chanliwod:sec:relatedwork}, we briefly describe related work and in Section~\ref{chanliwod:sec:method} we detail HAWK's architecture.
+HAWK's performance and the influence of entity annotation systems is evaluated in Section~\ref{chanliwod:sec:evaluation}. 
+Finally, we conclude in Section~\ref{chanliwod:sec:conclusion}. 
 A demo as well as additional information can be found at our project home page \url{http://aksw.org/Projects/HAWK.html}.
 
 
 \section{Related Work} 
-\label{sec:relatedwork}
-\input{relatedwork}
+\label{chanliwod:sec:relatedwork}
+\input{chapter_four/NLIWOD_HAWK/relatedwork}
 
 \section{Method}
-\label{sec:method}
+\label{chanliwod:sec:method}
 \begin{figure}[htb!]
 \centering
-\input{architecture}
+\input{chapter_four/NLIWOD_HAWK/architecture}
 \caption{Pipeline steps of HAWK.}
 \label{fig:hawk_pipeline}
 \end{figure}
@@ -137,7 +137,7 @@ The linguistically pruned dependency tree with combined noun phrases for our run
 \textbf{7. Semantic Annotation.}
 Now, the tree structure contains only semantically meaningful (combined) token and entities, i.e, individuals from the underlying knowledge base. 
 To map the remaining token to properties and classes from the target knowledge base and its underlying ontology, our framework uses information about possible verbalizations of ontology concepts and leverages a fuzzy string search.
-These verbalizations are based on both \texttt{rdfs:label}\footnote{We assume \texttt{dbo} stands for \url{http://dbpedia.org/ontology}, \texttt{dbr} for \url{http://dbpedia.org/resource/}, \texttt{rdfs} for \url{http://www.w3.org/2000/01/rdf-schema#}, \texttt{dc} for \url{http://purl.org/dc/elements/1.1/} and \texttt{text} for \url{http://jena.apache.org/text#} } information from the ontology itself and (if available) verbalization information contained in lexica, in our case in the existing DBpedia English lexicon\footnote{\url{https://github.com/cunger/lemon.dbpedia}}.
+These verbalizations are based on both \texttt{rdfs:label}\footnote{We assume \texttt{dbo} stands for \url{http://dbpedia.org/ontology}, \texttt{dbr} for \url{http://dbpedia.org/resource/}, \texttt{rdfs} for \url{http://www.w3.org/2000/01/rdf-schema\#}, \texttt{dc} for \url{http://purl.org/dc/elements/1.1/} and \texttt{text} for \url{http://jena.apache.org/text\#} } information from the ontology itself and (if available) verbalization information contained in lexica, in our case in the existing DBpedia English lexicon\footnote{\url{https://github.com/cunger/lemon.dbpedia}}.
 After this step, either a node is annotated with a class, property or individual from the target knowledge base or it causes a full-text lookup in the targeted Document Web parts.
 With respect to the running example \texttt{die} would be annotated with the properties \texttt{dbo:deathPlace} and \texttt{dbo:dbo:deathDate}.
 
@@ -198,7 +198,7 @@ Have (VBP), Has (VBZ), Had (VBD)& have     \\
 
 \textbf{11. Modify the SPARQL query.}
 After classifying questions  and detecting the need for an \texttt{ASK} query, HAWK modifies the existing structure, i.e., changes the type of the SPARQL query by replacing the \texttt{SELECT} in the query with \texttt{ASK}.
-Furthermore, HAWK skips the cardinality calculation due to \texttt{ASK} queries not requiring the \texttt{LIMIT} solution modifier.\footnote{\url{http://www.w3.org/TR/rdf-sparql-query/#ask}} 
+Furthermore, HAWK skips the cardinality calculation due to \texttt{ASK} queries not requiring the \texttt{LIMIT} solution modifier.\footnote{\url{http://www.w3.org/TR/rdf-sparql-query/\#ask}} 
 
 With respect to our running example, the final query would be: 
 \begin{enumerate}
@@ -227,7 +227,7 @@ An optimal ranking will reveal that the winning SPARQL queries for our running e
 
 
 \section{Evaluation}
-\label{sec:evaluation}
+\label{chanliwod:sec:evaluation}
 \sloppy
 The QALD-5 \cite{qald5} benchmark has a training and a test dataset for question answering containing a subset of hybrid benchmark questions.
 %In this paper, we focus on the evaluation of hybrid questions demading boolean answers.
@@ -241,7 +241,7 @@ Thus, we used 27 questions for the evaluation from the combined dataset followin
 
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
-\begin{table}[]
+\begin{table}[htb!]
 \centering
 \caption{Results with and without the \texttt{ASK}-extension of HAWK.}
 \label{tab:eval_ask}
@@ -265,7 +265,7 @@ A demo of the framework can be found at \url{http://hawk.aksw.org}.
 
 
 \section{Conclusion}
-\label{sec:conclusion}
+\label{chanliwod:sec:conclusion}
 In this paper, we briefly introduced HAWK, a hybrid QA system for the Web of Data, and analysed its performance against the combined QALD 5 dataset using the new \texttt{ASK}-query module. 
 We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, HAWK is able to achieve an F-measure of up to 0.35.
 Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
@@ -273,12 +273,7 @@ Besides, HAWK assumes error-free data sources and user input to focus on the und
 Furthermore, the current version of HAWK is based on a frequently modified Java implementation whose performance can be experience in the demo. 
 Our work on HAWK, however, revealed several other open research questions, of which the most important lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 
-\vspace{.2cm}
+%\bibliographystyle{abbrv}
+%\bibliography{llncs}
 
-\textbf{Acknowledgments}
-This work has been supported by the FP7 project GeoKnow (GA No. 318159), the BMWI project SAKE and the Eurostars projects DIESEL and QAMEL.
-
-\bibliographystyle{abbrv}
-\bibliography{llncs}
-
-\end{document}
+%\end{document}
