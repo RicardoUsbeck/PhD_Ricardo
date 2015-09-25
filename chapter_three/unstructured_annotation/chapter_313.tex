@@ -48,7 +48,7 @@ Both the Document and the Data Web grow continuously. This is a mixed blessing, 
 While extracting structured data from unstructured data allows the development of powerful information system, it also requires high-quality knowledge extraction tool chains to lead to useful results. 
 However, standard document processing pipelines miss the opportunity to gain insights from semantic entities novel to the underlying knowledge base (KB). 
 That is, most known tool chains recognize entities based on linguistic models and link them to a KB or null if they are emerging entities. 
-So far, linking novel entities has only been the concern of a few approaches~\cite{AIDA,AGDISTIS_ISWC}.
+So far, linking novel entities has only been the concern of a few approaches~\cite{AIDA,agdistis_iswc}.
 Consequently, extracting type information for emerging and existing entities is a novel research avenue so far only tackled by the TAC KBP Entity Linking challenge 2014\footnote{\url{http://nlp.cs.rpi.edu/kbp/2014/}}, the Micropost workshop series\footnote{\url{http://www.scc.lancs.ac.uk/microposts2015/}} and the OKE challenge 2015\footnote{\url{http://2015.eswc-conferences.org/important-dates/call-OKEC}}.
 
 In this article, we present CETUS, a novel pattern based entity type extraction tool for identifying the type of a given entity inside a given text and linking this type to a KB, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
@@ -288,7 +288,7 @@ Our second approach serves as a baseline to our own baseline approach and uses t
 First, we created an index containing the surface forms of the YAGO classes with a mapping to the class URIs.
 Second, CETUS needs to match every generated class using the approach from Section~\ref{sec:docAnalysis} to one of the labels of the YAGO classes.
 
-Currently, our approach uses 3-gram string similarity to match labels in the index with those of the generated classes as it has been proven to be efficient and effective for such a task~\cite{AGDISTIS_ISWC}.
+Currently, our approach uses 3-gram string similarity to match labels in the index with those of the generated classes as it has been proven to be efficient and effective for such a task~\cite{agdistis_iswc}.
 This process retrieves most similar YAGO class for every generated class and a similarity score.
 From these YAGO classes, CETUS chooses the class with the highest similarity score.
 If two classes have the same score, CETUS chooses the class which is lower inside the local generated type hierarchy.

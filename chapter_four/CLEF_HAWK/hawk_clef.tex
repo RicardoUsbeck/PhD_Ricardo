@@ -61,7 +61,7 @@ The source code of HAWK, benchmark data, a link to the demo, further information
 \label{chaclef:sec:method}
 
 In the following, we will shortly describe the 8-step, modular pipeline of HAWK absed on the following running example: \texttt{Which anti-apartheid activist was born in Mvezo?}
-For more information please have a look at the full method description~\cite{HAWK_2015}.
+For more information please have a look at the full method description~\cite{hawk_2015}.
 
 
 \textbf{1. Segmentation and Part-of-Speech (POS)-Tagging.} 
@@ -74,7 +74,7 @@ POS-tagging on the running example will result in the following: \texttt{Which(W
 Next, our approach identifies named entities and tries to link them to the underlying knowledge base. 
 The QALD-5 challenge relies on the DBpedia~\cite{jl_2014/swj_dbpedia} as source for structured information in the form of Linked Data. 
 For recognizing and linking named entities HAWK's default annotator is FOX~\cite{FOX}, a federated knowledge extraction framework based on Ensemble Learning. 
-FOX has shown to outperform other entity annotation systems on the QALD 4 benchmark data~\cite{HAWK_2015}.
+FOX has shown to outperform other entity annotation systems on the QALD 4 benchmark data~\cite{hawk_2015}.
 An optimal annotator would annotate our running example \texttt{Mvezo} with \url{http://dbpedia.org/resource/Mvezo}.
 
 \textbf{3. Dependency Parsing and Noun Phrase Detection.}
@@ -154,7 +154,7 @@ For the QALD-5 challenge, we extended the basic ranking implementation of HAWK b
 \end{itemize}
 Moreover, HAWK determines the target cardinality $x$, i.e., \texttt{LIMIT $x$}, of each query using the indicated cardinality of the first seen POS-tag, e.g., the POS-tag \texttt{NNS} demands the plural while \texttt{NN} demands the singular case and thus leads to different \texttt{x}.
 An optimal ranking will reveal that the winning SPARQL query for our running example is \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}.
-%More detailed descriptions of each step of HAWK's pipeline are available at~\cite{HAWK_2015}.
+%More detailed descriptions of each step of HAWK's pipeline are available at~\cite{hawk_2015}.
 %Moreover, HAWK's modular architecture allows to exchange single modules in the pipeline to account.
 
 

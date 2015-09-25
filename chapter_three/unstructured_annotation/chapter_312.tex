@@ -16,7 +16,7 @@ We also summarize the results of the evaluation of AGDISTIS on several languages
 A significant portion of the information on the Web is still only available in textual format. 
 Addressing this information gap between the Document Web and the Data Web requires amongst others the extraction of entities and relations between these entities from text.
 One key step during this processing is the disambiguation of entities (also known as entity linking).
-The AGDISTIS framework~\cite{AGDISTIS_ISWC} (which will also be presented at this conference) addresses two of the major drawbacks of current entity linking frameworks~\cite{TagMe2,spotlight,babelfy}: time complexity and accuracy.
+The AGDISTIS framework~\cite{agdistis_iswc} (which will also be presented at this conference) addresses two of the major drawbacks of current entity linking frameworks~\cite{TagMe2,spotlight,babelfy}: time complexity and accuracy.
 With AGDISTIS, we have developed a framework that achieves polynomial time complexity and outperforms the state of the art w.r.t. accuracy.
 The framework is knowledge-base-agnostic (i.e., it can be deployed on any knowledge base) and is also language-independent.
 In this demo, we will present AGDISTIS deployed on three different languages (English, German and Chinese) and three different knowledge bases (DBpedia, the German DBpedia and the Chinese DBpedia).
@@ -65,7 +65,7 @@ We will demonstrate this feature by entering text in different languages (German
 \noindent\textbf{Entity Linking} 
 This is the most important step of the whole workflow.
 The annotated text is forwarded to the corresponding language-specific deployment of AGDISTIS, of which each relies on a language-specific version of DBpedia 3.9. 
-The approach underlying AGDISTIS~\cite{AGDISTIS_ISWC} is language-independent and combines breadth-first search and the well-known HITS algorithm. 
+The approach underlying AGDISTIS~\cite{agdistis_iswc} is language-independent and combines breadth-first search and the well-known HITS algorithm. 
 In addition, string similarity measures and label expansion heuristics are used to account for typos and morphological variations in naming.
 Moreover, Wikipedia-specific surface forms for resources can be used. 
 
