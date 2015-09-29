@@ -1,23 +1,21 @@
 \chapter{Introduction}
 This chapter is partially based on the authors PhD symposium paper~\cite{combiningLDandIR} and presents the overall motivation, structure and scientific contribution of this thesis.
 \section{Motivation}
-Since the proposal of hypertext by Tim-Berners Lee to his employer CERN on March 12, 1989\footnote{\url{http://www.w3.org/People/Berners-Lee/Longer.html}} the World Wide Web gathered more than one billion web pages and still grows\footnote{\url{http://www.internetlivestats.com/total-number-of-websites/}}.
-With the proposed Semantic Web vision~\cite{bernerslee2001semantic}, Lee et al. extended the existing Web to allow for better reuse, sharing and understanding of data by introducing novel W3C\footnote{World Wide Web consortium \url{http://www.w3.org/}} standards. 
+Since the proposal of hypertext by Tim-Berners Lee to his employer CERN on March 12, 1989\footnote{\url{http://www.w3.org/People/Berners-Lee/Longer.html}} the World Wide Web has grown more than one billion web pages and still grows\footnote{\url{http://www.internetlivestats.com/total-number-of-websites/}}.
+With the proposed Semantic Web vision~\cite{bernerslee2001semantic}, Lee et al. suggested an extenstion of the existing Web to allow for better reuse, sharing and understanding of data. % by introducing novel W3C\footnote{World Wide Web consortium \url{http://www.w3.org/}} standards. 
 %taken from HAWK
 
 With the growing amount of data and the ongoing decentralisation of knowledge, intuitive ways for non-experts to access this data are required. 
-To access this data, search engines trained humans to find information by typing keywords and to expect several web documents in return~\cite{ilprints361}.
-Yet, humans think and communicate their information needs commonly in their natural language rather than using incoherent keyword phrases~\cite{woods1973progress}. 
-Hence, answering complex questions often required combining information from various, differently structured data sources.
-Therefore, \emph{question answering (QA) systems} provide an easy and efficient way to query data via a known and complex input language, reducing a possible loss of precision and time while reformulating the search intention to transform it into a machine-readable way.
+To access this data, humans adapted their search behaviour using keyword search to be able to retrieve high quality results via input slits and to expect several web documents in return~\cite{ilprints361}.
+However, humans think and communicate their information needs commonly in their natural language rather than using keyword phrases~\cite{woods1973progress}. 
+Hence, answering complex information needs often required combining knowledge from various, differently structured data sources.
+To address user's information needs, \emph{question answering (QA) systems} provide an easy and efficient way to query data via natural language, reducing a possible loss of precision and time while reformulating the search intention to transform it into a machine-readable way.
 Furthermore, QA systems enable answering natural language queries with concise results instead of verbose links to web documents. 
-
-\todo[inline]{introduce the need for KE and benchmarking it}
 
 %Already in 1961, the Baseball system~\cite{green1961baseball} by Green et al. identified natural language as the most effective and convenient way for men to communicate with the growing amount of computer-centered systems. 
 
-Building a question answering (QA) system over heterogeneous knowledge sources requires various building blocks.
-In this work, we identify three main challenges -- \emph{respectively research gaps} -- and present solutions for building basic components as well as a complete system for hybrid semantic question answering.
+IBM's Watson~\cite{watson} highlighted several challenges for current and future QA systems.
+In this work, three main research gaps will be considered and addressed:
 \begin{enumerate}
 \item 
 Over the last decades, several billion Web pages have been made available on the Web. 
@@ -41,17 +39,18 @@ Moreover, we summarize existing solutions for semantic QA systems and propose an
 
 \section{Thesis Structure}
 
-This thesis is structured in four parts which reflect the efforts and challenges of the last three years of PhD work. 
-Every part is based on several peer-reviewed publications by the author of this work. 
-Each section will indicate the related publications as well as the contribution of the thesis author to these publications. 
+This thesis is structured in four parts.
+Every part is based on at least one peer-reviewed publication which was mainly authored by the author of this thesis.
+In each section, the related publications will be mentioned as well as the contribution of the thesis author to these publications. 
 The author works and marks as thoroughly as possible all parts from other works. 
 However, if there should be any mistakes or left-out citations the author will immediately after discovery publish an on-line erratum clarifying the mistake. 
 
 Due to the wide research areas covered in but required for this thesis, the author decided to partition this work into four parts, namely the introduction, knowledge extraction, hybrid question answering and the appendix. 
 
 \subsection{Part 1: Introduction}
-In the first part, the reader will become familiar with the problem and the research challenges occurring while developing a novel hybrid question answering system as well as tools for extracting semantic knowledge from non-structured data and benchmarking existing semantic annotation approaches.
-Furthermore, we introduce the basic standards, technologies and formalities to understand the research problems and solutions as well as the notation used throughout this work.
+The aim of the first part is to familiarize the reader with the problems and the research challenges of this thesis. 
+Especially, we discuss drawbacks and research directions towards a novel hybrid question answering system as well as tools for extracting semantic knowledge from non-structured data and benchmarking existing semantic annotation approaches.
+Furthermore, we introduce the necessary basic standards, technologies and formal notations to understand the research problems and solutions as well as the notation used throughout this work.
 
 \subsection{Part 2: Knowledge Extraction}
 
@@ -64,22 +63,5 @@ Furthermore, we introduce the basic standards, technologies and formalities to u
 From now on, the author will use the we-form as narrative.
 
 \section{Scientific Contributions}
-This PhD work is dimensioned for three years. 
-After intense literature reviews in the beginning of the first year the need for annotated Web data has been identified.
-As a logical consequence, the development of AGDISTIS and REX had been finished by the end of the first year. 
-Alongside, a gold standard ($N^3$) has been created to be able to evaluate the approaches mentioned above.
-
-The second year will be used for developing and assessing the corresponding search and ranking procedures. 
-To measure the quality of the \emph{auto-completion} technology, we assess different real-world query logs from our industry partner.
-Thereby, we analyze how much characters are need to understand the query correct.
-Additionally, we focus on the efficiency of the system in terms of milliseconds to react on a pressed key.
-
-Considering the ranking evaluation, we will use standard precision, recall and f-measures as well as rank comparision measures, e.g., mean reciprocal rank. 
-The underlying data is provided by the industry partner through human rater assessments and several comparisons to real-life search engines, e.g., Google or Wolfram Alpha.
-
-Afterwards, the combined pipeline itself will be evaluated in a qualitative study using professionals and end users.
-Therefore, empirical methods like Likert-scale questionnaires and direct relevance feedback will be used.
 
 
-Next to refining already submitted work and optimizing the source code to meet industrial production standards, the developed approaches and algorithms will be refined in a spiral way if unpredictable results occur.
-Thereby, upcoming ideas will be interweaved with the presented schedule creating a closed loop consisting of research question, development, evaluation and new research questions.
