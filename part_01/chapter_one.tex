@@ -2,20 +2,21 @@
 This chapter is partially based on the authors PhD symposium paper~\cite{combiningLDandIR} and presents the overall motivation, structure and scientific contribution of this thesis.
 \section{Motivation}
 Since the proposal of hypertext by Tim-Berners Lee to his employer CERN on March 12, 1989\footnote{\url{http://www.w3.org/People/Berners-Lee/Longer.html}} the World Wide Web has grown more than one billion web pages and still grows\footnote{\url{http://www.internetlivestats.com/total-number-of-websites/}}.
-With the proposed Semantic Web vision~\cite{bernerslee2001semantic}, Lee et al. suggested an extenstion of the existing Web to allow for better reuse, sharing and understanding of data. % by introducing novel W3C\footnote{World Wide Web consortium \url{http://www.w3.org/}} standards. 
+With the later proposed Semantic Web vision~\cite{bernerslee2001semantic}, Lee et al. suggested an extenstion of the existing Web to allow for better reuse, sharing and understanding of data. % by introducing novel W3C\footnote{World Wide Web consortium \url{http://www.w3.org/}} standards. 
 %taken from HAWK
 
 With the growing amount of data and the ongoing decentralisation of knowledge, intuitive ways for non-experts to access this data are required. 
-To access this data, humans adapted their search behaviour using keyword search to be able to retrieve high quality results via input slits and to expect several web documents in return~\cite{ilprints361}.
+To access this data, humans adapted their search behaviour using keyword search to be able to retrieve high quality results via input slits and to only expect several web documents in return~\cite{ilprints361}.
 However, humans think and communicate their information needs commonly in their natural language rather than using keyword phrases~\cite{woods1973progress}. 
-Hence, answering complex information needs often required combining knowledge from various, differently structured data sources.
+Moreover, answering complex information needs often required combining knowledge from various, differently structured data sources.
 To address user's information needs, \emph{question answering (QA) systems} provide an easy and efficient way to query data via natural language, reducing a possible loss of precision and time while reformulating the search intention to transform it into a machine-readable way.
 Furthermore, QA systems enable answering natural language queries with concise results instead of verbose links to web documents. 
-
+Moreover, hybrid QA systems further open access and combine to heterogeneous knowledge bases within one question.
 %Already in 1961, the Baseball system~\cite{green1961baseball} by Green et al. identified natural language as the most effective and convenient way for men to communicate with the growing amount of computer-centered systems. 
 
 IBM's Watson~\cite{watson} highlighted several challenges for current and future QA systems.
 In this work, three main research gaps will be considered and addressed:
+\todo[inline]{Überarbeiten}
 \begin{enumerate}
 \item 
 Over the last decades, several billion Web pages have been made available on the Web. 

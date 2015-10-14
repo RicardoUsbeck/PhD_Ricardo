@@ -191,7 +191,7 @@ GERBIL goes beyond the state of the art by extending the BAT-framework as well a
 \label{sec:architecture}
 \begin{figure*}[tb]
 \centering
-\includegraphics[width=0.6\linewidth]{chapter_three/benchmarking/WWW_GERBIL/GERBIL_new_architectur}
+\includegraphics[width=0.6\linewidth]{part_02/benchmarking/WWW_GERBIL/GERBIL_new_architectur}
 \caption{Overview of GERBIL's abstract architecture. Interfaces to users and providers of datasets and annotators are marked in blue.
 %\todo[inline]{AnBo: Should the arrows/calls triggered from the core \emph{to}\ the datasets?}
 }
@@ -546,11 +546,11 @@ These tables make clear that the numbers and types of used datasets varies a lot
 
 %GERBIL's main goal is the improvement of the reproducibility of entity annotation experiments. 
 %Thus, our approach offers the opportunity to easily compare a wealth of entity annotations systems and various datasets with diverse experiment and matching types as well as metrics, cf. .
-\input{chapter_three/benchmarking/WWW_GERBIL/datasets.tex}
+\input{part_02/benchmarking/WWW_GERBIL/datasets.tex}
 
 
 
-\input{chapter_three/benchmarking/WWW_GERBIL/dataset2Paper.tex}
+\input{part_02/benchmarking/WWW_GERBIL/dataset2Paper.tex}
 
 BAT allows evaluating the performance of different a\-ppro\-aches using five datasets, namely AQUAINT, MSNBC, IITB, Meij and AIDA/CoNLL.
 With GERBIL, we activate one more dataset already implemented by the authors, namely ACE2004 from Ratinov et al.~\cite{rat:rot}.
@@ -650,7 +650,7 @@ This allows for a quick comparison of tools and datasets on recently run experim
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.5\textwidth]{chapter_three/benchmarking/WWW_GERBIL/spider}
+\includegraphics[width=0.5\textwidth]{part_02/benchmarking/WWW_GERBIL/spider}
 \caption{Example spider diagram of recent A2KB experiments with strong annotation matching derived from our online interface}
 \label{fig:spider}
 \end{figure}
@@ -666,7 +666,7 @@ To achieve this goal, we surveyed the workload necessary to implement a novel an
 
 Our survey comprised five developers with expert-level programming skills in Java. Each developer was asked to evaluate how much time he/she needed to write the code necessary to evaluate his/her framework on a new dataset.
 
-\input{chapter_three/benchmarking/WWW_GERBIL/diagramFfTimeGERBILvsOwn}
+\input{part_02/benchmarking/WWW_GERBIL/diagramFfTimeGERBILvsOwn}
 
 Overall, the developers reported that they needed between 1 and 4 hours to achieve this goal (4x 1-2h, 1x 3-4h), see Figure~\ref{ref:comparedTime}.
 Importantly, all developers reported that they needed either the same or even less time to integrate their annotator into GERBIL.
@@ -681,7 +681,7 @@ An interesting side-effect of having all these frameworks and datasets in a cent
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=\columnwidth]{chapter_three/benchmarking/WWW_GERBIL/needed_times.eps}
+\includegraphics[width=\columnwidth]{part_02/benchmarking/WWW_GERBIL/needed_times.eps}
 \caption{Runtime per document of different approaches in GERBIL for the A2KB experiment type on the MSNBC dataset.}
 \label{fig:runtime}
 \end{figure}

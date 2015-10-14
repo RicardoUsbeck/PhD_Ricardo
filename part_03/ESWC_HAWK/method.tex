@@ -12,7 +12,7 @@ Figure~\ref{chahawk:fig:architecture} gives an overview of the architecture of H
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\linewidth]{chapter_four/ESWC_HAWK/HAWK_architecture}
+\includegraphics[width=0.8\linewidth]{part_03/ESWC_HAWK/HAWK_architecture}
 \caption{Architectural overview of HAWK.}
 \label{chahawk:fig:architecture}
 \end{figure}
@@ -55,7 +55,7 @@ Input tokens will be combined following manually-crafted linguistic heuristics d
 Thus, the input is a natural language question (list of keywords) and the output is a list of chunks, see Algorithm~1.
 HAWK's modular structure allows for an easy exchange of the POS-tagger or dependency parser.
 
-\input{chapter_four/ESWC_HAWK/algo_nouncombiner.tex}
+\input{part_03/ESWC_HAWK/algo_nouncombiner.tex}
 
 Subsequently, in order to capture linguistic and semantic relations, HAWK parses the query using dependency parsing and semantic role labeling~\cite{choi2011getting}.
 The dependency parser is given the chunked question. 
@@ -69,18 +69,18 @@ HAWK therefore prunes nodes from the predicate-argument tree based on their POS-
 Algorithm~2 details the algorithm for removing nodes.
 Figure~\ref{chahawk:fig:prunedtree} depicts the predicate-argument tree obtained for our running example after pruning.% of unnecessary nodes.
 
-\input{chapter_four/ESWC_HAWK/algo_treepruner.tex}
+\input{part_03/ESWC_HAWK/algo_treepruner.tex}
 
 \begin{minipage}{0.57\textwidth} 
 \centering
-\includegraphics[width=\linewidth]{chapter_four/ESWC_HAWK/hawk_tree_full}
+\includegraphics[width=\linewidth]{part_03/ESWC_HAWK/hawk_tree_full}
 \captionof{figure}{Predicate-argument tree for the example question `Which recipients of the Victoria Cross died in the Battle of Arnhem?'}
 \label{chahawk:fig:dependency_tree}
 \end{minipage}
 \hfill
 \begin{minipage}{0.36\textwidth}
 \centering
-\includegraphics[width=\linewidth]{chapter_four/ESWC_HAWK/hawk_tree_pruned}
+\includegraphics[width=\linewidth]{part_03/ESWC_HAWK/hawk_tree_pruned}
 \captionof{figure}{Tree after pruning. Argument edges are ordered from left to right.}
 \label{chahawk:fig:prunedtree}
 \end{minipage}
@@ -187,7 +187,7 @@ Table~\ref{tab:triple_patterns_example} shows generated triple patterns for part
 \label{tab:triple_patterns_example}
 \end{table}
 
-\input{chapter_four/ESWC_HAWK/pattern.tex}
+\input{part_03/ESWC_HAWK/pattern.tex}
 
 During this process, each iteration of the traversal appends the generated patterns to each of the already existing SPARQL queries. 
 This combinatorial effort results in covering every possible SPARQL graph pattern given the predicate-argument tree.
