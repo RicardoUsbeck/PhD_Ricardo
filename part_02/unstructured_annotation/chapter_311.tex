@@ -1,6 +1,10 @@
 \newmdtheoremenv{ex}{Example}
 
 \chapter{Knowledge-base Agnostic, Multilingual Entity Linking}
+\graffito{This chapter presents Agdistis A paper about the approach is published .
+The whole evaluation of  were carried out by author, who also co-implemented the algorithm and co-wrote the paper.}
+
+
 Over the last decades, several billion Web pages have been made available on the Web.
 The ongoing transition from the current Web of unstructured data to the Web of Data yet requires scalable and accurate approaches for the extraction of structured data in RDF (Resource Description Framework) from these websites.
 One of the key steps towards extracting RDF from text is the disambiguation of named entities.
@@ -144,7 +148,6 @@ Furthermore, using HITS leverages 1) scalability, 2) well-researched behaviour a
 \caption{Overview of AGDISTIS.}
 \label{fig:overview_agdistis}
 \end{figure*}
-%\todo[inline]{caption bei Änderung des Titels anpassen}
 
 Our approach to NED thus consists of three main phases as depicted in Figure~\ref{fig:overview_agdistis}.
 Given an input text $T$ and a named entity recognition function (e.g., FOX~\cite{FOX}), we begin by retrieving all named entities from the input text.
@@ -203,7 +206,7 @@ Since our goal is to disambiguate persons, organizations and places, AGDISTIS on
 Adding general types will increase the number of candidates and thus decrease the performance.
 Obviously, these classes can be altered by the user as required to fit his purposes. 
 
-\begin{table*}[htb!]
+\begin{table}[htb!]
 \centering
  \caption{DBpedia  and YAGO2 classes used for disambiguation classes. Prefix \texttt{dbo} stands for \texttt{http://dbpedia.org/ontology/}, \texttt{foaf} for \texttt{http://xmlns.com/foaf/0.1/} and \texttt{yago} for \texttt{http://yago-knowledge.org/resource/}.}
  \begin{tabular}{lll}
@@ -221,7 +224,9 @@ YAGO2 & Place & yago:YagoGeoEntity \\
 \bottomrule
 \label{tab:tableOfClasses}
  \end{tabular}
- \end{table*}
+ \end{table}
+ 
+ 
 
 \begin{algorithm}[htb!]
 \KwData{label of a certain named entity $N_i$, $\sigma$ trigram similarity threshold}
@@ -254,6 +259,7 @@ $ \displaystyle \bar C \longleftarrow$ {\bf searchIndex(label)}\;
 \caption{Searching candidates for a label.}
 \label{findingCandidates}
 \end{algorithm}
+
 
 The resulting candidate detection approach is explicated in Algorithm~\ref{findingCandidates}.
 %If a KB provides redirect and disambiguation URLs, AGDISTIS can benefit from them.
@@ -316,6 +322,7 @@ $G \longleftarrow${\bf breadthFirstSearch($G,d$)}\;
 }
 \caption{Disambiguation Algorithm based on HITS and Linked Data.}\label{algooverview}
 \end{algorithm}
+
 
 For our example, the graph depicted in Figure~\ref{fig:example} shows an excerpt of the input graph for the HITS disambiguation algorithm when relying on DBpedia as knowledge base. 
 %Depending on the used KB properties may exist that lead to bi-directional edges (e.g., \texttt{sex} vs. \texttt{fatherOf}).
@@ -490,6 +497,8 @@ This corpus has been presented by Kulkarni et al.~\cite{kulkarni2009collective} 
 We did not use the \textbf{Meij} dataset from Cornolti et al. since it comprises only tweets from twitter with 1.6 entities per document. The number of entities available in the datasets is shown in Table~\ref{tab:data}.
 %\todo{leave the computer stuff out?}
 All experiments were carried out on a MacBook Pro with a 2.7GHz Intel Core i7 processor and 4 GB 1333MHz DDR3 RAM using Mac OS 10.7. 
+
+
 \begin{table*}[tb!]
 \centering
 \caption{Test corpora specification including the number of documents (\#Doc.) and the number of named entities (\#Ent.) per dataset}
@@ -509,6 +518,7 @@ AIDA-YAGO2 & English & 1,393 & 34,956 &25.07 &voter agreement\\
 \bottomrule
 \end{tabular}
 \end{table*}
+
 
 %\begin{figure*}[tb!]
 %    \centering
@@ -545,6 +555,7 @@ Considering the AIDA-YAGO2 dataset AGDISTIS achieves an \mbox{F-measure} of 0.73
 %In combination with the results on RSS-500, 
 Our results suggest that $d=2, \sigma=0.82$ and using DBpedia as KB are a good setting for AGDISTIS and suffice to perform well. %The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of up to $6\%$ \mbox{F-measure}.
 In the only case where $\sigma=0.29$ leads to better results (Reuters-21578 corpus), the setting $0.7<\sigma<0.9$ is only outperformed by 0.03 F-measure using YAGO as KB for AGDISTIS.
+
 
 \begin{table}
     \centering
@@ -584,11 +595,13 @@ We will address this drawback in future work by fitting AGDISTIS with a preproce
 The local vector-space model used by Spotlight performs best in this setting. 
 
 %\todo[inline]{Micha: the part "The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of up to $6\%$ \mbox{F-measure}" occurs two times. Remove one of them.}  
+
 \begin{figure}[htb!]\centering
         \includegraphics[width=0.9\linewidth]{part_02/unstructured_annotation/fig/reuters.pdf}
         %\includegraphics[width=0.9\linewidth]{fig/bfs_depth_diag.pdf}
     \caption{\mbox{F-measure} on the \textbf{Reuters-21578} corpus using DBpedia as KB.}  \label{fig:reuters}
 \end{figure}
+
 
 Delving deeper into AGDISTIS' results lead to the following insights:
 (1) Varying the search depth $d$ does not significantly improve \mbox{F-measure} because within the underlying documents there are many similar named entities forming a shallow semantic background. However, using only string similarity measures ($d=0$) results in lower F-measure (see Figure \ref{fig:reuters}). % while the optimum has been found using $d=2$. %, see Figure~(\todo[inline]{here was a reference to a reuters figure}). 
