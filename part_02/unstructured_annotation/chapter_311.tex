@@ -4,7 +4,7 @@
 \graffito{
 This chapter presents AGDISTIS, an novel approach towards graph-based, knowledge base-agnostic entity linking using Linked Data. 
 AGDISTIS' methods and features have been published in~\cite{agdistisdemo, agdistis_ecai, agdistis_iswc}.
-The author of this thesis implemented and evaluated AGDISTIS and its demo. 
+The author of this thesis implemented and co-evaluated AGDISTIS and its demo. 
 Furthermore, he is the main author of the above mentioned publications. 
 }
 
@@ -49,7 +49,7 @@ We address this drawback by presenting AGDISTIS,  a novel \ac{NED} approach. Our
 \item Our approach combines the \ac{HITS} algorithm with label expansion strategies and string similarity measures.
 Based on this combination, AGDISTIS can efficiently detect the correct URIs for a given set of named entities within an input text. 
 \item We show that our approach has a quadratic time complexity. Thus, it scales well enough to be used even on large knowledge bases.
-\item We evaluate our approach on eight \emph{well-known and diverse open-source datasets}\footnote{Further data, detailed experimental results and source code for this paper are publicly available on our project homepage \url{http://aksw.org/Projects/AGDISTIS}.} as well as against state-of-the-art named entity disambiguation frameworks.
+\item We evaluate our approach on nine \emph{well-known and diverse open-source datasets}\footnote{Further data, detailed experimental results and source code for this paper are publicly available on our project homepage \url{http://aksw.org/Projects/AGDISTIS}.} as well as against state-of-the-art named entity disambiguation frameworks.
 Our results indicate that we outperform the state-of-the-art approach by up to $29\%$ F-measure.
 \item AGDISTIS' demo is presented and deployed on three different languages (English, German and Chinese) and three different knowledge bases (DBpedia, the German DBpedia and the Chinese DBpedia).
 To the best of our knowledge, we therewith provide the first Chinese instantiation of entity linking to DBpedia.
@@ -68,7 +68,7 @@ The rest of this chapter is organized as follows:
 First, a brief overview of related work is presented in Section~\ref{sec:relatedwork}.
 Then, we introduce the AGDISTIS approach in Section~\ref{sec:approach}. %comprising an overview, the way AGDISTIS detects candidates and the disambiguation algorithm itself. 
 %We formalize the task of \ac{NED} in Section~\ref{sec:ned}.
-Section~\ref{sec:eval} evaluates AGDISTIS performance against state-of-the-art tools, eight diverse datasets, three knowledge bases and three languages. 
+Section~\ref{sec:eval} evaluates AGDISTIS performance against state-of-the-art tools, nine diverse datasets, three knowledge bases and three languages. 
 %\todo{surface form richtig erklärt?}
 %We analyze the contribution of certain properties to our disambiguation approach in the same section. 
 We conclude in Section~\ref{sec:conclusion} by highlighting research questions that emerged from this work.
@@ -319,7 +319,7 @@ $E \longleftarrow \emptyset$\;
 $V \longleftarrow${\bf insertCandidates($N, \sigma$)}\;
 $G \longleftarrow (V,E)$\;
 $G \longleftarrow${\bf breadthFirstSearch($G,d$)}\;
-{\bf  \ac{HITS}($G(V,E), k$)}\;
+{\bf  HITS($G(V,E), k$)}\;
 {\bf sortAccordingToAuthorityValue(V)}\;
 \For{$N_i \in N$} {
     \For{$v \in V$}{
@@ -329,7 +329,8 @@ $G \longleftarrow${\bf breadthFirstSearch($G,d$)}\;
           }
      }
 }
-\caption{Disambiguation Algorithm based on  \ac{HITS} and Linked Data.}\label{algooverview}
+\caption{Disambiguation Algorithm based on \ac{HITS} and Linked Data.}
+\label{algooverview}
 \end{algorithm}
 
 
@@ -340,7 +341,7 @@ The results can be seen in Table~\ref{tab:example}.
 %\todo{what happens if the \ac{KB} does not contain the correct entity, does the algorithm answer null, but is encompanied with closed world assumption, we know all entities we annotated}
 %Since we assume a closed-world scenario our algorithm supposes every entity to be in the \ac{KB}.
 
-\begin{figure}[htbp]
+\begin{figure}[tb!]
 	\begin{minipage}[b]{0.57\textwidth} 
        % \begin{figure}
          \centering
@@ -402,11 +403,16 @@ The results can be seen in Table~\ref{tab:example}.
 \section{Evaluation}
 \label{sec:eval}
 
-\todo[inline]{9 statt 8 Datensätze}
+This section is divided into four parts. 
+First, we explain the experimental setup, i.e., which measures we chose for evaluation.
+Then, we describe the datasets underlying the experiments. 
+Afterwards, the evaluation results are analysed and conclusion are drawn. 
+We devote a single subsection to the generation and evaluation of the Chinese benchmark since it is the first benchmark w.r.t. Chinese \ac{NED}.
+
 \subsection{Experimental Setup}
 \label{eval}
-The aim of our evaluation was two-fold.
-First, we wanted  to determine the F-measure achieved by our approach on different datasets.
+The aim of our evaluation is two-fold.
+First, we want  to determine the F-measure achieved by our approach on different datasets.
 Several definitions of F-measure have been used in previous work on \ac{NED}.
 Cornolti et al.~\cite{cornolti} define the micro F-measure (F1) w.r.t. a strong annotation match (i.e., a binary relation) and the possibility of assigning null to an entity.
 This F-measure, which we use throughout our evaluation, aggregates all true/false positives/negatives over all documents.
@@ -416,8 +422,8 @@ Thus, it accounts for larger contexts in documents with more annotations, cf. Co
 %we regarded the assignment of a resource to a string as a \emph{false positive} if no resource from the \ac{KB} mapped with the string or if the string was assigned to the wrong resource.
 %Furthermore, the assignment of a resource was considered a \emph{false negative} if the approach returned that no resource mapped the string although there was a resource in the \ac{KB} that did.
 
-Second, we wanted to know how AGDISTIS performs in comparison to other state-of-the-art \ac{NED} approaches. 
-Thus, we compare AGDISTIS with TagMe 2, the best approach according to ~\cite{cornEolti} as well as with AIDA and DBpedia Spotlight because they are well-known in the Linked Data community. 
+Second, we want to know how AGDISTIS performs in comparison to other state-of-the-art \ac{NED} approaches. 
+Thus, we compare AGDISTIS with TagMe 2, the best approach according to ~\cite{cornolti} as well as with AIDA and DBpedia Spotlight because they are well-known in the Linked Data community. 
 AGDISTIS is designed to be agnostic of the underlying knowledge base.
 Thus, we use the German and English DBpedia \ac{KB} as well as the English YAGO 2 \ac{KB}. %\footnote{Results using other Linked Data \ac{KB}s can be found at the project homepage.}
 
@@ -455,7 +461,7 @@ We report more details on the evaluation setup as well as complete results at th
 
 \subsection{Datasets}
 Noisy and incorrect datasets can affect the performance of \ac{NED} approaches which can be prevented by using well-known datasets.
-We carried out our evaluation on the following eight different, publicly available datasets, which consists of the three corpora from the benchmark dataset \textbf{N3}~\cite{n3}, the original AIDA evaluation corpus\footnote{\url{https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/aida/downloads/}} and four of the five datasets from the Cornolti et al.~\cite{cornolti} benchmark:
+We carried out our evaluation on the following nine different, publicly available datasets, which consists of the three corpora from the benchmark dataset \textbf{N3}~\cite{n3}, the original AIDA evaluation corpus\footnote{\url{https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/aida/downloads/}} and four of the five datasets from the Cornolti et al.~\cite{cornolti} benchmark. Furthermore, we used the multilingual QALD 5 dataset for the evaluation of the Chinese version of AGDISTIS.
 
 \begin{enumerate}
 \item \textbf{Reuters-21578 Dataset.}
@@ -503,17 +509,21 @@ This dataset displays the highest entity/document-density of all corpora.
 This corpus has been presented by Kulkarni et al.~\cite{kulkarni2009collective} in 2009.
 
 \item \textbf{MSNBC} This corpus contains 20 news documents with 32.9 entities per document. This corpus was presented in 2007 by Cucerzan et al.~\cite{Cucerzan07}.
+
+\item \textbf{QALD 4} A first try is to adopt the multilingual benchmark provided in Question Answering over Linked Data (QALD) 4~\cite{qald4} for question answering. Unfortunately, the Chinese language is not supported. Therefore, we extended the QALD 4 benchmark by translating the English questions to Chinese and annotated the named entity links manually. The links in the given SPARQL queries for the questions are assumed to be the correct links for the English entities, which are adapted to the Chinese links by hand. It results in 200 Chinese questions in the training data and 50 ones in the test data, with an average of 0.9 named entity links per question. \footnote{The Chinese benchmark is available at \url{https://github.com/wencanluo/DBpediaQA/tree/master/benchmark/qald4}.}
+
 \end{enumerate}
 
 We did not use the \textbf{Meij} dataset from Cornolti et al. since it comprises only tweets from twitter with 1.6 entities per document. The number of entities available in the datasets is shown in Table~\ref{tab:data}.
 %\todo{leave the computer stuff out?}
-All experiments were carried out on a MacBook Pro with a 2.7GHz Intel Core i7 processor and 4 GB 1333MHz DDR3 RAM using Mac OS 10.7. 
+All experiments were carried out on a MacBook Pro with a 2.7 GHz Intel Core i7 processor and 4 GB 1333 MHz DDR3 RAM using Mac OS 10.7. 
 
 
 \begin{table*}[tb!]
 \centering
 \caption{Test corpora specification including the number of documents (\#Doc.) and the number of named entities (\#Ent.) per dataset}
 \label{tab:data}
+\resizebox{\textwidth}{!}{ 
 \begin{tabular}{lcrrrc}
 \toprule
 \textbf{Corpus} & \textbf{Language} & \textbf{\#Doc.} & \textbf{\#Ent.} & \textbf{Ent./Doc.} & \textbf{Annotation}\\
@@ -528,6 +538,7 @@ RSS 500 & English & 500 & 1,000 & 2.00&domain expert \\
 AIDA-YAGO2 & English & 1,393 & 34,956 &25.07 &voter agreement\\
 \bottomrule
 \end{tabular}
+}
 \end{table*}
 
 
@@ -544,6 +555,7 @@ AIDA-YAGO2 & English & 1,393 & 34,956 &25.07 &voter agreement\\
 \begin{table*}[hb!]
 \centering
 \caption{Evaluation of AGDISTIS against AIDA and DBpedia Spotlight. Bold indicates best \mbox{F-measure}.} \label{tab:evalold} 
+\resizebox{\textwidth}{!}{ 
 \begin{tabular}{c ccc ccc c c}
 \toprule
 \textbf{Corpus}  & \multicolumn{6}{c}{\textbf{AGDISTIS}}	& \textbf{AIDA} & \textbf{Spotlight}\\\midrule
@@ -555,12 +567,12 @@ RSS-500 		&  	\textbf{0.75}	&  			0.76		&  		2		& 	0.53	&  0.82		&   2 	&  	0.60
 \url{news.de} 	&  	\textbf{0.87}	&  			0.71		&  		2		& 	---		&   ---		&  ----	&  	----		& 	0.84	\\
 AIDA-YAGO2	   	&  		0.73		&  			0.89		&  		2		& 	0.58	&  0.76		&   2 	&\textbf{0.83}	& 	0.57	\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table*}
 
 First, we evaluate AGDISTIS against AIDA and DBpedia Spotlight on three different knowledge bases using N3 corpora and the AIDA-YAGO2 corpus. 
 
-AGDISTIS performs best on the \url{news.de} corpus, achieving a maximal 0.87 \mbox{F-measure} for $\sigma = 0.71$ and $d = 2$ (see Table~\ref{tab:evalold}).
+AGDISTIS performs best on the \url{news.de} corpus, achieving a maximal 0.87 F\-measure for $\sigma = 0.71$ and $d = 2$ (see Table~\ref{tab:evalold}).
 Our approach also outperforms the state of the art on Reuters-21578 corpus (see Figure~\ref{fig:reuters}), where it reaches 0.78 \mbox{F-measure} for $\sigma = 0.87$ and $d = 2$.
 Considering the AIDA-YAGO2 dataset AGDISTIS achieves an \mbox{F-measure} of 0.73 for $\sigma = 0.89$ and $d = 2$.
 %In combination with the results on RSS-500, 
@@ -607,7 +619,7 @@ The local vector-space model used by Spotlight performs best in this setting.
 
 %\todo[inline]{Micha: the part "The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of up to $6\%$ \mbox{F-measure}" occurs two times. Remove one of them.}  
 
-\begin{figure}[htb!]\centering
+\begin{figure}[tb!]\centering
         \includegraphics[width=0.9\linewidth]{part_02/unstructured_annotation/fig/reuters.pdf}
         %\includegraphics[width=0.9\linewidth]{fig/bfs_depth_diag.pdf}
     \caption{\mbox{F-measure} on the \textbf{Reuters-21578} corpus using DBpedia as \ac{KB}.}  \label{fig:reuters}
@@ -691,14 +703,14 @@ Overall, our results suggest that $\sigma=0.82$ and $d=2$ is generally usable ac
 
 
 
-\subsection{English and German Evaluation.} AGDISTIS has been evaluated on 8 different datasets from diverse domains such as news, sports or buisiness reports.
-For English datasets AGDISTIS is able to outperform the currently best disambiguation framework, TagMe2, on three out of four datasets by up to 29.5\% F-measure. 
-Considering the only German dataset available for named entity disambiguation, i.e., \url{news.de}~\cite{n3}, we are able to outperform the only competitor DBpedia Spotlight by 3\% F-measure.
+%\subsection{English and German Evaluation.} AGDISTIS has been evaluated on 9 different datasets from diverse domains such as news, sports or buisiness reports.
+%For English datasets AGDISTIS is able to outperform the currently best disambiguation framework, TagMe2, on three out of four datasets by up to 29.5\% F-measure. 
+%Considering the only German dataset available for named entity disambiguation, i.e., \url{news.de}~\cite{n3}, we are able to outperform the only competitor DBpedia Spotlight by 3\% F-measure.
 
-\subsection{How the Chinese version was generated}
-\label{sec:chinese}
+%\subsection{How the Chinese version was generated}
 
-The key to extend AGDISTIS to support a new language is to provide the needed \ac{RDF} data for this particular language, especially \texttt{\ac{RDF}:type} information. 
+
+
 %However, the latest available Linked Data --- DBpedia 3.9 --- has no such information for Chinese. 
 %Therefore, we created triples containing \texttt{\ac{RDF}:type} as predicate by translating the English ones to Chinese. 
 %Specifically, we use inter-language links extracted by DBpedia 
@@ -716,65 +728,46 @@ The key to extend AGDISTIS to support a new language is to provide the needed \a
 %\subsection{Accuracy results of the Chinese version}
 %In this section, we will introduce a new Chinese benchmark and the evaluation results.
 
-\subsubsection{Chinese Benchmark}
+\subsection{Chinese Benchmark}
+\label{sec:chinese}
+The key to extend AGDISTIS to support a new language is to provide the needed \ac{RDF} data for this particular language, especially \texttt{rdf:type} information. 
+To evaluate the Chinese version of AGDISTIS, a Chinese benchmark is created in the context of \ac{QA}.
+The disambiguation of named entities is a key step to answer a natural language question based on Linked Data. 
+%\subsubsection{Results}
 
-To evaluate the Chinese version of AGISTIS, a Chinese benchmark is created in the context of question answering because the disambiguation of named entities is a key step to answer a natural language question based on linked data. 
-
-A first try is to adopt the multilingual benchmark provided in QALD-4~\cite{qald4} for question answering. Unfortunately, the Chinese language is not supported. Therefore, we extended the QALD-4 benchmark by translating the English questions to Chinese and annotated the named entity links manually. The links in the given SPARQL queries for the questions are assumed to be the correct links for the English entities, which are adapted to the Chinese links by hand. It results in 200 Chinese questions in the training data and 50 ones in the test data, with an average of 0.9 named entity links per question. The Chinese benchmark is available at \url{https://github.com/wencanluo/DBpediaQA/tree/master/benchmark/qald4}.
-
-\subsubsection{Results}
-
-
-
-\noindent \textbf{Chinese Evaluation.} We evaluated the Chinese version of AGDISTIS within a question answering setting. 
-To this end, we used the multilingual benchmark provided in QALD-4\footnote{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald}}. 
-Since the Chinese language is not supported, we extended the QALD-4 benchmark by translating the English questions to Chinese and inserted the named entity links manually.
-The accuracies achieved by AGDISTIS for the train and test datasets are 65\% and 70\% respectively. 
+%\noindent \textbf{Chinese Evaluation.} We evaluated the Chinese version of AGDISTIS within a question answering setting. 
+To this end, we used the multilingual benchmark provided in QALD 4\footnote{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald}}. 
+Since the Chinese language is not supported, we extended the QALD 4 benchmark by translating the English questions to Chinese and inserted the named entity links manually.
+%The accuracies achieved by AGDISTIS for the train and test datasets are 65\% and 70\% respectively. 
 %We also performed a fully automatic evaluation by using the Chinese segmentation and named-entity recognition algorithms provided by LTP-Cloud\footnote{\url{http://www.ltp-cloud.com/}}. 
 %The accuracies sank to 32\% and 38\%.
 %These results indicate the need for better resources for Entity Recognition in Chinese.
 
-
-
 We first report the disambiguation accuracies by assuming the named entities are given. It allows a fair comparison to other disambiguation algorithms because named entity disambiguation performance is highly depended on named-entity recognition results. The accuracy is measured at a sentence level by assuming a correct disambiguation should recognize and link all the entities in a sentence, which is essential for further steps in question answering. The accuracies for the training and testing are 65\% and 70\% respectively. 
 
-We also performance a fully automatic evaluation by using the Chinese segmentation and named-entity recognition algorithms provided by LTP-Cloud\footnote{\url{http://www.ltp-cloud.com/}}. 
-The accuracies are 32\% and 38\%.
-
-architecture, what are the main steps
-
-GOAL is to provide entity linking results to several languages which are show on the website and downloadable as JSON
-
-1 we will present and explain how AGDISTIS works and how multilinguality is achieved
-
-2 Users can try different inputs at the demo station and tell us, what quality they expect and which languages they want
-
-3 finally we will show how the results can be downloaded or seen online and how the annotation of more or less entities changes the behaviour of AGDISTIS
-
-benchmarks will be shown as well and people will be invited to use our for free endpoint for their projects so we can store the use case data and improve our approach similar to the feedback API of spotlight and fox
+%We also performance a fully automatic evaluation by using the Chinese segmentation and named-entity recognition algorithms provided by LTP-Cloud\footnote{\url{http://www.ltp-cloud.com/}}. 
+%The accuracies are 32\% and 38\%.
 
 
  
 \section{Demonstration}
-\begin{itemize}
-\item Moreover, the output format of AGDISTIS will be explained. 
-An online version of the demo is available at \url{http://agdistis.aksw.org/demo}.
-The aim of this demo is to present the English, German and Chinese version of our framework based on DBpedia.
+%\begin{itemize}
+%\item Moreover, the output format of AGDISTIS will be explained. 
+%An online version of the demo is available at \url{http://agdistis.aksw.org/demo}.
+%The aim of this demo is to present the English, German and Chinese version of our framework based on DBpedia.
+%\item A demo of our approach (integrated into the Named Entity Recognition framework FOX~\cite{FOX}) can be found at \url{http://fox.aksw.org}. 
+%\item In this demo, we will present AGDISTIS deployed on three different languages (English, German and Chinese) and three different knowledge bases (DBpedia, the German DBpedia and the Chinese DBpedia).
+%To the best of our knowledge, we therewith provide the first Chinese instantiation of entity linking to DBpedia.
+%\item We will also demonstrate the AGDISTIS web services endpoints for German, English and Chinese disambiguation and show how data can be sent to the endpoints.
+%\item Moreover, the output format of AGDISTIS will be explained.
+%
+%\end{itemize}
 
-
-\item A demo of our approach (integrated into the Named Entity Recognition framework FOX~\cite{FOX}) can be found at \url{http://fox.aksw.org}. 
-\item In this demo, we will present AGDISTIS deployed on three different languages (English, German and Chinese) and three different knowledge bases (DBpedia, the German DBpedia and the Chinese DBpedia).
-To the best of our knowledge, we therewith provide the first Chinese instantiation of entity linking to DBpedia.
-\item We will also demonstrate the AGDISTIS web services endpoints for German, English and Chinese disambiguation and show how data can be sent to the endpoints.
-\item Moreover, the output format of AGDISTIS will be explained.
-An online version of the demo is available at \url{http://agdistis.aksw.org/demo}.
-The aim of this demo is to present the English, German and Chinese version of our framework based on DBpedia.
-\end{itemize}
-
-Within our demonstration, we aim to show how AGDISTIS can be used by non-expert as well as expert users.
+Within our demonstration, we aim to show how AGDISTIS can be used by non-expert as well as expert users. \footnote{An online version of the demo is available at \url{http://agdistis.aksw.org/demo}.}
+Another aim of this demo is to present the English, German and Chinese version of our framework based on DBpedia.
 For non-experts, we provide a graphical user interface (GUI).
 Experts can choose to use the REST interfaces provided by the tool or use a Java snippet to call the REST interface.
-The whole of this functionality, which will be described in more details in the following sections, will also be demonstrated at the conference.
+The whole of this functionality, which will be described in more details in the following. % sections, will also be demonstrated at the conference.
 
 \subsection{AGDISTIS for non-expert users}
 A screenshot of the AGDISTIS GUI is shown in Figure~\ref{fig:gui}.
@@ -793,8 +786,8 @@ In the first case, the labels of the entities are to be marked by using square b
 In the case of an automatic annotation, we send the text to the FOX framework, which has been shown to outperform the state of the art in~\cite{FOX}.
 %In our current implemen
 %Since there is no multilingual \ac{NER} tool available, an automatic annotation of entities works only for English texts.
-We will demonstrate this feature by using both manually pre-annotated text and text without annotations in our examples (see upper bar of Figure~\ref{fig:gui}).
-Moreover, we will allow the crowd to enter arbitrary texts that pertain to their domain of interest.
+%We will demonstrate this feature by using both manually pre-annotated text and text without annotations in our examples (see upper bar of Figure~\ref{fig:gui}).
+%Moreover, we will allow the crowd to enter arbitrary texts that pertain to their domain of interest.
 
 \noindent\textbf{Automatic Language Detection}
 Once the user has set which entities are to be disambiguated, the marked-up text is sent to the language detection module based on~\cite{nakatani2010langdetect}.
@@ -802,21 +795,21 @@ We chose this library because it is both precise ($>99\%$ precision) and time-ef
 If the input is detected to belong to one of the languages we support (i.e., German, Chinese, English), then we forward the input to a dedicated AGDISTIS instance for this given language.
 In all other cases, an error message is shown to the user, pointing towards the language at hand not being supported.
 The main advantage of this approach is that the user does not need to select the language in which the text is explicated manually, thus leading to an improved user experience. 
-We will demonstrate this feature by entering text in different languages (German, English, French, Chinese, etc.) and presenting the output of the framework for each of these test cases.
+%We will demonstrate this feature by entering text in different languages (German, English, French, Chinese, etc.) and presenting the output of the framework for each of these test cases.
 
 \noindent\textbf{Entity Linking} 
 This is the most important step of the whole workflow.
-The annotated text is forwarded to the corresponding language-specific deployment of AGDISTIS, of which each relies on a language-specific version of DBpedia 3.9. 
-The approach underlying AGDISTIS~\cite{agdistis_iswc} is language-independent and combines breadth-first search and the well-known  \ac{HITS} algorithm. 
-In addition, string similarity measures and label expansion heuristics are used to account for typos and morphological variations in naming.
-Moreover, Wikipedia-specific surface forms for resources can be used. 
+The annotated text is forwarded to the corresponding language-specific deployment of AGDISTIS, of which each relies currently on a language-specific version of DBpedia 2014. 
+%The approach underlying AGDISTIS~\cite{agdistis_iswc} is language-independent and combines breadth-first search and the well-known  \ac{HITS} algorithm. 
+%In addition, string similarity measures and label expansion heuristics are used to account for typos and morphological variations in naming.
+%Moreover, Wikipedia-specific surface forms for resources can be used. 
 
 \noindent\textbf{Output}
 Within the demo the annotated text is shown below the input field where disambiguated entities are colored to highlight them. 
 While hovering a highlighted entity the disambiguated URI is shown.
 We will demonstrate the output of the entity linking by using the examples shown in the upper part of Figure~\ref{fig:gui}. 
 The output of the system will be shown both in a HTML version and made available as a download in JSON. 
-Moreover, we will allow interested participants to enter their own examples and view the output of the tool.
+%Moreover, we will allow interested participants to enter their own examples and view the output of the tool.
 
 \subsection{AGDISTIS for expert users}
 
@@ -832,22 +825,32 @@ in <entity>Washington, D.C.</entity>.'" -d type='agdistis'
 \end{verbatim}
 
 
+%architecture, what are the main steps
+%GOAL is to provide entity linking results to several languages which are show on the website and downloadable as JSON
+%1 we will present and explain how AGDISTIS works and how multilinguality is achieved
+%2 Users can try different inputs at the demo station and tell us, what quality they expect and which languages they want
+%3 finally we will show how the results can be downloaded or seen online and how the annotation of more or less entities changes the behaviour of AGDISTIS
+%benchmarks will be shown as well and people will be invited to use our for free endpoint for their projects so we can store the use case data and improve our approach similar to the feedback API of spotlight and fox
+
+
 \section{Conclusion \& Contributions}
 \label{sec:conclusion}
 %\todo[inline]{Micha: AIDA is missing in the conclusion.}
-We presented AGDISTIS a novel named entity disambiguation that combines the scalable  \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
+We presented AGDISTIS, a novel named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
 Our approach outperforms the state-of-the-art algorithms TagMe 2, AIDA and DBpedia Spotlight while remaining quadratic in its time complexity. 
 Moreover, our evaluation suggests that while the approach performs well in and of itself, it can benefit from being presented with more linguistic information such as surface forms. 
+We presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
 %Furthermore, we measured the effect of evolving the structure of the underlying knowledge base.
 %We observed the significance of properties on the \mbox{F-measure} performance of our system.
 %Our results suggest that only a few \ac{RDF} properties contribute significantly to enhancing the performance of AGDISTIS.
+
 We see this work as the first step in a larger research agenda.
-Based on AGDISTIS, we aim to develop a new paradigm for realizing NLP services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
+Based on AGDISTIS, we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
 Other than most work, which mainly uses statistics and heuristics, we aim to truly exploit the graph structure and semantics of the background knowledge.
 
 Since AGDISTIS is agnostic of the underlying knowledge base and language-independent, it can profit from growing \ac{KB}s as well as multilingual Linked Data.
 In the future, we will thus extend AGDISTIS by using different underlying \ac{KB}s and even more domain-specific datasets.
-An evaluation of Babelfy against our approach will be published on the project website.
+%An evaluation of Babelfy against our approach will be published on the project website.
 Moreover, we will implement a sliding-window-based extension of AGDISTIS to account for large amounts of entities per document.
 %A novel avenue of research would be combining AGDISTIS with topic modelling~\cite{Blei:2003:LDA:944919.944937}. Preliminary experiments in this direction show that we can improve the F-measure of our approach by at least 1\% on all datasets.
 %In the future we intend to look for larger, more domain-specific and even more insightful disambiguation datasets to refine and test AGDISTIS.
@@ -855,12 +858,12 @@ Moreover, we will implement a sliding-window-based extension of AGDISTIS to acco
 %Answering those research questions will expose possible performance-enhancing extensions.
 %
 
-We presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
-In future work, we aim to create a single-server multilingual version of the framework that will intrinsically support several languages at the same time.
-To this end, we will use a graph merging algorithm to combine the different versions of DBpedia to a single graph.
-The disambiguation steps will then be carried out on this unique graph.
+
+%In future work, we aim to create a single-server multilingual version of the framework that will intrinsically support several languages at the same time.
+%To this end, we will use a graph merging algorithm to combine the different versions of DBpedia to a single graph.
+%The disambiguation steps will then be carried out on this unique graph.
 %expand different knowledge base and 
 %a full dbpedia supported multilingual version
 
-
-A demo of our approach (integrated into the Named Entity Recognition framework FOX~\cite{FOX}) can be found at \url{http://fox.aksw.org}. 
+AGDISTIS is integrated into FOX~\cite{FOX}, an ensemble learning based \ac{NER}~framework which can be found at \url{http://fox.aksw.org}. 
+Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
