@@ -1,17 +1,14 @@
-\chapter{Type Annotation on Unstructured Texts}
 
-\lstset{
-  basicstyle=\footnotesize\ttfamily,
-  breaklines=true,
-  captionpos=b,                    % sets the caption-position to bottom
-  frame=single,
-  %morecomment=[s][\color{blue}]{<}{>},
-  morecomment=[s][\color{red}]{"}{"},
-  numbers=left,
-  numbersep=5pt,
-  numberstyle=\tiny,
-  stringstyle=\tiny
+\chapter{RDF Type Annotation on Unstructured Texts}
+
+\graffito{
+This chapter presents CETUS, a pattern-based approach for annotation RDF type information to entities.
+CETUS has won the OKE challenge 2015~\cite{okechallenge}, task 2, and is published in~\cite{CETUS_2015}.
+The author of this thesis assisted the main author, co-wrote the paper and its poster. 
 }
+\todo[inline]{Adapt the introduction to the aforementioned AGDISTIS section}
+\todo[inline]{Replace listings by algorithms}
+
 
 %\DeclareUnicodeCharacter{0177}{\p1}
 
@@ -28,29 +25,29 @@
 
 
 %\begin{abstract}
-The concurrent growth of the Document Web and the Data Web demands accurate information extraction tools to bridge the gap between the two.
-In particular, the extraction of knowledge on real-world entities is indispensable to populate knowledge bases on the Web of Data. 
-Here, we focus on the recognition of types for entities to populate knowledge bases and enable subsequent knowledge extraction steps.
-We present CETUS, a baseline approach to entity type extraction tool.
-CETUS is based on a three-step pipeline comprising i) offline, knowledge-driven type pattern extraction from natural-language corpora based on grammar-rules, ii) an analysis of input text to extract types and iii) the mapping of the extracted type evidence to a subset of the DOLCE+DnS Ultra Lite ontology classes.
-We implement and compare two approaches for the third step using the YAGO ontology as well as the FOX entity recognition tool.
+%The concurrent growth of the Document Web and the Data Web demands accurate information extraction tools to bridge the gap between the two.
+%In particular, the extraction of knowledge on real-world entities is indispensable to populate knowledge bases on the Web of Data. 
+%Here, we focus on the recognition of types for entities to populate knowledge bases and enable subsequent knowledge extraction steps.
+%We present CETUS, a baseline approach to entity type extraction tool.
+%CETUS is based on a three-step pipeline comprising i) offline, knowledge-driven type pattern extraction from natural-language corpora based on grammar-rules, ii) an analysis of input text to extract types and iii) the mapping of the extracted type evidence to a subset of the DOLCE+DnS Ultra Lite ontology classes.
+%We implement and compare two approaches for the third step using the YAGO ontology as well as the FOX entity recognition tool.
 %\end{abstract}
 
-
-\section{Introduction}
+ 
+%\section{Introduction}
 
 Both the Document and the Data Web grow continuously. This is a mixed blessing, as the two forms of the Web grow concurrently and most commonly contain different forms of information. Modern information systems must thus bridge this gap to allow a holistic access to the Web. One way to bridge the gap between the two forms of the Web is the extraction of structured data from the growing amount of unstructured information on the Document Web. 
 While extracting structured data from unstructured data allows the development of powerful information system, it also requires high-quality knowledge extraction tool chains to lead to useful results. 
 However, standard document processing pipelines miss the opportunity to gain insights from semantic entities novel to the underlying knowledge base (KB). 
 That is, most known tool chains recognize entities based on linguistic models and link them to a KB or null if they are emerging entities. 
 So far, linking novel entities has only been the concern of a few approaches~\cite{AIDA,agdistis_iswc}.
-Consequently, extracting type information for emerging and existing entities is a novel research avenue so far only tackled by the TAC KBP Entity Linking challenge 2014\footnote{\url{http://nlp.cs.rpi.edu/kbp/2014/}}, the Micropost workshop series\footnote{\url{http://www.scc.lancs.ac.uk/microposts2015/}} and the OKE challenge 2015\footnote{\url{http://2015.eswc-conferences.org/important-dates/call-OKEC}}.
+Consequently, extracting type information for emerging and existing entities is a novel research avenue so far only tackled by the TAC KBP Entity Linking challenge 2014\footnote{\url{http://nlp.cs.rpi.edu/kbp/2014/}}, the Micropost workshop series\footnote{\url{http://www.scc.lancs.ac.uk/microposts2015/}} and the OKE challenge 2015~\cite{okechallenge}.
 
 In this article, we present CETUS, a novel pattern based entity type extraction tool for identifying the type of a given entity inside a given text and linking this type to a KB, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
-Here the subset refers to \texttt{dul:Person}, \texttt{dul:Place}, \texttt{dul:Organization} and \texttt{dul:Role}\footnote{Throughout this paper, we use the prefix \texttt{dul} for \url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}.}.
+Here the subset refers to \texttt{dul:Person}, \texttt{dul:Place}, \texttt{dul:Organization} and \texttt{dul:Role}.
 CETUS is a fast and easy to implement baseline approach to path a way to novel research insights.
 CETUS' pipeline is divided into three subsequent parts: i) an a-priori pattern extraction, ii) a grammar-based analysis of the input document and iii) a mapping the type evidence to the DOLCE+DnS Ultra Lite classes. 
-CETUS implements two approaches for the third step using the YAGO ontology as well as the FOX entity recognition tool.
+CETUS implements two approaches for the third step using the YAGO ontology as well as the FOX~\cite{FOX} entity recognition tool.
 We will explain these parts in detail in the Sections~\ref{sec:patternExt},~\ref{sec:docAnalysis},~\ref{sec:linkingyago} and~\ref{sec:typeLinking} respectively, before we conclude in Section~\ref{cha321:sec:conclusion}. The source code of CETUS can be found at \url{https://github.com/AKSW/Cetus}.
 
 \section{Related Work}
@@ -92,8 +89,8 @@ Second, sentences containing the entity label and at least one label of one of i
 CETUS extracts the part of the sentence between the entity label and the type label and stores additionally the words, their lemmas and part-of-speech tags of the extracted phrase.
 
 After analysing all abstracts, CETUS counts the different phrases.
-Table~\ref{tab:extParts} shows examples of extracted phrases and their counts how often they have been found inside the English DBpedia.
 The words inside these parts are encoded as \texttt{<word>\_<lemma>\_<pos-tag>}.
+Table~\ref{tab:extParts} shows examples of extracted phrases and their counts how often they have been found inside the English DBpedia.
 
 Delving into the extracted phrases reveals insights into the structure of entity type descriptions in DBpedia abstracts.
 It can be seen that the formulation "\texttt{<entity>} \emph{is a} \texttt{<type>}" occurs most often.
@@ -104,6 +101,7 @@ The fourth example shows that some abstracts contain more complex formulations l
 
 \begin{table}
 \centering
+\resizebox{\textwidth}{!}{
 \begin{tabular}{lp{5mm}r}
  \toprule
  \multicolumn{1}{c}{\textbf{Extracted phrase}} && \multicolumn{1}{c}{\textbf{Count}} \\
@@ -116,6 +114,7 @@ The fourth example shows that some abstracts contain more complex formulations l
  \qquad\qquad\ \ \texttt{of\_of\_pp-f flowering\_flower\_j-vvg <type>} && \\
  \bottomrule
 \end{tabular}
+}
 \caption{Examples of sentence parts found between an entity and its type.}
 \label{tab:extParts}
 \end{table}
@@ -137,6 +136,20 @@ The first assumption simplifies the task of defining a grammar since we can focu
 The second assumption contains the definition of a type surface form.
 It might seem to be contradictory w.r.t. the last example of Table~\ref{tab:extParts} but for the extraction it is important that we extract all words that \emph{could} be part of the types surface form.
 Following this assumptions, we can define a type inside the grammar with the rule in Listing~\ref{lst:typeRule}.
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  captionpos=b,                    % sets the caption-position to bottom
+  frame=single,
+  %morecomment=[s][\color{blue}]{<}{>},
+  morecomment=[s][\color{red}]{"}{"},
+  numbers=none,
+  
+%  numbersep=5pt,
+% numberstyle=\tiny,
+%  stringstyle=\tiny
+}
 
 \begin{figure}
 \begin{lstlisting}[label=lst:typeRule, caption=The grammar rule defining a type surface form.]{typeRule}
@@ -237,17 +250,17 @@ After a class has been created, the first word is removed and the next class is 
 Every following class is a super class of the classes generated before.
 Finally, the entity is connected to all generated classes.
 
-For our example, three classes would be generated and linked to the entity as shown in Listing~\ref{lst:localHierarchy}\footnote{The \texttt{rdfs} prefix stands for \url{http://www.w3.org/2000/01/rdf-schema\#} while the prefix \texttt{ex} could stay for every user defined vocabulary, e.g., \url{http://example.com/}.}.
+For our example, three classes would be generated and linked to the entity as shown in Listing~\ref{lst:localHierarchy} respectivly Figure~\ref{fig:localHierarchy}.\footnote{The prefix \texttt{ex} could stand for every user defined vocabulary, e.g., \url{http://example.com/}.}.
 
-\begin{figure}
+\begin{figure}[tb!]
 \centering
-\includegraphics[scale=0.8]{part_02/unstructured_annotation/fig/localHierarchy.pdf}
+\includegraphics[scale=0.7]{part_02/unstructured_annotation/fig/localHierarchy.pdf}
 \caption{Schema of the generated local hierarchy of the example.}
 \label{fig:localHierarchy}
 \end{figure}
 
 \begin{figure}
-\begin{lstlisting}[label=lst:localHierarchy,caption=The local hierarchy that is generated from the extracted string expressed using turtle.]{localHierarchy}
+\begin{lstlisting}[label=lst:localHierarchy,caption=The local hierarchy is generated from the extracted string expressed using turtle.]{localHierarchy}
 ex:AlbertEinstein
     a ex:German-bornTheoreticalPhysicist, 
         ex:TheoreticalPhysicist, ex:Physicist .
@@ -289,7 +302,7 @@ From these YAGO classes, CETUS chooses the class with the highest similarity sco
 If two classes have the same score, CETUS chooses the class which is lower inside the local generated type hierarchy.
 The chosen YAGO class is linked to its local class.
 
-After that, we iterate through the YAGO class hierarchy from the linked class to its root, searching for one of the classes listed in Table~\ref{tab:yagoClassMatching}\footnote{Throughout this paper, we use the prefix \texttt{yago} for \url{http://yago-knowledge.org/resource/}.}.
+After that, we iterate through the YAGO class hierarchy from the linked class to its root, searching for one of the classes listed in Table~\ref{tab:yagoClassMatching}.
 If such a class is found, we link it with the corresponding DOLCE+DnS Ultra Lite class.
 Otherwise, we repeat the search using the YAGO class with the second highest similarity score.
 The result for our running example can be seen in Figure~\ref{fig:localYAGOHierarchy}
@@ -309,9 +322,9 @@ The result for our running example can be seen in Figure~\ref{fig:localYAGOHiera
 \label{tab:yagoClassMatching}
 \end{table}
 
-\begin{figure}
+\begin{figure}[tb!]
 \centering
-\includegraphics[scale=0.8]{part_02/unstructured_annotation/fig/localYAGOHierarchy.pdf}
+\includegraphics[scale=0.7]{part_02/unstructured_annotation/fig/localYAGOHierarchy.pdf}
 \caption{Resulting type hierarchy that is created based on the YAGO ontology.}
 \label{fig:localYAGOHierarchy}
 \end{figure}
@@ -335,18 +348,6 @@ The result for our running example can be seen in Figure~\ref{fig:localYAGOHiera
 
 \section{Entity Type Linking using FOX}
 \label{sec:typeLinking}
-
-A second approach for a type extraction baseline is the usage of one of the various, existing entity typing tools.
-For our second version CETUS$_{FOX}$, we are using FOX\footnote{\url{http://aksw.org/Projects/FOX.html}}, a named entity recognition and typing tool based on ensemble learning over 8 different tools.
-
-CETUS$_{FOX}$ sends the given document to the FOX web-service for retrieving annotations.
-If the entity inside the document is found and typed by FOX, the type is used to choose one of the four DOLCE+DnS Ultra Lite classes, see Table~\ref{tab:foxclassmatching}.
-The chosen class is used as super class for the automatically created classes.
-Unfortunately, FOX does not identify roles in its current version.
-
-With respect to our running example, the FOX tool marks "Albert Einstein" as a person.
-Thus, the created classes would be defined as subclasses of \texttt{dul:Person} as shown in Figure~\ref{fig:localFOXHierarchy}.
-
 \begin{table}
 \centering
 \begin{tabular}{lp{5mm}l}
@@ -364,7 +365,20 @@ Thus, the created classes would be defined as subclasses of \texttt{dul:Person} 
 \end{table}
 
 
-\begin{figure}[htb!]
+A second approach for a type extraction baseline is the usage of one of the various, existing entity typing tools.
+For our second version CETUS$_{FOX}$, we are using FOX, a named entity recognition and typing tool based on ensemble learning over 8 different tools.
+
+CETUS$_{FOX}$ sends the given document to the FOX web-service for retrieving annotations.
+If the entity inside the document is found and typed by FOX, the type is used to choose one of the four DOLCE+DnS Ultra Lite classes, see Table~\ref{tab:foxclassmatching}.
+The chosen class is used as super class for the automatically created classes.
+Unfortunately, FOX does not identify roles in its current version.
+
+With respect to our running example, the FOX tool marks "Albert Einstein" as a person.
+Thus, the created classes would be defined as subclasses of \texttt{dul:Person} as shown in Figure~\ref{fig:localFOXHierarchy}.
+
+
+
+\begin{figure}[tb!]
 \centering
 \includegraphics[scale=0.8]{part_02/unstructured_annotation/fig/localFOXHierarchy.pdf}
 \caption{Resulting type hierarchy that is created based on the results of FOX.}
