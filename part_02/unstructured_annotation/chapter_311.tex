@@ -690,7 +690,7 @@ Overall, our results suggest that $\sigma=0.82$ and $d=2$ is generally usable ac
 \subsection{Chinese Benchmark}
 \label{sec:chinese}
 The key to extend AGDISTIS to support a new language is to provide the needed \ac{RDF} data for this particular language, especially \texttt{rdf:type} information. 
-To evaluate the Chinese version of AGDISTIS, a Chinese benchmark is created in the context of \ac{QA}.
+To evaluate the Chinese version of AGDISTIS, a Chinese benchmark has been created in the context of \ac{QA}.
 The disambiguation of named entities is a key step to answer a natural language question based on Linked Data. 
 %\subsubsection{Results}
 
@@ -772,7 +772,7 @@ The output of the system will be shown both in a HTML version and made available
 
 \subsection{AGDISTIS for expert users}
 
-To support different languages we set up a REST URI for each of the language versions.
+To support different languages,% we set up a REST URI for each of the language versions.
 %those\footnote{\url{http://139.18.2.164:8080/AGDISTIS_DE}}\footnote{\url{http://139.18.2.164:8080/AGDISTIS_ZH}}\footnote{\url{http://139.18.2.164:8080/AGDISTIS}}.
 Each of these endpoints understands two mandatory parameters: (1) \texttt{text} which is an UTF-8 and URL encoded string with entities annotated with XML-tag \texttt{<entity>} and (2) \texttt{type='agdistis'} to disambiguate with the AGDISTIS algorithm.
 In the future, several wrappers will be implemented to use different entity linking algorithms for comparison.
