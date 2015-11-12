@@ -1,4 +1,6 @@
-
+\todo[inline]{check for acronyms}
+\chapter{Related Work}
+%%%%%%%AGDISTIS
 \section{Related Work}
 \label{sec:relatedwork}
 AGDISTIS is related to the research area of Information Extraction~\cite{nad:sek} in general and to \ac{NED} in particular.
@@ -45,3 +47,39 @@ The authors compared six existing approaches, also using DBpedia Spotlight, AIDA
 Furthermore, the authors defined different classes of named entity annotation task, e.g. \emph{`D2W'}, that is the disambiguation to Wikipedia task which is the formal task AGDISITS tries to solve.
 We consider TagMe 2 as state of the art w.r.t. this benchmark although only one dataset has been considered for this specific task.
 %We analyze the performance of DBpedia Spotlight, AIDA, TagMe 2 and our approach AGDISTIS on four of the corpora from this benchmark in Section~\ref{sec:eval}.
+
+%%%%%%%GERBIL
+
+\section{Related Work}
+Named Entity Recognition and Entity Linking have gained significant momentum with the growth of Linked Data and structured knowledge bases. Over the last few years, the problem of result comparability has thus led to the development of a hand full of frameworks.
+
+The BAT-framework~\cite{cornolti} is designed to facilitate the benchmarking of named entity recognition (NER), named entity disambiguation (NED) -- also known as linking (NEL) -- and concept tagging approaches.
+BAT compares seven existing entity annotation approaches using Wikipedia as reference.
+%Cornolti et al. were not able to compare CMNS and CSAW due to unavailable source code. \todo[inline]{is the software still unavailable?}
+Moreover, it defines six different task types, five different matchings and six evaluation measures providing five datasets.
+% which we will explain in Section~\ref{sec:architecture}.
+%(Giuseppe) should this go here?
+Rizzo et al.~\cite{rizzo2014}  present a state-of-the-art study of NER and NEL systems for annotating newswire and micropost documents using well-known benchmark datasets, namely CoNLL2003 and Microposts 2013 for NER as well as AIDA/CoNLL and Microposts2014~\cite{Cano2014} for NED. 
+%The systems analyzed in this study are the ones supported by the NERD Framework~\cite{rizzo2012}, with the addition of the Stanford NER toolkit~\cite{StanfordNER}.
+%Different systems use different schemas for entity typing and different knowledge bases for entity disambiguation. 
+The authors propose a common schema, named the NERD ontology\footnote{\url{http://nerd.eurecom.fr/ontology}}, to align the different taxonomies used by various extractors. To tackle the disambiguation ambiguity, they propose a method to identify the closest DBpedia resource by (exact-)matching the entity mention.
+
+Over the course of the last 25 years several challenges, workshops and conference dedicated themselves to the comparable evaluation of information extraction (IE) systems. 
+Starting in 1993, the Message Understanding Conference (MUC) introduced a first systematic comparison of information extraction approaches~\cite{Sundheim:1993:TIE:1072017.1072023}.
+Ten years later, the Conference on Computational Natural Language Learning (CoNLL) started to offer a shared task on named entity recognition and published the CoNLL corpus~\cite{conll2003}.
+In addition, the Automatic Content Extraction (ACE) challenge~\cite{doddington2004automatic}, organized by NIST, evaluated several approaches but was discontinued in 2008. 
+Since 2009, the text analytics conference hosts the workshop on knowledge base population (TAC-KBP)~\cite{mcnamee2009overview} where mainly linguistic-based approaches are published.
+The Senseval challenge, originally concerned with classical NLP disciplines, has wided it focus in 2007 and changed its name to SemEval to account for the recently recognized impact of semantic technologies~\cite{kilgarri1998senseval}.
+The Making Sense of Microposts workshop series (MSM) established in 2013 an entity recognition and in 2014 an entity linking challenge thereby focusing on tweets and microposts~\cite{MSM2014}.
+In 2014, Carmel et al.~\cite{ERD2014} introduced one of the first Web-based evaluation systems for NER and NED and the centerpiece of the entity recognition and disambiguation (ERD) challenge. Here, all frameworks are evaluated against the same unseen dataset and provided with corresponding results. 
+
+GERBIL goes beyond the state of the art by extending the BAT-framework as well as~\cite{rizzo2014} in several dimensions to enhance reproducibility, diagnostics and publishability of entity annotation systems. In particular, we provide \numberOfadditionalDatasets additional datasets and \numberOfadditionalAnnotators additional annotators. The framework addresses the lack of treatment of NIL values within the BAT-framework and provides more wrapping approaches for annotators and datasets. Moreover, GERBIL provides persistent URLs for experiment results, unique URIs for frameworks and datasets, a machine-readable output and automatic dataset updates from data portals. Thus, it allows for a holistic comparison of existing annotators while simplifying the archiving of experimental results. Moreover, our framework offers opportunities for the fast and simple evaluation of entity annotation system prototypes via novel NIF-based~\cite{NIF} interfaces, which are designed to simplify the exchange of data and binding of services.
+%Additionally, each configured experiment has its own persistent and publishable URI to enable reproducible research at web-scale, .
+%Figure~\ref{fig:architecture} gives an overview of GERBILs components, interaction possibilities and data streams.
+%\todo[inline]{AnBo: The paragraph sounds a lot like buzzwording with few concret information. I suggest to stick to the MVC pattern and describe what is the view here, what is the model, how are these components addressing the outcome of the related work. What are the disadvantages of the previous approaches. I would prefer that we add a related work section (the above paragraph should be the core of this section). Axel: Done}
+
+%The main drawback is that this evaluation was done for one single dataset (that of the ERDchallenge). Moreover, the challenge organizers decided not to publish the gold standard of their dataset to make the evaluation more independent and not let participants build system to solve the problem on their dataset thus losing generality. (marco) Done. (Axel)}
+%\todo[inline]{Wo sollten wir sagen dass wir uns aus Rechenlastgründen nur auf webservices beschränken? Intro?}
+
+%%%%%%%QA
+\section{Question Answering}
