@@ -1,0 +1,47 @@
+
+\section{Related Work}
+\label{sec:relatedwork}
+AGDISTIS is related to the research area of Information Extraction~\cite{nad:sek} in general and to \ac{NED} in particular.
+Several approaches have been developed to tackle \ac{NED}. 
+Cucerzan presents an approach based on extracted Wikipedia data towards disambiguation of named entities~\cite{Cucerzan07}.
+The author aims to maximize the agreement between contextual information of Wikipedia pages and the input text by using a local approach.
+%\todo{What's a local approach?}
+\emph{Epiphany}~\cite{epiphany} identifies, disambiguates and annotates entities in a given HTML page with RDFa. 
+Ratinov et al.~\cite{rat:rot} described an approach for disambiguating entities from Wikipedia. 
+The authors argue that using Wikipedia or other ontologies can lead to better global approaches than using traditional local algorithms which disambiguate each mention separately using,\,e.g., text similarity. %for word sense disambiguation.
+Kleb et al.~\cite{Kleb11WIMS,KlebESWC10} developed and improved an approach using ontologies to mainly identify geographical entities but also people and organizations in an extended version. 
+These approaches use Wikipedia and other Linked Data \ac{KB}s.
+LINDEN~\cite{LINDEN} is an entity linking framework that aims at linking identified named entities to a knowledge base.
+To achieve this goal, LINDEN collects a dictionary of the surface forms of entities from different Wikipedia sources, storing their count information.
+
+Wikipedia Miner~\cite{milne2008learning} is the oldest approach in the field of \emph{wikification}.
+Based on different machine learning algorithms, the systems disambiguates w.r.t. prior probabilities, relatedness of concepts in a certain window and context quality. 
+The authors evaluated their approach based on a Wikipedia as well as an AQUAINT subset. 
+Unfortunately, the authors do not use the opportunities provided by Linked Data like DBpedia.
+
+Using this data the approach constructs candidate lists and assigns link probabilities and global coherence for each resource candidate.
+The AIDA approach~\cite{AIDA} for \ac{NED} tasks is based on the YAGO2 \ac{KB} and relies on sophisticated graph algorithms. 
+Specifically, this approach uses dense sub-graphs to identify coherent mentions using a greedy algorithm enabling Web scalability. 
+Additionally, AIDA disambiguates w.r.t.~similarity of contexts, prominence of entities and context windows.
+
+Another approach is DBpedia Spotlight~\cite{spotlight}, a framework for annotating and disambiguating Linked Data Resources in arbitrary texts.
+In contrast to other tools, Spotlight is able to disambiguate against all classes of the DBpedia ontology.
+Furthermore, it is well-known in the Linked Data community and used in various projects showing its wide-spread adoption.\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Known-uses}}
+Based on a vector-space model and cosine similarity DBpedia Spotlight is publicly available via a web service\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Web-service}}.
+
+In 2012, Ferragina et al. published a revised version of their disambiguation system called TagMe 2.
+The authors claim that it is tuned towards smaller texts,\,i.e., comprising around 30 terms.
+TagMe 2 is based on an anchor catolog (\texttt{<a>} tags on Wikipedia pages with a certain frequency), a page catalogue (comprising all original Wikipedia pages,\,i.e., no disambiguations, lists or redirects) and an in-link graph (all links to a certain page within Wikipedia).
+First, TagMe 2 identifies named entities by matching terms with the anchor catalog and second disambiguates the match using the in-link graph and the page catalog via a collective agreement of identified anchors. 
+Last, the approach discards identified named entities considered as non-coherent to the rest of the named entities in the input text.  
+
+In 2014, Babelfy~\cite{babelfy} has been presented to the community.
+Based on random walks and densest subgraph algorithms Babelfy tackles \ac{NED} and is evaluated with six datasets, one of them the later here used AIDA dataset. 
+In constrast to AGDISTIS, Babelfy differentiates between word sense disambiguation, i.e., resolution of polysemous lexicographic entities like \emph{play}, and entity linking, i.e., matching strings or substrings to knowledge base resources.
+Due to its recent publication Babelfy is not evaluated in this paper.
+
+Recently, Cornolti et al.~\cite{cornolti} presented a benchmark for \ac{NED} approaches.
+The authors compared six existing approaches, also using DBpedia Spotlight, AIDA and TagMe 2, against five well-known datasets. % on different tasks and with different measures.
+Furthermore, the authors defined different classes of named entity annotation task, e.g. \emph{`D2W'}, that is the disambiguation to Wikipedia task which is the formal task AGDISITS tries to solve.
+We consider TagMe 2 as state of the art w.r.t. this benchmark although only one dataset has been considered for this specific task.
+%We analyze the performance of DBpedia Spotlight, AIDA, TagMe 2 and our approach AGDISTIS on four of the corpora from this benchmark in Section~\ref{sec:eval}.
