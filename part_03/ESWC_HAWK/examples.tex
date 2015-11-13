@@ -1,0 +1,145 @@
+\section{Explaining HAWK via examples}
+\label{sec:hawkexample}
+First, we explain our approach towards entity-centric question answering by using the following running Example~\ref{ex:battleOfArnhem}.
+\begin{ex}
+Which recipients of the Victoria Cross died in the Battle of Arnhem?
+\label{ex:battleOfArnhem}
+\end{ex}
+
+While this question cannot be answered by using solely DBpedia or Wikipedia abstracts, combining knowledge from DBpedia and Wikipedia abstracts allows deriving an answer to this question. More specifically, DBpedia allows to retrieve all recipients of the Victoria Cross using the triple pattern \texttt{?uri dbo:award dbr:Victoria\_Cross.}
+
+In order to find out whether the returned resources died in the Battle of Arnhem, the free text abstract of those resources need to be checked. For example, the abstract for John Hollington Grayburn contains the following information: 
+`he went into action in the Battle of Arnhem [...] but was killed after standing up in full view of a German tank'.
+
+Regarding our running example the following POS-tags are generated:
+\texttt{Which(WDT) recipients(NNS) of(IN) the(DT) Victoria(NNP) Cross(NNP) died(VBN) in(IN) the(DT) Battle(NNP) of(IN) Arnhem(NNP)?(PUNCT)}
+
+
+For our running example, an optimal spotter identifies \texttt{Victoria\_Cross} and \texttt{Battle\_of\_Arnhem} as resources form DBpedia.
+
+The dependency tree can be found in Figure~\ref{chahawk:fig:dependency_tree}.
+
+Figure~\ref{chahawk:fig:prunedtree} depicts the predicate-argument tree obtained for our running example after pruning.% of unnecessary nodes.
+
+\begin{minipage}{0.57\textwidth} 
+\centering
+\includegraphics[width=\linewidth]{part_03/ESWC_HAWK/hawk_tree_full}
+\captionof{figure}{Predicate-argument tree for the example question `Which recipients of the Victoria Cross died in the Battle of Arnhem?'}
+\label{chahawk:fig:dependency_tree}
+\end{minipage}
+\hfill
+\begin{minipage}{0.36\textwidth}
+\centering
+\includegraphics[width=\linewidth]{part_03/ESWC_HAWK/hawk_tree_pruned}
+\captionof{figure}{Tree after pruning. Argument edges are ordered from left to right.}
+\label{chahawk:fig:prunedtree}
+\end{minipage}
+
+
+Considering our running example, the nodes \texttt{died (VB)} will be annotated with \texttt{dbo:deathplace} and \texttt{dbo:deathdate} and the node \texttt{recipients (NNS)} with \texttt{dbo:award}.
+%\begin{table}[htb]
+%\caption{Annotations of nodes from running example.}
+%\centering
+%    \begin{tabular}{ll}
+%        \toprule
+%             & \textbf{Annotation}\\
+%        \midrule
+%            died& \texttt{dbo:deathplace}, \texttt{dbo:deathdate} \\
+%            recipients & \texttt{dbo:award} \\
+%        \bottomrule
+%    \end{tabular}
+%\label{tab:annotations}
+%\end{table}
+
+ Table~\ref{tab:exact_fuzzy} depicts the two possibilities for the running example.
+
+\begin{table}[htb!]
+\centering
+\caption{Examples for full-text query types.}
+\begin{tabular}{l@{\quad}l@{\quad}l}
+\toprule
+\textbf{Query Type} & \textbf{Query Syntax} & \textbf{Node label}\\
+\midrule
+Exact & \texttt{?var text:query ('Battle of Arnhem')}  & Battle of Arnhem\\
+Fuzzy & \texttt{?var text:query ('Battle\textasciitilde1 AND Arnhem\textasciitilde 1')} & Battle of Arnhem\\
+\bottomrule
+\end{tabular}
+\label{tab:exact_fuzzy}
+\end{table}
+Table~\ref{tab:triple_patterns_example} shows generated triple patterns for parts of the example query.
+\begin{table}[htb!]
+\centering
+\caption{Generated triple patterns for running example.}
+\begin{tabular}{l@{\quad}l}
+\toprule
+\textbf{Node Type} & \textbf{Query Fragment} \\
+\midrule
+\multirow{2}{*}{CNN} & \texttt{?proj text:query ('Battle of Arnhem')} \\
+& \texttt{?const text:query ('Battle of Arnhem')} \\
+%& \texttt{?proj text:query ('Battle~1 AND Arnhem~1')} \\
+%& \texttt{?const text:query ('Battle~1 AND Arnhem~1')}\\
+\midrule
+\multirow{2}{*}{Verb} & \texttt{?proj dbo:deathPlace ?const} \\
+ & \texttt{?const dbo:deathPlace ?proj} \\
+\bottomrule
+\end{tabular}
+
+\label{tab:triple_patterns_example}
+\end{table}
+
+%%%%%%%%%Ranking example
+\texttt{Which anti-apartheid activist was born in Mvezo?}
+
+
+POS-tagging on the running example will result in the following: \texttt{Which(WDT) anti-apartheid(JJ) activist(NN) was(VBD) born(VBN) in(IN) Mvezo(NNP)?}
+
+An optimal annotator would annotate our running example \texttt{Mvezo} with \url{http://dbpedia.org/resource/Mvezo}.
+
+Here, the \texttt{anti-apartheid activist} would be detected as noun phrase.
+
+The linguistically pruned dependency tree with combined noun phrases for our running example would only contain \texttt{born} as a root node with two children, namely \texttt{anti-apartheid activist} and \url{http://dbpedia.org/resource/Mvezo}\footnote{Thereafter, we assume \texttt{dbo} stands for \url{http://dbpedia.org/ontology}, \texttt{dbr} for \url{http://dbpedia.org/resource/} and \texttt{rdfs} for \url{http://www.w3.org/2000/01/rdf-schema\#} }.
+
+With respect to the running example \texttt{born} would be annotated with the properties \texttt{dbo:birthPlace} and \texttt{dbo:birthDate}.
+
+Among others, HAWK generates for the running example the following three hybrid SPARQL queries:
+\begin{enumerate}
+\item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}
+\item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthDate dbr:Mvezo.\}}
+\item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?const dbo:birthPlace ?proj.\}}
+\end{enumerate}
+
+An optimal ranking will reveal that the winning SPARQL query for our running example is \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}.
+
+%%%%%%%%%% NLIWOD
+\texttt{Did Napoleon's first wife die in France?}
+
+POS-tagging on the running example will result in the following: \texttt{Did(VBD) Napoleon(NNP) 's(POS) first(JJ) wife(NN) die(VB) in(IN) France(NNP) ?(.)}
+An optimal annotator would annotate our running example \texttt{Napoleon} with \url{http://dbpedia.org/resource/Napoleon} and \texttt{France} with \url{http://dbpedia.org/resource/France}.
+
+Here, the \texttt{first wife} would be detected as noun phrase.
+
+The linguistically pruned dependency tree with combined noun phrases for our running example would only contain \texttt{born} as a root node with two children, namely \texttt{anti-apartheid activist} and \url{http://dbpedia.org/resource/Mvezo}.
+
+With respect to the running example \texttt{die} would be annotated with the properties \texttt{dbo:deathPlace} and \texttt{dbo:dbo:deathDate}.
+
+Amongst others, HAWK generates for the running example the following three hybrid SPARQL queries:
+\begin{enumerate}
+\item \texttt{SELECT ?proj  \{?proj text:query 'first wife'.\\ ?proj dbo:deathPlace dbr:France.\\ ?proj ?pbridge dbr:Napoleon.\}}
+\item \texttt{SELECT ?proj  \{?proj text:query 'first wife'.\\ ?proj dbo:deathDate dbr:France.\\ ?proj ?pbridge dbr:Napoleon.\}}
+\item \texttt{SELECT ?proj  \{?proj text:query 'first wife'.\\ ?const pbridge dbr:France.\\ ?proj ?pbridge dbr:Napoleon.\}}
+\end{enumerate}
+
+
+In the running example, the semantic pruning discards query number two from above because it violates the range restriction of the \texttt{dbo:deathDate} predicate.
+Obviously, our running example is classified as \texttt{ASK} demanding question.
+
+With respect to our running example, the final query would be: 
+\begin{enumerate}
+\item \texttt{ASK \{?proj text:query 'first wife'.\\ ?proj dbo:deathPlace dbr:France.\\ ?proj ?pbridge dbr:Napoleon\}}
+\end{enumerate}
+
+An optimal ranking will reveal that the winning SPARQL queries for our running example are:
+\begin{enumerate}
+\item \texttt{ASK \{?proj text:query 'first wife'. \\?proj dbo:deathPlace dbr:France. \\?proj ?pbridge dbr:Napoleon\}}, 
+\item \texttt{ASK \{?proj text:query ('first wife' AND 'Napoleon') .\\ ?proj dbo:deathPlace dbr:France.\}}.
+\end{enumerate} 

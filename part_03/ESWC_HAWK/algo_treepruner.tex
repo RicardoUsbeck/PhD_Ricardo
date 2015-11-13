@@ -1,4 +1,4 @@
-\begin{algorithm}[H]
+\begin{algorithm}[tb!]
 \SetAlgoLined
 \KwData{Dependency-argument tree with Part-of-Speech-tags}
 Queue queue = [tree.getRoot()]\;
@@ -20,5 +20,6 @@ Queue queue = [tree.getRoot()]\;
 	tree.remove(root)
 }
 \caption{Algorithm for pruning noisy nodes}
-\end{algorithm}
 \label{listing:lingpruning}
+
+\end{algorithm}
