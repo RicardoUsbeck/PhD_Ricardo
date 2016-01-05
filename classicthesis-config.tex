@@ -41,7 +41,7 @@
 % ****************************************************************************************************
 % 2. Personal data and user ad-hoc commands
 % ****************************************************************************************************
-\newcommand{\myTitle}{Combining Linked Data and Statistical Information Retrieval - Next Generation Search Engine}
+\newcommand{\myTitle}{Extracting and Combining Structured and Unstructured Data for Hybrid Question Answering}
 %\newcommand{\mySubtitle}{An Homage to The Elements of Typographic Style\xspace}
 \newcommand{\myDegree}{Dissertation\xspace}
 \newcommand{\myName}{Ricardo Usbeck\xspace}
@@ -52,7 +52,7 @@
 \newcommand{\myDepartment}{Abteilung f\"ur Betriebliche Informationssysteme\xspace}
 \newcommand{\myUni}{Universit\"at Leipzig\xspace}
 \newcommand{\myLocation}{Universit\"at Leipzig\xspace}
-\newcommand{\myTime}{January 2013 - September 2015\xspace}
+\newcommand{\myTime}{January 2013 - February 2016\xspace}
 %\newcommand{\myVersion}{version 4.1\xspace}
 
 % ********************************************************************
@@ -416,22 +416,6 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 \newcommand{{\overallNrOfMatchingTypes}}{3\xspace}
 %Strong Annotation Matching, Weak Annotation Matching, Strong Entity Matching
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%REX%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% START: algorithm description and math functions (Disheng)
-%\usepackage{algorithm}
-%\usepackage{amsfonts}
-%\usepackage{amssymb,tikz}
-%\usepackage{amsmath,amssymb}
-%\usepackage{amsmath}
-%\usepackage{times}z
-%\usepackage{pifont}
-%\usepackage{flushend}
-% END %
-
-
 
 \usepackage{epstopdf}
 \usepackage{epsfig}
@@ -442,3 +426,37 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 %%% resumes the counting of enumerate vie [resume] option 
 \usepackage{enumitem}
+
+%%% count number of things
+\usepackage{etoolbox}
+\newcounter{totfigures}
+\newcounter{tottables}
+
+\providecommand\totfig{}
+\providecommand\tottab{}
+
+
+\makeatletter
+\AtEndDocument{
+  \addtocounter{totfigures}{\value{figure}}%
+  \addtocounter{tottables}{\value{table}}%
+  \immediate\write\@mainaux{%
+    \string\gdef\string\totfig{\number\value{totfigures}}%
+    \string\gdef\string\tottab{\number\value{tottables}}%
+  }
+}
+\makeatother
+%\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
+%\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
+
+
+\usepackage[figure,table,citnum,xspace]{totalcount}
+
+\usepackage{totcount}
+\newtotcounter{citnum} %From the package documentation
+\def\oldbibitem{} \let\oldbibitem=\bibitem
+\def\bibitem{\stepcounter{citnum}\oldbibitem}
+
+\usepackage{lastpage}
+
+%%% end count number of things
