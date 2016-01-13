@@ -1,6 +1,8 @@
 \todo[inline]{check for acronyms}
 \chapter{Related Work}
 
+
+
 %%%%%%%%%%%CETUS
 \section{Related Work}
 
@@ -68,6 +70,27 @@ The authors compared six existing approaches, also using DBpedia Spotlight, AIDA
 Furthermore, the authors defined different classes of named entity annotation task, e.g. \emph{`D2W'}, that is the disambiguation to Wikipedia task which is the formal task AGDISITS tries to solve.
 We consider TagMe 2 as state of the art w.r.t. this benchmark although only one dataset has been considered for this specific task.
 %We analyze the performance of DBpedia Spotlight, AIDA, TagMe 2 and our approach AGDISTIS on four of the corpora from this benchmark in Section~\ref{sec:eval}.
+
+
+%%%%%%%N3
+
+
+\section{State of the art}
+
+Recently, Steinmetz et al.~\cite{NEDstatBench} published a statistical benchmark evaluation.
+Three datasets are described there of which two are freely available\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}} in the NIF.
+The authors also analyze the aim of each dataset according to four baseline algorithms and respective underlying dictionaries for NED.
+Furthermore, the two available datasets, \texttt{KORE50} and \texttt{DBpedia Spotlight}, are published using NIF and have been part of the original benchmarks of~\cite{AIDA,spotlight}. 
+
+Unfortunately, both datasets do not inherit a clear license nor do they contain a large number of documents typically needed for optimization problems. %typical --- kann weg oder. ja
+\texttt{KORE50} comprises 50 sentences overall whereas \texttt{DBpedia Spotlight} consists of 58 sentences only. 
+In contrast, our aim is to provide larger and more insightful datasets in NIF to leverage the possibility of optimizing NER and NED algorithms via Linked Data.
+
+In the last couple of years, many more datasets for NER and NED evaluation have emerged.
+However, most of them are not freely available, e.g., the full CoNLL 2003 shared task~\cite{conll2003} used in~\cite{AIDA}.
+Others are not yet annotated with Linked Data from DBpedia like the WePS (Web people search) evaluation dataset~\cite{WEPS}.
+
+
 
 %%%%%%%GERBIL
 

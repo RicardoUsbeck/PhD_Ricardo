@@ -1,32 +1,4 @@
-
-%
-%% END %
-%%\usepackage{subfig}
-%%\usepackage{pifont}
-%%\usepackage{epstopdf}
-%%\usepackage{flushend}
-%%\usepackage{todonotes}
-%
-%%\usepackage{listings} 
-%\lstset{
-%basicstyle=\footnotesize\ttfamily,
-%stringstyle=\tiny,
-%numbers=left,
-%numberstyle=\tiny,
-%numbersep=5pt,
-%frame=single,
-%breaklines=true,
-%morecomment=[s][\color{blue}]{<}{>},
-%morecomment=[s][\color{red}]{"}{"}
-%}
-%
-% 
-%
-%%\begin{document}
 \chapter[$\mbox{N}^3$ - A Collection of Datasets for NER and NED in NIF]{$\mbox{N}^3$ - A Collection of Datasets for Named Entity Recognition and Disambiguation in the NLP Interchange Format}
-
-%\resizebox{\textwidth}{!}{
-\todo[inline]{Add a shorter chapter title}
 
 \graffito{
 This chapter presents $\mbox{N}^3$, a collection of three annotated corpora for \ac{NER} and \ac{NED}.,
@@ -64,57 +36,61 @@ The author of this thesis is one of the two main authors, implemented the annota
 
 %\section{Introduction}
 
-Automatically extracting and linking Named Entities (NEs) to a particular knowledge base (KB) from unstructured, natural language text is an extremely challenging task~\cite{Cucerzan07}. 
+Automatically extracting and linking Named Entities (NEs) to a particular \ac{KB}  from unstructured, natural language text is an extremely challenging task~\cite{Cucerzan07}. 
 Leveraging Linked Data can help developing tools to automatically extract semantic data~\cite{GER+13,AIDA,spotlight,agdistis_iswc}.
 
-The tasks of Named Entity Recognition (NER) and Named Entity Disambiguation (NED) are part of the research area of Information Extraction (IE)~\cite{FOX}.
+The tasks of \ac{NER}  and \ac{NED}  are part of the research area of Information Extraction~\cite{FOX}.
 NER is the task of identifying entities of certain types.
 %why not use the NERD core classes? 
-NED is the task of disambiguating pre-identified named entities towards a certain KB.
+NED is the task of disambiguating pre-identified named entities towards a certain \ac{KB} .
 %NED is based on pre-identified named entities and their disambiguation towards a certain KB. %using various methods.
 %RE determines links between entities based on a given context leading to Information Extraction~\cite{fox}.
 These IE steps depend on datasets which need human annotation, and therefore make it a time-consuming and expensive task.
 %\todo[inline]{Why does RE lead to IE? This formulation seems a little bit strange and does not really fit to the next sentence in which RE is a step of IE.}
 %\todo[inline]{Done, but does it really fit in here? (rewrite that section, mention that NED is done by using DBpedia as KB. DBpedia is the central point of the Linked Open Data movement.)}
-We publish three novel datasets (called $\mbox{N}^3$) in which named entities have been annotated manually. As KB for this annotation we used DBpedia~\cite{dbpedia_iswc} which is the central point of the Linked Open Data movement. These datasets have already been used to evaluate~\cite{AIDA,spotlight} as well as in~\cite{GER+13,agdistis_iswc}.
-$\mbox{N}^3$ will be published using NLP Interchange Format (NIF)~\cite{ISWC2013NIF} ensuring a greater interoperability to overcome the need for corpus-specific parsers. 
+
+We present three novel datasets (called $\mbox{N}^3$) in which named entities have been annotated manually. As \ac{KB}  for this annotation we used DBpedia~\cite{dbpedia_iswc} which is the central point of the Linked Open Data movement. These datasets have already been used to evaluate~\cite{AIDA,spotlight} as well as in~\cite{GER+13,agdistis_iswc,GERBIL}.
+$\mbox{N}^3$ is published using the \ac{NLP} Interchange Format (NIF)~\cite{ISWC2013NIF} ensuring a greater interoperability to overcome the need for corpus-specific parsers. 
 The data can be downloaded from the project homepage \url{http://aksw.org/Projects/N3nernednif}.
 
-Our main contributions are
-(1) the publication of three novel and freely available datasets for NER and NED,
-(2) an analysis of the underlying corpora,
-(3) and the transformation of these corpora to NIF providing provenance information.
-%Additionally,
-%(4) we provide those dataset with a high accuracy due to domain expert-based annotations
-%(4) NIF provides a natural way of querying those datasets via SPARQL~\cite{SPARQL}. % in a way that allows multi-lingual queries across those datasets.
-Finally, (4) our datasets also allow the analysis of coreference resolution~\cite{singh} if the entity is not in the KB of the respective corpus.
+\todo[inline]{Maybe this section can go to contributions section}
+Our main contributions are as follows:
+\begin{itemize}
+\item The publication of three novel and freely available datasets for \ac{NER} and \ac{NED};
+\item An analysis of the underlying corpora;
+\item The transformation of these corpora to NIF providing provenance data.
+\item Finally, our datasets also allow the analysis of coreference resolution~\cite{NgongaNgomo2014,singh} if the entity is not in the \ac{KB}  of the respective corpus.
+\end{itemize}
 %\todo[inline]{provide a community based platform (GIT) to improve datasets}
 %\todo[inline]{What have we done to get point 5? Do we have that much contributions?}
-
-\section{State of the art}
-
-Recently, Steinmetz et al.~\cite{NEDstatBench} published a statistical benchmark evaluation.
-Three datasets are described there of which two are freely available\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}} in the NIF.
-The authors also analyze the aim of each dataset according to four baseline algorithms and respective underlying dictionaries for NED.
-Furthermore, the two available datasets, \texttt{KORE50} and \texttt{DBpedia Spotlight}, are published using NIF and have been part of the original benchmarks of~\cite{AIDA,spotlight}. 
-
-Unfortunately, both datasets do not inherit a clear license nor do they contain a large number of documents typically needed for optimization problems. %typical --- kann weg oder. ja
-\texttt{KORE50} comprises 50 sentences overall whereas \texttt{DBpedia Spotlight} consists of 58 sentences only. 
-In contrast, our aim is to provide larger and more insightful datasets in NIF to leverage the possibility of optimizing NER and NED algorithms via Linked Data.
-
-In the last couple of years, many more datasets for NER and NED evaluation have emerged.
-However, most of them are not freely available, e.g., the full CoNLL 2003 shared task~\cite{conll2003} used in~\cite{AIDA}.
-Others are not yet annotated with Linked Data from DBpedia like the WePS (Web people search) evaluation dataset~\cite{WEPS}.
 
 \section{Corpora}
 \label{n3:sec:Features}
 
-\begin{table}
+
+
+
+In the following section, we present the annotation process as well as specific features for each corpus of the $\mbox{N}^3$-Collection.
+
+During the annotation, we focused on recognizing three main classes of NEs: persons, places and organizations. 
+Each identified NE has been manually disambiguated to the DBpedia 3.9  if possible.
+In case there was no matching resource from a \ac{KB}  we created an URI\footnote{\url{http://www.w3.org/TR/cooluris/}} using the \url{http://aksw.org/notInWiki/} namespace (see Section~\ref{n3:NIF}).
+Additionaly, we resolved coreferences for every named entity, especially, for entities that are not yet in the \ac{KB} . %\todo[inline]{coreference resolved?}
+
+Furthermore, the collection of datasets is annotated by the version and language of the \ac{KB} , hence any change of the underlying database can be analysed.
+In order to spread the corpora, we publish them under the Creative Commons BY-NC-SA license\footnote{\url{http://creativecommons.org/licenses/by-nc-sa/4.0/}}.
+
+In general, our corpora contain more documents then any published NIF corpora (\texttt{KORE50} and \texttt{DBpedia Spotlight}) so far.
+First order statistics for all datasets, such as the number of documents, words or average word count per document, can be found in Table~\ref{n3:tab:corpus_stats}.
+Moreover, Table~\ref{n3:tab:entity_counts} describes the number of entities and URIs known or not known in DBpedia w.r.t. a certain dataset.
+
+
+\begin{table}[htb!]
 	\centering
 	\resizebox{\textwidth}{!}{
-    \begin{tabular}{lp{0.25cm}cp{0.25cm}D{.}{}{3.0}p{0.25cm}D{.}{}{5.0}p{0.25cm}D{.}{.}{4.2}}
+    \begin{tabular}{lp{0.0cm}cp{0.0cm}D{.}{}{3.0}p{0.0cm}D{.}{}{5.0}p{0.0cm}D{.}{.}{4.2}}
      \toprule
-     \textbf{Corpus} && \textbf{Language} && \multicolumn{1}{c}{\textbf{$\left|\text{Documents}\right|$}} && \multicolumn{1}{c}{\textbf{$\left|\text{Words}\right|$}} && \multicolumn{1}{c}{\textbf{Avg. Words/Doc.}} \\
+     \textbf{Corpus} && \textbf{Language} && \multicolumn{1}{c}{\textbf{\#Documents}} && \multicolumn{1}{c}{\textbf{\#Words}} && \multicolumn{1}{c}{\textbf{Avg. Words/Doc.}} \\
     \midrule
     News-100 && German && 100 && 48199 && 481.99 \\
 	Reuters-128 && English && 128 && 33413 && 261.04 \\
@@ -128,7 +104,7 @@ Others are not yet annotated with Linked Data from DBpedia like the WePS (Web pe
 	\label{n3:tab:corpus_stats}
 \end{table}
 
-\begin{table}
+\begin{table}[htb!]
 	\centering
     \begin{tabular}{lp{0.25cm}D{.}{}{4.0}p{0.25cm}D{.}{}{4.0}p{0.25cm}D{.}{}{4.0}p{0.25cm}D{.}{}{4.0}}
      \toprule
@@ -147,20 +123,14 @@ Others are not yet annotated with Linked Data from DBpedia like the WePS (Web pe
 	\label{n3:tab:entity_counts}
 \end{table}
 
-In the following section, we present the annotation process as well as specific features for each corpus of the $\mbox{N}^3$-Collection.
-
-During the annotation, we focused on recognizing three main classes of NEs: persons, places and organizations. 
-Each identified NE has been manually disambiguated to the DBpedia 3.9  if possible.
-In case there was no matching resource from a KB we created an URI\footnote{\url{http://www.w3.org/TR/cooluris/}} using the \url{http://aksw.org/notInWiki/} namespace (see Section~\ref{n3:NIF}).
-Additionaly, we resolved coreferences for every named entity, especially, for entities that are not yet in the KB. %\todo[inline]{coreference resolved?}
-
-Furthermore, the collection of datasets is annotated by the version and language of the KB, hence any change of the underlying database can be analysed.
-In order to spread the corpora, we publish them under the Creative Commons BY-NC-SA license\footnote{\url{http://creativecommons.org/licenses/by-nc-sa/4.0/}}.
-
-In general, our corpora contain more documents then any published NIF corpora (\texttt{KORE50} and \texttt{DBpedia Spotlight}) so far.
-First order statistics for all datasets, such as the number of documents, words or average word count per document, can be found in Table~\ref{n3:tab:corpus_stats}.
 
 The distribution of NEs over the texts is shown in Figure \ref{n3:fig:nePerDoc}. 
+\begin{figure}[htb!]
+  \centering
+  \includegraphics[width=\linewidth]{part_02/benchmarking/LREC_N3NIFNERNED/NE_per_doc.pdf}
+  \caption{Distribution of NEs per document. We omitted two outliers from the News-100 corpus containing 55 and 63 NEs.}
+  \label{n3:fig:nePerDoc}
+\end{figure}
 
 \texttt{RSS-500} has been left out because all of its documents comprise exactly two entities. 
 As depicted in the diagram, all documents of the \texttt{KORE50} corpus have less than six NEs. 
@@ -168,12 +138,6 @@ The documents from \texttt{DBpedia Spotlight} corpus reveal a larger context and
 On the other side, \texttt{DBpedia Spotlight} comprises only 10 documents.
 The \texttt{Reuters-128} corpus has most documents, although many of these documents are shorter and thus have less NEs.
 
-\begin{figure}[tb!]
-  \centering
-  \includegraphics[width=\linewidth]{part_02/benchmarking/LREC_N3NIFNERNED/NE_per_doc.pdf}
-  \caption{Distribution of NEs per document. We omitted two outliers from the News-100 corpus containing 55 and 63 NEs.}
-  \label{n3:fig:nePerDoc}
-\end{figure}
 
 
 \subsection{News-100}
@@ -183,8 +147,8 @@ All of the articles were published in the year of 2010 and contain the word \emp
 This word is a homonym that can have the following meanings:
 \begin{itemize}
 \item A gulf like the Gulf of Mexico or the Persian Gulf,
-\item the ball sport or
-\item a car model produced by the German manufacturer Volkswagen.
+\item The ball sport or
+\item A car model produced by the German manufacturer Volkswagen.
 \end{itemize}
 
 One researcher annotated the documents manually.
@@ -196,14 +160,9 @@ Although the sport golf as well as the car are not within the class range of NER
 This English corpus is based on the well known Reuters-21578\footnote{\url{http://kdd.ics.uci.edu/databases/reuters21578/reuters21578.html}} corpus which contains economic news articles.
 In particular, we chose 128 articles containing at least one NE, as described in~\cite{agdistis_iswc}.
 Compared to the \texttt{News-100} corpus the documents of \texttt{Reuters-128} are significantly shorter and thus carry a smaller context, as can be seen in Table \ref{n3:tab:corpus_stats}.
-\begin{figure}[tb]
-\centering
-\includegraphics[width=\linewidth]{part_02/benchmarking/LREC_N3NIFNERNED/qrtool.png}
-\caption{GUI of our annotation tool.}
-\label{n3:fig:qrtool}
-\end{figure}
 
-To create the annotation of NEs with URIs, we implemented a supporting judgement tool (see Figure~\ref{n3:fig:qrtool})\footnote{\url{https://github.com/RicardoUsbeck/QRTool}}. The input for the tool was a subset of more than 150 Reuters-21578 news articles sampled randomly.
+To create the annotation of NEs with URIs, we implemented a supporting judgement tool, see Figure~\ref{n3:fig:qrtool}\footnote{\url{https://github.com/RicardoUsbeck/QRTool}}. 
+The input for the tool was a subset of more than 150 Reuters-21578 news articles sampled randomly.
 First, FOX~\cite{FOX} was used for recognizing a first set of NEs. 
 This reduced the amount of work to a feasible portion regarding the size of this dataset.
 
@@ -212,8 +171,15 @@ Therefore, the tool highlighted the entities in the texts and added initial URI 
 Two scientists determined the correct URI for each named entity manually with an initial voter agreement of 74\%.
 This low initial agreement rate hints towards the difficulty of the disambiguation task.
 
-In some cases judges did not agree initially, but came to an agreement shortly after reviewing the cases.
-While annotating, we left out ticker symbols of companies (e.g., \textit{GOOG} for Google Inc.), abbreviations and job descriptions because those are always preceded by the full company name respectively a person's name.
+In some cases, judges did not agree initially but came to an agreement shortly after reviewing the cases.
+While annotating, we left out ticker symbols of companies, e.g., \textit{GOOG} for Google Inc., abbreviations and job descriptions because those are always preceded by the full company name respectively a person's name.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=\linewidth]{part_02/benchmarking/LREC_N3NIFNERNED/qrtool.png}
+\caption{GUI of our annotation tool.}
+\label{n3:fig:qrtool}
+\end{figure}
 
 
 \subsection{RSS-500}
@@ -224,7 +190,7 @@ The RSS list has been compiled using a 76-hour crawl, which resulted in a corpus
 A subset of this corpus has been created by randomly selecting 1\% of the contained sentences.
  
 Finally, one researcher annotated 500 randomly chosen sentences manually.
-These sentences were a subset of those which contained a natural language representation of a formal relation, like ``\ldots, who was born in\ldots '' for \texttt{dpo:birthPlace} (see~\cite{conf/ekaw/GerberN12}).
+These sentences were a subset of those which contained a natural language representation of a formal relation, like ``\ldots, who was born in\ldots '' for \texttt{dbo:birthPlace}, cf.~\cite{conf/ekaw/GerberN12}.
 The relations had to occur more than 5 times in the 1\% corpus. % with DBpedia URIs.
 In case the mentioned entity is not contained in a new URI has been generated.
 This corpus has been used for evaluation purposes in~\cite{GER+13}.
@@ -234,8 +200,8 @@ This corpus has been used for evaluation purposes in~\cite{GER+13}.
 
 
 
-\begin{figure}[t!]
-\begin{lstlisting}[label=n3:TripleExampleNIF,caption=example of the resulting N3-triples.]{TripleExampleNIF}
+\begin{figure}[htb!]
+\begin{lstlisting}[label=n3:TripleExampleNIF,caption=Example of the resulting N3-triples.]{TripleExampleNIF}
 @prefix nif:     <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
 @prefix itsrdf:  <http://www.w3.org/2005/11/its/rdf#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
@@ -261,43 +227,45 @@ This corpus has been used for evaluation purposes in~\cite{GER+13}.
 
 
 
-For publishing our datasets we choose NIF because it is a Resource Description Framework (RDF)-based Linked Data serialization.
+For publishing our datasets, we choose NIF because it is a \ac{RDF}-based Linked Data serialization.
 NIF provides different advantages, e.g., \emph{interoperability by standardization}~\cite{ISWC2013NIF} or \emph{query-ability}.
-The \emph{NIF-standard} assigns each document an URI as starting point and generates another Linked Data resource per NE.
+The \emph{NIF-standard} assigns each document an URI as starting point and generates another \ac{LD}  resource per NE.
 Each document is a resource of type \texttt{nif:Context} and its content is the literal of its \texttt{nif:isString} predicate. 
 Where possible, we added the source from which we got the document using the \texttt{nif:sourceUrl} predicate.
 %where possible, the source from which the document was added used...predicate....
 Every NE is an own resource with a newly generated URI pointing to the original document via the \texttt{nif:referenceContext} predicate.
-Additionally the begin (\texttt{nif:beginIndex}) and end position (\texttt{nif:endIndex}) as well as the disambiguated URI (\texttt{itsrdf:taIdentRef}) and the respective KB (\texttt{itsrdf:taSource}) are stored.
-In contrast to~\cite{NEDstatBench}, mentioning the source of annotation serves as a more useful semantic background and is thus more valuable for further research.
+Additionally, the begin (\texttt{nif:beginIndex}) and end position (\texttt{nif:endIndex}) as well as the disambiguated URI (\texttt{itsrdf:taIdentRef}) and the respective \ac{KB}  (\texttt{itsrdf:taSource}) are stored.
+In contrast to Steinmetz~et~al.~\cite{NEDstatBench}, mentioning the source of annotation serves as a more useful semantic background and is thus more valuable for further research.
 For instance, NIF document as depicted in Listing~\ref{n3:TripleExampleNIF} has been transformed from the document from Listing~\ref{n3:TripleExample}.
 
 %\todo[inline]{syntax coloring is nice :) Micha: ich such mal ein paar schoene Farben ;)}
-\begin{figure}[tb]
-\begin{lstlisting}[label=n3:TripleExample,caption=example input text.]{TripleExample}
+\begin{figure}[htb!]
+\begin{lstlisting}[label=n3:TripleExample,caption=Example input text.]{TripleExample}
 Source = Reuters-21578
 ID     = 15003
 Text   = Key Tronic corp said it has received contracts...
 \end{lstlisting}
 \end{figure}
 
-\begin{figure}[tb]
-\begin{lstlisting}[label=n3:SPARQL1,caption=SPARQL query to get all NEs.]{SPARQL1}
-Select ?namedEntity {[] itsrdf:taIdentRef ?namedEntity }
-\end{lstlisting}
-\end{figure}
+
 
 
 The second advantage of using a corpus in NIF is that it is searchable using SPARQL.
 When the corpus is loaded in a Triple Store (e.g., Virtuoso\footnote{\url{http://sourceforge.net/projects/virtuoso/}}) one can easily find all NEs by posing a simple SPARQL query, as depicted in Listing~\ref{n3:SPARQL1}.
-
+\begin{figure}[htb!]
+\begin{lstlisting}[label=n3:SPARQL1,caption=SPARQL query to get all NEs.]{SPARQL1}
+Select ?namedEntity {[] itsrdf:taIdentRef ?namedEntity }
+\end{lstlisting}
+\end{figure}
 \section{Conclusion}
 
-Three different corpora are presented in this article. They can be used for named entity recognition and named entity disambiguation benchmarks as well as algorithm tuning.
+Here, we presented three different corpora.
+They can be used for \ac{NER}  and \ac{NED}  benchmarks as well as algorithm tuning.
 We compared these corpora with two already known datasets and showed the advantages of our datasets.
-The usability of these corpora for named entity disambiguation benchmark has been proven in \cite{agdistis_iswc,GER+13}.
+The usability of these corpora for \ac{NED}  benchmark has been proven in \cite{agdistis_iswc,GER+13}.
 Especially, we aim at providing a structured and standardized language resource for unstructured texts, enabling semantic querying.
-Our datasets link NLP algorithms to the Semantic Web by leveraging the power of NIF and Linked Data.
+Our datasets link \ac{NLP}  algorithms to the Semantic Web by leveraging the power of NIF and \ac{LD} .
+
 In the future, the enlargement of the corpora and the improvement of their quality through the community are major issues that need to be worked on. 
 Furthermore, converting more existing datasets to NIF and re-bundle them in order to provide even more insightful NER and NED benchmarks is the next step of research in this area.
 

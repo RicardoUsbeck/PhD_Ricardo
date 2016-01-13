@@ -1,18 +1,18 @@
-\chapter{RDF Type Annotation on Unstructured Texts}
+\chapter{\ac{NED} Type Annotation on Unstructured Texts}
 
 \graffito{
-This chapter presents CETUS, a pattern-based approach for annotating RDF type information to entities.
+This chapter presents CETUS, a pattern-based approach for annotating \ac{RDF} type information to entities.
 CETUS has won the OKE challenge 2015~\cite{okechallenge}, task 2, and is published in~\cite{CETUS_2015}.
 The author of this thesis assisted the main author in programming, co-wrote the paper and its poster. 
 }
 
 
-Standard document processing pipelines miss the opportunity to gain insights from semantic entities novel to the underlying knowledge base (KB). 
-That is, most known tool chains recognize entities based on linguistic models and link them to a KB or null if they are emerging entities. 
+Standard document processing pipelines miss the opportunity to gain insights from semantic entities novel to the underlying \ac{KB}. 
+That is, most known tool chains recognize entities based on linguistic models and link them to a \ac{KB} or null if they are emerging entities. 
 So far, linking novel entities has only been the concern of a few approaches~\cite{AIDA,agdistis_iswc}.
-Consequently, extracting type information for emerging and existing entities is a novel research avenue so far only tackled by the TAC KBP Entity Linking challenge 2014\footnote{\url{http://nlp.cs.rpi.edu/kbp/2014/}}, the Micropost workshop series\footnote{\url{http://www.scc.lancs.ac.uk/microposts2015/}} and the OKE challenge 2015~\cite{okechallenge}.
+Consequently, extracting type information for emerging and existing entities is a novel research avenue so far only tackled by the TAC KBP \ac{EL} challenge 2014\footnote{\url{http://nlp.cs.rpi.edu/kbp/2014/}}, the Micropost workshop series\footnote{\url{http://www.scc.lancs.ac.uk/microposts2015/}} and the OKE challenge 2015~\cite{okechallenge}.
 
-We present CETUS, a novel pattern based entity type extraction tool for identifying the type of a given entity inside a given text and linking this type to a KB, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
+We present CETUS, a novel pattern based entity type extraction tool for identifying the type of a given entity inside a given text and linking this type to a \ac{KB}, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
 Here the subset refers to \texttt{dul:Person}, \texttt{dul:Place}, \texttt{dul:Organization} and \texttt{dul:Role}.
 CETUS is a fast and easy to implement baseline approach to path a way to novel research insights.
 CETUS' pipeline is divided into three subsequent parts: i) an a-priori pattern extraction, ii) a grammar-based analysis of the input document and iii) a mapping of the type evidence to the DOLCE+DnS Ultra Lite classes. 
@@ -215,7 +215,7 @@ For our example, three classes would be generated and linked to the entity as sh
 \end{figure}
 
 \begin{figure}[htb!]
-\begin{lstlisting}[label=lst:localHierarchy,caption=The local hierarchy is generated from the extracted string expressed using Turtle as RDF serialization.]{localHierarchy}
+\begin{lstlisting}[label=lst:localHierarchy,caption=The local hierarchy is generated from the extracted string expressed using Turtle as \ac{RDF} serialization.]{localHierarchy}
 ex:AlbertEinstein
     a ex:German-bornTheoreticalPhysicist, 
         ex:TheoreticalPhysicist, ex:Physicist .
@@ -242,8 +242,8 @@ ex:German-Physicist
 
 %CETUS approach to link the evidence string to the DOLCE+DnS Ultra Lite classes \texttt{dul:Person}, \texttt{dul:Place}, \texttt{dul:Organization} and \texttt{dul:Role} is twofold.
 
-The linking of the generated classes to a KB can be done in two different ways.
-Our first approach, CETUS$_{YAGO}$,  uses the labels of the automatically generated classes to find a matching class inside another, well-known KB.
+The linking of the generated classes to a \ac{KB} can be done in two different ways.
+Our first approach, CETUS$_{YAGO}$,  uses the labels of the automatically generated classes to find a matching class inside another, well-known \ac{KB}.
 CETUS uses the YAGO ontology~\cite{mahdisoltani2014yago3} which comprises a large class hierarchy and, thus, increases the chance to match one of these classes.
 YAGO itself contains more than 10 mio. entities and exceeds 350.000 classes.
 Our second approach serves as a baseline to our own approach and uses the FOX~\cite{FOX} tool.
@@ -321,7 +321,7 @@ The result for our running example can be seen in Figure~\ref{fig:localYAGOHiera
 
 
 A second approach for a type extraction baseline is the usage of one of the various, existing entity typing tools.
-For our second version CETUS$_{FOX}$, we are using FOX, a named entity recognition and typing tool based on ensemble learning over 8 different tools.
+For our second version CETUS$_{FOX}$, we are using FOX, a \ac{NER} and typing tool based on ensemble learning over 8 different tools.
 
 CETUS$_{FOX}$ sends the given document to the FOX web-service for retrieving annotations.
 If the entity inside the document is found and typed by FOX, the type is used to choose one of the four DOLCE+DnS Ultra Lite classes, see Table~\ref{tab:foxclassmatching}.
