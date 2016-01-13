@@ -1,5 +1,26 @@
 \todo[inline]{check for acronyms}
 \chapter{Related Work}
+
+%%%%%%%%%%%CETUS
+\section{Related Work}
+
+\todo{introduce and point to CETUS}
+\cite{oak_sheffield,fred_typing} FRED and sheffield and \cite{okechallenge}
+Next to the above mentioned challenges about entity linking, several tools have been introduced with the ability to type entities, e.g., FOX~\cite{FOX}.
+However, these tools differ in two major aspects compared to CETUS.
+First, existing tools contain only very general type hierarchies while our approach generates novel and fine grained classes, see Section~\ref{sec:docAnalysis}.
+Second, CETUS is the first tool to mark the part of a given document that contains the type evidence, i.e., a string indicating the choosen type.
+Thus, there is a clear difference between the entity typing and the type extraction tasks.
+To the best of our knowledge, CETUS is the first approach to tackle the type extraction task.
+
+%\todo[inline]{Cite BOA, since it is pattern based, too, but made for relation extraction.}
+Our approach is mainly based on patterns and is inspired by  Hearst Patterns~\cite{Hearst1992}.
+Those patterns match text parts describing hyponym relations between two nouns.
+In difference to our patterns, the Hearst Patterns have been extracted from a large corpus using a bootstrapping approach.
+As described in Section~\ref{sec:patternExt}, our patterns are defined for matching text parts describing the type relation of a given entity and have been created manually during an iterative, incremental process.
+
+
+
 %%%%%%%AGDISTIS
 \section{Related Work}
 \label{sec:relatedwork}

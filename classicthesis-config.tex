@@ -427,36 +427,3 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 %%% resumes the counting of enumerate vie [resume] option 
 \usepackage{enumitem}
 
-%%% count number of things
-\usepackage{etoolbox}
-\newcounter{totfigures}
-\newcounter{tottables}
-
-\providecommand\totfig{}
-\providecommand\tottab{}
-
-
-\makeatletter
-\AtEndDocument{
-  \addtocounter{totfigures}{\value{figure}}%
-  \addtocounter{tottables}{\value{table}}%
-  \immediate\write\@mainaux{%
-    \string\gdef\string\totfig{\number\value{totfigures}}%
-    \string\gdef\string\tottab{\number\value{tottables}}%
-  }
-}
-\makeatother
-%\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
-%\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
-
-
-\usepackage[figure,table,citnum,xspace]{totalcount}
-
-\usepackage{totcount}
-\newtotcounter{citnum} %From the package documentation
-\def\oldbibitem{} \let\oldbibitem=\bibitem
-\def\bibitem{\stepcounter{citnum}\oldbibitem}
-
-\usepackage{lastpage}
-
-%%% end count number of things

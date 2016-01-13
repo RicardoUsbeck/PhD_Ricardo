@@ -72,11 +72,11 @@
 % Frontmatter
 %*******************************************************
 %\include{FrontBackmatter/DirtyTitlepage}
-\include{FrontBackmatter/Titlepage}
-\include{FrontBackmatter/Titleback}
+\cleardoublepage\include{FrontBackmatter/Titlepage}
+\cleardoublepage\include{FrontBackmatter/Titleback}
 %\cleardoublepage\include{FrontBackmatter/Dedication}
 %\cleardoublepage\include{FrontBackmatter/Foreword}
-\cleardoublepage\include{FrontBackmatter/Abstract}
+\include{FrontBackmatter/Abstract}
 \cleardoublepage\include{FrontBackmatter/CV}
 \cleardoublepage\include{FrontBackmatter/Publication}
 \cleardoublepage\include{FrontBackmatter/Acknowledgments}
@@ -90,11 +90,12 @@
 % use \cleardoublepage here to avoid problems with pdfbookmark
 
 
-%\cleardoublepage
+\cleardoublepage
 \ctparttext{
     In the first part, we introduce the idea of this thesis and motivate its relevance to the research community. 
     Afterwards, we highlight the scientific contributions as well as the structure of the thesis.
-    Finally, the required preliminaries to comprehend the underlying technologies are detailed. 
+    Next, the required preliminaries to comprehend the underlying technologies are detailed. 
+    Finally, we present state of the art works related to this thesis.  
 }
 \part{Introduction}
 \input{part_01/chapter_one.tex}
@@ -102,29 +103,39 @@
 \input{part_01/chapter_three.tex}
 
 
-\part{Knowledge Extraction}
-%\cleardoublepage
+
+
 \ctparttext{
-    The second part 
+Both the Document and the Data Web grow continuously. 
+This is a mixed blessing, as the two forms of the Web grow concurrently and most commonly contain different forms of information. 
+Modern information systems must thus bridge this \textit{Semantic Gap} to allow a holistic access to the Web. 
+One way to bridge the gap between the two forms of the Web is the extraction of structured data from the growing amount of unstructured information on the Document Web. 
+While extracting structured data from unstructured data allows the development of powerful information system, it also requires high-quality knowledge extraction tool chains to lead to useful results. 
+
+In the following part, we introduce several novel approaches tackling the \textit{Semantic Gap} and their benchmarking.
+First, we present a pattern-based algorithm for the annotation of type information from unstructured text.
+Second, we describe AGDISTIS -- a knowledge base agnostic state of the art system for named entity disambiguation. 
+Afterwards, to close the \textit{Evaluation Gap}, an interchangable dataset for named entity annotation as well as an open science-enabling benchmarking platform for semantic annotation approaches will be introduced.
+Finally, we explain our approach towards web-scale extraction of RDF knowledge from strongly templated websites.  
 }
-\input{part_02/benchmarking/LREC_N3NIFNERNED/chapter_331.tex}
-
-\input{part_02/unstructured_annotation/chapter_311.tex}
-\input{part_02/unstructured_annotation/chapter_313.tex}
+\part{Knowledge Extraction}
+\input{part_02/unstructured_annotation/chapter_313.tex} %type annotation
+\input{part_02/unstructured_annotation/chapter_311.tex} %Agdistis
 %\input{chapter_three/unstructured_annotation/LD4IE_ISWC_CDCR/chapter_314.tex}
-
+\input{part_02/benchmarking/LREC_N3NIFNERNED/chapter_331.tex}
 \input{part_02/benchmarking/WWW_GERBIL/chapter_332.tex}
 %\input{part_02/benchmarking/ESWC_GERBIL_demo/chapter_333.tex}
 %\input{part_02/benchmarking/ESWC_2015_DEV_GERBIL/chapter_334.tex}
-
 \input{part_02/semi_structured_annotation/ISWC_REX/341_rex.tex}
 
-\part{Question Answering on hybrid sources}
-%\cleardoublepage
+
+\cleardoublepage
 \ctparttext{
-    The third part 
-    INFORMATION GAP
+ In the last part of the thesis, we introduce HAWK, a novel approach for hybrid question answering. 
+ With this approach we aim at closing another \textit{Information Gap} and enabling any kind of user to access unstructured as well as structured knowledge.
 }
+\part{Question Answering on hybrid sources}
+
 %\input{part_03/SEMANTiCS_architecture/federatedsearchframework.tex}
 %\input{part_03/SEMANTiCS_openQA/openQAarch.tex}
 %\input{part_03/QA_Self_Arch/selfarch.tex}
