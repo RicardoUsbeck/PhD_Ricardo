@@ -1,5 +1,7 @@
-main.loa
+_minted-main/
+*.loa
 main.pdf
+*.tdo
 *.aux
 *.bbl
 *.blg
