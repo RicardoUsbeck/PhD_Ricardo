@@ -68,10 +68,13 @@
 % END %
 
 %\section{Wrapper Generation}
-Detecting rules to extract the subject-object pairs related to a property $p$ is the most difficult step when aiming to extract RDF from templated website.
+Detecting rules to extract the subject-object pairs related to a property $p$ is the most difficult step when aiming to extract \ac{RDF} from templated website.
 Here, we present our current implementation of the wrapper induction module interface of REX, which aims to extract subject-object pairs for $p$ from a set of pages $\allpages$ that belong to the same website and share a common template.
 We assume that an \emph{example generator} provides the input set ${\examples}$ containing a subset of the pairs that can be extracted from the pages in $\allpages$. 
-Formally,  let $\somepages$ denote the set of pages that contain a pair in ${\examples}$: $\somepages = \{\page: \page \in \allpages,\ (s, o)\in {\examples} \wedge (\lab{s},\lab{o}) \in\ \page\}$,
+Formally,  let $\somepages$ denote the set of pages that contain a pair in $\examples$:
+\begin{equation}
+ \somepages = \{\page: \page \in \allpages,\ (s, o)\in {\examples} \wedge (\lab{s},\lab{o}) \in\ \page\},
+\end{equation}
 where  $(\lab{s},\lab{o}) \in \page$ denotes that at least one of the labels of $s$ and at least one of the labels of $o$ occur in the page $\page$. %In other words, 
 We use the pairs in ${\examples}$ to gain the positive annotations for the pages in $\somepages$. These  annotations are needed to automatically infer a set of wrappers, i.e., a set of extraction rule pairs that extract the target subject-object pairs.
 
@@ -101,7 +104,7 @@ To abstract the extraction rules generative process in our implementation, we as
 As a first step (line~\ref{lst:Q}), the algorithm computes the set of pages $Q$
 (we assume $Q \neq \emptyset$).
 Then, it picks up a small set of sample pages $I$ from $Q$.%
-\footnote{In our implementation $k = |I| = 10$.}
+In our implementation, we set $k = |I| = 10$.
 %
 From the pages in $I$ two initial sets of extraction rules, $R_s$ and $R_o$, are generated (lines~\ref{lst:Rs}-\ref{lst:Ro}), as follows. 
 %
@@ -121,9 +124,8 @@ pivot node $t$, $(ii)$~the path from $t$ to the first ancestor node,
 $n_{lt}$, shared by $t$ and $l$, $(iii)$~the path from $n_{lt}$ to $l$ 
 (which descends from the shared ancestor node to the target textual node).
 To avoid an excessive proliferation of rules, we bound the length of
-the XPath expressions, i.e., the number of XPath steps.%
-\footnote{We observed that producing rules longer than 8 steps do 
-not produce any benefit.}
+the XPath expressions, i.e., the number of XPath steps.
+We observed that producing rules longer than 8 steps do not produce any benefit.
 
 \begin{figure*}[tb]
 \newcommand{\sxpath}[1]{\xpath{\scriptsize#1}}
@@ -167,17 +169,17 @@ $r^3$  & {\sxpath{/html/table/tr[1]/td/text()}}\\
 
 The above step produces several extraction rules that correctly work on the pages 
 in $I$. However some of these rules could not work on a larger set of pages. 
-For example, consider a set of pages such as those shown in Figure~\ref{fig:dom-trees}(a). Assuming that the leaf nodes {\htmlvalue{Director:}} and {\htmlvalue{Ratings:}} appear once with the same root-to-leaf path in most of the pages in $I$, they would be considered as template nodes. Figure~\ref{fig:dom-trees}(c) reports an example of the XPath expressions pivoted in these nodes, and generated to extract the movie title.
+For example, consider a set of pages such as those shown in Figure~\ref{fig:dom-trees} (a). Assuming that the leaf nodes {\htmlvalue{Director:}} and {\htmlvalue{Ratings:}} appear once with the same root-to-leaf path in most of the pages in $I$, they would be considered as template nodes. Figure~\ref{fig:dom-trees} (c) reports an example of the XPath expressions pivoted in these nodes, and generated to extract the movie title.
 %
 %\end{example} 
 %
-Notice, however, that rule $r^1$ does not extract the movie title on pages like that depicted in Figure~\ref{fig:dom-trees}(b), i.e., pages without user ratings.
-To improve the accuracy of the rules generated from pages in $I$, we evaluate the generated rules over $Q$, and select those that extract the largest number of annotations (line~\ref{lst:best-pair}). In our example, the extraction rules $r^2$ and $r^3$ would be selected, while $r^1$ would be discarded, as the former rules work also on the page of Figure~\ref{fig:dom-trees}(b), while the latter does not. 
+Notice, however, that rule $r^1$ does not extract the movie title on pages like that depicted in Figure~\ref{fig:dom-trees} (b), i.e., pages without user ratings.
+To improve the accuracy of the rules generated from pages in $I$, we evaluate the generated rules over $Q$, and select those that extract the largest number of annotations (line~\ref{lst:best-pair}). In our example, the extraction rules $r^2$ and $r^3$ would be selected, while $r^1$ would be discarded, as the former rules work also on the page of Figure~\ref{fig:dom-trees} (b), while the latter does not. 
 
-The selected rules are those better working for the pages in $Q$, that are the pages containing pairs of $K$. Although it is likely that these rules also work for the whole collection of input pages, it might also be the case that {\allpages} contains pages obeying to a slightly different template not observed within $Q$. For example, consider the page in Figure~\ref{fig:dom-trees}(d): since the movie has been awarded 3 Oscars, the corresponding page has small structural differences, and neither $r^1$ nor $r^3$ correctly extract the title. 
+The selected rules are those better working for the pages in $Q$, that are the pages containing pairs of $K$. Although it is likely that these rules also work for the whole collection of input pages, it might also be the case that {\allpages} contains pages obeying to a slightly different template not observed within $Q$. For example, consider the page in Figure~\ref{fig:dom-trees} (d): since the movie has been awarded 3 Oscars, the corresponding page has small structural differences, and neither $r^1$ nor $r^3$ correctly extract the title. 
 
 
-To overcome this issue, we leverage the redundancy of equivalent rules generated in the above steps. Targeting only resources from pages for which the extraction is likely to work correctly, we return the pairs (lines~\ref{lst:best-vector-s}-\ref{lst:best-vector-o}) on which all the distinct yet equivalent rules return the same value. Again from our example, observe that rules $r^2$ and $r^3$ extract different values from the page in Figure~\ref{fig:dom-trees}(d) ({\em Argo} and {\em Oscar 2013}, respectively), therefore, none of the values extracted from that page would be added in the final output. 
+To overcome this issue, we leverage the redundancy of equivalent rules generated in the above steps. Targeting only resources from pages for which the extraction is likely to work correctly, we return the pairs (lines~\ref{lst:best-vector-s}-\ref{lst:best-vector-o}) on which all the distinct yet equivalent rules return the same value. Again from our example, observe that rules $r^2$ and $r^3$ extract different values from the page in Figure~\ref{fig:dom-trees} (d) ({\em Argo} and {\em Oscar 2013}, respectively), therefore, none of the values extracted from that page would be added in the final output. 
 %{\bf DQ: cosi funziona? :)}
 %{\bf DA SISTEMARE. ATTENZIONE: L'ESEMPIO NON FUNZIONA LE DUE REGOLE SI COMPORTANO ALLO STESSO MODO}
 All these rules are used later (lines~\ref{lst:forall-start}-\ref{lst:forall-end}) to check that they extract the same value (line~\ref{lst:check}) from a web page.

@@ -91,6 +91,8 @@
 %\PassOptionsToPackage{square,numbers}{natbib}
 % \usepackage{natbib}		
 \hyphenation{Leh-mann}
+\hyphenation{Know-ledge}
+
 % RU: replace year with authoryear
  \usepackage[numbers,square,colon]{natbib}		
  
@@ -426,4 +428,13 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 %%% resumes the counting of enumerate vie [resume] option 
 \usepackage{enumitem}
-
+\usepackage{etoolbox}
+%% Acronyms start new in each chapter
+\preto\chapter\acresetall
+%%Hyphenation 
+\makeatletter
+\patchcmd\@acf{\AC@acl}{\AC@foo}{}{}
+\patchcmd\@acf{\AC@acl}{\AC@foo}{}{}
+\patchcmd\@acf{\AC@foo}{\hskip\z@\AC@acl}{}{}
+\patchcmd\@acf{\AC@foo}{\hskip\z@\AC@acl}{}{}
+\makeatother

@@ -72,6 +72,108 @@ We consider TagMe 2 as state of the art w.r.t. this benchmark although only one 
 %We analyze the performance of DBpedia Spotlight, AIDA, TagMe 2 and our approach AGDISTIS on four of the corpora from this benchmark in Section~\ref{sec:eval}.
 
 
+%%%REX
+
+\section{Related Work}
+\label{sec:related}
+\todo[inline]{@Me: Citation style anpassen}
+To the best of our knowledge, no open-source framework covers the complete functionality of the REX framework. 
+%While our approach is mainly related to approaches for the extraction of RDF data from the Web, 
+REX relies internally on URI disambiguation and data validation based on automatically extracted axioms~\cite{Buehmann2012}. 
+These are both areas of research with a wide of body of publications. 
+Especially, several approaches to URI disambiguation based on graphs~\cite{AIDA,agdistis_iswc} and statistical information from text~\cite{spotlight} have been developed recently. 
+%Most disambiguation approaches try to optimize an objective function which maps each input string to a resource while taking into account the similarity between the input string and the resource, the a-priori probability of the resource being correct as well as the coherence between the returned resources. 
+The extraction of axioms from knowledge based using statistical information~\cite{Buehmann2012,pattern_enrichment} as also flourished over the last years. 
+The main idea underlying these approaches is to use instance knowledge from  \ac{KB}s without expressive schemas to compute the axioms which underlie the said  \ac{KB}s. 
+We refer the reader to the publications above for an overview of these two research areas.
+
+REX is mainly related to wrapper induction. 
+Early approaches to learning web wrappers were mostly supervised, like~\cite{flesca2004web,Hogue:2005:TAU:1060745.1060762}. 
+These systems were provided with annotated pages out of which they infer extraction rules that allow extracting data from other unlabeled pages with the same structure as the annotated pages). 
+For example, Hogue et al.~\cite{Hogue:2005:TAU:1060745.1060762} presents \emph{Tresher}, a system that allows non-technical end-users to teach their browser how to extract data from the Web. 
+%The approach relies on labeled web pages and a distance function between DOM trees to generate extraction templates based on user annotations.
+%While remaining able to generate high-precision wrappers thanks to the human supervision, 
+Supervised approaches were yet deemed costly due to the human labor necessary to annotate the input web pages. 
+Unsupervised wrapper induction methods have thus been explored~\cite{exalg,DBLP:journals/aai/CrescenziM08} to reduce the annotation costs. 
+However, the absence of a supervision often lead these systems to produce wrappers of accuracy not suitable for production level usage.
+Novel approaches thus aim to minimize the annotation costs while keeping a high precision.
+For example, the approach presented in~\cite{Dalvi:2011:AWL:1938545.1938547} relies on the availability of a  \ac{KB} in the form of dictionaries and regular expressions to automatically obtain training data. 
+%They present an inference algorithm to learn wrappers in presence of noise in the input data but neglect any issue that could arise from the presence of biased samples.
+Recently, \cite{Crescenzi2013}~describes a supervised framework that is able to profit from crowd-provided training data. 
+The learning algorithm controls the cost of the crowd sourcing campaign w.r.t. quality of the output wrapper.
+However, these novel approaches do not target the generated of \ac{RDF} data.
+%miss the opportunities related to existence of \emph{Linked Data}, and the semantic consistency of the extracted data is out of their scope of interest.
+
+%In order to accomplish the vision of the Semantic Web~\cite{Gentile2013} presents an approach for learning web wrappers learning that exploit \emph{Linked Data} as a training data source for their wrapper induction framework. Using instances and corresponding properties from the  \ac{LOD} Cloud, they combine an unsupervised annotation of web pages followed by a standard wrapping process~\cite{Hao2011}. However, the process they adopt consists of a variety of manual steps and is thus very costly.
+
+%Manifold approaches have been developed to address the problem of extracting structured data from web pages. For example, \cite{Hogue:2005:TAU:1060745.1060762} presents Tresher, a system that allows non-technical end-users to teach their browser how to extract data from the Web. The approach relies on labeled web pages and a distance function between DOM trees to generate extraction templates based on user annotations. 
+
+Linked Data has been used to learn wrappers to extract \ac{RDF} from the Web in recent years. 
+For example,~\cite{Gentile2013} exploits Linked Data as a training data to find instances of given classes such as universities and extract the attributes of these instances while relying on the supervised wrapper induction approach presented in~\cite{Hao2011}. However, they require a manual exploration of the Linked Data sources to generate their training data, which leads to a considerable amount of manual effort.
+%
+% Linking the Deep Web to the Linked Data Web (DEIMOS)
+The {\sc Deimos} project~\cite{conf/aaaiss/ParundekarKA10} is similar to REX, as it aims at bringing to the Semantic Web the data that are published through the rest of the Web. 
+%As in REX, it uses automatic wrapper inference techniques to extract data from pages. 
+However, it focuses on the pages behind web forms.
+%; it strongly relies on the properties exposed by the form fields to access the pages, which are mapped into involved semantic descriptions of the sources.
+% http://www.isi.edu/integration/papers/parundekar10-sss.pdf 
+% DBLP:conf/aaaiss/ParundekarKA10,
+% DEIMOS discover sources by using semantic tagging
+% template based wrapper induction... AutoFeed
+% DBLP:journals/tods/SuWL09 Citare ODE di Lovchosky
+%
+% OntoMiner: Bootstrapping and Populating Ontologies From Domain Speciﬁc Websites
+% http://www.public.asu.edu/~hdavulcu/VLDB-WS03.pdf
+% DBLP:journals/ijwgs/DavulcuVN05, heuristics approach
+%
+% Ontology-Driven Information Extraction with OntoSyphon
+% document driven...multidomains
+OntoSyphon~\cite{DBLP:journals/ws/McDowellC08} operates in an ontology-driven manner: taking any ontology as input, OntoSyphon uses the ontology to specify web searches that identify possible semantic instances, relations, and taxonomic information, in an unsupervised manner. However, the approach makes use of extraction patterns that work for textual documents rather than structured web pages. %, which are the focus of our proposal. 
+To the best of our knowledge, none of the existing approaches covers all steps that are required to extract consistent \ac{RDF} from the Web. 
+Especially, only~\cite{conf/aaaiss/ParundekarKA10} is able to generate \ac{RDF} but does not check it for consistency.
+In contrast, REX is the first approach that is scalable, low-cost, accurate and can generate consistent \ac{RDF}. 
+%A comparison of existing technologies with REX (see Table~\ref{tab:comparison}) shows that none of these approaches covers all steps that are required to extract consistent \ac{RDF} from the Web. 
+%
+% Enriching Ontology for Deep Web Search; focused on web searches
+%
+% Automatic Generation of Ontology from the Deep Web
+%
+% Ontology-Based Deep Web Data Sources Selection
+% Solo sulla selezione delle sorgenti?
+%
+% An Unsupervised Approach for Acquiring Ontologies and \ac{RDF} Data from Online Life Science Databases (Uses structured data, not really relevant but good to point out)
+% http://userpages.uni-koblenz.de/~staab/Research/Publications/2010/MSReswc10.pdf
+% Perform wrapper induction. Learn full ontologies from HTML templates
+
+%\todo[inline]{Rotate table by 90°}
+
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{cccccc}
+%\toprule
+%                                    & Web-      & Low-      & Accuracy  & \ac{RDF}    & Consistency  \\
+%                                    & scale     & cost     &           &        &   \\
+%\midrule
+%\cite{exalg}                            & \cross    & \cross    & \cross    & \cross & \cross \\
+%\cite{DBLP:journals/aai/CrescenziM08}   & \tick     & \tick     & \tick     & \cross & \cross \\
+%\cite{Crescenzi2013}                    & \tick     & \cross    & \tick     & \cross & \cross \\
+%\cite{Dalvi:2011:AWL:1938545.1938547}   & \tick     & \tick     & \tick     & \cross & \cross \\
+%\cite{Gentile2013}                      & \tick     & \cross    & \tick     & \cross & \cross\\
+%\cite{Hao2011}                          & \tick     & \cross    & \tick     & \cross & \cross\\
+%\cite{Hogue:2005:TAU:1060745.1060762}   & \tick     & \cross    & \tick     & \cross & \cross \\
+%\cite{DBLP:conf/ijcai/KushmerickWD97}   & \cross    & \cross    & $\emptyset$     & \cross & \cross \\
+%\cite{DBLP:journals/ws/McDowellC08}     & \tick     & \tick     & \cross    & \cross & \tick \\
+%\cite{Muslea:2001:HWI:608606.608666}    & \cross    & \tick     & \tick     & \cross & \cross \\
+%\cite{conf/aaaiss/ParundekarKA10}       & \tick     & \tick     & $\emptyset$ & \tick & \cross \\
+%\cite{Soderland:1999:LIE:309497.309510} & \tick     & \cross    & \cross     &\cross  & \cross \\
+%REX                                     & \tick     & \tick     & \tick     & \tick  & \tick \\
+%\bottomrule
+%\end{tabular}
+%\caption{Comparison of web wrapper induction approaches. Approaches are considered scalable to the Web if they can deal with whole web domains. The costs are considered low if no human supervision is needed. The accuracy is high if the approach can achieve F-measures beyond 90\%. The \ac{RDF} criterion is fulfilled if the approach can return \ac{RDF} data while the consistency column is ticked if the \ac{RDF} generated is consistent with the ontology of the input knowledge base. $\emptyset$ means no evaluation was done by the authors.}   
+%\label{tab:comparison}
+%\end{table}
+
+
 %%%%%%%N3
 
 
