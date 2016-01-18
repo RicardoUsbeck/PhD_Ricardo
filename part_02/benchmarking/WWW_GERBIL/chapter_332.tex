@@ -7,15 +7,20 @@ He co-implemented  and co-evaluated GERBIL together with Michael Röder.
 GERBIL won the Best Demo Award 2015 at the Extended Semantic Web Conference.
 }
 \label{cha:gerbil}
+
+\todo[inline]{Verknüpfung mit AGDISTIS herstellen}
 The implementation of the original vision behind the Semantic Web demands the development of approaches and frameworks for the seamless extraction of structured data from text. 
-While manifold annotation tools have been developed over the last years to address (some of) the subtasks related to the extraction of structured data from unstructured data \cite{TagMe2,AIDA,spotlight,milne2008learning,babelfy,piccinno2014tagme,rizzo2014,Steinmetz2013,agdistis_iswc}, the provision of comparable results for these tools remains a tedious problem. The issue of  comparability of results is not to be regarded as being intrinsic to the annotation task. Indeed, it is now well established that scientists spend between 60\% and 80\% of their time preparing data for experiments \cite{GIL2014,jermyn1999preparing,peng2011reproducible}. Data preparation being such a tedious problem in the annotation domain is mostly due to the different formats of the gold standards as well as the different data representations across reference datasets.
+While manifold annotation tools have been developed over the last years to address (some of) the subtasks related to the extraction of structured data from unstructured data \cite{TagMe2,AIDA,spotlight,milne2008learning,babelfy,piccinno2014tagme,rizzo2014,Steinmetz2013,agdistis_iswc}, the provision of comparable results for these tools remains a tedious problem.
+\todo[inline]{Vgl zum intro herstellen}
+The issue of  comparability of results is not to be regarded as being intrinsic to the annotation task. Indeed, it is now well established that scientists spend between 60\% and 80\% of their time preparing data for experiments \cite{GIL2014,jermyn1999preparing,peng2011reproducible}. Data preparation being such a tedious problem in the annotation domain is mostly due to the different formats of the gold standards as well as the different data representations across reference datasets.
 %\todo[inline]{AnBo: --change-- different formatting of the textual data in reference datasets --to-- different data representations in reference datasets. Axel:Done}
 These restrictions have led to authors evaluating their approaches on datasets (1) that are available to them and (2) for which writing a parser as well as of an evaluation tool can be carried out with reasonable effort.
 %\todo[inline]{AnBo: easy sounds like an affront, suggestion: is easy --to-- can be implemented within reasonable effort. Axel: Done.} 
 In addition, a large number of quality measures have been developed and used actively across the annotation research community to evaluate the same task, leading to the results across publications on the same topics not being easily comparable. For example, while some authors publish macro-F-measures and simply call them F-measures, others publish micro-F-measures for the same purpose, leading to significant discrepancies across the scores. The same holds for the evaluation of how well entities match. Indeed, partial matches and complete matches have been used in previous evaluations of annotation tools \cite{cornolti,FOX}. This heterogeneous landscape of tools, datasets and measures leads to a poor repeatability of experiments, which makes the evaluation of the real performance of novel approaches against the state of the art rather difficult.
 
 The insights above have led to a movement towards the creation of frameworks to ease the evaluation of solutions that address the same annotation problem~\cite{ERD2014,cornolti}. 
-We present GERBIL -- a general entity annotator benchmark --, a community-driven effort to enable the continuous evaluation of annotation tools. GERBIL is an open-source and extensible framework that allows evaluating tools against (currently) \overallGERBILannotators different annotators on \overalldatasets different datasets within 6 different experiment types.\footnote{Numbers are taken from the 2015 publication~\cite{GERBIL}. Current numbers can be found in Section~\ref{sec:currentNumbersForGERBIL}}. 
+We present GERBIL -- a general entity annotator benchmark --, a community-driven effort to enable the continuous evaluation of annotation tools. 
+GERBIL is an open-source and extensible framework that allows evaluating tools against  \overallGERBILannotators different annotators on \overalldatasets different datasets within 6 different experiment types.\footnote{Numbers are taken from the 2015 publication~\cite{GERBIL}. Current numbers can be found in Section~\ref{sec:currentNumbersForGERBIL}}. 
 %At this point in time, GERBIL integrates . Moreover, \overallNrOfMatchingTypes matching types are provided. 
 By integrating such a large number of datasets, experiment types and frameworks, GERBIL allows users to evaluate their tools against other semantic entity annotation systems (short: entity annotation systems) by using exactly the same setting, leading to fair comparisons based on exactly the same measures. 
 While the evaluation core of GERBIL is based on the BAT-framework \cite{cornolti}, our approach goes beyond the state of the art in several respects:
@@ -46,16 +51,17 @@ The rest of this chapter presents and evaluates GERBIL.
 First, we present the GERBIL framework.
 Especially, we focus in particular on how annotators and datasets can be added to GERBIL and give a short overview of the annotators and tools that are currently included in the framework. 
 We then present an evaluation of the framework that aims to quantify the effort necessary to include novel annotators and datasets to the framework. 
-We conclude with a discussion of the current state of GERBIL and a presentation of future work. 
-More information can be found at our project webpage \url{http://gerbil.aksw.org} and at the open source code repository page \url{https://github.com/AKSW/gerbil}.
-The online version of GERBIL can be accessed at \url{http://gerbil.aksw.org/gerbil}.
+Finally, we present the current state of GERBIL in Section~\ref{sec:currentNumbersForGERBIL}.
+%We conclude with a discussion of the current state of GERBIL and a presentation of future work. 
+More information can be found at the project webpage \url{http://gerbil.aksw.org}. % and at the open source code repository page \url{https://github.com/AKSW/gerbil}.
+%The online version of GERBIL can be accessed at \url{http://gerbil.aksw.org/gerbil}.
 
 
 \section{The GERBIL Framework}
 \label{sec:architecture}
-\begin{figure*}[tb]
+\begin{figure*}[htb!]
 \centering
-\includegraphics[width=\linewidth]{part_02/benchmarking/WWW_GERBIL/GERBIL_new_architectur}
+\includegraphics[width=\linewidth]{part_02/benchmarking/WWW_GERBIL/online_annotator_benchmark.pdf}
 \caption{Overview of GERBIL's abstract architecture. Interfaces to users and providers of datasets and annotators are marked in blue.
 %\todo[inline]{AnBo: Should the arrows/calls triggered from the core \emph{to}\ the datasets?}
 }
@@ -66,7 +72,7 @@ The online version of GERBIL can be accessed at \url{http://gerbil.aksw.org/gerb
 %Finding and reusing datasets for comprehensive benchmarks involves often a trem\-endous amount of addition work.
 
 \paragraph{Architecture Overview}
-GERBIL abides by a service-oriented architecture driven by the architectural pattern of model-view-controller (see Figure~\ref{fig:architecture}).
+GERBIL abides by the architectural pattern of model-view-controller, see Figure~\ref{fig:architecture}.
 Entity annotation systems, datasets and configurations like experiment type, matching or metric are implemented as controller interfaces easily pluggable to the core controller. 
 The output of experiments as well as descriptions of the various components are stored in a serverless database for fast deployment. % reachable from each controller. 
 Finally, the view component displays configuration options respectively renders experiment results delivered by the main controller communication with the diverse interfaces and the database.
@@ -77,14 +83,14 @@ Finally, the view component displays configuration options respectively renders 
 
 
 
-% of fine grained measures to be able to cover a wide variety of experiments using diverse NER and NED approaches.
+% of fine grained measures to be able to cover a wide variety of experiments using diverse NER and \ac{NED} approaches.
 %GERBILs core is based on the endeavour of Cornolti et al.'s BAT-Framework~\cite{cornolti} for comparing entity annotation systems. 
 
 %\todo[inline]{(Andrea) We should add a table/image/example to clarify the different setups, even if some of them do not properly belong to the NED/EL/NEL/NER categories such as C2W, Sc2W and Rc2W which do not require the actual mention/entity mapping. Moreover, Sa2W and A2W can be seen as the same task assuming that the score for A2W systems is always equal to 1. (Ricardo): I agree with the last sentence. But that is how it is given in Cornoltis work. Furthermore, I would like to add a table mapping the approaches to categories. What do you think? And maybe add examples to the table below. (Andrea): which kind of categories? I don't think that examples for all the setups are really needed there should be only a single general example to make clear what EL is}
 %postponed to M2 paper
 
 
-\subsection{Features}
+\subsection{Experiment Types, Matching, Metrics}
 \label{sec:definitions}
 %\todo[inline]{@Marco, Paolo/@Ricardo: please proof read this subsection}
 
@@ -101,25 +107,12 @@ Finally, the view component displays configuration options respectively renders 
 
 Experiments run in our framework can be configured in several manners. In the following, we present some of the most important parameters of experiments available in GERBIL. 
 
-\paragraph{Experiment types}
+%\paragraph{Experiment types}
 An experiment type defines the way used to solve a certain problem when extracting information.
 Cornolti et al.'s~\cite{cornolti} BAT-framework offers six different experiment types, namely (scored) annotation (S/A2KB), disambiguation (D2KB) -- also known as \ac{EL} --, (scored respectively ranked) concept annotation (S/R/C2KB) of texts. 
 In~\cite{rizzo2014}, the authors propose two types of experiments, focusing on highlighting the strengths and weaknesses of the analyzed systems.
 Thereby, performing \textit{i)} entity recognition, i.e., the detection of the exact match of the pair entity mention and type (e.g., detecting the mention \textit{Barack Obama} and typing it as a \textit{Person}), and \textit{ii)} entity linking, where an exact match of the mention is given and the associated DBpedia URI has to be linked (e.g., locating a resource in DBpedia which describes the mention \textit{Barack Obama}).
 This work differs from the previous one for experimenting in entity recognition, and on annotating entities to a \ac{RDF} \ac{KB}.
-
-
-% (Giuseppe)
-%the flow I can get from here is: 
-% - people worked on annotating (datasets, knowloedge bases): link or NIL
-% - people worked on typing: fine grained (WEKEX, ACE,...) or coarse grained type (CoNLL: per,loc,org,...)
-% - TAC KBP combines the two things, but it keeps the tasks in the simple form, i.e. typing only to a coarse grained schema (GPE, per, org) and using a sort-of knowldge base (their own creation of a set of wikipedia resource)
-% next: 
-% * going further and covering these issues (schemas, links)
-% * domain adaptation analysis (Microposts2014 is about microposts, CoNLL is about newswire, etc etc)  
-% (Ricardo)
-% I guess, we should discuss next steps later, like after the deadline of WWW
-% (Giuseppe) oki. But if we mention above the NERD efforts on experimenting NER, then we should claim something similar for GERBIL. Otherwise it's better removing that sentence
 
 GERBIL reuses the six experiments provided by the BAT-framework and extends them by the idea to not only link to Wikipedia but to any knowledge base $K$.
 %Thereby, we extend the idea of the before mentioned frameworks by introducing the concept of knowledge base-agnostic benchmarks.
@@ -129,18 +122,8 @@ One major formal update of the measures in GERBIL is that in addition to impleme
 Our framework extends the experiments types of~\cite{cornolti} as follows: Let $m=(s,l,d,c) \in M$ denote an entity mention in document $d \in D$ with start position $s$, length $l$ and confidence score $c \in [0,1]$.
 %that links to either a resource from the resource knowledge base $K$ or a global NIL entity if the entity mentioned is not in $K$. 
 Note that some frameworks might not return (1) a position $s$ or a length $l$ for a mention, in which case we set $s=0$ and $l=0$; (2) a score $c$, in which case we set $c=1$.
-%(Giuseppe) wikipedia is not a knowledge base. A knowledge base is a representation of the word for computing machinery, hence it has to be semantically structured. According to this definition, DBpedia is. Wikipedia is an encyclopedic resource, or simply a dataset
-%\todo[inline]{AnBo@Ricardo: There is a problem with the definition of $m$, either it is $m=(s,l,d)$ without the score, or it has to be $m=(s,l,d,c,e)$ referring the resource e (that might NIL) mentioned in the description and needed for the score $c$. Note (Axel): The entity is given by a different function actually. Here, the tool only finds a mention (NER). NED occurs later :). Note (AnBo): But what expresses $c$ in this case?: Note (Axel): That's the confidence score for the mention.
-%You are absolutely right. Just fixed it. It was simply incorrect. The mention must not link to an entity.
-%(AnBo: perfect! issue closed.)
-%}
-%\todo[inline]{@axel,micha: discuss the below
-%Old text: All the approaches mentioned in the last paragraphs work on Wikipedia page URIs or ids. 
-%Since the introduction of DBpedia in 2007, new semantic approaches have been published based on unique DBpedia entity URIs instead of Wikipedia URIs. 
-%Due to the bijective mapping, also older approaches can be used in GERBIL, which is more keen on Semantic Web technologies.
-%}
 
-%\todo[inline]{The following does not make any sense to a non-informed reader. The variables are simply not defined and used (see below). Stick to the formal definition of a mention above, which is incomplete, as it does not take $d$ into consideration.}
+
 We implement six types of experiments:
 \begin{enumerate}
 \item \textbf{D2KB}: The goal of this experiment type is to map a set of \emph{given} entities mentions (i.e., a subset $\mu \subseteq M$) to entities from a given \ac{KB} or to NIL. Formally, this is equivalent to finding a mapping $a: \mu \rightarrow K \cup \{NIL\}$. In the classical setting for this task, the start position, the length and the score of the mentions $m_i$ are not taken into consideration. 
@@ -188,9 +171,10 @@ Sc2KB:&(d,K) \rightarrow \{a_1,\ldots,a_n|\\
 \end{comment}
 
 With this extension, our framework can now deal with gold standard datasets and annotators that link to any \ac{KB}, e.g., DBpedia, BabelNet~\cite{NavigliPonzetto:12aij} etc., as long as the necessary identifiers are URIs.
+\todo[inline]{@Micha: Stimmt das noch oder sollte hier ein Link zum Update Chapter hin?}
 We were thus able to implement \numberOfadditionalDatasets new gold standard datasets usable for each experiment type, cf. Section~\ref{sec:datasets}, and \numberOfadditionalAnnotators new annotators linking entities to any \ac{KB} instead of solely Wikipedia like in previous works, cf. Section~\ref{sec:annotators}.
 With this extensible interface, GERBIL can be extended to deal with supplementary experiment types, e.g., entity salience~\cite{cornolti}, entity detection~\cite{FOX}, typing~\cite{rizzo2014}, word sense disambiguation (WSD)~\cite{babelfy} and relation extraction~\cite{FOX}.
-These categories of experiment types will be added to GERBIL in further versions.
+These categories of experiment types will be added to GERBIL in further versions, see Section~\ref{sec:currentNumbersForGERBIL}.
 
 %GERBIL leverages Linked Data usages for Benchmarks.
 
@@ -198,6 +182,7 @@ These categories of experiment types will be added to GERBIL in further versions
 
 A matching defines which conditions the result of an annotator has to fulfill to be a correct result.
 In case of existing redirections, we assume an implicit matching function to account for the many-to-one relation~\cite{cornolti}.
+\todo[inline]{@Micha: Was meint many-to-one?}
 The first matching type $M$ used for the C2KB, Rc2KB and Sc2KB experiments is the \textit{strong entity matching}.
 Here, each mention is mapped to an entity of the knowledge base $K$ via a matching function $f$ with $f(m) \in K \cup \{NIL\}$.
 Following this matching, a single entity mention $m = (s, l, d, c)$ returned by the annotator is correct iff it matches exactly with one of the entity mentions $m' = (s', l', d, c')$ in the gold standard $G(d)$ of d~\cite{cornolti}. Formally,
@@ -246,22 +231,17 @@ M_w (m,G)=
 GERBIL offers six measures subdivided into two groups and derived from the BAT-framework, namely the micro- and the macro-group of precision, recall and f-measure.
 %That is, macro measures are defined as average overall documents of the corresponding group measures while micro measures are calculated document-wise and averaged thereafter~\cite{cornolti}.
 Those measures ignore NIL annotations, i.e., if a gold standard dataset contains entities that are not contained in the target knowledge base $K$ and an annotator detects the entity and links it to any URI, emerging novel URI or NIL, this will always result in a false-positive evaluation. 
-To alleviate this problem, GERBIL allows adding additional measures to evaluate the results of annotators regarding the heterogeneous landscape of gold standard datasets.
+To alleviate this problem, GERBIL allows adding additional measures to evaluate the results of annotators regarding the heterogeneous landscape of gold standard datasets, see Section~\ref{sec:currentNumbersForGERBIL}.
 
 \subsection{Annotators}
 \label{sec:annotators}
 
-%The evaluation of different approaches for entity annotation can be a cumbersome endeavour due to various input and output formats, availability of source code, binaries or web services.
-%GERBIL significantly reduces the amount of work required to compare existing as well as novel annotators in a comprehensive and reproducible way.
 GERBIL aims to reduce the amount of work required to compare existing as well as novel annotators in a comprehensive and reproducible way. To this end, we provide two main approaches to evaluating entity annotation systems with GERBIL.
 \begin{enumerate}
 \item \textbf{BAT-framework Adapter}
 
 Within BAT, annotators can be implemented by wrapping using a Java-based interface.
 Since GERBIL is based on the BAT-framework, annotators of this framework can be added to GERBIL easily.
-%GERBIL is based on the Spring framework\footnote{\url{http://spring.io/}} which led to a decrease of needed lines of code from on average XXX to XXX lines over the original BAT-framework.
-%\todo[inline]{@Micha: Can we quantify that?\\ see latex comment}
-%Micha: I don't think so. It depends on the system you want to call. And as I always say: lines of code is not a really good metric ;-) I do not even think that this is the correct position to argue with 1) GERBIL is Spring based (this simply doesn't matter) and 2) it is faster to implement - because GERBIL is still based on BAT, you have to implement exactly the same + a small overhead for getting the annotator into GERBIL. I think this time argument should be set to the NIF-based webservice, since you don't have to handle BAT-framework stuff there.
 Due to the community effort behind GERBIL, we could raise the number of published annotators from 5 to \overallGERBILannotators.
 We investigated the effort to implement a BAT-framework adapter in contrast to evaluation efforts done without a structured evaluation framework in Section~\ref{cha332:sec:eval}.
 
@@ -282,7 +262,7 @@ In the following, we present current state-of-the-art approaches both available 
 
 %sorted by year
 \begin{enumerate}
-\item \textbf{Cucerzan}: As early as in 2007, Cucerzan presented a NED approach based on Wikipedia~\cite{Cucerzan07}. The approach tries to maximize the agreement between contextual information of input text and a Wikipedia page as well as category tags on the Wikipedia pages.
+\item \textbf{Cucerzan}: As early as in 2007, Cucerzan presented a \ac{NED} approach based on Wikipedia~\cite{Cucerzan07}. The approach tries to maximize the agreement between contextual information of input text and a Wikipedia page as well as category tags on the Wikipedia pages.
 The test data is still available\footnote{\url{http://research.microsoft.com/en-us/um/people/silviu/WebAssistant/TestData/}} but since we can safely assume that the Wikipedia page content changed a lot since 2006, we do not use it in our framework, nor we are aware of any publication reusing this data.
 Furthermore, we were not able to find a running webservice or source code for this approach.
 
@@ -290,7 +270,7 @@ Furthermore, we were not able to find a running webservice or source code for th
 The authors evaluated their approach based on a subset of the AQUAINT dataset\footnote{\url{http://www.nist.gov/tac/data/data_desc.html\#AQUAINT}}.
 They provide the source code for their approach as well as a webservice\footnote{\url{http://wikipedia-miner.cms.waikato.ac.nz/}} which is available in GERBIL.
 
-\item \textbf{Illinois Wikifier}: In 2011, ~\cite{rat:rot} presented an NED approach for entities from Wikipedia. 
+\item \textbf{Illinois Wikifier}: In 2011, ~\cite{rat:rot} presented an \ac{NED} approach for entities from Wikipedia. 
 In this article, the authors compare local approaches, e.g., using string similarity, with global approaches, which use context information and lead finally to better results.
 The authors provide their datasets\footnote{\url{http://cogcomp.cs.illinois.edu/page/resource_view/4}} as well as their software "Illionois Wikifier"\footnote{\url{http://cogcomp.cs.illinois.edu/page/software_view/33}} online.
 Since "Illionois Wikifier" is currently only available as local binary and GERBIL is solely based on webservices, we excluded it from GERBIL for the sake of comparability and server load.
@@ -314,12 +294,7 @@ The datasets comprise only fragments of 30 words and less of full documents and 
 %Specifically, this approach uses dense sub-graphs to identify coherent mentions using a greedy algorithm enabling Web scalability. 
 Although the authors provide their source code, a webservice and their dataset which is a manually annotated subset of the 2003 CoNLL share task~\cite{conll2003}, GERBIL does not use the webservice since it is not stable enough for regular replication purposes.\footnote{\url{https://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/aida/}}
 
-%\todo[inline]{@giuseppe: What is the Name of the approach, is it not available? than please delete it from table 2}
-%van Erp et al.~\cite{vanErp2013,rizzo2014} have presented a NER approach tailored for microposts. They proposed a machine learning classification of the entity type given a rich feature vector composed of: a set of linguistic features, the output of a properly trained Conditional Random Fields classifier and the outputs of a set of off-the-shelf NER extractors. 
-%Due to the unavailability of its source code or API van Erp et al.'s approach will not be part of GERBIL.
-% The follow-up of van Erp's approach, NERD-ML, turns the entity recognition task as a classification task where the feature vector is based on a set of linguistic features, the output of a Condition Random Fields (CRF) properly trained, and the outputs of the annotation systems supported by the NERD Framework. This approach has shown strengths in both recognizing named entities in the newswire and the micropost domains~\cite{rizzo2014}.
-
-\item \textbf{NERD-ML}: In 2013,~\cite{vanErp2013} proposed an approach for entity recognition tailored for extracting entities from tweets. The approach relies on a machine learning classification of the entity type given a rich feature vector composed of a set of linguistic features, the output of a properly trained Conditional Random Fields classifier~\cite{Lafferty:2001:CRF:645530.655813} and the output of a set of off-the-shelf NER extractors supported by the NERD Framework. The follow-up, NERD-ML~\cite{rizzo2014}, improved the classification task by re-designing the selection of the features, and they proposed experiments on both microposts and newswire domains.
+\item \textbf{NERD-ML}: In 2013,~\cite{vanErp2013} proposed an approach for entity recognition tailored for extracting entities from tweets. The approach relies on a machine learning classification of the entity type given a rich feature vector composed of a set of linguistic features, the output of a properly trained Conditional Random Fields classifier~\cite{Lafferty:2001:CRF:645530.655813} and the output of a set of off-the-shelf \ac{NER} extractors supported by the NERD Framework. The follow-up, NERD-ML~\cite{rizzo2014}, improved the classification task by re-designing the selection of the features, and they proposed experiments on both microposts and newswire domains.
 NERD-ML has a public webservice which is part of GERBIL\footnote{\url{http://nerd.eurecom.fr/}}.
 
 
@@ -366,11 +341,17 @@ a webservice.
 
 
 
-\begin{table}[tb!]
+Table~\ref{tab:annotator} compares the implemented annotation systems of GERBIL and the BAT-Framework.
+While AGDISTIS has been in the source code of the BAT-Framework provided by a third-party after publication of Cornolti et al.'s initial work~\cite{cornolti} in 2014, GERBIL's community effort led to the implementation of overall \numberOfadditionalAnnotators new annotators as well as the before mentioned generic NIF-based annotator.
+The AIDA annotator as well as the "Illinois Wikifier" is not be available in GERBIL since we restrict ourselves to webservices.
+However, these algorithms as well as upcoming annotation systems can be integrated at any time as soon as their webservices are available, see Section~\ref{sec:currentNumbersForGERBIL}.
+
+
+\begin{table}[htb!]
 \centering
 \begin{tabular}{llccc}
 \toprule
-                                        && \textbf{BAT-Framework}           & \textbf{GERBIL}                    & \textbf{Experiment}\\
+                                        && \textbf{BAT-Framework}           & \textbf{GERBIL}                    & \textbf{Experiment Type}\\
 \midrule
 \cite{milne2008learning}		&Wikipedia Miner	& \haken 					& \haken	&	SA2KB\\
 \cite{rat:rot}							&Illionois Wikifier	& \haken 					& \haken 	& 	SA2KB\\
@@ -390,25 +371,12 @@ a webservice.
 \caption{Overview of implemented annotator systems. Brackets indicate the existence of the implementation of the adapter but also the inability to use it in the live system.}
 \label{tab:annotator}
 \end{table}
-Table~\ref{tab:annotator} compares the implemented annotation systems of GERBIL and the BAT-Framework.
-While AGDISTIS has been in the source code of the BAT-Framework provided by a third-party after publication of Cornolti et al.'s initial work~\cite{cornolti} in 2014, GERBIL's community effort led to the implementation of overall \numberOfadditionalAnnotators new annotators as well as the before mentioned generic NIF-based annotator.
-The AIDA annotator as well as the "Illinois Wikifier" is not be available in GERBIL since we restrict ourselves to webservices.
-However, these algorithms can be integrated at any time as soon as their webservices are available.
-%\todo[inline]{@Micha: bitte nochmal alle tabellen anschauen :)}
-%\todo[inline]{@Giuseppe: NERD-ML is not described above. could you please do that? and afterwards update all tables and clarify whether van erp is an own approach}
-
-%\subsection{Front-end}
-%Our web-based frontend provides opportunities to handle a number of different use cases as described in Section~\ref{sec:usecase}.
-%Especially, we tried to offer each configuration available in the programmatic backend also to frontend-users.
-%Especially, we provide users with long-term stable URIs for their chosen configuration, see also Section~\ref{sec:longtermstability}.
-%\todo[inline]{Add screenshot}
 
 \subsection{Datasets}
 \label{sec:datasets}
-%\todo[inline]{(Giuseppe) pls check: ambiguity in naming the AIDA CoNLL-YAGO Dataset. -> AIDA/CoNLL}
 
 Table~\ref{tab:corpus_stats} shows the heterogeneity of datasets used for prior evaluations while Table~\ref{tab:datasets} presents an overview of the datasets that were used to evaluate some well-known entity annotators in previous works.
-These tables make clear that the numbers and types of used datasets varies a lot, thus preventing a fast comparison of annotation systems.
+These tables make clear that the numbers and types of used datasets vary a lot, thus preventing a fast comparison of annotation systems.
 
 %GERBIL's main goal is the improvement of the reproducibility of entity annotation experiments. 
 %Thus, our approach offers the opportunity to easily compare a wealth of entity annotations systems and various datasets with diverse experiment and matching types as well as metrics, cf. .
@@ -418,24 +386,24 @@ These tables make clear that the numbers and types of used datasets varies a lot
      \resizebox{\textwidth}{!}{ 
     \begin{tabular}{lp{0.25cm}rp{0.25cm}rp{0.25cm}rp{0.25cm}rp{0.25cm}r}
      \toprule
-     \textbf{Corpus} && \textbf{Topic} &&\textbf{Format} &&\textbf{Experiment} && \multicolumn{1}{c}{\textbf{Size}} && \multicolumn{1}{c}{\textbf{Avg. Entity/Doc.}} \\
+     \textbf{Corpus} && \textbf{Topic} &&\textbf{Format} && \multicolumn{1}{c}{\textbf{Size}} && \multicolumn{1}{c}{\textbf{Avg. Entity/Doc.}} \\
     \midrule
-ACE2004          && news        && MSNBC    && Sa2KB    &&   57 &&   4.44\\
-AIDA/CoNLL       && news        && CoNLL    && Sa2KB    && 1393 &&  19.97\\
-Aquaint          && news        &&  -       && Sa2KB    &&   50 &&  14.54\\
-IITB             && mixed       && XML      && Sa2KB    &&  103 && 109.22\\
-KORE 50          && mixed       && NIF/RDF  && Sa2KB    &&   50 &&   2.86\\
-Meij             && tweets      && TREC     && Rc2KB    &&  502 &&   1.62\\
-Microposts2014   && tweets      &&  -       && Sa2KB    && 3505 &&   0.65\\
-MSNBC            && news        && MSNBC    && Sa2KB    &&   20 &&  32.50\\
-N$^3$ Reuters-128&& news        && NIF/RDF  && Sa2KB    &&  128 &&   4.85\\
-N$^3$ RSS-500    && RSS-feeds   && NIF/RDF  && Sa2KB    &&  500 &&   0.99\\
-Spotlight Corpus && news        && NIF/RDF  && Sa2KB    &&   58 &&   5.69\\
+ACE2004          && news        && MSNBC        &&   57 &&   4.44\\
+AIDA/CoNLL       && news        && CoNLL     && 1393 &&  19.97\\
+Aquaint          && news        &&  -        &&   50 &&  14.54\\
+IITB             && mixed       && XML       &&  103 && 109.22\\
+KORE 50          && mixed       && NIF/RDF   &&   50 &&   2.86\\
+Meij             && tweets      && TREC          &&  502 &&   1.62\\
+Microposts2014   && tweets      &&  -        && 3505 &&   0.65\\
+MSNBC            && news        && MSNBC     &&   20 &&  32.50\\
+N$^3$ Reuters-128&& news        && NIF/RDF   &&  128 &&   4.85\\
+N$^3$ RSS-500    && RSS-feeds   && NIF/RDF   &&  500 &&   0.99\\
+Spotlight Corpus && news        && NIF/RDF   &&   58 &&   5.69\\
 %Wiki             && encyclopedic    &&   ? &&   ?\\
 	\bottomrule
 	\end{tabular}}
 	\centering
-    \caption{Features of the data sets and their documents.}
+    \caption{Features of the data sets and their documents. Every dataset can be used for the Sa2KB experiment except Meij which is only suitable for the Rc2KB experiment family.}
 	\label{tab:corpus_stats}
 \end{table}
 
@@ -447,7 +415,7 @@ Furthermore, we implemented a dataset wrapper for the Microposts2014 corpus whic
 The dataset itself was introduced in 2014~\cite{Cano2014} and consists of 3500 tweets especially related to event data.
 Moreover, we capitalize upon the uptake of publicly available, NIF based corpora over the last years~\cite{yovisto,n3}\footnote{\url{http://datahub.io/dataset?license_id=cc-by&q=NIF}}.
 To this end, GERBIL implements a Java-based NIF~\cite{NIF} reader and writer module which enables loading arbitrary NIF document collections, as well as the communication to NIF-based webservices.
-Additionally, we integrated four NIF corpora, i.e., the RSS-500 and reuters-128 dataset\footnote{\url{https://github.com/AKSW/n3-collection}}, as well as the Spotlight Corpus and the KORE 50 dataset\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}}. 
+Additionally, we integrated four English NIF corpora, i.e., the RSS-500 and reuters-128 dataset~\cite{n3}, as well as the Spotlight Corpus and the KORE 50 dataset\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}}. 
 
 The extensibility of the datasets in GERBIL is furthermore ensured by allowing users to upload or use already available NIF datasets from DataHub. 
 GERBIL will regularly check whether new corpora are available and publish them for benchmarking after a manual quality assurance cycle which ensures their usability for the implemented configuration options.
@@ -455,11 +423,11 @@ Additionally, users can upload their NIF-corpora directly to GERBIL avoiding the
 This option allows for rapid testing of entity annotation systems with closed source or licenced datasets.
 
 Some of the datasets shown in Table~\ref{tab:datasets} are either not yet implemented due to size and server load limitations, i.e., Wiki-Disamb30 and Wiki-Annot30, or due their original experiment type.
-In particular, the Senseval-3 as well as the different SemEval datasets demand as experiment type word sense disambiguation and thereby linking to BabelNet or Wordnet~\cite{Wordnet}, which is not yet covered in GERBIL.
+In particular, the Senseval-3 as well as the different SemEval datasets demand as experiment type word sense disambiguation and thereby linking to BabelNet or Wordnet~\cite{wordnet}, which is not yet covered in GERBIL.
 Still, GERBIL offers currently \overalldatasets state-of-the-art datasets reaching from newswire and twitter to encyclopedic corpora of various amounts of texts and entities.
 Due to license issues we are only able to provide downloads for 9 of them directly but we provide instructions to obtain the others on our project wiki.
 
-Table~\ref{tab:corpus_stats} depicts the features of the current datasets available in GERBIL.
+Table~\ref{tab:corpus_stats} depicts the features of the current datasets available in GERBIL, see Section~\ref{sec:currentNumbersForGERBIL} for an overview of the current state of GERBIL datasets.
 These provide a broad evaluation ground leveraging the possibility for sophisticated tool diagnostics.
 
 %\todo[inline]{@AKSW:  output statistics for all available corpora, i.e., nr of docs, nr of entities, length of documents, domain as table thx.}
@@ -500,8 +468,8 @@ This is a \ac{RDF}-based Linked Data serialization which provides several advant
 The \emph{NIF-standard} assigns each document an URI as starting point and generates another Linked Data resource per semantic entity.
 Each document is a resource of type \texttt{nif:Context} and its content is the literal of its \texttt{nif:isString} predicate. 
 Every entity is an own resource with a newly generated URI pointing to the original document via the \texttt{nif:referenceContext} predicate.
-Additionally the begin (\url{nif:beginIndex}) and end position (\url{nif:endIndex}) as well as the disambiguated URI (\url{itsrdf:taIdentRef}) and the respective KB (\url{itsrdf:taSource}) are stored.
-NIF's paramount position amongst corpora serialisation formats is evident by the growing number of available datasets~\cite{GERBIL}.\footnote{The prefix \texttt{nif} stands for \url{http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core\#} while \texttt{itsrdf} is short for \url{http://www.w3.org/2005/11/its/rdf\#}.}
+Additionally the begin (\texttt{nif:beginIndex}) and end position (\texttt{nif:endIndex}) as well as the disambiguated URI (\texttt{itsrdf:taIdentRef}) and the respective \ac{KB} (\texttt{itsrdf:taSource}) are stored.
+NIF's paramount position amongst corpora serialisation formats is evident by the growing number of available datasets~\cite{GERBIL}.
 
 %\subsection{Experiment configuration}
 %
@@ -544,7 +512,7 @@ For some experiment types, e.g., the entity-linking tasks, the evaluation needs 
 GERBIL is able to search for \texttt{owl:sameAs} links to close the gap between data sets and annotators that are based on different knowledge bases.
 Currently, this search is mainly based on the information inside the data set and retrieval of the entity mentioned by the annotator.
 The search could be extended by using local search indexes that contain mappings between well-known knowledge bases, e.g., DBpedia and Freebase.
-The results are currently written to an HSQL database\footnote{\url{http://hsqldb.org/}}.
+%The results are currently written to an HSQL database\footnote{\url{http://hsqldb.org/}}.
 
 
 \subsection{Experiment Output}
@@ -566,7 +534,7 @@ The results are currently written to an HSQL database\footnote{\url{http://hsqld
 	\bottomrule
 	\end{tabular}
 	\centering
-    \caption{Results of an example experiment. It is accessible at \url{http://gerbil.aksw.org/gerbil/experiment?id=201411100001}}
+    \caption{Results of an example experiment from the 10th November 2014 which is still accessible at \url{http://gerbil.aksw.org/gerbil/experiment?id=201411100001}}
 	\label{tab:persistentURL}
 \end{table}
 
@@ -622,22 +590,22 @@ An example JSON-LD is depicted in Listing~\ref{lst:jsonld}.
 
 
 \subsection{Diagnostics}
-\begin{figure}[tb!]
+\begin{figure}[htb!]
 \centering
-\includegraphics[width=0.6\linewidth]{part_02/benchmarking/WWW_GERBIL/results.pdf}
+\includegraphics[width=\linewidth]{part_02/benchmarking/WWW_GERBIL/results.pdf}
 \caption{Example spider diagram of recent A2KB experiments with weak annotation matching.}
 \label{cha333:fig:spiderfmeasure}
 \end{figure}
 
-\begin{figure}[tb!]
+\begin{figure}[htb!]
 \centering
-\includegraphics[width=0.6\linewidth]{part_02/benchmarking/WWW_GERBIL/correlations.pdf}
+\includegraphics[width=\linewidth]{part_02/benchmarking/WWW_GERBIL/correlations.pdf}
 \caption{Example spider diagram of correlations between annotation results and data set features.}
 \label{cha333:fig:spidercorrelations}
 \end{figure}
 
 Offering such detailed and structured experimental results opens new research avenues in terms of tool and dataset diagnostics to increase decision makers' ability to choose the right settings for the right use case.
-Next to individual configurable experiments, GERBIL offers an overview of recent experiment results belonging to the same experiment and matching type in the form of a table as well as sophisticated visualizations\footnote{\url{http://gerbil.aksw.org/gerbil/overview}}, for instance see Figure~\ref{cha333:fig:spiderfmeasure}
+Next to individual configurable experiments, GERBIL offers an overview of recent experiment results belonging to the same experiment and matching type in the form of a table as well as sophisticated visualizations\footnote{\url{http://gerbil.aksw.org/gerbil/overview}}, for instance see Figure~\ref{cha333:fig:spiderfmeasure}. 
 This allows for a quick comparison of tools and datasets on recently run experiments without additional computational effort.
 
  As shown in Figure~\ref{cha333:fig:spiderfmeasure}, these results are displayed using interactive spider diagrams that allow the user to easily (1) get an overview of the performance of single tools, (2) compare tools with each other and (3) gather information on the performance on tools on particular data sets.
@@ -664,13 +632,13 @@ To achieve this goal, we surveyed the workload necessary to implement a novel an
 Our survey comprised five developers with expert-level programming skills in Java. Each developer was asked to evaluate how much time he/she needed to write the code necessary to evaluate his/her framework on a new dataset.
 
 %\todo[inline]{Add diagram showing time for own data/time on GERBIL}
-\begin{figure}[tb!]
+\begin{figure}[htb!]
 \centering
 \includegraphics[width=\columnwidth]{part_02/benchmarking/WWW_GERBIL/user_study.eps}
 \caption{Comparison of effort needed to implement an adapter for an annotation system with and without GERBIL.}
 \label{ref:comparedTime}
 \end{figure}
-\todo[inline]{redo graphics}
+\todo[inline]{@Me: Redo graphics user_study.eps}
 %\input{part_02/benchmarking/WWW_GERBIL/diagramFfTimeGERBILvsOwn}
 
 Overall, the developers reported that they needed between 1 and 4 hours to achieve this goal (4x 1-2h, 1x 3-4h), see Figure~\ref{ref:comparedTime}.
@@ -684,13 +652,13 @@ Even though small, this evaluation suggests that implementing against GERBIL doe
 An interesting side-effect of having all these frameworks and datasets in a central framework is that we can now benchmark the different frameworks with respect to their runtimes within exactly the same experimental settings. These results are of practical concern for end users of annotation frameworks as they are most commonly interested in both the runtime and the quality of solutions. For example, we evaluated the runtimes of the different approaches in GERBIL for the A2KB experiment type on the MSNBC dataset. The results of this experiment are shown in Figure~\ref{fig:runtime}.
 
 
-\begin{figure}[tb!]
+\begin{figure}[htb!]
 \centering
 \includegraphics[width=\columnwidth]{part_02/benchmarking/WWW_GERBIL/needed_times.eps}
 \caption{Runtime per document of different approaches in GERBIL for the A2KB experiment type on the MSNBC dataset.}
 \label{fig:runtime}
 \end{figure}
-\todo[inline]{redo graphics}
+\todo[inline]{@Me: Redo graphics needed_times.eps}
 %\todo[inline]{@Micha runtime in s/document?}
 
 %\subsection{Reproducibility of experiments}
@@ -700,16 +668,18 @@ An interesting side-effect of having all these frameworks and datasets in a cent
 %Especially, we are interested in reproducing the results of AGDISTIS~\cite{agdistis_iswc}, TagMe 2~\cite{TagMe2,Cornolti} and Babelfy~\cite{babelfy}.
 \section{Current development of GERBIL}
 \label{sec:currentNumbersForGERBIL}
+\todo[inline]{@Micha: Zahlen vergleichen}
+
 \begin{itemize}
 \item New numbers for datasets, annotators, experiment types, matchings
-\item User numbers
+\item User numbers public private experiments
 \item describe changes from 1.0 to 1.2
 \end{itemize}
 
 
 \section{Conclusion and Future Work}
 \label{cha332:sec:conclusion}
-In this paper, we presented and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
+We presented and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
 Some of the main contributions of GERBIL include the provision of persistent URLs for reproducibility and archiving.
 Furthermore, we implemented a generic adaptor for external datasets as well as a generic interface to integrate remote annotator systems.
 The datasets available for evaluation in the previous benchmarking platforms for annotation was extended by \numberOfadditionalDatasets new datasets. Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
@@ -730,9 +700,9 @@ More information about GERBIL and its source code can be found at the project's 
 %}
 
 While developing GERBIL, we spotted several flaws in the formal model underlying previous benchmarking frameworks which we aim to tackle in the future. 
-For example, the formal specification underlying current benchmarking frameworks for annotation does not allow using the scores assigned by the annotators for their results. To address this problem, we aim to develop/implement novel measures into GERBIL that make use of scores (e.g., Mean Reciprocal Rank). 
+For example, the formal specification underlying current benchmarking frameworks for annotation does not allow using the scores assigned by the annotators for their results. To address this problem, we aim to develop/implement novel measures into GERBIL that make use of scores (e.g., Emerging Entities~\cite{Hoffart:2014:DEE:2566486.2568003}). 
 Moreover, partial results are not considered within the evaluation. For example, during the disambiguation task, named entities without Wikipedia URIs are not considered. This has a significant impact of the number of true and false positives and thus on the performance of some tools.
-Furthermore, certain tasks seem to be too coarse. For example, we will consider splitting the Sa2KB and the A2KB tasks into two subtasks: The first subtask would measure how well tools perform at finding named entities inside the text (NER task) while the second would evaluate how well tools disambiguate those named entities which have been found correctly (similar to the D2KB task).
+Furthermore, certain tasks seem to be too coarse. For example, we will consider splitting the Sa2KB and the A2KB tasks into two subtasks: The first subtask would measure how well tools perform at finding named entities inside the text (\ac{NER} task) while the second would evaluate how well tools disambiguate those named entities which have been found correctly (similar to the D2KB task).
 In future work, we also aim to provide a new theory for evaluating annotation systems and display this information in the GERBIL interface.
 In the future, we also plan to provide information about the point in time since when an annotator is stable, i.e., the algorithm underlying the webservice has not changed.
-GERBIL has sparked the idea for the succesful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform. 
+GERBIL has sparked the idea for the succesful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform\footnote{\url{http://project-hobbit.eu/}}. 

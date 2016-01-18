@@ -1,72 +1,8 @@
-
-%\documentclass{llncs}
-
-%\begin{document}
- 
-
 \chapter{Web-Scale Extension of RDF Knowledge Bases from Templated Websites}
 
-%\author{
-%Lorenz B\"uhmann\thanks{Both authors contributed equally to this work.}\inst{1} \and 
-%Ricardo Usbeck$^\star$\inst{1}\inst{2}\and
-%Axel-Cyrille Ngonga Ngomo\inst{1} \and 
-%Muhammad Saleem \inst{1} \and
-%Andreas Both \inst{2}\and
-%Valter Crescenzi\inst{3} \and       
-%Paolo Merialdo\inst{3}\and
-%Disheng Qiu\inst{3}
-%}
-%\institute{Universit\"at Leipzig, IFI/AKSW  
-%\email{\{lastname\}@informatik.uni-leipzig.de} \and 
-%Unister GmbH, Leipzig
-%\email{\{firstname.lastname\}@unister.de}\and
-%Universit\`a Roma Tre
-%\email{\{lastname\}@dia.uniroma3.it}
-%}
+\todo[inline]{@Me: Übergang schreiben}
 
-%\date{8 October 2013}
-
-%\maketitle
-%\begin{abstract}
-%Over the last years, Linked Open Data has been utilized in several scientific and industrial information systems. 
-%Despite the significant growth of the Linked Open Data Cloud over the last years, 
-Only a small fraction of the information on the Web is represented as Linked Data.
-This lack of coverage is partly due to the paradigms followed so far to extract Linked Data. 
-While converting structured data to RDF is well supported by tools, most approaches to extract RDF from semi-structured data rely on extraction methods based on ad-hoc solutions. 
-%Existing wrapper induction approaches for RDF extraction do not ensure the consistency of the knowledge they extract due to the lack of expressive schemas on the Linked Open Data Cloud. 
-%Consequently, the extraction of consistent RDF data from web sources remains an unsolved problem. 
-In this paper, we present a holistic and open-source framework for the extraction of RDF from templated websites.
-%learning web wrappers using knowledge from the Linked Open Data Cloud.
-We discuss the architecture of the framework and the initial implementation of each of its components.
-In particular, we present a novel wrapper induction technique that does not require any human supervision to detect wrappers for web sites. 
-Our framework also includes a consistency layer with which the data extracted by the wrappers can be checked for logical consistency.
-%Moreover, our approach achieves superior F-measures than the state of the art.
-We evaluate the initial version of REX on three different datasets. 
-%We study the effect of the number of examples on the F-measure achieved by our approach. 
-Our results clearly show the potential of using templated Web pages to extend the Linked Data Cloud.
-Moreover, our results indicate the weaknesses of our current implementations and how they can be extended.
-%\end{abstract}
-
-%\begin{itemize}
-%\item Describe the framework (made for generic purpose)
-%\item how and with which modules has the framework been initialized
-%\item create javadoc
-%\item clean source code
-%\end{itemize}
-
-%\todo[inline]{
-%
-%Software Frameworks advance science by sharing with the community software that can easily be extended or adapted to support scientific study and experimentation. Jena, Sesame, hadoop, and many other software frameworks have clearly impacted our community but were, similarly, difficult to publish.  For example:
-%
-%Brian McBride. Jena: A Semantic Web Toolkit. IEEE Internet Computing. November, 2002. [PDF]
-%
-%Review Criteria: Does the framework solve a problem that is useful to the ISWC community?  Are there similar frameworks? How general is the framework in terms of applicability? What is the novelty of the abstractions chosen and are they useful? What can it not do and what is the rationale for the exclusion of that functionality? Does it use open standards, when applicable, or have good reason not to?  Is it open-source, freely available, extendable? How applicable is it to a wide variety of problems?  
-%
-%We encourage the authors to carefully read the calls for the other tracks, the Research track, the  In Use track and the Industry track and consider submitting to the most 
-%appropriate track. Multiple submissions of the same paper to different tracks are not acceptable.}
-\section{Introduction}
-
-The Linked Open Data (LOD) Cloud has grown from 12 datasets (also called knowledge bases) to over 2000 knowledge bases in less than 10 years.\footnote{\url{http://stats.lod2.eu/}}
+The \ac{LOD} Cloud has grown from 12 datasets (also called knowledge bases) to over 2000 knowledge bases in less than 10 years.\footnote{\url{http://stats.lod2.eu/}}
 %The amount of data now available on the LOD Cloud exceeds 31 billion triples, which pertain to domains as diverse as movies, music, sports, bio-medicine and many others. 
 This steady growth of the LOD Cloud promises to continue as very large datasets such as  Linked TCGA~\cite{SAL+13a} with 20.4 billion triples are added to it. However, the LOD Cloud still contains only a fraction of the knowledge available on the Web~\cite{GER+13}. This lack of coverage is mainly due to the way the data available on the LOD Cloud is extracted. Most commonly, the data in the LOD Cloud originates from one of two types of sources: structured data (especially databases such as Drugbank,\footnote{\url{http://www.drugbank.ca}} Diseasome,\footnote{\url{http://diseasome.eu}} etc.)~and semi-structured data sources (for example data extracted from the Wikipedia\footnote{\url{http://wikipedia.org}} infoboxes). While generating RDF triples from structured data (especially databases) is well supported by tools such as Triplify~\cite{DBLP:dblp_conf/www/AuerDLHA09}, D2R~\cite{Bizer04} and SPARQLMap~\cite{DBLP:conf/aswc/UnbehauenSA12}
 , devising automatic means to generate RDF from semi-structured data is a more challenging  problem. 
@@ -105,13 +41,13 @@ By post-processing the output of website wrappers, our system can generate novel
 To ensure that these novel triples are consistent, REX provides a consistency check module which computes and uses the axioms which underlie the input knowledge base $K$. 
 Only those triples which do not break the consistency rules are returned by REX. 
 The contributions of this paper are consequently as follows:
-\begin{enumerate}
+\begin{itemize}
 \item We introduce a novel framework for the extraction of RDF from templated websites.
 \item We present a novel wrapper induction approach for the extraction of subject-object pairs from the Web.
 \item We integrate state-of-the-art disambiguation and schema induction techniques to retrieve high-quality RDF. 
 \item We evaluate the first version of REX on three datasets and present both the strengths and weaknesses of our approach.
 \item Overall, we present the (to the best of our knowledge) first web-scale, low-cost, accurate and consistent framework that allows extracting RDF from structured websites.
-\end{enumerate}
+\end{itemize}
 
 The rest of this paper is organized as follows. In Section~\ref{sec:notation}, we introduce the notation that underlies this paper and the problems that we tackle. Section~\ref{sec:rex} presents the architecture of REX in more detail as well as the current implementation of each of its components.
 In particular, we illustrate our approach to generate examples from a knowledge base $K$ and we show our algorithm to learn web wrappers from such examples.
