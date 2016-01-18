@@ -176,7 +176,7 @@ All entities are named with URIs, and the third rule of Linked Data asks to retu
 This way, the Web can be used as vast knowledge space, where everyone can publish what they know about a given entity.
 
 We can also use the URIs of others -- we do not have to publish URIs for all entities that we want to use ourselves.
-For example, DBpedia is a widely used resource that publishes Linked Data based on Wikipedia's infoboxes~\cite{dbpedia}.
+For example, DBpedia is a widely used resource that publishes Linked Data based on Wikipedia's infoboxes~\cite{dbpedia-swj}.
 DBpedia offers URIs for all entities that have a Wikipedia page.
 For example, Greece' Wikipedia page is \texttt{http://en.wikipedia.org/wiki/Greece} and, based on that, DBpedia defines the URI for Greece to be \texttt{http://dbpedia.org/resource/Greece}.
 If this is entered into a browser, the browser redirects the user to a Web page about Greece in DBpedia.
@@ -357,17 +357,17 @@ Soon, further syntaxes were created, some of them also in XML (like TriX~\cite{t
 Expressions in other languages like OWL and RIF were often very cumbersome to be translated to RDF (as shown in Section~\ref{rdfs}), and thus introduced serializations of their own, like the OWL Functional Syntax~\cite{owl2}, the OWL XML presentation syntax (a serialization of OWL directly in XML, instead of going through RDF~\cite{owl3}), the RIF syntaxes~\cite{rif}, etc.
 Lately, JSON became a more prominent serialization format on the Web, and standards to represent the RDF data model in JSON are being worked on~\cite{json-ld}.
 
-Besides serializations for pure RDF, there has been a second strand of embedding RDF in other file formats.
-One of the main use cases for RDF is to provide flexible metadata about a file.
-Embedding that metadata in the file itself has the advantage that the metadata is easier retained if the file gets moved, shared, changed, etc.
-A growing number of file formats, like Adobe's (PDF, Photoshop, etc.) allow to embed RDF~\cite{xmp}.
+%Besides serializations for pure RDF, there has been a second strand of embedding RDF in other file formats.
+%One of the main use cases for RDF is to provide flexible metadata about a file.
+%Embedding that metadata in the file itself has the advantage that the metadata is easier retained if the file gets moved, shared, changed, etc.
+%A growing number of file formats, like Adobe's (PDF, Photoshop, etc.) allow to embed RDF~\cite{xmp}.
 
-The most relevant file format for the Web is obviously HTML itself, the language to describe Web pages and applications.
-The RDFa standard offers how to markup and annotate elements of a Web page with RDF.
-This allows a tool understanding RDFa to directly extract structured data out of a Website:
-a page about an event can be pulled into a calendar,
-a restaurant can be automatically filtered with the allergies of the user,
-different shopping Websites can be thrown into one knowledge base and be compared directly, etc.
+%The most relevant file format for the Web is obviously HTML itself, the language to describe Web pages and applications.
+%The RDFa standard offers how to markup and annotate elements of a Web page with RDF.
+%This allows a tool understanding RDFa to directly extract structured data out of a Website:
+%a page about an event can be pulled into a calendar,
+%a restaurant can be automatically filtered with the allergies of the user,
+%different shopping Websites can be thrown into one knowledge base and be compared directly, etc.
 
 \medskip
 

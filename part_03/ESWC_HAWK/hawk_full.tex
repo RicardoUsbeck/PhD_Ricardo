@@ -7,11 +7,11 @@ The approach is published in~\cite{HAWK_CLEF_2015,HAWK_NLIWOD_2015,hawk_2015}.
 HAWK won the 2nd price at the \ac{QALD} challenge, task 2 2015.
 }
 
-Recent advances in \ac{QA} over \ac{LD} provide end users with more and more sophisticated tools for querying \ac{LD} by allowing users to express their information need in natural language~\cite{SINA_WebSemantic,pythia,tbsl}. 
+Recent advances in \ac{QA} over \ac{LD} provide end users with more and more sophisticated tools for querying \ac{LD} by allowing users to express their information need in natural language~\cite{SINA_WebSemantic,pythia,template}. 
 
 This allows access to the wealth of structured data available on the Semantic Web also to non-experts. 
 Linked Data eases the access to structured and semantic meaningful information than unstructured web documents.
-However, a lot of information is still available only in textual form, both on the Document Web and in the form of labels and abstracts in \ac{LD} sources~\cite{rdflivenews}.
+However, a lot of information is still available only in textual form, both on the Document Web and in the form of labels and abstracts in \ac{LD} sources~\cite{GER+13}.
 Therefore, a considerable number of questions can only be answered by using hybrid question answering approaches, which  can find and combine information stored in both structured and textual data sources~\cite{combiningLDandIR}.
 
 In this chapter, we present HAWK, the (to best of our knowledge) first full-fledged hybrid QA framework for entity search over \ac{LD} and textual data. 
@@ -140,7 +140,7 @@ In general, such lexica offer a range of lexical variants beyond the labels pres
 
 HAWK now tries to match each node label to a class or property from the DBpedia ontology using fuzzy string matching.
 %with an edit distance of 1 as provided by the Lucene framework\footnote{\url{http://lucene.apache.org/}}.
-Moreover, HAWK follows intuitions used in TBSL~\cite{tbsl} to lower the number of annotations avoiding additional computational effort. 
+Moreover, HAWK follows intuitions used in TBSL~\cite{template} to lower the number of annotations avoiding additional computational effort. 
 In particular, we consider the POS-tag of nodes to determine the type of the target reference:
 \begin{itemize}
 \item Nouns correspond to object type properties and classes
