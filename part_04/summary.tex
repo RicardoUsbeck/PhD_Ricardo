@@ -1,0 +1,32 @@
+\chapter{Synopsis}
+
+
+
+%%%HAWK 
+\section{Conclusion}
+\label{chahawk:sec:conclusion}
+\subsection*{Summary}
+We introduced HAWK, a hybrid \ac{QA} system for the Web of Data and analyzed its performance against the combined \ac{QALD}-5 dataset using the new \texttt{ASK}-query module. 
+We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, 
+\begin{itemize}
+\item HAWK is able to achieve up to 0.68 F-measure on the hybrid \ac{QALD}-4 benchmark using an optimal ranker.
+\item The system is able to achieve an F-measure of up to 0.3 on the \ac{QALD}-5 training benchmark using bucket-based ranking.
+\item Also, HAWK achieves a F-measure of up to 0.35 based on boolean and entiy-centric questions over the combined \ac{QALD}-5 benchmark.
+\end{itemize}
+
+\subsection*{Conclusion}
+Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
+The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
+So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. 
+
+\subsection*{Future Work}
+Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
+The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
+
+Furthermore, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. 
+Additionally, we will assess the impact of full-text components over regular LD components for \ac{QA} and partake in the creation of larger benchmarks such as \ac{QALD}-6,
+Another aim is to develop HAWK towards multilingual, schema-agnostic queries.
+Also, negations within questions and improved ranking will also be considered. 
+Finally, several components of the HAWK pipeline are computationally very complex. 
+Thus, finding more time-efficient algorithms for these steps will be addressed in future works.
+HAWK will be a starting point for the Eurostars projects DIESEL and QAMEL towards implementing novel search paradigms on large industrial data as well as mobile devices.
