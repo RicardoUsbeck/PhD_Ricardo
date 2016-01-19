@@ -8,43 +8,43 @@ HAWK won the 2nd price at the \ac{QALD} challenge, task 2 2015.
 }
 
 Recent advances in \ac{QA} over \ac{LD} provide end users with more and more sophisticated tools for querying \ac{LD} by allowing users to express their information need in natural language~\cite{SINA_WebSemantic,pythia,template}. 
-
-This allows access to the wealth of structured data available on the Semantic Web also to non-experts. 
+This allows access to the wealth of semantic data available on the Semantic Web also to non-experts and users unaware of the underlying schema. 
 Linked Data eases the access to structured and semantic meaningful information than unstructured web documents.
 However, a lot of information is still available only in textual form, both on the Document Web and in the form of labels and abstracts in \ac{LD} sources~\cite{GER+13}.
 Therefore, a considerable number of questions can only be answered by using hybrid question answering approaches, which  can find and combine information stored in both structured and textual data sources~\cite{combiningLDandIR}.
 
-In this chapter, we present HAWK, the (to best of our knowledge) first full-fledged hybrid QA framework for entity search over \ac{LD} and textual data. 
+In this chapter, we present HAWK, the (to best of our knowledge) first full-fledged hybrid \ac{QA} framework for entity search over \ac{LD} and textual data. 
 %To the best of our knowledge, this is the first hybrid question answering system, combining information from structured and unstructured data.
-\todo[inline]{Explain all 12 steps of the pipeline}
-Given a textual input query $q$, HAWK implements an 8-step pipeline, which comprises 1) part-of-speech tagging, 2) detecting entities in $q$, 3) dependency parsing and 4) applying linguistic pruning heuristics for an in-depth analysis of the natural language input. 
-The results of these first four steps is a predicate-argument graph annotated with resources from the Linked Data Web. HAWK then 5) assign semantic meaning to nodes and 6) generates basic triple patterns for each component of the input query with respect to a multitude of features. 
+Given a textual input query $q$, HAWK implements a 13-step pipeline, which comprises 1) input segmentation 2) part-of-speech tagging, 3) detecting entities, 4) spotting noun phrases, 5) dependency parsing and 6) applying linguistic pruning heuristics for an in-depth analysis of the natural language input. 
+The results of these first six steps is a predicate-argument graph annotated with resources from the Linked Data Web. HAWK then 7) assigns semantic meaning to nodes and 8) generates basic triple patterns for each component of the input query with respect to a multitude of features. 
 This deductive linking of triples results in a set of SPARQL queries containing text operators as well as triple patterns.
-In order to reduce operational costs, 7) HAWK discards queries using several rules, e.g., by  discarding not connected query graphs.
-Finally, 8) queries are ranked using extensible feature vectors and cosine similarity.
+In order to reduce operational costs, 9) HAWK discards queries using several rules, e.g., by  discarding not connected query graphs.
+10) HAWK uses a prefix-based classifier to decide whether it is boolean question and depending on the result 11) modifies the SPARQL query or 12) calculated the query modifiers.
+Finally, 13) queries are ranked using extensible feature vectors and cosine similarity.
 
-%%We evaluate HAWK on the QALD-4 benchmark\footnote{\url{http://www.sc.cit-ec.uni-bielefeld.de/qald/}} for hybrid question answering. 
+%%We evaluate HAWK on the \ac{QALD}-4 benchmark\footnote{\url{http://www.sc.cit-ec.uni-bielefeld.de/qald/}} for hybrid question answering. 
 %As data source it uses a triple store containing DBpedia 3.9 as well as full-text information based on the Wikipedia abstracts of all loaded resources.
 %The evaluation sections reports on micro F-measure, and analyzes the influence of different entity annotation systems on the overall question answering performance.
 
 %\todo[inline]{@Axel: Contribs}
 Our main contributions can be summarized as follows:
  \begin{itemize}
- \item We present the first QA framework tackling hybrid question answering;
+ \item We present the first \ac{QA} framework for answering hybrid questions;
  \item HAWK analyses input queries based on predicate-argument trees to deeply understand and match semantic resources;
  \item Our framework is generic as it does not rely on templates. It is thus inherently able to cover a wide variety of natural language questions. % as well as knowledge bases with various topologies;
  \item The modular architecture of HAWK allows simple exchanging of pipeline parts to enhance testing and deployment;
  %\item HAWK's implementation is open-source under MIT License\footnote{\url{https://github.com/AKSW/hawk}};
- \item We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation tools on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
  \item Our evaluation suggests that HAWK is able to achieve F-measures of 0.61 on rather small training datasets.
- \item In this paper, we extend HAWK, our hybrid QA system with the capabilities to answer also boolean question, i.e., generate SPARQL queries using \texttt{ASK}. Our results show that these developments lead to HAWK achieving 0.74 F-measure on the ASK queries contained in the Question Answering over Linked Data (QALD-5) hybrid query benchmark assuming an given optimal ranking function.
+ \item We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation tools on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
+ \item Furthermore, HAWK can generate SPARQL queries using \texttt{ASK}. Our results show that these developments lead to HAWK achieving 0.74 F-measure on the ASK queries contained in the Question Answering over Linked Data (\ac{QALD}-5) hybrid query benchmark~\cite{qald5} assuming an given optimal ranking function.
  \end{itemize}
 
 The remaining chapter is structured as follows:
-Afterwards, our methodology is explained in detail in Section~\ref{chahawk:sec:method} and explicated on several examples in Section~\ref{sec:hawkexample}.
+We explain HAWK's methodology in detail in Section~\ref{chahawk:sec:method} and illustrate the pipeline steps on several examples in Section~\ref{sec:hawkexample}.
 HAWK's performance and the influence of entity annotation systems is evaluated in Section~\ref{chahawk:sec:evaluation}. 
 %Section~\ref{chahawk:sec:relatedwork} discusses related work.  
-Finally, we conclude in Section~\ref{chahawk:sec:conclusion}. Additional information can be found at our project home page \url{http://aksw.org/Projects/HAWK.html}.
+%Finally, we conclude in Section~\ref{chahawk:sec:conclusion}. 
+Additional information can be found at our project home page \url{http://aksw.org/Projects/HAWK.html}.
 
 \section{Method}
 \label{chahawk:sec:method}
@@ -61,10 +61,12 @@ Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture of HAWK. In
 
 \subsection{Input Segmentation.} 
 To be generic with respect to the language of the input question, HAWK uses a modular system that is able of tokenizing even languages without clear separation like Chinese\footnote{\url{https://github.com/clir/clearnlp}}.
-For English input questions our system relies on the \emph{clearNLP}~\cite{choi2011getting}-framework which provides a.o. a white space tokenizer, POS-tagger and transition-based dependency parsing.
+For English input questions our system relies on the \emph{clearNLP}-framework~\cite{choi2011getting} which provides a.o. a white space tokenizer, POS-tagger and transition-based dependency parsing.
 
 \subsection{Part-of-Speech (POS)-Tagging.} 
 HAWK annotates each token with its POS-tag which will be later used to identify possible semantic annotations. 
+A large number of frameworks have been developed for these purposes over the last years. 
+Currently, we rely on \emph{clearNLP}~\cite{choi2011getting} which is a fast and robust framework~\cite{choi-palmer:2012:ACL2012short}.
 
 %\subsection{POS-Tagging, Segmentation}
 %\todo[inline]{re is no tokenisation/segmentation component in the pipeline?}
@@ -72,7 +74,7 @@ HAWK annotates each token with its POS-tag which will be later used to identify 
 %We rely on \emph{clearNLP}~\cite{choi2011getting} which is based on transition-based dependency parsing and sophisticated segmentation algorithm.
 
 \subsection{Entity Annotation}
-HAWK identifies named entities and tries to link them to semantic entities from the underlying knowledge base, in our case DBpedia 3.9\footnote{Status of May 2015}, via well-established entity annotation tools, also called entity tagging tools:
+HAWK identifies named entities and tries to link them to semantic entities from the underlying knowledge base, in our case DBpedia 2014\footnote{Status of May 2015. The dataset choice is influenced by the benchmark requirements.}, via well-established entity annotation tools, also called entity tagging tools:
 \begin{itemize}
 \item \textbf{Wikipedia Miner}~\cite{milne2008learning} is based on different facts like prior probabilities, context relatedness and quality, which are then combined and tuned using a classifier.
 \item \textbf{DBpedia Spotlight}~\cite{spotlight} %, one of the first semantic entity annotation approaches, 
@@ -90,29 +92,25 @@ Additionally, we implemented two artificial spotters for evaluation:
 \item \textbf{Optimal} will spot all entities from the gold standard to be able to ignore spotting influences in the following steps of the pipeline.
 \end{itemize}
 
-HAWK annotates the POS-tag \texttt{ADD} to it. % for our running example from above.
+HAWK annotates the POS-tag \texttt{ADD} to these named entities to differentiate named entities from other tokens. % for our running example from above.
 The influence of the entity annotation module is evaluated in Section~\ref{chahawk:sec:evaluation}.
 
 \subsection{Noun Phrase Detection.}
-HAWK identifies noun phrases, i.e., semantically meaningful word groups, i.e., real-world entities or concepts not captured by the underlying knowledge base, not yet recognized by the entity annotation system, using the result of the POS tagging step. 
-Input tokens are combined following manually-crafted linguistic heuristics based on POS-tag sequences derived from the QALD 5 benchmark questions. %, and their POS-tag is changed to \texttt{CNN}.
-Two domain experts implemented the deduced POS-tag sequences and safeguarded the quality of this algorithm w.r.t. the QA pipeline f-measure. 
-%The full algorithm can be found in our source code repository at \url{https://github.com/aksw/hawk}.
-Here, the \texttt{first wife} would be detected as noun phrase.
+HAWK identifies noun phrases, i.e., semantically meaningful word groups, e.g., real-world entities or concepts not captured by the underlying knowledge base or not yet recognized by the entity annotation system, using the result of the POS-tagging step. 
+This step is also know as chunking. 
+Input tokens are combined following manually-crafted linguistic heuristics based on POS-tag sequences derived from the \ac{QALD}-5 benchmark questions and their POS-tag is changed to \texttt{CNN} which we introduce to the system.
+Two domain experts implemented the deduced POS-tag sequences and safeguarded the quality of this algorithm w.r.t. the \ac{QA} pipeline f-measure. 
+The full algorithm can be found in Algorithm~\ref{listing:nouncombiner}.
+
+\input{part_03/ESWC_HAWK/algo_nouncombiner.tex}
 
 
 \subsection{Dependency Parsing}
-\input{part_03/ESWC_HAWK/algo_nouncombiner.tex}
-
-HAWK performs noun phrase detection for semantically meaningful word groups not yet recognized by the entity annotation system also known as chunking.
-This detection reuses the above mentioned POS-tagger. % based on a-priori part-of-speech (POS) tagging~\cite{choi2011getting}.
-Input tokens will be combined following manually-crafted linguistic heuristics derived from the benchmark questions, and their POS-tag is changed to \texttt{CNN}.
-Thus, the input is a natural language question (list of keywords) and the output is a list of chunks, see Algorithm~\ref{listing:nouncombiner}.
-HAWK's modular structure allows for an easy exchange of the POS-tagger or dependency parser.
 
 Subsequently, in order to capture linguistic and semantic relations, HAWK parses the query using dependency parsing~\cite{choi2011getting}.
 The dependency parser is given the chunked question. 
 The generated pre\-dicate-argument tree is directed, acyclic, and all its nodes contain their POS-tags as well as their labels.
+HAWK's modular structure allows for an easy exchange of the POS-tagger or dependency parser.
 
 \subsection{Linguistic Pruning}
 
@@ -128,7 +126,7 @@ After linguistic pruning, HAWK annotates each node in the tree with possible con
 To this end, our framework uses information about possible verbalizations of ontology concepts, based on both \texttt{rdfs:label} information from the ontology itself and (if available) verbalization information contained in lexica.
 %lexiconexisting manually crafted English lexicon\footnote{\url{https://github.com/cunger/lemon.dbpedia}} for DBpedia. 
 % we generated triples of the form $\langle$\emph{reference},\,\texttt{rdfs:label},\,\texttt{"}\emph{form}\texttt{"}$\rangle$, that link an ontology element (\emph{reference}) to its written representation (\emph{form}) in the lexicon. 
-In general, such lexica offer a range of lexical variants beyond the labels present in DBpedia. For example, for the property \texttt{spouse}, the DBpedia English lexicon\footnote{\url{https://github.com/cunger/lemon.dbpedia}} provides the noun entries \texttt{wife} and \texttt{husband} as well as the verb entry \texttt{to marry}.
+In general, such lexica offer a range of lexical variants beyond the labels present in DBpedia. For example, for the property \texttt{dbo:spouse}, the DBpedia English lexicon\footnote{\url{https://github.com/cunger/lemon.dbpedia}}~\cite{dbpedia-lemon} provides the noun entries \texttt{wife} and \texttt{husband} as well as the verb entry \texttt{to marry}.
 %, 
 %resulting in the following triples:
 
@@ -143,12 +141,12 @@ HAWK now tries to match each node label to a class or property from the DBpedia 
 Moreover, HAWK follows intuitions used in TBSL~\cite{template} to lower the number of annotations avoiding additional computational effort. 
 In particular, we consider the POS-tag of nodes to determine the type of the target reference:
 \begin{itemize}
-\item Nouns correspond to object type properties and classes
-\item Verbs correspond to object type properties
-\item Question words (e.g., \texttt{who} or \texttt{where}) correspond to classes (e.g., \texttt{Person} or \texttt{Place})
+\item Nouns correspond to object type properties and classes.
+\item Verbs correspond to object type properties.
+\item Question words (e.g., \texttt{who} or \texttt{where}) correspond to classes (e.g., \texttt{Person} or \texttt{Place}).
 \end{itemize}
 
-Afterwards, HAWK ranks properties according to their prominence score in the knowledge base and returns only the top n properties.
+Afterwards, HAWK ranks properties according to their prominence score, i.e, number of times they are used within the \ac{KB}, and returns only the top n properties.
 If the search does not retrieve any annotations, we additionally ask the lemmata of the node label and repeat the above described process to increase recall.
 
 After this step, either a node is annotated with a reference from the knowledge base % it is a disambiguated resource 
@@ -161,18 +159,18 @@ or it will be lead to a full-text lookup to be resolved to a knowledge base reso
 The core of HAWK is the generation of SPARQL queries from annotated and pruned predicate-argument trees.
 %\todo[inline]{The indexed properties used for  text searches will be described in Section 2.6. }
 It uses an Apache Jena FUSEKI\footnote{\url{http://jena.apache.org/documentation/serving_data/}} server, which implements the full-text search predicate \texttt{text:query} on a-priori defined literals over configured predicates. % using the Lucene search query syntax. 
-Especially, the following predicates were indexed as they yield a high information content with respect to DBpedia 3.9:
+Especially, the following predicates were indexed as they yield a high information content with respect to DBpedia 2014:
 \begin{itemize}
- \item \texttt{dbpedia:abstract} for general interest information about a resource not modelled appropriately in the knowledge base
+ \item \texttt{dbo:abstract} for general interest information about a resource not modelled appropriately in the knowledge base
  \item \texttt{rdfs:label} to match resources not found by the entity annotation system%, e.g., \url{http://dbpedia.org/resource/The\_Crown}
- \item \texttt{dbpedia:redirect} to identify common synonyms, e.g., `first man in space' pointing to \url{http://dbpedia.org/resource/Yuri_Gagarin}
+ \item \texttt{dbo:redirect} to identify common synonyms, e.g., `first man in space' pointing to \url{http://dbpedia.org/resource/Yuri_Gagarin}
  \item \texttt{dc:subject} for linking top-level categories like `assassin' to resources like \url{http://dbpedia.org/resource/James_Earl_Ray}
 \end{itemize}
 Currently, HAWK resolves full-text information either by using exact matches of node labels or fuzzy matches on each non-stopword token of a label.
 
 To capture the full semantics of an input question, HAWK traverses the predicated-argument tree in a pre-order walk to reflect the empirical observation that i) related information are situated close to each other in the tree and ii) information are more restrictive from left to right.
 This breadth-first search visits each node and generates several \emph{possible triple patterns} based on the number of annotations and the POS-tag itself. 
-That is, for each node a set of SPARQL query patterns is generated following the rules depicted in Table~\ref{tab:triple_patterns} w.r.t. ontology type information, e.g., a variable bound to the class \texttt{Place} will not have an outgoing predicate \texttt{birthPlace}.
+That is, for each node a set of SPARQL query patterns is generated following the rules depicted in Table~\ref{tab:triple_patterns} w.r.t. ontology type information, e.g., a variable bound to the class \texttt{Place} will not have an outgoing predicate \texttt{dbo:birthPlace}.
 
 Using this approach allows HAWK to be independent of SPARQL templates %, such as used by TBSL~\cite{tbsl}, 
 and to work on natural language input of any length and complexity.
@@ -190,7 +188,7 @@ This combinatorial effort results in covering every possible SPARQL graph patter
 Producing the n-fold-cross-product of possible pattern combinations generates a huge number of SPARQL queries, most of which are semantically senseless, e.g., a city that has a birth date. 
 To effectively handle this large set of queries and reduce the computational effort, HAWK implements various methods for pruning:
 \begin{itemize}
-\item \textbf{\#textfilter: } HAWK can safely assume that SPARQL queries containing full-text lookups over more than one variable or containing more than two node labels do not yield semantically senseful information and thus discards such queries. 
+\item \textbf{\#textfilter: } HAWK can safely assume that SPARQL queries containing full-text lookups over more than one variable or containing more than two node labels do not yield semantically senseful information and thus discards such queries.  This due to restrictions of the \ac{QALD} benchmark.
 \item \textbf{\#unbound triple pattern}: SPARQL queries containing more than one triple pattern of the form \texttt{?varx ?vary ?varz} or one such triple pattern and only text searches, lead to a traversal of large parts of the knowledge base graph and high computational effort.
 \item \textbf{Unconnected query graph: } SPARQL query graphs which are not connected from cartesian products are pruned for the sake of runtime and their lack of semantics.
 \item \textbf{Cyclic triple: } Queries containing edges of the form \texttt{?s <http://xyz>  ?o. ?o <http://xyz> ?s} or \texttt{?s <http://xyz>  ?o. ?s <http://abc> ?o} are also removed. 
@@ -213,16 +211,14 @@ Although semantic pruning drastically reduces the amount of queries, it often do
 
 \subsection{Classification of ASK Queries}
 To decide whether the user intended a set of entities or a boolean answer as result, HAWK relies on a simple heuristic based on the first word, dubbed indicator word, of the query, see Table \ref{tab:indicator_words}. 
-We tried using POS tags for the same purposes. However, experiments using POS tags failed due to missing semantics of POS-tags. 
+We tried using POS-tags for the same purposes. However, experiments using POS-tags failed due to missing semantics of POS-tags. 
 Furthermore, we acknowledge that classifying questions based on word-level analysis is not language-independent. 
 In the future, we will work on a language independent version of the module leveraging the dependency structure of the input question. 
 
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
-\begin{table}[tb!]
+\begin{table}[htb!]
 \centering
-\caption{Indicator Word for classifying ASK queries in English questions.}
-\label{tab:indicator_words}
 \begin{tabular}{@{}ll@{}}
 \toprule
 \textbf{Indicator Word (POS-tag)} & \textbf{Stem form}\\ \midrule
@@ -231,6 +227,8 @@ Is (VBZ), Are (VBP), Was (VBD)  & be        \\
 Have (VBP), Has (VBZ), Had (VBD)& have     \\
  \bottomrule
 \end{tabular}
+\caption{Indicator Word for classifying ASK queries in English questions.}
+\label{tab:indicator_words}
 \end{table} 
 
 \subsection{Modify the SPARQL query}
@@ -239,106 +237,169 @@ Furthermore, HAWK skips the cardinality calculation due to \texttt{ASK} queries 
 
 
 \subsection{Cardinality}
-If HAWK classifies an input question as entity search related rather than demanding a boolean answer, we need to determine the target cardinality $x$, i.e., modify the solution modifier \texttt{LIMIT $x$}. 
+If HAWK classifies an input question as entity search-related rather than demanding a boolean answer, we need to determine the target cardinality $x$, i.e., set the solution modifier \texttt{LIMIT $x$}. 
 The number of answers expected for a given query is indicated by cardinality of the first seen POS-tag, e.g., the POS-tag \texttt{NNS} demands the plural while \texttt{NN} demands the singular case and thus leads to different $x$.
 That is, each plural indicating POS-tag will return 10 results by default rather than 1. 
 In the future, we will use a machine learning-based algorithm to learn the correct number of $x \geq 1$.
 
 \subsection{Ranking}
-\todo[inline]{Add new rankings here}
-HAWK ranks queries using supervised training based on the gold standard answer set from the \ac{QALD} 4 benchmark\footnote{Status of May 2015}.
+
+In its current version, HAWK is able to rank SPARQL queries for one question using three different ranking methods.
+
+\begin{itemize}
+\item \textbf{Feature-based Ranking.} 
+HAWK ranks SPARQL queries using supervised training based on the gold standard answer set from the \ac{QALD} 4 respectively \ac{QALD}-5  benchmark.
 In the \emph{training phase}, all generated queries are run against the underlying SPARQL endpoint. 
 Comparing the results to the gold standard answer set, HAWK stores all queries resulting with the same high F-measure.
-Afterwards the stored queries are used to calculate an average feature vector comprising simple features mimicking a centroid-based cosine ranking.
+Afterwards, the stored queries are used to calculate an average feature vector comprising simple features mimicking a centroid-based cosine ranking.
 HAWK's ranking calculation comprises the following components:
 \begin{itemize}
 \item \textbf{NR\_OF\_TERMS} calculates the number of nodes used to form the full-text query part as described in Section~\ref{chahawk:sec:full-text}.
-\item \textbf{NR\_OF\_CONSTRAINTS} counts the amount of triple patterns per SPARQL query.
+\item \textbf{NR\_OF\_CONSTRAINTS} is the number of triple patterns per SPARQL query.
 \item \textbf{NR\_OF\_TYPES} sums the amount of patterns of the form \texttt{?var rdf:type cls}.
 \item \textbf{PREDICATES} generates a vector containing an entry for each predicate used in the SPARQL query.
-%\item \textbf{2path motifs containing a variable with a text:filter}
-%\todo[inline]{Paste picture of motifs here}
 \end{itemize}
-
 While running the \emph{test phase}, the cosine similarity between each SPARQL query using the above mentioned features and the average feature vector of training queries is calculated.
-Moreover, HAWK determines the target cardinality $x$, i.e., \texttt{LIMIT x}, of each query using the indicated cardinality of the first seen POS-tag of the input query, e.g., the POS-tag \texttt{NNS} demands the plural while \texttt{NN} demands the singular case and thus leads to different \texttt{x}.
 
-For the QALD-5 challenge, we extended the basic ranking implementation of HAWK by one additional ranking methods:
-\begin{itemize}
-\item \textbf{Optimal Ranking.} To ensure, we are able to generate hybrid SPARQL queries capable of answering the benchmark questions, the optimal ranker returns always those hybrid SPARQL queries which lead to a maximum f-measure.  
-    Obviously, the optimal ranking can only be used if the answers are know, i.e., HAWK operates on the training data.
-    This ranking functions allows to determine the parts of the hybrid question answering pipeline which do not perform. 
-\item \textbf{Feature-based Ranking.} The second ranking method is based on supervised training over the gold standard answer set from the QALD-4 benchmark.
-    In the \emph{training phase}, all generated queries are run against the underlying SPARQL endpoint. 
-    Comparing the results to the gold standard answer set, HAWK stores all queries resulting with the same high F-measure.
-    Afterwards the stored queries are used to calculate an average feature vector comprising simple features mimicking a centroid-based cosine ranking.
-    HAWK's ranking calculation comprises the following components:
-    \begin{itemize}
-    \item \textbf{NR\_OF\_TERMS} calculates the number of nodes used to form the full-text query part as described above.
-    \item \textbf{NR\_OF\_CONSTRAINTS} counts the amount of triple patterns per SPARQL query.
-    \item \textbf{NR\_OF\_TYPES} sums the amount of patterns of the form \texttt{?var rdf:type cls}.
-    \item \textbf{PREDICATES} generates a vector containing an entry for each predicate used in the SPARQL query.
-    \end{itemize}
-    While running the \emph{test phase} of HAWK, the cosine similarity between each SPARQL query using the above mentioned features and the average feature vector of training queries is calculated.
-\item \textbf{Overlap-based Ranking.} The novel overlap-based ranking accounts for the intuition that the same result set can be generated by several hybrid SPARQL queries. 
+\item \textbf{Overlap-based Ranking.} This ranking accounts for the intuition that the same result set can be generated by several hybrid SPARQL queries. 
     Thus, this ranker, although computationally highly expensive, executes every hybrid SPARQL query and the resulting answer sets are then stored into hashed buckets. 
     Finally, the ranker computes how many queries produced a certain answer set. 
     The answer set with the highest number is than returned.
+    
+    \item \textbf{Optimal Ranking.} To ensure, we are able to generate hybrid SPARQL queries capable of answering the benchmark questions, the optimal ranker returns always those hybrid SPARQL queries which lead to a maximum f-measure.  
+    Obviously, the optimal ranking can only be used if the answers are know, i.e., HAWK operates on the training data.
+    This ranking functions allows to determine the parts of the hybrid question answering pipeline which do not perform. 
+
 \end{itemize}
-Moreover, HAWK determines the target cardinality $x$, i.e., \texttt{LIMIT $x$}, of each query using the indicated cardinality of the first seen POS-tag, e.g., the POS-tag \texttt{NNS} demands the plural while \texttt{NN} demands the singular case and thus leads to different \texttt{x}.
-An optimal ranking will reveal that the winning SPARQL query for our running example is \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}.
-%More detailed descriptions of each step of HAWK's pipeline are available at~\cite{hawk_2015}.
-%Moreover, HAWK's modular architecture allows to exchange single modules in the pipeline to account.
 
 
-The performance of this ranking approach is evaluated in Section~\ref{chahawk:sec:evaluation}.
-%\todo[inline]{Show two queries, their vectors and their score.}
+%The performance of the different ranking approaches is evaluated in Section~\ref{chahawk:sec:evaluation}.
 
-%\subsection{Demo}
-%\begin{itemize}
-%\item test queries
-%\item verbalisation
-%\item feedback loop?
-%\end{itemize}
 \input{part_03/ESWC_HAWK/examples.tex}
 
 
 \section{Evaluation}
 \label{chahawk:sec:evaluation}
 
-\subsection{Benchmark}
+In this section, we present the evaluation ofHAWK against two benchmarks as well as analyze the performance of different sub-modules.
 
-We evaluate HAWK against the \ac{QALD} 4~\cite{qald4} benchmark which has been used widely to evaluate question answering systems. %, e.g., TBSL, SINA, FREyA or QAKiS, which are presented in Section~\ref{chahawk:sec:relatedwork}.
-In the recent fourth installment of \ac{QALD}, hybrid questions on structured and unstructured data became a part of the benchmark.
-To evaluate HAWK, we focus on this hybrid training dataset comprising 25 questions, 17 out of which are entity searches using only DBpedia type information, no aggregation process and require only \texttt{SELECT}-queries. 
+\subsection{QALD-4 Benchmark}
+
+We evaluated HAWK against the \ac{QALD} 4~\cite{qald4} benchmark which has been used widely to evaluate question answering systems. 
+In the fourth installment of \ac{QALD}, hybrid questions on structured and unstructured data became a part of the benchmark.
+To evaluate HAWK, we focused on this hybrid training dataset comprising 25 questions, 17 out of which are entity searches using only DBpedia type information, no aggregation process and require only \texttt{SELECT}-queries. 
 The available test dataset comprises only 10 question with 6 entity searches and linguistic structures that are completely different from the training dataset.
 Before evaluation, we had to curate the benchmark datasets regarding, among others, incorrect grammar, typological errors, duplicate resources in the answer set.
 The cleaned datasets can be found in our source code repository.\footnote{\url{https://github.com/AKSW/hawk/tree/master/resources}}
 Without this correction HAWK's f-measure shrinks to nearly zero for questions containing failures.
-To the best of our knowledge there is no other published approach on hybrid question answering.
-\todo[inline]{Discuss XSER}
-%Table~\ref{tab:datasets} details properties of the used dataset.
- 
-\subsection{Influence of the Entity Annotation System}
-First, we evaluated the influence of the applied entity annotation systems to the overall ability to produce correct answers.
-Thus, HAWK has been run using DBpedia Spotlight, TagMe, Fox and Wikipedia Miner. %
-Additionally, an optimal entity annotator derived from the gold standard as well as an union of all entity annotation results was analysed. %while assuming with an perfect ranking systems. %, see Figure~\ref{chahawk:fig:spiderOfEntityAnnotators}.
 
+\paragraph{Error Analysis}
+
+In the following, we analyze error sources in HAWK based on the training queries failing to reach a higher F-measure.
+Table~\ref{tab:trainqueries} shows for each entity search question from the training dataset its evaluation results.
+\begin{itemize}
+\item \textbf{Entity Annotation: } Queries 1, 11 and 15 cannot be answered by HAWK due to failing entity annotation. None of the tested annotation tools was able to either find the resources  \texttt{Jane\_T.\_Austion} nor \texttt{G8} or \texttt{Los\_Alamos}. 
+Without matching entity annotations a full-text search retrieves too many matches for reaching high precision values on limited result set.
+\item \textbf{Missing type information:} Some of the resources of the gold standard do not have appropriate type information leading to a high amount of queries that need to be ranked correctly.
+\item \textbf{Query structure: } Queries like 11 or 15 inherit complex query structures leading to a multitude of interpretations while generating the SPARQL query graph.
+\end{itemize}
+
+\input{part_03/ESWC_HAWK/table_train}
+
+
+\subsection{QALD-5 Benchmark}
+Similar to QALD-4, the \ac{QALD}-5 benchmark has a training and a test dataset for question answering containing a subset of hybrid benchmark questions.
+Due to the above mentioned restrictions, the \ac{QALD}-5 dataset contains 26 training, respectively 8 test questions, suitable for the current implementation of HAWK.
+Using the online available evaluation tool\footnote{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald/index.php?x=evaltool&q=5}}, Table~\ref{tab:eval_qald5} shows the results for the training and test dataset as well as well as for all three ranking approaches.
+Please note, the training data  for the feature-based ranker was taken from \ac{QALD}-4.
+\begin{table}[htb!]
+\centering
+\resizebox{\textwidth}{!}{ 
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Dataset           & \multicolumn{1}{l}{Optimal Ranking} & \multicolumn{1}{l}{Feature-based Ranking} & \multicolumn{1}{l}{Overlap-based Ranking} \\ \midrule
+\ac{QALD}-5 - training & 0.30 (15 out of 26)                 & 0.06 (22 out of 26)                       & 0.08 (22 out of 26)                       \\
+\ac{QALD}-5 - test     & 0.1 (1 out of 10)                   & 0.10 (3 out of 10)                        & 0.10 (3 out of 10)                        \\ \bottomrule
+\end{tabular}
+}
+\caption{Results of the \ac{QALD}-5 challenge for different ranking algorithms. Number in brackets show the amount of generated answers, i.e., HAWK outputs at least one result set.}
+\label{tab:eval_qald5}
+\end{table}
+
+
+
+\paragraph{Error Analysis}
+As can be seen in Table~\ref{tab:eval_qald5}, the implemented ranking function do not reach an optimal ranking implementation.
+Moreover, each implementation are not able to discard whole queries, i.e., they are currently not aware of the possibility that the answer could not have been retrieved at all while the optimal ranker discards questions with incorrect answer sets. 
+This does not effect the global f-measure but results in an high computational effort and might lead users to wrong conclusions. 
+
+Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm. 
+Delving deeper into the results, we color-coded the single mistakes of the HAWK system.
+(Yellow) indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
+(Orange) cells point out that one ranking algorithm performs worse than the other. 
+(Red) indicates the inability to retrieve correct answer sets.
+That is, HAWK is able to generate a set of SPARQL queries but amongst them none retrieves a correct answer set.
+Finally, (Blue) rows describe questions where HAWK is unable to generate at least one SPARQL query.
+Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
+Especially, in the test dataset all three ranking algorithms are only able to generate one correct answer while the feature-based and the overlap-based ranker perform differently on the train dataset.
+%To experience the run times for single queries please visit our demo at \url{http://hawk.aksw.org}.
+
+\todo[inline]{@Me: Move this table to appendix and landscape the site}
+%\input{part_03/ESWC_HAWK/clef_table}
+
+
+
+\subsection{QALD-5 Boolean Benchmark}
+
+In this evaluation, we analyzed HAWK's performance towards the detection and correct answering of boolean questions
+The \ac{QALD}-5 dataset contains 40 training, respectively 10 test questions for hybrid \ac{QA}.
+To increase the number of gold standard queries, we did not restrict ourselves to only hybrid, boolean questions but to boolean questions in general, not demanding aggregations, e.g., \texttt{FILTER}, and only DBpedia ontology types.
+Thus, we used 27 questions for the evaluation from the combined dataset following the restrictions given above\footnote{\url{https://github.com/AKSW/hawk/blob/master/resources/\ac{QALD}-5_test_train.xml}}.
+
+
+Table~\ref{tab:eval_ask} details our results on the combined \ac{QALD}-5 dataset using an optimal ranker approach. 
+Our simple classification is able to decide in all cases for the correct command method w.r.t. the benchmark data.
+The \emph{skipping} measure takes into account if HAWK does not generate any answer set, i.e., returns 'I do not know the answer'.
+Overall, the implementation of the \texttt{ASK}-related modules improves the overall F-measure by more than $10\%$. With this F-measure, we outperform the winner of the \ac{QALD}-5 challenge task 2, which achieved an F-measure of 0.26. 
+
+
+\begin{table}[htb!]
+\centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\multicolumn{1}{c}{{\bf Question Type}} & \multicolumn{1}{c}{{\bf Global F-measure}} & \multicolumn{1}{c}{{\bf Global F-measure with skipping}} \\ \midrule
+Hybrid SELECT                           & 0.19                                       & 0.27                                                     \\
+Hybrid ASK                              & 0.47                                       & 0.74                                                     \\
+Hybrid SELECT+ASK                       & 0.24                                       & 0.35                                                     \\ \bottomrule
+\end{tabular}
+\caption{Results with and without the \texttt{ASK}-extension of HAWK.}
+\label{tab:eval_ask}
+\end{table}
+
+
+\subsection{Influence of the Entity Annotation System}
+We evaluated the influence of the applied entity annotation systems to the overall ability to produce correct answers.
+Thus, HAWK has been run using DBpedia Spotlight, TagMe, Fox and Wikipedia Miner. %
+Additionally, an optimal entity annotator derived from the gold standard as well as an union of all entity annotation results was analyzed. 
+
+Our results suggest that HAWK is able to retrieve correct answers with an F-measure of 0.68 using FOX as entity annotation system and assuming an optimal ranking.
+Furthermore, the optimal ranker is only able to achieve an F-measure of 0.58 since HAWK can cope better with missing annotation results and is tuned towards retrieving full-text information.
+Against intuition, the Union annotator is the worst annotation system. 
+Merging all annotation results in queries consisting solely of semantic resources eliminating the possibility to match ontology properties and classes to important parts of the query, e.g., matching the word \texttt{author} to resource rather than to a property prevents HAWK from generating the correct SPARQL query.
+Thus, the Union annotator achieves only an F-measure of 0.10.
+
+\todo[inline]{@Me: Put to Appendix and point to it}
 %\begin{figure}
 %\centering
 %\includegraphics[width=\linewidth]{bars}
 %\caption{Entity annotations systems performance with optimal ranking}
 %\label{chahawk:fig:spiderOfEntityAnnotators}
 %\end{figure}
-Our results suggest that HAWK is able to retrieve correct answers with an F-measure of 0.68 using FOX as entity annotation system and assuming an optimal ranking.
-Furthermore, the optimal ranker is only able to achieve an F-measure of 0.58 since HAWK can cope better with missing annotation results and is tuned towards retrieving full-text information.
-Against intuition, the Union annotator is the worst annotation system. 
-Merging all annotation results in queries consisting solely of semantic resources eliminating the possibility to match ontology properties and classes to important parts of the query, e.g., matching the word \texttt{author} to resource rather than to a property prevents HAWK from generating the correct SPARQL query.
-Thus, the Union annotator achieves only an F-measure of 0.10.\footnote{Details on this evaluation can be found in the supplement on our project homepage.}
+%\footnote{Details on this evaluation can be found in the supplement on our project homepage.}
 
 
-\subsection{Influence of the Ranking Method}
-Next, evaluating the effectiveness of the feature-based ranking has to include an in-depth analysis of the contribution of each feature to the overall result.
+\subsection{Influence of Features while Ranking}
+First, we evaluated the feature-based ranking method and its effectiveness and include an in-depth analysis of the contribution of each feature to the overall result.
 Thus, we calculated the power set of the set of features and evaluated each feature group using the F-measure reached by the top-n queries. 
 Figures~\ref{chahawk:fig:ranking_1} and ~\ref{chahawk:fig:ranking_2} show the F-measure@N for all query result sets of size $N$ from all 17 questions. 
 %\todo[inline]{What exactly is shown in Figure 4 - i.e. there are F1/Precision/Recall scores for each of the 17 questions the system could answer, but how is the score calculated? I.e. either the systems get the right answer or not? Or is this based on top-N answers? Or based on how many correct answers from all the candidate queries?}
@@ -399,118 +460,34 @@ Delving deeper into this analysis, we find:
 \end{itemize}
 
 HAWK generates up to 15000 SPARQL queries per question containing more than one query generating the correct answer. 
-%\todo[inline]{elaborate}
 We consider ranking the resulting SPARQL queries most challenging with respect to the fact that an ideal ranking can lead to F-measures up to 0.72 at $N=1$.
-%\todo[inline]{@Axel: does that make sense here: show graph where queries with expected several entities in the answer have LIMIT N against F-measure}
-
-\subsection{Error Analysis}
-
-In the following, we analyze error sources in HAWK based on the training queries failing to reach a higher F-measure.
-Table~\ref{tab:trainqueries} shows for each entity search question from the training dataset its evaluation results.
-\begin{itemize}
-\item \textbf{Entity Annotation: } Queries 1, 11 and 15 cannot be answered by HAWK due to failing entity annotation. None of the tested annotation tools was able to either find the resources  \texttt{Jane\_T.\_Austion} nor \texttt{G8} or \texttt{Los\_Alamos}. 
-Without matching entity annotations a full-text search retrieves too many matches for reaching high precision values on limited result set.
-\item \textbf{Missing type information:} Some of the resources of the gold standard do not have appropriate type information leading to a high amount of queries that need to be ranked correctly.
-\item \textbf{Query structure: } Queries like 11 or 15 inherit complex query structures leading to a multitude of interpretations while generating the SPARQL query graph.
-\end{itemize}
-
-\input{part_03/ESWC_HAWK/table_train}
-%\input{part_03/ESWC_HAWK/relatedwork.tex}
-
-\subsection{QALD 5}
-The QALD-5 benchmark has a training and a test dataset for question answering containing a subset of hybrid benchmark questions.
-In particular, HAWK is currently only capable of answering questions demanding a single or a set of URIs from a target knowledge base. 
-Moreover, questions depending on Yago ontology\footnote{\url{http://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/yago/}} types cannot be answered.
-Thus, the QALD-5 dataset contains 26 training, respectively 8 test questions, suitable for the current implementation of HAWK.
-Using the online available evaluation tool\footnote{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald/index.php?x=evaltool&q=5}}, Table~\ref{tab:eval_qald5} shows the results for the training and test dataset as well as well as for all three ranking approaches.
-Please note, that for the feature-based ranker the training data was taken from QALD-4.
-
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
-\begin{table}[tb!]
-\centering
-\caption{Results of the QALD-5 challenge for different ranking algorithms. Number in brackets show the amount of generated answers, i.e., HAWK outputs at least one result set.}
-\resizebox{\textwidth}{!}{ 
-\begin{tabular}{@{}lrrr@{}}
-\toprule
-Dataset           & \multicolumn{1}{l}{Optimal Ranking} & \multicolumn{1}{l}{Feature-based Ranking} & \multicolumn{1}{l}{Overlap-based Ranking} \\ \midrule
-QALD-5 - training & 0.30 (15 out of 26)                 & 0.06 (22 out of 26)                       & 0.08 (22 out of 26)                       \\
-QALD-5 - test     & 0.1 (1 out of 10)                   & 0.10 (3 out of 10)                        & 0.10 (3 out of 10)                        \\ \bottomrule
-\end{tabular}
-}
-\label{tab:eval_qald5}
-\end{table}
-
-As can be seen in Table~\ref{tab:eval_qald5}, the implemented ranking function do not reach an optimal ranking implementation.
-Moreover, each implementation are not able to discard whole queries, i.e., they are currently not aware of the possibility that the answer could not have been retrieved at all while the optimal ranker discards questions with incorrect answer sets. 
-This does not effect the global f-measure but results in an high computational effort and might lead users to wrong conclusions. 
-
-Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm. 
-Delving deeper into the results, we color-coded the single mistakes of the HAWK system.
-(Yellow) indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
-(Orange) cells point out that one ranking algorithm performs worse than the other. 
-(Red) indicates the inability to retrieve correct answer sets.
-That is, HAWK is able to generate a set of SPARQL queries but amongst them none retrieves a correct answer set.
-Finally, (Blue) rows describe questions where HAWK is unable to generate at least one SPARQL query.
-Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
-Especially, in the test dataset all three ranking algorithms are only able to generate one correct answer while the feature-based and the overlap-based ranker perform differently on the train dataset.
-To experience the run times for single queries please visit our demo at \url{http://hawk.aksw.org}.
-
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
-\input{part_03/ESWC_HAWK/clef_table}
-
-\subsection{NLIWOD}
-\begin{table}[tb!]
-\centering
-\caption{Results with and without the \texttt{ASK}-extension of HAWK.}
-\label{tab:eval_ask}
-\begin{tabular}{@{}lrr@{}}
-\toprule
-\multicolumn{1}{c}{{\bf Question Type}} & \multicolumn{1}{c}{{\bf Global F-measure}} & \multicolumn{1}{c}{{\bf Global F-measure with skipping}} \\ \midrule
-Hybrid SELECT                           & 0.19                                       & 0.27                                                     \\
-Hybrid ASK                              & 0.47                                       & 0.74                                                     \\
-Hybrid SELECT+ASK                       & 0.24                                       & 0.35                                                     \\ \bottomrule
-\end{tabular}
-\end{table}
-The QALD-5 \cite{qald5} benchmark has a training and a test dataset for question answering containing a subset of hybrid benchmark questions.
-%In this paper, we focus on the evaluation of hybrid questions demading boolean answers.
-Moreover, questions depending on Yago ontology\footnote{\url{http://www.mpi-inf.mpg.de/departments/databases-and-information-systems/research/yago-naga/yago/}} types cannot be answered.
-
-The QALD-5 dataset contains 40 training, respectively 10 test questions for hybrid QA.
-To increase the number of gold standard queries, we did not restrict ourselves to only hybrid, boolean questions but to boolean questions in general, not demanding aggregations, e.g., \texttt{FILTER}, and only DBpedia ontology types.
-Thus, we used 27 questions for the evaluation from the combined dataset following the restrictions given above\footnote{\url{https://github.com/AKSW/hawk/blob/master/resources/qald-5_test_train.xml}}.
-%Using the online available evaluation tool\footnote{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald/index.php?x=evaltool&q=5}}, Table~\ref{tab:eval_qald5} shows the results for the training and test dataset as well as well as for all three ranking approaches.
-%Please note, that for the feature-based ranker the training data was taken from QALD-4.
-
-
-
-Table~\ref{tab:eval_ask} details our results on the combined QALD 5 dataset using an optimal ranker approach. 
-Our simple classification is able to decide in all cases for the correct command method w.r.t. the benchmark data.
-The \emph{skipping} measure takes into account, iff HAWK does not generate any answer set, i.e., returns 'I do not know the answer'.
-Overall, the novel implementation of the \texttt{ASK}-related modules improves the overall F-measure by more than $10\%$. With this F-measure, we outperform the winner of the QALD-5 challenge, which achieved an F-measure of 0.26. 
-%Please note, that a baseline approach returning always true (21 out of 27) or false (6 out of 27) is less insightful, despite the fact the f-measure might be better. 
-%In the future, we will use the generated SPARQL queries to explain the answer.
-A demo of the framework can be found at \url{http://hawk.aksw.org}.
 
 
 
 \section{Conclusion}
 \label{chahawk:sec:conclusion}
-n this paper, we briefly introduced HAWK, a hybrid QA system for the Web of Data, and analysed its performance against the combined QALD 5 dataset using the new \texttt{ASK}-query module. 
-We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, HAWK is able to achieve an F-measure of up to 0.35.
+\subsection*{Summary}
+We introduced HAWK, a hybrid \ac{QA} system for the Web of Data and analyzed its performance against the combined \ac{QALD}-5 dataset using the new \texttt{ASK}-query module. 
+We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, 
+\begin{itemize}
+\item HAWK is able to achieve up to 0.68 F-measure on the hybrid \ac{QALD}-4 benchmark using an optimal ranker.
+\item The system is able to achieve an F-measure of up to 0.3 on the \ac{QALD}-5 training benchmark using bucket-based ranking.
+\item Also, HAWK achieves a F-measure of up to 0.35 based on boolean and entiy-centric questions over the combined \ac{QALD}-5 benchmark.
+\end{itemize}
+
+\subsection*{Conclusion}
 Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
+The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
+So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. 
 
-We presented HAWK, the first hybrid QA system for the Web of Data. We showed that by using a generic approach to generate SPARQL queries out of predicate-argument structures, HAWK is able to achieve up to 0.68 F-measure on the \ac{QALD} 4 benchmark. 
-We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, HAWK is able to achieve an F-measure of up to 0.3 on the QALD-5 training benchmark. 
-%These results demand novel approaches for capturing the semantic meanings of natural language questions with hybrid SPARQL queries.
+\subsection*{Future Work}
+Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
+The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 
-
-Our work on HAWK however also revealed several open research questions, of which the most important lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. We thus aim to apply an automatic feature engineering approach from deep learning in future works to automatically generate the correct ranking function. 
-
-Moreover, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. Additionally, we will assess the impact of full-text components over regular LD components for QA, partake in the creation of larger benchmarks (we are working on \ac{QALD} 5) and aim towards multilingual, schema-agnostic queries. Negations within questions and improved ranking will also be considered. Finally, several components of the HAWK pipeline are computationally very complex. Finding more time-efficient algorithms for these steps will be addressed in future works.
+Furthermore, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. 
+Additionally, we will assess the impact of full-text components over regular LD components for \ac{QA} and partake in the creation of larger benchmarks such as \ac{QALD}-6,
+Another aim is to develop HAWK towards multilingual, schema-agnostic queries.
+Also, negations within questions and improved ranking will also be considered. 
+Finally, several components of the HAWK pipeline are computationally very complex. 
+Thus, finding more time-efficient algorithms for these steps will be addressed in future works.
 HAWK will be a starting point for the Eurostars projects DIESEL and QAMEL towards implementing novel search paradigms on large industrial data as well as mobile devices.
-%\todo[inline]{HAWK considers SELECT queries and generate queries without UNION or OPTIONAL but we are aware of their advantages.}
-
