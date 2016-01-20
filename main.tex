@@ -39,7 +39,7 @@
 %    * [medium] mathbb in section-titles/chapter-titles => disappears somehow in headlines!!!
 % **************************************************************************************************************
 \documentclass[ twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
-                footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
+                footinclude=true,cleardoublepage=empty,abstractoff,listof=numbered,% <--- obsolete, remove (todo)
                 BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
                 american,%
                 ]{scrreprt}
@@ -71,24 +71,36 @@
 %********************************************************************
 % Frontmatter
 %*******************************************************
-%\include{FrontBackmatter/DirtyTitlepage}
+
 \listoftodos
 \cleardoublepage\include{FrontBackmatter/Titlepage}
 \cleardoublepage\include{FrontBackmatter/Titleback}
-%\cleardoublepage\include{FrontBackmatter/Dedication}
-%\cleardoublepage\include{FrontBackmatter/Foreword}
-\include{FrontBackmatter/Abstract}
-\cleardoublepage\include{FrontBackmatter/CV}
+\cleardoublepage\include{FrontBackmatter/Abstract}
 \cleardoublepage\include{FrontBackmatter/Publication}
 \cleardoublepage\include{FrontBackmatter/Acknowledgments}
+\cleardoublepage\input{FrontBackmatter/Acronym.tex} 
 \pagestyle{scrheadings}
-\cleardoublepage\include{FrontBackmatter/Contents}
 %********************************************************************
 % Mainmatter
 %*******************************************************
 \pagenumbering{arabic}
 %\setcounter{page}{90}
 % use \cleardoublepage here to avoid problems with pdfbookmark
+
+%*******************************************************
+% Table of Contents
+%*******************************************************
+%\phantomsection
+\refstepcounter{dummy}
+\pdfbookmark[1]{\contentsname}{tableofcontents}
+\setcounter{tocdepth}{1} % <-- 2 includes up to subsections in the ToC
+\setcounter{secnumdepth}{3} % <-- 3 numbers up to subsubsections
+\manualmark
+\markboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}}
+\tableofcontents 
+\automark[section]{chapter}
+\renewcommand{\chaptermark}[1]{\markboth{\spacedlowsmallcaps{#1}}{\spacedlowsmallcaps{#1}}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\enspace\spacedlowsmallcaps{#1}}}
 
 
 \cleardoublepage
@@ -101,8 +113,6 @@ At the end, this part examines the state of the art related to this thesis' topi
 \input{part_01/chapter_one.tex}
 \input{part_01/chapter_two.tex}
 \input{part_01/chapter_three.tex}
-
-
 
 
 \ctparttext{
@@ -163,13 +173,16 @@ In the last part of the thesis, we summarize the developed approaches, conclude 
 % ********************************************************************
 % Backmatter
 %*******************************************************
-%\appendix
-%\cleardoublepage
-%\part{Appendix}
-%\include{Chapters/12/12_appendix}
+\pagenumbering{Roman}
+\appendix
+
+
+\include{FrontBackmatter/CV}
+\include{FrontBackmatter/Contents}
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************
+
 \cleardoublepage\include{FrontBackmatter/Bibliography}
 %\cleardoublepage\include{FrontBackmatter/Colophon}
 \cleardoublepage\include{FrontBackmatter/Declaration}
