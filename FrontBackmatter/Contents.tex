@@ -10,6 +10,16 @@
 
 \lstlistoflistings
 
-\listofalgorithms
+\begingroup
+%    \let\clearpage\relax
+%    \let\cleardoublepage\relax
+
+%    \tableofcontents
+%    \listoffigures
+%    \listoftables
+
+    \renewcommand{\figurename}{Algorithm}
+    \listof{algorithm}{List of algorithms}
+\endgroup
 
 \let\clearpage\LaTeXStandardClearpage % Return to the old definition
