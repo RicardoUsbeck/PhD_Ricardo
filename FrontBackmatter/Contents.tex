@@ -1,81 +1,15 @@
-%*******************************************************
-% List of Figures and of the Tables
-%*******************************************************
-%\clearpage
-%
-%\begingroup 
+\listoffigures
 
-%    \let\clearpage\relax
-%    \let\cleardoublepage\relax
-%    \let\cleardoublepage\relax
-    %*******************************************************
-    % List of Todos
-    %*******************************************************    
-    %\phantomsection 
-    %\refstepcounter{dummy}
-    %\addcontentsline{toc}{chapter}{\listfigurename}
-    %\pdfbookmark[1]{\listoftodos}{lof}
-    %\listoftodos
+\listoftables
 
-    %\vspace*{8ex}
-    
-    %*******************************************************
-    % List of Figures
-    %*******************************************************    
-%    \phantomsection 
-%    \refstepcounter{dummy}
-    %\addcontentsline{toc}{chapter}{\listfigurename}
-    %\pdfbookmark[1]{\listfigurename}{lof}
-    \listoffigures
-
- %   \vspace*{8ex}
- %   \newpage
-
-    %*******************************************************
-    % List of Tables
-    %*******************************************************
-
-%    \refstepcounter{dummy}
-    %\addcontentsline{toc}{chapter}{\listtablename}
-    %\pdfbookmark[1]{\listtablename}{lot}
-    \listoftables
-        
- %   \vspace*{8ex}
-
-    
-%----------------------------------------------------------------------------------------
-%	List of Listings
-%---------------------------------------------------------------------------------------- 
-
-
-	\refstepcounter{dummy}
-\addcontentsline{toc}{chapter}{\lstlistlistingname} % Uncomment if you would like the list of listings to appear in the table of contents
-\pdfbookmark[1]{\lstlistlistingname}{lol} % Bookmark name visible in a PDF viewer
-
-        \lstlistoflistings
-
-%	\vspace*{8ex}
-%	\newpage
-
-%----------------------------------------------------------------------------------------
-%	List of Algorithms
-%----------------------------------------------------------------------------------------
-%	\phantomsection
+\chapter{List of Listings and Algorithms}
 	
-%	\refstepcounter{dummy}
-%\addcontentsline{toc}{chapter}{\listofalgorithmsname} % Uncomment if you would like the list of figures to appear in the table of contents
-%\pdfbookmark[1]{\listofalgorithms}{lof} % Bookmark name visible in a PDF viewer
-	  \listofalgorithms
-%
-%	\vspace*{8ex}
-%	\newpage
-%*******************************************************
-% Acronyms
-%*******************************************************
-%   \newpage
-%   \phantomsection 
-%   \refstepcounter{dummy}
-%   \pdfbookmark[1]{Acronyms}{acronyms}
-%   \markboth{\spacedlowsmallcaps{Acronyms}}{\spacedlowsmallcaps{Acronyms}}
-           
-%\endgroup
+\let\LaTeXStandardClearpage\clearpage
+\let\clearpage\relax  % Do nothing when a \clearpage command appears 
+\renewcommand{\listalgorithmcfname}{Algorithms}
+
+\lstlistoflistings
+
+\listofalgorithms
+
+\let\clearpage\LaTeXStandardClearpage % Return to the old definition
