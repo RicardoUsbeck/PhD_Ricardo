@@ -16,7 +16,7 @@
 % ****************************************************************************************************
 \PassOptionsToPackage{table}{xcolor}
 
-\PassOptionsToPackage{eulerchapternumbers,listings,%
+\PassOptionsToPackage{eulerchapternumbers,%
 				 pdfspacing,%floatperchapter,%linedheaders,%
 				 subfig,beramono,eulermath,parts}{classicthesis}										
 % ********************************************************************
@@ -76,7 +76,10 @@
 % ******************************************************************** 
 %\PassOptionsToPackage{latin9}{inputenc}	% latin9 (ISO-8859-9) = latin1+"Euro sign"
 % \usepackage{inputenc}	
+
+
 \usepackage[ruled,vlined]{algorithm2e}
+
 \usepackage{minted}
 \usepackage{listings} 
 \usepackage{algorithmic}
@@ -305,11 +308,20 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 %%%%%%%%%%%%%%%%%%%%%%%%% START CUSTOM Packages %%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage[utf8]{inputenc}
 \usepackage{url}
 \usepackage{float}%figure environment
+
+%\floatstyle{ruled}
+%\newfloat{algorithm}{thp}{loa}[chapter]
+%\floatname{algorithm}{Algorithm}
+%
+%\usepackage{scrhack} % load after "float"
+
 \usepackage{multirow} 
 \usepackage{booktabs}
 %\usepackage[disable]{todonotes}
@@ -439,5 +451,6 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 \patchcmd\@acf{\AC@acl}{\AC@foo}{}{}
 \patchcmd\@acf{\AC@foo}{\hskip\z@\AC@acl}{}{}
 \patchcmd\@acf{\AC@foo}{\hskip\z@\AC@acl}{}{}
+
 \makeatother
 

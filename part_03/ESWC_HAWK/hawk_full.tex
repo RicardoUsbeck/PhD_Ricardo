@@ -50,12 +50,12 @@ Additional information can be found at our project home page \url{http://aksw.or
 \label{chahawk:sec:method}
 
 In the following, we describe the architecture and methodology of HAWK. 
-Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture of HAWK. In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
+Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture and the pipeline steps of HAWK. In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
 
 \begin{figure}[tb!]
 \centering
 \input{part_03/ESWC_HAWK/architecture.tex}
-\caption{Pipeline steps of HAWK.}
+\caption{Architecture of HAWK.}
 \label{fig:hawk_pipeline}
 \end{figure}
 
@@ -322,7 +322,7 @@ Dataset           & \multicolumn{1}{l}{Optimal Ranking} & \multicolumn{1}{l}{Fea
 \ac{QALD}-5 - test     & 0.1 (1 out of 10)                   & 0.10 (3 out of 10)                        & 0.10 (3 out of 10)                        \\ \bottomrule
 \end{tabular}
 }
-\caption{Results of the \ac{QALD}-5 challenge for different ranking algorithms. Number in brackets show the amount of generated answers, i.e., HAWK outputs at least one result set.}
+\caption{Results of \ac{QALD}-5 for different ranking methods. Number in brackets show the amount of generated answers, i.e., HAWK outputs at least one result set.}
 \label{tab:eval_qald5}
 \end{table}
 
