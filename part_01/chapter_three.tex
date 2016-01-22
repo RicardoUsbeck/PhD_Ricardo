@@ -1,40 +1,55 @@
 \chapter{Related Work}
-\todo[inline]{@Me: check for acronyms}
 
+\graffito{This chapter introduces the state of the art in the research areas related to this thesis. This overview is based on the publications	\cite{rex,qasurvey, pool-foundations-lod,n3, gerbil_dev_2015,CETUS_2015, combiningLDandIR, HAWK_CLEF_2015, agdistis_ecai,agdistis_iswc, agdistisdemo,HAWK_NLIWOD_2015, hawk_2015, gerbil_demo_2015, GERBIL}}
+
+
+\todo[inline]{@Me: check for acronyms}
+In this chapter, we give an overview of related research required to bridge the Semantic Gap, i.e., the areas of \ac{RDF} type annotation, \ac{NED} and extraction of semantic data from templated websites, as well as the Evaluation Gap and the Information Gap.
 
 %%%%%%%%%%%CETUS
-\section{Related Work}
+\section{Semantic Gap}
+\subsection{RDF Type Annotation}
 
+In 2015, the \emph{Open Knowledge Extraction Challenge} had its first installation at the Extended Semantic Web Conference~\cite{okechallenge}.
+Within this challenge, the second task was to identify entity types (\texttt{rdf:type} information) for a given entity inside a given text and linking this type to a \ac{KB}, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
 
-\cite{oak_sheffield,fred_typing} FRED and sheffield and \cite{okechallenge}
-Next to the above mentioned challenges about entity linking, several tools have been introduced with the ability to type entities, e.g., FOX~\cite{FOX}.
-However, these tools differ in two major aspects compared to CETUS.
-First, existing tools contain only very general type hierarchies while our approach generates novel and fine grained classes, see Section~\ref{sec:docAnalysis}.
-Second, CETUS is the first tool to mark the part of a given document that contains the type evidence, i.e., a string indicating the choosen type.
-Thus, there is a clear difference between the entity typing and the type extraction tasks.
-To the best of our knowledge, CETUS is the first approach to tackle the type extraction task.
-
-%\todo[inline]{Cite BOA, since it is pattern based, too, but made for relation extraction.}
-Our approach is mainly based on patterns and is inspired by  Hearst Patterns~\cite{Hearst1992}.
-Those patterns match text parts describing hyponym relations between two nouns.
-In difference to our patterns, the Hearst Patterns have been extracted from a large corpus using a bootstrapping approach.
+The winner of the challenge was CETUS~\cite{CETUS_2015}, a pattern-based approach inspired by  Hearst Patterns~\cite{Hearst1992} and presented in Chapter~\ref{cha:cetus}.
+Those Hearst Patterns match text parts describing hyponym relations between two nouns.
+In difference to CETUS' patterns, the Hearst Patterns have been extracted from a large corpus using a bootstrapping approach.
 As described in Section~\ref{sec:patternExt}, our patterns are defined for matching text parts describing the type relation of a given entity and have been created manually during an iterative, incremental process.
 
+Another approach is FRED~\cite{fred_typing}, which is a machine reader, i.e., a holistic approach towards representing a whole text as \ac{RDF}. 
+Here, FRED reuses various tools like Boxer~\citep{Bos:2008:WSA:1626481.1626503} and TagMe2~\cite{tagme2} to be able to spot not only the common types like person, organizations and places but also events.
+
+The third challenge participant was implemented by Gao et al.~\cite{oak_sheffield}. 
+Their unsupervised system for entity typing is based on a rich feature set, e.g., words, named entities, gazetteer tokens and semantic distance, to identify the type evidence string. 
+Next, they match and align the string to DBpedia before transferring this information to the DOLCE+DnS Ultra Lite ontology.
+For non-matchable entities, the authors compute a semantic distance and match the closest possible type class.  
+
+
+%Next to the above mentioned challenges about entity linking, several tools have been introduced with the ability to type entities, e.g., FOX~\cite{FOX}.
 
 
 %%%%%%%AGDISTIS
-\section{Related Work}
-\label{sec:relatedwork}
-AGDISTIS is related to the research area of Information Extraction~\cite{nad:sek} in general and to \ac{NED} in particular.
-Several approaches have been developed to tackle \ac{NED}. 
+\subsection{Named Entity Disambiguation}
+
+The research area of Information Extraction~\cite{nad:sek} in general and to \ac{NED} in particular.
+Several approaches have been developed to tackle \ac{NED}.
+\bigskip
+
+
 Cucerzan presents an approach based on extracted Wikipedia data towards disambiguation of named entities~\cite{Cucerzan07}.
 The author aims to maximize the agreement between contextual information of Wikipedia pages and the input text by using a local approach.
 %\todo{What's a local approach?}
-\emph{Epiphany}~\cite{epiphany} identifies, disambiguates and annotates entities in a given HTML page with RDFa. 
+
+%{Epiphany}~\cite{epiphany} identifies, disambiguates and annotates entities in a given HTML page with RDFa. 
+
 Ratinov et al.~\cite{rat:rot} described an approach for disambiguating entities from Wikipedia. 
 The authors argue that using Wikipedia or other ontologies can lead to better global approaches than using traditional local algorithms which disambiguate each mention separately using,\,e.g., text similarity. %for word sense disambiguation.
+
 Kleb et al.~\cite{Kleb11WIMS,KlebESWC10} developed and improved an approach using ontologies to mainly identify geographical entities but also people and organizations in an extended version. 
 These approaches use Wikipedia and other Linked Data \ac{KB}s.
+
 LINDEN~\cite{LINDEN} is an entity linking framework that aims at linking identified named entities to a knowledge base.
 To achieve this goal, LINDEN collects a dictionary of the surface forms of entities from different Wikipedia sources, storing their count information.
 
@@ -61,153 +76,90 @@ Last, the approach discards identified named entities considered as non-coherent
 
 In 2014, Babelfy~\cite{babelfy} has been presented to the community.
 Based on random walks and densest subgraph algorithms Babelfy tackles \ac{NED} and is evaluated with six datasets, one of them the later here used AIDA dataset. 
+
 In constrast to AGDISTIS, Babelfy differentiates between word sense disambiguation, i.e., resolution of polysemous lexicographic entities like \emph{play}, and entity linking, i.e., matching strings or substrings to knowledge base resources.
 Due to its recent publication Babelfy is not evaluated in this paper.
-
-Recently, Cornolti et al.~\cite{cornolti} presented a benchmark for \ac{NED} approaches.
-The authors compared six existing approaches, also using DBpedia Spotlight, AIDA and TagMe 2, against five well-known datasets. % on different tasks and with different measures.
-Furthermore, the authors defined different classes of named entity annotation task, e.g. \emph{`D2W'}, that is the disambiguation to Wikipedia task which is the formal task AGDISITS tries to solve.
-We consider TagMe 2 as state of the art w.r.t. this benchmark although only one dataset has been considered for this specific task.
-%We analyze the performance of DBpedia Spotlight, AIDA, TagMe 2 and our approach AGDISTIS on four of the corpora from this benchmark in Section~\ref{sec:eval}.
+We present our approach, dubbed AGDISTIS~\cite{agdistis_iswc}, in Chapter~\ref{cha:agdistis}. 
+%Recently, Cornolti et al.~\cite{cornolti} presented a benchmark for \ac{NED} approaches.
+%The authors compared six existing approaches, also using DBpedia Spotlight, AIDA and TagMe 2, against five well-known datasets. % on different tasks and with different measures.
+%Furthermore, the authors defined different classes of named entity annotation task, e.g. \emph{`D2W'}, that is the disambiguation to Wikipedia task which is the formal task AGDISITS tries to solve.
+%We consider TagMe 2 as state of the art w.r.t. this benchmark although only one dataset has been considered for this specific task.
+%%We analyze the performance of DBpedia Spotlight, AIDA, TagMe 2 and our approach AGDISTIS on four of the corpora from this benchmark in Section~\ref{sec:eval}.
 
 
 %%%REX
 
-\section{Related Work}
-\label{sec:related}
-\todo[inline]{@Me: Citation style anpassen}
-To the best of our knowledge, no open-source framework covers the complete functionality of the REX framework. 
-%While our approach is mainly related to approaches for the extraction of RDF data from the Web, 
-REX relies internally on URI disambiguation and data validation based on automatically extracted axioms~\cite{Buehmann2012}. 
-These are both areas of research with a wide of body of publications. 
-Especially, several approaches to URI disambiguation based on graphs~\cite{AIDA,agdistis_iswc} and statistical information from text~\cite{spotlight} have been developed recently. 
-%Most disambiguation approaches try to optimize an objective function which maps each input string to a resource while taking into account the similarity between the input string and the resource, the a-priori probability of the resource being correct as well as the coherence between the returned resources. 
+\subsection{RDF Extraction from Semi-Structured Websites and Wrapper Induction}
+
+In Chapter~\ref{cha:rex}, we present our approach, dubbed REX, towards RDF extraction from templated websites which relies on \ac{NED}, see above, and data validation based on automatically extracted axioms~\cite{Buehmann2012}. 
+\bigskip
+
 The extraction of axioms from knowledge based using statistical information~\cite{Buehmann2012,pattern_enrichment} as also flourished over the last years. 
 The main idea underlying these approaches is to use instance knowledge from  \ac{KB}s without expressive schemas to compute the axioms which underlie the said  \ac{KB}s. 
 We refer the reader to the publications above for an overview of these two research areas.
+\bigskip
 
-REX is mainly related to wrapper induction. 
-Early approaches to learning web wrappers were mostly supervised, like~\cite{flesca2004web,Hogue:2005:TAU:1060745.1060762}. 
+Furthermore, the main related research area is wrapper induction. 
+Early approaches to learning web wrappers were mostly supervised~\cite{flesca2004web,Hogue:2005:TAU:1060745.1060762}. 
 These systems were provided with annotated pages out of which they infer extraction rules that allow extracting data from other unlabeled pages with the same structure as the annotated pages). 
-For example, Hogue et al.~\cite{Hogue:2005:TAU:1060745.1060762} presents \emph{Tresher}, a system that allows non-technical end-users to teach their browser how to extract data from the Web. 
+
+For example, Hogue et al.~\cite{Hogue:2005:TAU:1060745.1060762} presents \emph{Tresher}, a supervised system that allows non-technical end-users to teach their browser how to extract data from the Web. 
 %The approach relies on labeled web pages and a distance function between DOM trees to generate extraction templates based on user annotations.
 %While remaining able to generate high-precision wrappers thanks to the human supervision, 
 Supervised approaches were yet deemed costly due to the human labor necessary to annotate the input web pages. 
+
 Unsupervised wrapper induction methods have thus been explored~\cite{exalg,DBLP:journals/aai/CrescenziM08} to reduce the annotation costs. 
 However, the absence of a supervision often lead these systems to produce wrappers of accuracy not suitable for production level usage.
+
 Novel approaches thus aim to minimize the annotation costs while keeping a high precision.
-For example, the approach presented in~\cite{Dalvi:2011:AWL:1938545.1938547} relies on the availability of a  \ac{KB} in the form of dictionaries and regular expressions to automatically obtain training data. 
+For example, the approach presented by Davi et al.~\cite{Dalvi:2011:AWL:1938545.1938547} relies on the availability of a  \ac{KB} in the form of dictionaries and regular expressions to automatically obtain training data. 
 %They present an inference algorithm to learn wrappers in presence of noise in the input data but neglect any issue that could arise from the presence of biased samples.
-Recently, \cite{Crescenzi2013}~describes a supervised framework that is able to profit from crowd-provided training data. 
+
+Recently, Crescenzi et al.~\cite{Crescenzi2013}describes a supervised framework that is able to profit from crowd-provided training data. 
 The learning algorithm controls the cost of the crowd sourcing campaign w.r.t. quality of the output wrapper.
 However, these novel approaches do not target the generated of \ac{RDF} data.
-%miss the opportunities related to existence of \emph{Linked Data}, and the semantic consistency of the extracted data is out of their scope of interest.
-
-%In order to accomplish the vision of the Semantic Web~\cite{Gentile2013} presents an approach for learning web wrappers learning that exploit \emph{Linked Data} as a training data source for their wrapper induction framework. Using instances and corresponding properties from the  \ac{LOD} Cloud, they combine an unsupervised annotation of web pages followed by a standard wrapping process~\cite{Hao2011}. However, the process they adopt consists of a variety of manual steps and is thus very costly.
-
-%Manifold approaches have been developed to address the problem of extracting structured data from web pages. For example, \cite{Hogue:2005:TAU:1060745.1060762} presents Tresher, a system that allows non-technical end-users to teach their browser how to extract data from the Web. The approach relies on labeled web pages and a distance function between DOM trees to generate extraction templates based on user annotations. 
 
 Linked Data has been used to learn wrappers to extract \ac{RDF} from the Web in recent years. 
-For example,~\cite{Gentile2013} exploits Linked Data as a training data to find instances of given classes such as universities and extract the attributes of these instances while relying on the supervised wrapper induction approach presented in~\cite{Hao2011}. However, they require a manual exploration of the Linked Data sources to generate their training data, which leads to a considerable amount of manual effort.
-%
-% Linking the Deep Web to the Linked Data Web (DEIMOS)
+For example, Gentile et al.~\cite{Gentile2013} exploits Linked Data as a training data to find instances of given classes such as universities and extract the attributes of these instances while relying on the supervised wrapper induction approach presented by Hao et al.~\cite{Hao2011}. However, they require a manual exploration of the Linked Data sources to generate their training data, which leads to a considerable amount of manual effort.
+
 The {\sc Deimos} project~\cite{conf/aaaiss/ParundekarKA10} is similar to REX, as it aims at bringing to the Semantic Web the data that are published through the rest of the Web. 
-%As in REX, it uses automatic wrapper inference techniques to extract data from pages. 
 However, it focuses on the pages behind web forms.
-%; it strongly relies on the properties exposed by the form fields to access the pages, which are mapped into involved semantic descriptions of the sources.
-% http://www.isi.edu/integration/papers/parundekar10-sss.pdf 
-% DBLP:conf/aaaiss/ParundekarKA10,
-% DEIMOS discover sources by using semantic tagging
-% template based wrapper induction... AutoFeed
-% DBLP:journals/tods/SuWL09 Citare ODE di Lovchosky
-%
-% OntoMiner: Bootstrapping and Populating Ontologies From Domain Speciﬁc Websites
-% http://www.public.asu.edu/~hdavulcu/VLDB-WS03.pdf
-% DBLP:journals/ijwgs/DavulcuVN05, heuristics approach
-%
-% Ontology-Driven Information Extraction with OntoSyphon
-% document driven...multidomains
-OntoSyphon~\cite{DBLP:journals/ws/McDowellC08} operates in an ontology-driven manner: taking any ontology as input, OntoSyphon uses the ontology to specify web searches that identify possible semantic instances, relations, and taxonomic information, in an unsupervised manner. However, the approach makes use of extraction patterns that work for textual documents rather than structured web pages. %, which are the focus of our proposal. 
+
+
+OntoSyphon~\cite{DBLP:journals/ws/McDowellC08} operates in an ontology-driven manner: taking any ontology as input, OntoSyphon uses the ontology to specify web searches that identify possible semantic instances, relations, and taxonomic information, in an unsupervised manner. However, the approach makes use of extraction patterns that work for textual documents rather than structured web pages.
+
 To the best of our knowledge, none of the existing approaches covers all steps that are required to extract consistent \ac{RDF} from the Web. 
-Especially, only~\cite{conf/aaaiss/ParundekarKA10} is able to generate \ac{RDF} but does not check it for consistency.
-In contrast, REX is the first approach that is scalable, low-cost, accurate and can generate consistent \ac{RDF}. 
-%A comparison of existing technologies with REX (see Table~\ref{tab:comparison}) shows that none of these approaches covers all steps that are required to extract consistent \ac{RDF} from the Web. 
-%
-% Enriching Ontology for Deep Web Search; focused on web searches
-%
-% Automatic Generation of Ontology from the Deep Web
-%
-% Ontology-Based Deep Web Data Sources Selection
-% Solo sulla selezione delle sorgenti?
-%
-% An Unsupervised Approach for Acquiring Ontologies and \ac{RDF} Data from Online Life Science Databases (Uses structured data, not really relevant but good to point out)
-% http://userpages.uni-koblenz.de/~staab/Research/Publications/2010/MSReswc10.pdf
-% Perform wrapper induction. Learn full ontologies from HTML templates
-
-%\todo[inline]{Rotate table by 90°}
-
-%\begin{table}[h]
-%\centering
-%\begin{tabular}{cccccc}
-%\toprule
-%                                    & Web-      & Low-      & Accuracy  & \ac{RDF}    & Consistency  \\
-%                                    & scale     & cost     &           &        &   \\
-%\midrule
-%\cite{exalg}                            & \cross    & \cross    & \cross    & \cross & \cross \\
-%\cite{DBLP:journals/aai/CrescenziM08}   & \tick     & \tick     & \tick     & \cross & \cross \\
-%\cite{Crescenzi2013}                    & \tick     & \cross    & \tick     & \cross & \cross \\
-%\cite{Dalvi:2011:AWL:1938545.1938547}   & \tick     & \tick     & \tick     & \cross & \cross \\
-%\cite{Gentile2013}                      & \tick     & \cross    & \tick     & \cross & \cross\\
-%\cite{Hao2011}                          & \tick     & \cross    & \tick     & \cross & \cross\\
-%\cite{Hogue:2005:TAU:1060745.1060762}   & \tick     & \cross    & \tick     & \cross & \cross \\
-%\cite{DBLP:conf/ijcai/KushmerickWD97}   & \cross    & \cross    & $\emptyset$     & \cross & \cross \\
-%\cite{DBLP:journals/ws/McDowellC08}     & \tick     & \tick     & \cross    & \cross & \tick \\
-%\cite{Muslea:2001:HWI:608606.608666}    & \cross    & \tick     & \tick     & \cross & \cross \\
-%\cite{conf/aaaiss/ParundekarKA10}       & \tick     & \tick     & $\emptyset$ & \tick & \cross \\
-%\cite{Soderland:1999:LIE:309497.309510} & \tick     & \cross    & \cross     &\cross  & \cross \\
-%REX                                     & \tick     & \tick     & \tick     & \tick  & \tick \\
-%\bottomrule
-%\end{tabular}
-%\caption{Comparison of web wrapper induction approaches. Approaches are considered scalable to the Web if they can deal with whole web domains. The costs are considered low if no human supervision is needed. The accuracy is high if the approach can achieve F-measures beyond 90\%. The \ac{RDF} criterion is fulfilled if the approach can return \ac{RDF} data while the consistency column is ticked if the \ac{RDF} generated is consistent with the ontology of the input knowledge base. $\emptyset$ means no evaluation was done by the authors.}   
-%\label{tab:comparison}
-%\end{table}
+Especially, only Parundekar et al.'s work~\cite{conf/aaaiss/ParundekarKA10} is able to generate \ac{RDF} but does not check it for consistency.
+In contrast, REX~\cite{rex} is the first approach that is scalable, low-cost, accurate and can generate consistent \ac{RDF}. 
 
 
 %%%%%%%N3
 
 
-\section{State of the art}
+\section{Evaluation Gap - Benchmarking Semantic Annotation Systems}
 
-Recently, Steinmetz et al.~\cite{NEDstatBench} published a statistical benchmark evaluation.
-Three datasets are described there of which two are freely available\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}} in the NIF.
-The authors also analyze the aim of each dataset according to four baseline algorithms and respective underlying dictionaries for NED.
-Furthermore, the two available datasets, \texttt{KORE50} and \texttt{DBpedia Spotlight}, are published using NIF and have been part of the original benchmarks of~\cite{AIDA,spotlight}. 
+Named Entity Recognition and Entity Linking have gained significant momentum with the growth of Linked Data and structured knowledge bases. 
+Over the last few years, the problem of result comparability has thus led to the development of more than a dozen datasets and a hand full of frameworks.
+\bigskip
 
-Unfortunately, both datasets do not inherit a clear license nor do they contain a large number of documents typically needed for optimization problems. %typical --- kann weg oder. ja
-\texttt{KORE50} comprises 50 sentences overall whereas \texttt{DBpedia Spotlight} consists of 58 sentences only. 
-In contrast, our aim is to provide larger and more insightful datasets in NIF to leverage the possibility of optimizing NER and NED algorithms via Linked Data.
-
-In the last couple of years, many more datasets for NER and NED evaluation have emerged.
-However, most of them are not freely available, e.g., the full CoNLL 2003 shared task~\cite{conll2003} used in~\cite{AIDA}.
+However, most of the datasets are not freely available, e.g., the full CoNLL 2003 shared task~\cite{conll2003} used in~\cite{AIDA}.
 Others are not yet annotated with Linked Data from DBpedia like the WePS (Web people search) evaluation dataset~\cite{WEPS}.
 
+In 2013, Steinmetz et al.~\cite{NEDstatBench} published a statistical benchmark evaluation.
+Three datasets are described there of which two are freely available\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}}.
+The authors also analyze the aim of each dataset according to four baseline algorithms and respective underlying dictionaries for NED.
+Furthermore, the two available datasets, \texttt{KORE50} and \texttt{DBpedia Spotlight}, are published using NLP interchange format (NIF)~\cite{ISWC2013NIF} and have been part of the original benchmarks of~\cite{AIDA,spotlight}. 
+Both datasets do not inherit a clear license nor do they contain a large number of documents typically needed for optimization problems.
+\texttt{KORE50} comprises 50 sentences overall whereas \texttt{DBpedia Spotlight} consists of 58 sentences only. 
+
+In contrast,  $\mbox{N}^3$ provides larger and more insightful datasets, published\footnote{\url{http://aksw.org/Projects/N3nernednif}} in NIF, to leverage the possibility of optimizing NER and NED algorithms via Linked Data and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
+All three datasets contain high-quality, manual annotations of named entities which are linked to the DBpedia~\cite{dbpedia-swj} \ac{KB}.
+These datasets have already been used to evaluate~\cite{AIDA,spotlight} as well as ~\cite{GER+13,agdistis_iswc,GERBIL}.
+We present $\mbox{N}^3$ in more detail in Chapter~\ref{cha:N3}.
 
 
 %%%%%%%GERBIL
-
-\section{Related Work}
-Named Entity Recognition and Entity Linking have gained significant momentum with the growth of Linked Data and structured knowledge bases. Over the last few years, the problem of result comparability has thus led to the development of a hand full of frameworks.
-
-The BAT-framework~\cite{cornolti} is designed to facilitate the benchmarking of named entity recognition (NER), named entity disambiguation (NED) -- also known as linking (NEL) -- and concept tagging approaches.
-BAT compares seven existing entity annotation approaches using Wikipedia as reference.
-%Cornolti et al. were not able to compare CMNS and CSAW due to unavailable source code. \todo[inline]{is the software still unavailable?}
-Moreover, it defines six different task types, five different matchings and six evaluation measures providing five datasets.
-% which we will explain in Section~\ref{sec:architecture}.
-%(Giuseppe) should this go here?
-Rizzo et al.~\cite{rizzo2014}  present a state-of-the-art study of NER and NEL systems for annotating newswire and micropost documents using well-known benchmark datasets, namely CoNLL2003 and Microposts 2013 for NER as well as AIDA/CoNLL and Microposts2014~\cite{Cano2014} for NED. 
-%The systems analyzed in this study are the ones supported by the NERD Framework~\cite{rizzo2012}, with the addition of the Stanford NER toolkit~\cite{StanfordNER}.
-%Different systems use different schemas for entity typing and different knowledge bases for entity disambiguation. 
-The authors propose a common schema, named the NERD ontology\footnote{\url{http://nerd.eurecom.fr/ontology}}, to align the different taxonomies used by various extractors. To tackle the disambiguation ambiguity, they propose a method to identify the closest DBpedia resource by (exact-)matching the entity mention.
+\bigskip
 
 Over the course of the last 25 years several challenges, workshops and conference dedicated themselves to the comparable evaluation of information extraction (IE) systems. 
 Starting in 1993, the Message Understanding Conference (MUC) introduced a first systematic comparison of information extraction approaches~\cite{Sundheim:1993:TIE:1072017.1072023}.
@@ -216,219 +168,99 @@ In addition, the Automatic Content Extraction (ACE) challenge~\cite{doddington20
 Since 2009, the text analytics conference hosts the workshop on knowledge base population (TAC-KBP)~\cite{mcnamee2009overview} where mainly linguistic-based approaches are published.
 The Senseval challenge, originally concerned with classical NLP disciplines, has wided it focus in 2007 and changed its name to SemEval to account for the recently recognized impact of semantic technologies~\cite{kilgarri1998senseval}.
 The Making Sense of Microposts workshop series (MSM) established in 2013 an entity recognition and in 2014 an entity linking challenge thereby focusing on tweets and microposts~\cite{MSM2014}.
+However, nearly each event chose a different set of benchmark datasets and settings. 
+Lately, several benchmark frameworks were introduced.
+
 In 2014, Carmel et al.~\cite{ERD2014} introduced one of the first Web-based evaluation systems for NER and NED and the centerpiece of the entity recognition and disambiguation (ERD) challenge. Here, all frameworks are evaluated against the same unseen dataset and provided with corresponding results. 
 
-GERBIL goes beyond the state of the art by extending the BAT-framework as well as~\cite{rizzo2014} in several dimensions to enhance reproducibility, diagnostics and publishability of entity annotation systems. In particular, we provide \numberOfadditionalDatasets additional datasets and \numberOfadditionalAnnotators additional annotators. The framework addresses the lack of treatment of NIL values within the BAT-framework and provides more wrapping approaches for annotators and datasets. Moreover, GERBIL provides persistent URLs for experiment results, unique URIs for frameworks and datasets, a machine-readable output and automatic dataset updates from data portals. Thus, it allows for a holistic comparison of existing annotators while simplifying the archiving of experimental results. Moreover, our framework offers opportunities for the fast and simple evaluation of entity annotation system prototypes via novel NIF-based~\cite{NIF} interfaces, which are designed to simplify the exchange of data and binding of services.
-%Additionally, each configured experiment has its own persistent and publishable URI to enable reproducible research at web-scale, .
-%Figure~\ref{fig:architecture} gives an overview of GERBILs components, interaction possibilities and data streams.
-%\todo[inline]{AnBo: The paragraph sounds a lot like buzzwording with few concret information. I suggest to stick to the MVC pattern and describe what is the view here, what is the model, how are these components addressing the outcome of the related work. What are the disadvantages of the previous approaches. I would prefer that we add a related work section (the above paragraph should be the core of this section). Axel: Done}
+The BAT-framework~\cite{cornolti} is designed to facilitate the benchmarking of named entity recognition (NER), named entity disambiguation (NED) -- also known as linking (NEL) -- and concept tagging approaches.
+BAT compares seven existing entity annotation approaches using Wikipedia as reference.
+Moreover, it defines six different task types, five different matchings and six evaluation measures providing five datasets.
 
-%The main drawback is that this evaluation was done for one single dataset (that of the ERDchallenge). Moreover, the challenge organizers decided not to publish the gold standard of their dataset to make the evaluation more independent and not let participants build system to solve the problem on their dataset thus losing generality. (marco) Done. (Axel)}
-%\todo[inline]{Wo sollten wir sagen dass wir uns aus Rechenlastgründen nur auf webservices beschränken? Intro?}
+Rizzo et al.~\cite{rizzo2014}  present a state-of-the-art study of NER and NEL systems for annotating newswire and micropost documents using well-known benchmark datasets, namely CoNLL2003 and Microposts 2013 for NER as well as AIDA/CoNLL and Microposts2014~\cite{Cano2014} for NED. 
+The authors propose a common schema, named the NERD ontology\footnote{\url{http://nerd.eurecom.fr/ontology}}, to align the different taxonomies used by various extractors. To tackle the disambiguation ambiguity, they propose a method to identify the closest DBpedia resource by (exact-)matching the entity mention.
+
+GERBIL~\cite{gerbil} goes beyond the state of the art by extending the BAT-framework as well as~\cite{rizzo2014} in several dimensions to enhance reproducibility, diagnostics and publishability of entity annotation systems. 
+In particular, GERBIL provides \numberOfadditionalDatasets additional datasets and \numberOfadditionalAnnotators additional annotators compared to the BAT-Framework. 
+Moreover, the framework addresses the lack of treatment of NIL values within the BAT-framework and provides more wrapping approaches for annotators and datasets. 
+Additionally, GERBIL provides persistent URLs for experiment results, unique URIs for frameworks and datasets, a machine-readable output and automatic dataset updates from data portals. 
+Thus, it allows for a holistic comparison of existing annotators while simplifying the archiving of experimental results. 
+GERBIL offers opportunities for the fast and simple evaluation of entity annotation system prototypes via novel NIF-based~\cite{NIF} interfaces, which are designed to simplify the exchange of data and binding of services.
+In Chapter~\ref{cha:gerbil}, this thesis presents GERBIL in more detail.
 
 %%%%%%%QA
-\section{Question Answering}
-\todo[inline]{@Me: Discuss XSER}
-Hybrid question answering is related to the fields of hybrid search and question answering over structured data. In the following, we thus give a brief overview of the state of the art in these two areas of research.
+\section{Information Gap - Hybrid Question Answering}
+
+Hybrid \ac{QA} is related to the fields of hybrid search and \ac{QA} over structured data. 
+In the following, we thus give a brief overview of the state of the art in these two areas of research.
 
 First, we present hybrid search approaches which use a combination of structured as well as unstructured data to satisfy an user's information need. 
 Semplore~\cite{Zhang:2007a} is the first known hybrid search engine by IBM.
-It combines existing information retrieval index structures and functions to index RDF data as well as textual data. 
+It combines existing information retrieval index structures and functions to index \ac{RDF} data as well as textual data. 
 Semplore focuses on scalable algorithms and is evaluated on an early QALD dataset.
+
 Bhagdev et al.~\cite{Bhagdev:2008:HSE} describe an approach to hybrid search combining keyword searches, Semantic Web inferencing and querying. 
 The proposed K-Search outperforms both keyword search and pure semantic search strategies.
 Additionally, an user study reveals the acceptance of the Hybrid Search paradigm by end users.
-%K-Search retrieves only documents where a full-text match and an ontology match via SPARQL is available, loosing possible matching documents.
-%Results achieved with K-Search are not replicable because of the closed nature of the underlying data.
-%Especially, the authors point out the importance of keywords-in-context queries. 
-%For example, semantic search can only deliver which component of an engine is located on or nearby another. 
-%A full text search will reveal which part of an engine broke at a certain event. 
-%But with a keyword-in-context search you can derive which greater parts are affected or which common producer all parts have.
-%Unfortunately, the paper lacks of formalisation and implementation details, neither an online demo is available.
-%K-Search follows a formula-based search and hence exacerbate the input of arbitrary queries for all kinds of users.
-%K-Search is a simple combination of IE and set operations over documents and triples enabling HS.
-A personalized hybrid search implementing a  hotel search service as use case is presented in~\cite{DBLP:journals/kbs/Yoo12}. 
-%An question- and answer-based system to infer the users personal preferences is introduced. 
-By combining rule-based personal knowledge inference over subjective data, such as expensive locations, and reasoning, the personalized hybrid search has been proven to return a smaller amount of data thus resulting in more precise answers. 
-%Additionally, Yoo presents an architectures for hybrid search and a novel hotel ontology derived from crowd data. 
-Unfortunately, the paper does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
-%Donghee Yoo presented in 2012 a personalized hybrid search~\cite{DBLP:journals/kbs/Yoo12} and implemented a personalized, hotel search service as use case.
-%The author distinguishes between frequently updated and static data to choose whether to use query rewriting or query reasoning. 
-%Moreover, an question-- and answer--based system to infer the users personal preferences is introduced. 
-%By combining rule-based personal knowledge inference over subjective data (e.g. \emph{cheap hotels}) and reasoning over non-frequently changed datasets the personalized hybrid search has been proven to return a smaller amount of data claimed to be more precise.
-%Unfortunately, the paper does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
-All presented approaches fail to answer natural-language questions.
-Besides keyword-based search queries, some search engines already understand natural language questions. Question answering is more difficult than keyword-based searches since retrieval algorithms need to understand complex grammatical constructs.
-% thus impede speech input and conversational opportunities. 
+K-Search retrieves only documents where a full-text match and an ontology match via SPARQL is available, loosing possible matching documents.
 
-%Using the whole available knowledge in the Web of Data requires queries to run simultaneously on a large number of stores. Providing federated search algorithms is a key technology to leverage real-time QA systems. (Nikolov et al. 2013) present a federated SPARQL search engine - FedSearch - which provides a hybrid combination of SPARQL and a full-text search tackling data heterogeneity . FedSearch is able to execute top-k search. Their vendor independent approach of full text search outperforms the state of the art in federated querying.
-%\todo[inline]{Is there a benchmark for federated queries over Linked Data?}
-%\todo[inline]{Benchmark data is not available anymore: http://wiki.aksw.org/projects/lodquery}
-%\todo[inline]{SINA does not work. Make sure Hydra works all the time}
-%\subsection{Question Answering}
+A personalized hybrid search implementing a  hotel search service as use case is presented in~\cite{DBLP:journals/kbs/Yoo12}. 
+By combining rule-based personal knowledge inference over subjective data, such as expensive locations, and reasoning, the personalized hybrid search has been proven to return a smaller amount of data thus resulting in more precise answers. 
+Additionally, Yoo presents an architectures for hybrid search and a novel hotel ontology derived from crowd data. 
+Unfortunately, the paper does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
+
+All presented approaches fail to answer natural-language questions.
+Besides keyword-based search queries, some search engines already understand natural language questions. \ac{QA} is more difficult than keyword-based searches since retrieval algorithms need to understand complex grammatical constructs.
+
+
 Second, we explain several QA approaches in the following.
-{Schlaefer et al.~\cite{ephyra2007}} describe \emph{Ephyra}, an open-source question answering system and its extension with factoid and list questions via semantic technologies.
-%Using semantic technology like Wordnet as well as a answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules.
-%\todo[inline]{Instead of their hand-coded answer-type-hierarchy, we could make use of relations extracted from ontologies.The authors use a AdaBoost based classifier for answer merging}
+{Schlaefer et al.~\cite{ephyra2007}} describe {Ephyra}, an open-source \ac{QA} system and its extension with factoid and list questions via semantic technologies.
 Using Wordnet as well as an answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules. The disadvantage of this system lies in the hand-coded answer type hierarchy. % which prohibits its multi-lingual use.
-%Ephyra is an open source QA system presented by (Schlaefer et al., 2007). It is able to deal with standard natural language questions as well as with factoid and list questions via semantic technologies. 
-Cimiano et al.~\cite{orakel} developed \emph{ORAKEL} to work on structured knowledge bases.
+
+Cimiano et al.~\cite{orakel} developed {ORAKEL} to work on structured knowledge bases.
 The system is capable of adjusting its natural language interface using a refinement process on unanswered questions. 
 Using F-logic and SPARQL as transformation objects for natural language user queries it fails to make use of Semantic Web technologies such entity disambiguation.
-{Lopez et al.~\cite{poweraqua}} introduce \emph{PowerAqua}, another open source system, which is agnostic of the underlying yet heterogeneous sets of knowledge bases. 
-It detects on-the-fly the needed ontologies to answer a certain question, maps the users query to Semantic Web vocabulary and composes the retrieved (fragment-)information to an answer. However, PowerAqua is outperformed by TBSL (see below) in terms of accuracy w.r.t. the state-of-the-art QALD 3 benchmark.
-{Damljanovic et al.~\cite{freya}} present \emph{FREyA} to tackle ambiguity problems when using natural language interfaces. 
+
+{Lopez et al.~\cite{poweraqua}} introduce {PowerAqua}, another open source system, which is agnostic of the underlying yet heterogeneous sets of knowledge bases. 
+It detects on-the-fly the needed ontologies to answer a certain question, maps the users query to Semantic Web vocabulary and composes the retrieved (fragment-)information to an answer. 
+
+{Damljanovic et al.~\cite{freya}} present {FREyA} to tackle ambiguity problems when using natural language interfaces. 
 Many ontologies in the Semantic Web contain hard to map relations, e.g., questions starting with 'How long$\ldots$' can be disambiguated to a time or a distance. 
-By incorporating user feedback and syntactic analysis FREyA is able to learn the users query formulation preferences increasing the systems question answering precision. 
-{Cabrio et al.~\cite{qakis}} present a demo of \emph{QAKiS}, an agnostic QA system grounded in ontology-relation matches. 
+By incorporating user feedback and syntactic analysis FREyA is able to learn the users query formulation preferences increasing the systems \ac{QA} precision. 
+
+{Cabrio et al.~\cite{qakis}} present a demo of {QAKiS}, an agnostic QA system grounded in ontology-relation matches. 
 The relation matches are based on surface forms extracted from Wikipedia to enforce a wide variety of context matches, e.g., a relation birthplace(person, place) can be explicated by X was born in Y or Y is the birthplace of X. 
 Unfortunately, QAKiS matches only one relation per query and moreover relies on basic heuristics which do not account for the variety of natural language in general.
-{Unger et al.~\cite{pythia}} describe \emph{Pythia}, a question answering system based on two steps.
+
+{Unger et al.~\cite{pythia}} describe \emph{Pythia}, a \ac{QA} system based on two steps.
 First, it uses a domain-independent representation of a query such as verbs, determiners and wh-words.
 Second, Pythia is based on a domain-dependent, ontology-based interface to transform queries into F-logic.
-%The system has been evaluated on the geosystem ontology\footnote{\url{ftp://ftp.cs.utexas.edu/pub/mooney/nl-ilp-data/geosystem/}} and 880 annotated questions reaching an F-measure of 73.3\%.
-Unfortunately, Pythia does not scale for larger domains since manual mapping of ontology terms via LexInfo is required.
-%\todo[inline]{Use http://www8.cs.umu.se/~mjm/pubs/nldb09a.pdf to categorize otgher approaches}
-Moreover, Unger et al.~\cite{template} present a manually curated, template-based approach, dubbed \emph{TBSL}, to match a question against a specific SPARQL query. 
-Combining natural language processing capabilities with Linked Data leads to good benchmark results on the QALD-3 benchmark (see below).
+
+
+Moreover, Unger et al.~\cite{template} present a manually curated, template-based approach, dubbed {TBSL}, to match a question against a specific SPARQL query. 
+Combining natural language processing capabilities with Linked Data leads to good benchmark results on the QALD-3 benchmark.
 TBSL cannot be used to a wider variety of natural language questions due to its limited repertoire of 22 templates.
-{Shekarpour et al.~\cite{SINA_WebSemantic}} develop \emph{SINA} a keyword and natural language query search engine which is aware of the underlying semantics of a keyword query. 
+
+{Shekarpour et al.~\cite{SINA_WebSemantic}} develop {SINA} a keyword and natural language query search engine which is aware of the underlying semantics of a keyword query. 
 The system is based on Hidden Markov Models for choosing the correct dataset to query.
-%Underlying is a SPARQL generation process which means SINA is only capable of dealing with Linked Data and cannot benefit from the wealth of unstructured information in the current Web.
-%Due to the costly Hidden Markov Models SINAs answer time (on average 3.9s) is above enduser expectations.
-%$(Shekarpour et al.,2013) introduce SINA a keyword and natural language query search engine which is aware of the underlying semantics of a keyword query. Based on Hidden Markov Models for choosing the correct dataset to query and a underlying  SPARQL generation process enables SINA to benefit from Linked Data. So far SINA is not capable of working with unstructured information and time inefficient as well.
-%HMM is a very costly algorithm which can be substituted by a tuned dynamic programming algorithm tuned with a larger number of logs.
-%SINA needs at leas 3.9s to answer a question which is unacceptable since users do not wait for more than 1s until they want to see the SERP.
+Underlying is a SPARQL generation process which means SINA is only capable of dealing with Linked Data and cannot benefit from the wealth of unstructured information in the current Web.
+
+
 \emph{Treo}~\cite{treo} emphasis the connection between the semantic matching of input queries and the semantic distributions underlying knowledge bases.
 The tool provides an entity search, a semantic relatedness measure, and a search based on spreading activation.
+
 Recently, Peng et al.~\cite{DBLP:journals/corr/PengZZ14} describe an approach for hybrid QA mapping keywords as well as resource candidates to modified SPARQL queries. 
-Due to its novelty we were not able to compare it to HAWK.
+
+
+\todo[inline]{@Me: Discuss XSER}
+
 
 Several industry-driven QA-related projects have emerged over the last years. 
 For example, DeepQA of IBM Watson~\cite{watson}, which was able to win the Jeopardy! challenge against human experts. 
-%The results of this project are yet not open-source and are thus of limited use for the QA community. 
-%Moreover, the Watson API is restricted to only a few users. 
 Further, {KAIST's Exobrain\footnote{\url{http://exobrain.kr/}}} project aims to learn from large amounts of data while ensuring a natural interaction with end users. 
-However, it is yet limited to Korean for the moment. % and does not aim to enable an open-source access to its components.
+For further insights, please refer to surveys on existing \ac{QA} approaches~\cite{qasurvey,Kolomiyets:2011,DBLP:journals/semweb/LopezUSM11}.
+In Chapter~\ref{cha:hawk}, we present HAWK, our approach towards hybrid question answering. 
+%The field of HAWK refers to hybrid \ac{QA} over Linked Data, i.e., \ac{QA} based on hybrid data (RDF and textual data).
 
-The field HAWK refers to is hybrid question answering for the Semantic Web, i.e., QA based on hybrid data (RDF and textual data).
-To the best of our knowledge, none of the previous works has addressed this question so far.
-%\todo[inline]{ On The Marriage of SPARQL and Keywords
-%  by Peng Peng, Lei Zou, Dongyan Zhao
-%* Semplore: An IR Approach to Scalable Hybrid Query of Semantic Web Data
-%  byLei Zhang, QiaoLing Liu, JieZhang, HaoFen Wang, Yue Pan, Yong Yu
-%   Venses is hybrid in the sense that it combines different rule systems while the second paper simply combines different algorithms on text (QA4MRE data).
-%  * VENSES GetAsk: a System for Hybrid Question Answering And Answer Recovery using Text Entailment
-%•	A Hybrid Question Answering System based on Information Retrieval and Answer Validation}
-%Lukovnikov presents~\cite{SESSA} a novel spread-activation-based entity search tool. 
-%SESSA disambiguates and segments user input keyword queries using n-gram hierachies which are then the starting points for a coloured spread-activation algorithm. 
-%This approach is the state of the art with respect to the QALD-3 entity-search benchmark with 56,9\% F-measure.
-%In~\cite{fedsearch} a federated SPARQL search engine--FedSearch-- is presented. 
-%Especially, the authors present a hybrid combination of SPARQL an full-text search tackling data heterogeneity and lacking statistical data.
-%Their system is able to execute top-k search.
-%Since SPARQL lacks full-text search support the authors propose a triple-store-independent way of querying different RDF stores such as OWLIM, Virtuoso and LuceneSail.
-%Their vendor independent approach of keyword query search pattern is evaluated next to several optimizations against two benchmarks showing superior performs against other state-of-the-art systems-
-For further insights please refer to~\cite{Kolomiyets:2011,DBLP:journals/semweb/LopezUSM11} which present surveys on existing question answering approaches.
 
-%%%%%%%%%HAWK NLIWOD
-Hybrid question answering is related to the fields of hybrid search and question answering over structured data. In the following, we thus give a brief overview of the state of the art in these two areas of research.
 
-First, we present hybrid search approaches which use a combination of structured as well as unstructured data to satisfy an user's information need. 
-Semplore~\cite{Zhang:2007a} is the first known hybrid search engine by IBM.
-It combines existing information retrieval index structures and functions to index RDF data as well as textual data. 
-Semplore focuses on scalable algorithms and is evaluated on an early QALD dataset.
-Bhagdev et al.~\cite{Bhagdev:2008:HSE} describe an approach to hybrid search combining keyword searches, Semantic Web inferencing and querying. 
-The proposed K-Search outperforms both keyword search and pure semantic search strategies.
-%Additionally, an user study reveals the acceptance of the Hybrid Search paradigm by end users.
-%K-Search retrieves only documents where a full-text match and an ontology match via SPARQL is available, loosing possible matching documents.
-%Results achieved with K-Search are not replicable because of the closed nature of the underlying data.
-%Especially, the authors point out the importance of keywords-in-context queries. 
-%For example, semantic search can only deliver which component of an engine is located on or nearby another. 
-%A full text search will reveal which part of an engine broke at a certain event. 
-%But with a keyword-in-context search you can derive which greater parts are affected or which common producer all parts have.
-%Unfortunately, the paper lacks of formalisation and implementation details, neither an online demo is available.
-%K-Search follows a formula-based search and hence exacerbate the input of arbitrary queries for all kinds of users.
-%K-Search is a simple combination of IE and set operations over documents and triples enabling HS.
-A personalized hybrid search implementing a  hotel search service as use case is presented in~\cite{DBLP:journals/kbs/Yoo12}. 
-%An question- and answer-based system to infer the users personal preferences is introduced. 
-%By combining rule-based personal knowledge inference over subjective data, such as expensive locations, and reasoning, the personalized hybrid search has been proven to return a smaller amount of data thus resulting in more precise answers. 
-%Additionally, Yoo presents an architectures for hybrid search and a novel hotel ontology derived from crowd data. 
-Unfortunately, Yoo's approach~\cite{DBLP:journals/kbs/Yoo12} does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
-
-%Donghee Yoo presented in 2012 a personalized hybrid search~\cite{DBLP:journals/kbs/Yoo12} and implemented a personalized, hotel search service as use case.
-%The author distinguishes between frequently updated and static data to choose whether to use query rewriting or query reasoning. 
-%Moreover, an question-- and answer--based system to infer the users personal preferences is introduced. 
-%By combining rule-based personal knowledge inference over subjective data (e.g. \emph{cheap hotels}) and reasoning over non-frequently changed datasets the personalized hybrid search has been proven to return a smaller amount of data claimed to be more precise.
-%Unfortunately, the paper does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
-All presented approaches fail to answer natural-language questions.
-%Besides keyword-based search queries, some search engines already understand natural language questions. Question answering is more difficult than keyword-based searches since retrieval algorithms need to understand complex grammatical constructs.
-% thus impede speech input and conversational opportunities. 
-%Using the whole available knowledge in the Web of Data requires queries to run simultaneously on a large number of stores. Providing federated search algorithms is a key technology to leverage real-time QA systems. (Nikolov et al. 2013) present a federated SPARQL search engine - FedSearch - which provides a hybrid combination of SPARQL and a full-text search tackling data heterogeneity . FedSearch is able to execute top-k search. Their vendor independent approach of full text search outperforms the state of the art in federated querying.
-%\todo[inline]{Is there a benchmark for federated queries over Linked Data?}
-%\todo[inline]{Benchmark data is not available anymore: http://wiki.aksw.org/projects/lodquery}
-%\todo[inline]{SINA does not work. Make sure Hydra works all the time}
-%\subsection{Question Answering}
-Second, we explain several QA approaches for answering natural language questions.
-{Schlaefer et al.~\cite{ephyra2007}} describe \emph{Ephyra}, an open-source question answering system and its extension with factoid and list questions via semantic technologies.
-%Using semantic technology like Wordnet as well as a answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules.
-%\todo[inline]{Instead of their hand-coded answer-type-hierarchy, we could make use of relations extracted from ontologies.The authors use a AdaBoost based classifier for answer merging}
-%Using Wordnet as well as an answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules. The disadvantage of this system lies in the hand-coded answer type hierarchy. % which prohibits its multi-lingual use.
-%Ephyra is an open source QA system presented by (Schlaefer et al., 2007). It is able to deal with standard natural language questions as well as with factoid and list questions via semantic technologies. 
-Cimiano et al.~\cite{orakel} developed \emph{ORAKEL} to work on structured knowledge bases.
-The system is capable of adjusting its natural language interface using a refinement process on unanswered questions. 
-%Using F-logic and SPARQL as transformation objects for natural language user queries it fails to make use of Semantic Web technologies such entity disambiguation.
-{Lopez et al.~\cite{poweraqua}} introduce \emph{PowerAqua}, another open source system, which is agnostic of the underlying yet heterogeneous sets of knowledge bases. 
-It detects on-the-fly the needed ontologies to answer a certain question, maps the users query to Semantic Web vocabulary and composes the retrieved (fragment-)information to an answer. 
-%However, PowerAqua is outperformed by TBSL (see below) in terms of accuracy w.r.t. the state-of-the-art QALD 3 benchmark.
-{Damljanovic et al.~\cite{freya}} present \emph{FREyA} to tackle ambiguity problems when using natural language interfaces. 
-Many ontologies contain hard to map relations, e.g., questions starting with 'How long$\ldots$' can be disambiguated to a time or a distance. 
-By incorporating user feedback and syntactic analysis FREyA is able to learn the users query formulation preferences increasing the systems question answering precision. 
-{Cabrio et al.~\cite{qakis}} present a demo of \emph{QAKiS}, an agnostic QA system grounded in ontology-relation matches. 
-The relation matches are based on surface forms extracted from Wikipedia to enforce a wide variety of context matches, e.g., a relation birthplace(person, place) can be explicated by X was born in Y or Y is the birthplace of X. 
-%Unfortunately, QAKiS matches only one relation per query and moreover relies on basic heuristics which do not account for the variety of natural language in general.
-{Unger et al.~\cite{pythia}} describe \emph{Pythia}, a question answering system based on two steps.
-First, it uses a domain-independent representation of a query such as verbs, determiners and wh-words.
-Second, Pythia is based on a domain-dependent, ontology-based interface to transform queries into F-logic.
-%The system has been evaluated on the geosystem ontology\footnote{\url{ftp://ftp.cs.utexas.edu/pub/mooney/nl-ilp-data/geosystem/}} and 880 annotated questions reaching an F-measure of 73.3\%.
-%Unfortunately, Pythia does not scale for larger domains since manual mapping of ontology terms via LexInfo is required.
-%\todo[inline]{Use http://www8.cs.umu.se/~mjm/pubs/nldb09a.pdf to categorize otgher approaches}
-Moreover, Unger et al.~\cite{template} present a manually curated, template-based approach, dubbed \emph{TBSL}, to match a question against a specific SPARQL query. 
-%Combining natural language processing capabilities with Linked Data leads to good benchmark results on the QALD-3 benchmark (see below).
-%TBSL cannot be used to a wider variety of natural language questions due to its limited repertoire of 22 templates.
-{Shekarpour et al.~\cite{SINA_WebSemantic}} develop \emph{SINA} a keyword and natural language query search engine which is aware of the underlying semantics of a keyword query. 
-%The system is based on Hidden Markov Models for choosing the correct dataset to query.
-%Underlying is a SPARQL generation process which means SINA is only capable of dealing with Linked Data and cannot benefit from the wealth of unstructured information in the current Web.
-%Due to the costly Hidden Markov Models SINAs answer time (on average 3.9s) is above enduser expectations.
-%$(Shekarpour et al.,2013) introduce SINA a keyword and natural language query search engine which is aware of the underlying semantics of a keyword query. Based on Hidden Markov Models for choosing the correct dataset to query and a underlying  SPARQL generation process enables SINA to benefit from Linked Data. So far SINA is not capable of working with unstructured information and time inefficient as well.
-%HMM is a very costly algorithm which can be substituted by a tuned dynamic programming algorithm tuned with a larger number of logs.
-%SINA needs at leas 3.9s to answer a question which is unacceptable since users do not wait for more than 1s until they want to see the SERP.
-\emph{Treo}~\cite{treo} emphasis the connection between the semantic matching of input queries and the semantic distributions underlying knowledge bases.
-%The tool provides an entity search, a semantic relatedness measure, and a search based on spreading activation.
-Recently, Peng et al.~\cite{DBLP:journals/corr/PengZZ14} describe an approach for hybrid QA mapping keywords as well as resource candidates to modified SPARQL queries. Due to its novelty we were not able to compare it to HAWK.
-
-Several industry-driven QA-related projects have emerged over the last years. 
-For example, DeepQA of IBM Watson~\cite{watson}, which was able to win the Jeopardy! challenge against human experts. 
-%The results of this project are yet not open-source and are thus of limited use for the QA community. 
-%Moreover, the Watson API is restricted to only a few users. 
-Further, {KAIST's Exobrain\footnote{\url{http://exobrain.kr/}}} project aims to learn from large amounts of data while ensuring a natural interaction with end users. 
-However, it is yet limited to Korean for the moment. % and does not aim to enable an open-source access to its components.
-
-The field HAWK refers to is hybrid question answering for the Semantic Web, i.e., QA based on hybrid data (RDF and textual data).
-To the best of our knowledge, none of the previous works has addressed this question so far.
-For more information and related work, please have a look at Usbeck et al.~\cite{hawk_2015}.
-%\todo[inline]{ On The Marriage of SPARQL and Keywords
-%  by Peng Peng, Lei Zou, Dongyan Zhao
-%* Semplore: An IR Approach to Scalable Hybrid Query of Semantic Web Data
-%  byLei Zhang, QiaoLing Liu, JieZhang, HaoFen Wang, Yue Pan, Yong Yu
-%   Venses is hybrid in the sense that it combines different rule systems while the second paper simply combines different algorithms on text (QA4MRE data).
-%  * VENSES GetAsk: a System for Hybrid Question Answering And Answer Recovery using Text Entailment
-%•	A Hybrid Question Answering System based on Information Retrieval and Answer Validation}
-%Lukovnikov presents~\cite{SESSA} a novel spread-activation-based entity search tool. 
-%SESSA disambiguates and segments user input keyword queries using n-gram hierachies which are then the starting points for a coloured spread-activation algorithm. 
-%This approach is the state of the art with respect to the QALD-3 entity-search benchmark with 56,9\% F-measure.
-%In~\cite{fedsearch} a federated SPARQL search engine--FedSearch-- is presented. 
-%Especially, the authors present a hybrid combination of SPARQL an full-text search tackling data heterogeneity and lacking statistical data.
-%Their system is able to execute top-k search.
-%Since SPARQL lacks full-text search support the authors propose a triple-store-independent way of querying different RDF stores such as OWLIM, Virtuoso and LuceneSail.
-%Their vendor independent approach of keyword query search pattern is evaluated next to several optimizations against two benchmarks showing superior performs against other state-of-the-art systems-
-%For further insights please refer to~\cite{Kolomiyets:2011,DBLP:journals/semweb/LopezUSM11} which present surveys on existing question answering approaches.
