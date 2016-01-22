@@ -1,0 +1,30 @@
+@base <http://rdflivenews.aksw.org/extraction/www.necn.com/07/04/12/Scientists-discover-new-subatomic-partic/landing.html%3FblockID%3D735470%26feedID%3D4213/8a1e5928f6815c99b9d2ce613cf24198#>. 
+## prefixes: please use http://prefix.cc, e.g. http://prefix.cc/rlno
+## extracted property + result of linking
+rlno:directorOf a owl:ObjectProperty ; 
+  skos:prefLabel "director of" , skos:altLabel ", director of " ;  
+  owl:equivalentProperty dbp:director .
+## extracted facts:
+rlnr:Rolf_Heuer a dbo:Person ; 
+  rdfs:label "Rolf Heuer"@en ;
+  rlno:directorOf dbpedia:CERN .
+dbpedia:CERN a owl:Thing ; 
+  rdfs:label "CERN"@en .
+## provenance tracking with NIF:
+<char=0,10>   itsrdf:taClassRef dbo:Person ; 
+  itsrdf:taIdentRef rlnr:Rolf_Heuer .
+<char=14,18>  itsrdf:taIdentRef dbpedia:CERN .
+<char=11,24>  nif:anchorOf      ", director of"^^xsd:string ;
+  itsrdf:taPropRef rlno:directorOf .
+## detailed NIF output with context, indices and anchorOf
+<char=0,> a nif:String, nif:Context, nif:RFC5147String ;
+  nif:isString "Rolf Heuer , director of CERN , said the newly discovered particle is a boson , but he stopped just shy of claiming outright that it is the Higgs boson itself - an extremely fine distinction." ;
+  nif:sourceUrl <http://www.necn.com/07/04/12/Scientists-discover-new-subatomic-partic/landing.html?blockID=735470&feedID=4213>;
+## extraction date:  
+  dcterms:created "2013-05-09T18:27:08+02:00"^^xsd:dateTime .
+## publishing date:
+<http://www.necn.com/07/04/12/Scientists-discover-new-subatomic-partic/landing.html?blockID=735470&feedID=4213>
+  dcterms:created "2012-08-15T14:48:47+02:00"^^xsd:dateTime .
+<char=0,10> a nif:String, nif:RFC5147String ;
+  nif:referenceContext <char=0,>; nif:anchorOf "Rolf Heuer" ;
+  nif:beginIndex "0"^^xsd:long ; nif:endIndex "10"^^xsd:long ;
