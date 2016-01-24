@@ -1,29 +1,28 @@
-%*******************************************************
-% Abstract
-%*******************************************************
 \chapter*{Abstract}
+Over the last decades, several billion Web pages have been made available on the Web. 
+The growing amount of Web data provides the world's largest collection of knowledge.\footnote{\url{http://www.worldwidewebsize.com/}}. 
+Most of this full-text data like blogs, news or encyclopaedic information is unstructured in nature.
+However, the increasing amount of structured respectively semantic data\footnote{\url{http://stats.lod2.eu/}} fosters new search paradigms.
+This eases the development of natural language interfaces which enable end-users to benefit and master rising data floods without the need to understand the underlying structures or algorithms.
 
-Search engines provide the key technology for an effective and efficient access to the large amounts of growing Web data\footnote{\url{http://www.worldwidewebsize.com/}}. 
-The spreading volume of structured data on the Web\footnote{\url{http://stats.lod2.eu/}} allows novel search paradigms to exploit complex knowledge access algorithms.
-
-Building a question answering (QA) system over heterogeneous, web-based knowledge sources requires various building blocks.
+Building a natural language \ac{QA} system over heterogeneous, web-based knowledge sources requires various building blocks.
 For instance, knowledge extraction approaches over unstructured data such as blogs, news or product descriptions to capture the semantic meaning of a particular document.
 However, existing building blocks lack comparable evaluation settings, performance or quality. 
 
-In this work, we identify and address three main research challenges for building blocks as well as whole systems for hybrid question answering over unstructured and structured data.
+In this thesis, three main research challenges are identified and addressed:
 \begin{enumerate}
 \item 
-Over the last decades, several billion Web pages have been made available on the Web. 
-The ongoing transition from the current \emph{Document Web} of unstructured data to the structured \emph{Data Web} requires scalable and accurate approaches for the extraction of structured data in RDF (Resource Description Framework) from web-based documents.
-We address this key step for bridging the \emph{Semantic Gap}, i.e., extracting RDF from text,  with two approaches.
-Our knowledge base-agnostic, multi-lingual and efficient framework AGDISTIS can efficiently detect the correct URIs for a given set of named entities.
-Moreover, we present CETUS, an approach for recognizing entity types in unstructured documents to populate RDF knowledge bases. 
+The ongoing transition from the current \emph{Document Web} of unstructured data to the structured \emph{Data Web} requires scalable and accurate approaches for the extraction of structured data in \ac{RDF} from web-based documents.
+We address this key step for bridging the \emph{Semantic Gap}, i.e., extracting RDF from text, with three approaches.
+First, this thesis presents CETUS, an approach for recognizing entity types in unstructured documents to populate RDF knowledge bases. 
+Second, the knowledge base-agnostic, multi-lingual and efficient framework AGDISTIS can accurately detect the correct URIs for a given set of named entities.
+Third, the scalable extraction of consistent \ac{RDF} data from highly templated websites is tackled by the novel framework REX.
 \item 
-This need to bridge between Document Web and the structured data on the Data Web has led to the development of a considerable number of annotation tools. However, these tools are currently hard to compare since the published evaluation results are calculated on diverse datasets and evaluated based on different measures
-The resulting \emph{Evaluation Gap} is tackled by GERBIL, our evaluation framework for semantic entity annotation. 
+The need to bridge between Document Web and the structured data on the Data Web has led to the development of a considerable number of annotation tools. 
+However, these tools are currently hard to compare since the published evaluation results are calculated on diverse datasets and evaluated based on different measures
+The resulting \emph{Evaluation Gap} is tackled by a novel set of benchmarking corpora as well as with GERBIL, an evaluation framework for semantic entity annotation. 
 The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation tools on multiple datasets.
 \item 
-Finally, the decentral architecture behind the Web has led to a distributed information landscape across data sources with varying structure. 
-To close the arising \emph{Knowledge Gap}, we introduce HAWK, a novel natural language search approach for hybrid question answering based on combining structured and unstructured data sources.
-Moreover, we summarize existing solutions for semantic QA systems and propose an innovative architecture for self-improving, -healing and -wiring complex QA systems.
+The decentral architecture behind the Web has led to a distributed information landscape across data sources with varying structure. 
+To close the \emph{Informtion Gap},  this thesis introduces HAWK, a novel natural language search approach for hybrid \ac{QA} based on combining structured and unstructured data sources.
 \end{enumerate}
