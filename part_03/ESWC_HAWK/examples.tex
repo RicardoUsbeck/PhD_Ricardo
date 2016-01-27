@@ -96,7 +96,7 @@ Among others, HAWK generates for the  example the following three hybrid SPARQL 
 \begin{enumerate}
 \item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}
 \item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthDate dbr:Mvezo.\}}
-\item \texttt{SELECT ?proj  \{?proj text:query ('anti-apartheid activist' AND 'born').\\ ?proj ?pbridge dbr:Mvezo.\}}
+\item \texttt{SELECT ?proj  \{?proj text:query ('anti-apartheid activist' AND \\ 'born'). ?proj ?pbridge dbr:Mvezo.\}}
 \item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?const dbo:birthPlace ?proj.\}}
 \end{enumerate}
 

@@ -468,7 +468,7 @@ The \emph{NIF-standard} assigns each document an URI as starting point and gener
 Each document is a resource of type \texttt{nif:Context} and its content is the literal of its \texttt{nif:isString} predicate. 
 Every entity is an own resource with a newly generated URI pointing to the original document via the \texttt{nif:referenceContext} predicate.
 Additionally the begin (\texttt{nif:beginIndex}) and end position (\texttt{nif:endIndex}) as well as the disambiguated URI (\texttt{itsrdf:taIdentRef}) and the respective \ac{KB} (\texttt{itsrdf:taSource}) are stored.
-NIF's paramount position amongst corpora serialisation formats is evident by the growing number of available datasets~\cite{GERBIL}.
+The paramount position of NIF amongst corpora serialisation formats is evident by the growing number of available datasets~\cite{GERBIL}.
 
 %\subsection{Experiment configuration}
 %
@@ -674,34 +674,3 @@ An interesting side-effect of having all these frameworks and datasets in a cent
 \item User numbers public private experiments
 \item describe changes from 1.0 to 1.2
 \end{itemize}
-
-
-\section{Conclusion and Future Work}
-\label{cha332:sec:conclusion}
-We presented and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
-Some of the main contributions of GERBIL include the provision of persistent URLs for reproducibility and archiving.
-Furthermore, we implemented a generic adaptor for external datasets as well as a generic interface to integrate remote annotator systems.
-The datasets available for evaluation in the previous benchmarking platforms for annotation was extended by \numberOfadditionalDatasets new datasets. Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
-The evaluation of our framework by contributors suggests that adding an annotator to GERBIL demands 1 to 2 hours of work. Hence, while keeping the implementation effort previously required to evaluate on a single dataset, we allow developers to evaluate on (currently) \overalldatasets times more datasets.
-The presented, web-based frontend allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation tools.
-The persistent URIs enhances the long term quotation in the field of information extraction.
-GERBIL is not just a new framework wrapping existing technology. 
-In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
-%GERBIL extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases. 
-%GERBIL is being updated continuously.
-More information about GERBIL and its source code can be found at the project's website. 
-
-%\todo[inline]{AnBo: Currently it sound like a wrapper framework for convenient programming. I would add the functional evolution comparing BAT as well. Suggestion:
-
-%However, GERBIL is not just a new framework wrapping existing technology. 
-%In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
-%AN: Done
-%}
-
-While developing GERBIL, we spotted several flaws in the formal model underlying previous benchmarking frameworks which we aim to tackle in the future. 
-For example, the formal specification underlying current benchmarking frameworks for annotation does not allow using the scores assigned by the annotators for their results. To address this problem, we aim to develop/implement novel measures into GERBIL that make use of scores (e.g., Emerging Entities~\cite{Hoffart:2014:DEE:2566486.2568003}). 
-Moreover, partial results are not considered within the evaluation. For example, during the disambiguation task, named entities without Wikipedia URIs are not considered. This has a significant impact of the number of true and false positives and thus on the performance of some tools.
-Furthermore, certain tasks seem to be too coarse. For example, we will consider splitting the Sa2KB and the A2KB tasks into two subtasks: The first subtask would measure how well tools perform at finding named entities inside the text (\ac{NER} task) while the second would evaluate how well tools disambiguate those named entities which have been found correctly (similar to the D2KB task).
-In future work, we also aim to provide a new theory for evaluating annotation systems and display this information in the GERBIL interface.
-In the future, we also plan to provide information about the point in time since when an annotator is stable, i.e., the algorithm underlying the webservice has not changed.
-GERBIL has sparked the idea for the succesful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform\footnote{\url{http://project-hobbit.eu/}}. 

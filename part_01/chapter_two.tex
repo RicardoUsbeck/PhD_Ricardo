@@ -77,7 +77,7 @@ Or we could gather a consortium and define a standard for expressing time zone i
 For time zones, this is roughly what happened, in form of the timezone database \url{https://www.iana.org/time-zones}.
 
 RDF provides a generic, standardized model for representing knowledge.
-Generic means, that it can be used in any domain, be it time zones, geographic data, genes, books, or anything else.
+That is, it can be used in any domain, be it time zones, geographic data, genes, books, or anything else.
 Standardized means that RDF has been specified in an explicit, reimplementable way, so that everyone can create software that can correctly read and write RDF documents.
 
 The basic notions of RDF are triples and graphs.
@@ -292,7 +292,7 @@ However, it depends on the used tools if a given semantics is understood: some r
 \medskip
 
 \textbf{Further readings}:
-The whole formalism can be found in the specifications for RDFS~\cite{rdfs}, OWL~\cite{owl}, and RIF~\cite{rif},but especially at the OWL primer in this book~\cite{dl-primer}.
+The whole formalism can be found in the specifications for RDFS~\cite{rdfs}, OWL~\cite{owl}, and RIF~\cite{rif}.
 We did not discuss questions of how to reason and about the complexity and decidability of reasoning. 
 This is a big research topic, and in the last few years, it was advanced tremendously. 
 We point to the DL Handbook as an entry point into this topic~\cite{dl-handbook}.
@@ -428,7 +428,7 @@ Still several practical issues remain unresolved:
 %\item In general, SPARQL is too powerful and too expensive for the Web. It is far too easy to bring a SPARQL endpoint down with a few queries.
 \item The multitude of serialization formats in practical use combined with the lack of standard formats besides RDF/XML hampers teaching about RDF and its uptake.
 \item For a number of wide-spread use cases, no standards or even widely acknowledged best practices exist: how to express numbers with units, especially imperial units? How to express data that was valid at a given point in time? How to express time spans? How to deal with numerical precision? How to work with simple geographical and temporal reasoning, like inclusion?
-\item The current standards allow fine-grained provenance information only through reification, a method, that is often strongly discouraged for several reasons.
+\item Currently, most standards allow fine-grained provenance information only through reification, a method, that is often strongly discouraged for several reasons.
 \item The semantics break down under inconsistencies. There is currently no accepted way to deal with diversity in knowledge bases, even though this will play a crucial role on the Web. This ties in with questions of trust that have not yet been sufficiently tackled: given diverse data about an entity, maybe even contradictions, how to choose which sources to trust? How to make this trust transferable to the user?
 \end{itemize}
 

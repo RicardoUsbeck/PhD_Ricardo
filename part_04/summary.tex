@@ -1,5 +1,6 @@
 \chapter{Synopsis}
 
+\todo[inline]{@Me: Conclusion sections zusammenfassen}
 
 
 \section{RDF extraction}
@@ -11,6 +12,131 @@ We showed how the first one uses a label matching for determining a super type f
 
 Finally, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
 CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} w.r.t  micro and macro F-measure(F1) of 0.47 and 0.45 respectivly and won task 2~\cite{okechallenge}.
+
+
+ %%%%AGDISTIS
+%\todo[inline]{Micha: AIDA is missing in the conclusion.}
+We presented AGDISTIS, a novel named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
+Our approach outperforms the state-of-the-art algorithms TagMe 2, AIDA and DBpedia Spotlight while remaining quadratic in its time complexity. 
+Moreover, our evaluation suggests that while the approach performs well in and of itself, it can benefit from being presented with more linguistic information such as surface forms. 
+We presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
+Further, we created the first \ac{NED} system for the Chinese language based on Linked Data.
+%Furthermore, we measured the effect of evolving the structure of the underlying knowledge base.
+%We observed the significance of properties on the \mbox{F-measure} performance of our system.
+%Our results suggest that only a few \ac{RDF} properties contribute significantly to enhancing the performance of AGDISTIS.
+
+We see this work as the first step in a larger research agenda.
+Based on AGDISTIS, we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
+Other than most work, which mainly uses statistics and heuristics, we aim to truly exploit the graph structure and semantics of the background knowledge.
+
+Since AGDISTIS is agnostic of the underlying \ac{KB} and language-independent, it can profit from growing \ac{KB}s as well as multilingual Linked Data.
+In the future, we will thus extend AGDISTIS by using different underlying \ac{KB}s and even more domain-specific datasets.
+%An evaluation of Babelfy against our approach will be published on the project website.
+Moreover, we will implement a sliding-window-based extension of AGDISTIS to account for large amounts of entities per document.
+%A novel avenue of research would be combining AGDISTIS with topic modelling~\cite{Blei:2003:LDA:944919.944937}. Preliminary experiments in this direction show that we can improve the F-measure of our approach by at least 1\% on all datasets.
+%In the future we intend to look for larger, more domain-specific and even more insightful disambiguation datasets to refine and test AGDISTIS.
+%Moreover, a deeper evaluation of ontology structures towards disambiguation accuracies is needed.
+%Answering those research questions will expose possible performance-enhancing extensions.
+%
+
+
+%In future work, we aim to create a single-server multilingual version of the framework that will intrinsically support several languages at the same time.
+%To this end, we will use a graph merging algorithm to combine the different versions of DBpedia to a single graph.
+%The disambiguation steps will then be carried out on this unique graph.
+%expand different knowledge base and 
+%a full dbpedia supported multilingual version
+
+AGDISTIS is integrated into FOX~\cite{FOX}, an ensemble learning based \ac{NER}~framework which can be found at \url{http://fox.aksw.org}. 
+Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
+\todo[inline]{@Axel: Aufrufzahlen nennen?}
+%%%%REX
+
+\section{Conclusions}
+\label{sec:conclusions}
+%\todo[inline]{RU: repetition of "to the best of our knowledge". AN: fixed}
+We presented the first framework for the consistent extraction of \ac{RDF} from templates Web pages. 
+REX is available as open source Java implementation in an easily extendable fashion.
+Our framework uses the \ac{LOD} Cloud as source for training data that are used to learn web wrappers. 
+The output of these wrappers is used to generate \ac{RDF} by the means of a URI disambiguation step as well as a data validation step.
+We studied several sampling strategies and how they affect the F-measure achieved.
+%, and we provided suggestions on how to choose the best sampling strategy. 
+Our overall results show that although we can extract subject-object pairs with a high accuracy from well-templated websites, a lot of work still needs to be done in the area of grounding these strings into an existing ontology.
+One solution to this problem might be to use more context information during the disambiguation step.
+%Furthermore, we did not consider certain dimensions of data that can influence the quality of the extracted data. For example, we implicitly assumed all triples to be time-independent (which is a basic assumption underlying RDF). Yet, when extracting data from the Web, taking time into consideration can be of central importance.   
+%Time can be a problem due to websites contain current players and knowledge bases contain historical data, thus leading to the induced wrappers being very noisy 
+Moreover, more sophisticated approaches can be used for crawling websites offering structured navigation paths towards target pages~\cite{DBLP:conf/webist/BlancoCM05}. 
+By these means, we should be able to eradicate some of the sources of error in our extraction process. 
+%These strategies can be used for crawling the corpus from which we extract the RDF and can be combined easily with the work presented herein.
+%Our approach can be extended to use negative examples generated automatically.
+Our approach can be further improved by combining it with crowdsourcing-based approaches for wrapper induction such as ALFRED~\cite{Crescenzi2013} or by learning more expressive wrappers.
+We thus regard this framework as a basis for populating the Web of Data using Web pages by professional end-users.
+%to check the content of knowledge bases by (1) using a sample of the knowledge bases, (2) extracting RDF, (3) checking the most informative triples that are in $K$ but for which we have the least confidence (using the crowd).
+
+%Combine Alfred with refinement operators to enable it to generate more complex classes of rules (IMDB Actors page)
+%Use output of AlfREX as input for Alfred
+
+%Carry out better disambiguation by simply extracting more information on the resources where we are not sure
+%\begin{wrapfigure}[2]{r}{0.18\textwidth}
+% \vspace{-8mm}
+% \includegraphics[width=0.18\textwidth]{esf.pdf}
+%\end{wrapfigure}
+%\textbf{Acknowledgments.} Parts of this work were supported by the ESF and the Free State of Saxony. We thank M.~Speicher \& M.~R\"oder.
+%\todo[inline]{How do we engage the wrapper breakage problem?}
+ 
+%\bibliographystyle{abbrv}
+%\bibliography{sigproc}  
+%\balancecolumns
+ 
+%\end{document}
+
+\section{Evaluation Gap}
+%%% N3
+Here, we presented three different corpora.
+They can be used for \ac{NER}  and \ac{NED}  benchmarks as well as algorithm tuning.
+We compared these corpora with two already known datasets and showed the advantages of our datasets.
+The usability of these corpora for \ac{NED}  benchmark has been proven in \cite{agdistis_iswc,GER+13}.
+Especially, we aim at providing a structured and standardized language resource for unstructured texts, enabling semantic querying.
+Our datasets link \ac{NLP}  algorithms to the Semantic Web by leveraging the power of NIF and \ac{LD} .
+
+In the future, the enlargement of the corpora and the improvement of their quality through the community are major issues that need to be worked on. 
+Furthermore, converting more existing datasets to NIF and re-bundle them in order to provide even more insightful NER and NED benchmarks is the next step of research in this area.
+
+%%%GERBIL
+
+
+\section{Conclusion and Future Work}
+\label{cha332:sec:conclusion}
+We presented and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
+Some of the main contributions of GERBIL include the provision of persistent URLs for reproducibility and archiving.
+Furthermore, we implemented a generic adaptor for external datasets as well as a generic interface to integrate remote annotator systems.
+The datasets available for evaluation in the previous benchmarking platforms for annotation was extended by \numberOfadditionalDatasets new datasets. Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
+The evaluation of our framework by contributors suggests that adding an annotator to GERBIL demands 1 to 2 hours of work. Hence, while keeping the implementation effort previously required to evaluate on a single dataset, we allow developers to evaluate on (currently) \overalldatasets times more datasets.
+The presented, web-based frontend allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation tools.
+The persistent URIs enhances the long term quotation in the field of information extraction.
+GERBIL is not just a new framework wrapping existing technology. 
+In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
+%GERBIL extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases. 
+%GERBIL is being updated continuously.
+More information about GERBIL and its source code can be found at the project's website. 
+
+%\todo[inline]{AnBo: Currently it sound like a wrapper framework for convenient programming. I would add the functional evolution comparing BAT as well. Suggestion:
+
+%However, GERBIL is not just a new framework wrapping existing technology. 
+%In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
+%AN: Done
+%}
+
+While developing GERBIL, we spotted several flaws in the formal model underlying previous benchmarking frameworks which we aim to tackle in the future. 
+For example, the formal specification underlying current benchmarking frameworks for annotation does not allow using the scores assigned by the annotators for their results. To address this problem, we aim to develop/implement novel measures into GERBIL that make use of scores (e.g., Emerging Entities~\cite{Hoffart:2014:DEE:2566486.2568003}). 
+Moreover, partial results are not considered within the evaluation. For example, during the disambiguation task, named entities without Wikipedia URIs are not considered. This has a significant impact of the number of true and false positives and thus on the performance of some tools.
+Furthermore, certain tasks seem to be too coarse. For example, we will consider splitting the Sa2KB and the A2KB tasks into two subtasks: The first subtask would measure how well tools perform at finding named entities inside the text (\ac{NER} task) while the second would evaluate how well tools disambiguate those named entities which have been found correctly (similar to the D2KB task).
+In future work, we also aim to provide a new theory for evaluating annotation systems and display this information in the GERBIL interface.
+In the future, we also plan to provide information about the point in time since when an annotator is stable, i.e., the algorithm underlying the webservice has not changed.
+GERBIL has sparked the idea for the succesful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform\footnote{\url{http://project-hobbit.eu/}}. 
+
+
+
+
 
 %%%HAWK 
 \section{Conclusion}

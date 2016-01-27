@@ -304,8 +304,19 @@ The result for our running example can be seen in Figure~\ref{fig:localYAGOHiera
 %CETUS' algorithms are easily extensible via its interfaces. 
 %We will refine the set of string matching algorithms after the evaluation against the Open Knowledge Extraction task 2 corpora.
 
+
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[scale=0.75]{part_02/unstructured_annotation/fig/localFOXHierarchy.pdf}
+\caption{Resulting type hierarchy that is created based on the results of FOX.}
+\label{fig:localFOXHierarchy}
+\end{figure}
 \section{Entity Type Linking using FOX}
 \label{sec:typeLinking}
+A second approach for a type extraction baseline is the usage of one of the various, existing entity typing tools.
+For our second version CETUS$_{FOX}$, we are using FOX, a \ac{NER} and typing tool based on ensemble learning over 8 different tools.
+
 \begin{table}
 \centering
 \begin{tabular}{lp{5mm}l}
@@ -322,10 +333,6 @@ The result for our running example can be seen in Figure~\ref{fig:localYAGOHiera
 \label{tab:foxclassmatching}
 \end{table}
 
-
-A second approach for a type extraction baseline is the usage of one of the various, existing entity typing tools.
-For our second version CETUS$_{FOX}$, we are using FOX, a \ac{NER} and typing tool based on ensemble learning over 8 different tools.
-
 CETUS$_{FOX}$ sends the given document to the FOX web-service for retrieving annotations.
 If the entity inside the document is found and typed by FOX, the type is used to choose one of the four DOLCE+DnS Ultra Lite classes, see Table~\ref{tab:foxclassmatching}.
 The chosen class is used as super class for the automatically created classes.
@@ -334,9 +341,4 @@ Unfortunately, FOX does not identify roles in its current version.
 With respect to our running example, the FOX tool marks "Albert Einstein" as a person.
 Thus, the created classes would be defined as subclasses of \texttt{dul:Person} as shown in Figure~\ref{fig:localFOXHierarchy}.
 
-\begin{figure}[htb!]
-\centering
-\includegraphics[scale=0.75]{part_02/unstructured_annotation/fig/localFOXHierarchy.pdf}
-\caption{Resulting type hierarchy that is created based on the results of FOX.}
-\label{fig:localFOXHierarchy}
-\end{figure}
+

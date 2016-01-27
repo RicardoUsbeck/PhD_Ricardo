@@ -14,7 +14,7 @@ Therefore, a considerable number of questions can only be answered by using hybr
 In this chapter, we present HAWK, the (to best of our knowledge) first full-fledged hybrid \ac{QA} framework for entity search over \ac{LD} and textual data. 
 %To the best of our knowledge, this is the first hybrid question answering system, combining information from structured and unstructured data.
 Given a textual input query $q$, HAWK implements a 13-step pipeline, which comprises 1) input segmentation 2) part-of-speech tagging, 3) detecting entities, 4) spotting noun phrases, 5) dependency parsing and 6) applying linguistic pruning heuristics for an in-depth analysis of the natural language input. 
-The results of these first six steps is a predicate-argument graph annotated with resources from the Linked Data Web. HAWK then 7) assigns semantic meaning to nodes and 8) generates basic triple patterns for each component of the input query with respect to a multitude of features. 
+The results of these first six steps is a predicate-argument graph annotated with resources from Linked Data. HAWK then 7) assigns semantic meaning to nodes and 8) generates basic triple patterns for each component of the input query with respect to a multitude of features. 
 This deductive linking of triples results in a set of SPARQL queries containing text operators as well as triple patterns.
 In order to reduce operational costs, 9) HAWK discards queries using several rules, e.g., by  discarding not connected query graphs.
 10) HAWK uses a prefix-based classifier to decide whether it is boolean question and depending on the result 11) modifies the SPARQL query or 12) calculated the query modifiers.
@@ -46,7 +46,7 @@ Additional information can be found at our project home page \url{http://aksw.or
 \label{chahawk:sec:method}
 
 In the following, we describe the architecture and methodology of HAWK. 
-Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture and the pipeline steps of HAWK. In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
+Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture. In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
 
 \begin{figure}[tb!]
 \centering
@@ -164,7 +164,7 @@ Especially, the following predicates were indexed as they yield a high informati
 \end{itemize}
 Currently, HAWK resolves full-text information either by using exact matches of node labels or fuzzy matches on each non-stopword token of a label.
 
-To capture the full semantics of an input question, HAWK traverses the predicated-argument tree in a pre-order walk to reflect the empirical observation that i) related information are situated close to each other in the tree and ii) information are more restrictive from left to right.
+To capture the full semantics of an input question, HAWK traverses the pre\-dicate-argument tree in a pre-order walk to reflect the empirical observation that i) related information are situated close to each other in the tree and ii) information are more restrictive from left to right.
 This breadth-first search visits each node and generates several \emph{possible triple patterns} based on the number of annotations and the POS-tag itself. 
 That is, for each node a set of SPARQL query patterns is generated following the rules depicted in Table~\ref{tab:triple_patterns} w.r.t. ontology type information, e.g., a variable bound to the class \texttt{Place} will not have an outgoing predicate \texttt{dbo:birthPlace}.
 
@@ -281,9 +281,9 @@ In this section, we present the evaluation ofHAWK against two benchmarks as well
 
 \subsection{QALD-4 Benchmark}
 
-We evaluated HAWK against the \ac{QALD} 4~\cite{qald4} benchmark which has been used widely to evaluate question answering systems. 
+We evaluate HAWK against the \ac{QALD} 4~\cite{qald4} benchmark which has been used widely to evaluate question answering systems. 
 In the fourth installment of \ac{QALD}, hybrid questions on structured and unstructured data became a part of the benchmark.
-To evaluate HAWK, we focused on this hybrid training dataset comprising 25 questions, 17 out of which are entity searches using only DBpedia type information, no aggregation process and require only \texttt{SELECT}-queries. 
+To evaluate HAWK, we focus on this hybrid training dataset comprising 25 questions, 17 out of which are entity searches using only DBpedia type information, no aggregation process and require only \texttt{SELECT}-queries. 
 The available test dataset comprises only 10 question with 6 entity searches and linguistic structures that are completely different from the training dataset.
 Before evaluation, we had to curate the benchmark datasets regarding, among others, incorrect grammar, typological errors, duplicate resources in the answer set.
 The cleaned datasets can be found in our source code repository.\footnote{\url{https://github.com/AKSW/hawk/tree/master/resources}}
@@ -347,10 +347,10 @@ Especially, in the test dataset all three ranking algorithms are only able to ge
 
 \subsection{QALD-5 Boolean Benchmark}
 
-In this evaluation, we analyzed HAWK's performance towards the detection and correct answering of boolean questions
+Now, we analyze HAWK's performance towards the detection and correct answering of boolean questions
 The \ac{QALD}-5 dataset contains 40 training, respectively 10 test questions for hybrid \ac{QA}.
 To increase the number of gold standard queries, we did not restrict ourselves to only hybrid, boolean questions but to boolean questions in general, not demanding aggregations, e.g., \texttt{FILTER}, and only DBpedia ontology types.
-Thus, we used 27 questions for the evaluation from the combined dataset following the restrictions given above\footnote{\url{https://github.com/AKSW/hawk/blob/master/resources/\ac{QALD}-5_test_train.xml}}.
+Thus, we are using 27 questions for the evaluation from the combined dataset following the restrictions given above\footnote{\url{https://github.com/AKSW/hawk/blob/master/resources/\ac{QALD}-5_test_train.xml}}.
 
 
 Table~\ref{tab:eval_ask} details our results on the combined \ac{QALD}-5 dataset using an optimal ranker approach. 
@@ -374,7 +374,7 @@ Hybrid SELECT+ASK                       & 0.24                                  
 
 
 \subsection{Influence of the Entity Annotation System}
-We evaluated the influence of the applied entity annotation systems to the overall ability to produce correct answers.
+Here, we evaluate the influence of the applied entity annotation systems to the overall ability to produce correct answers.
 Thus, HAWK has been run using DBpedia Spotlight, TagMe, Fox and Wikipedia Miner. %
 Additionally, an optimal entity annotator derived from the gold standard as well as an union of all entity annotation results was analyzed. 
 

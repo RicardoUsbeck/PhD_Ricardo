@@ -93,7 +93,7 @@ Let $\mu$ be a family of functions which maps each entity $N_i$ to exactly one c
 We call such functions \emph{assignments}.
 The output of an assignment is a vector of resources of length $|N|$ that is such that the $i^{th}$ entry of the vector maps with $N_i$.
 
-Let $\psi$ be a function which computes the similarity between an assignment $\mu(C,N)$ and the vector of named entities $N$.
+Let $\psi$ be a function that computes the similarity between an assignment $\mu(C,N)$ and the vector of named entities $N$.
 The \emph{coherence} function $\phi$ calculates the similarity of the knowledge base $K$ and an assignment $\mu$, cf. Ratinov et al.~\cite{rat:rot}, to ensure the topical consistency of $\mu$.
 The coherence function $\phi$ is implemented by the  \ac{HITS} algorithm, which calculates the most pertinent entities while the similarity function $\psi$ is,\,e.g., string similarity.
 Given this formal model, the goal is to find the assignment $\mu^\star$ with
@@ -811,41 +811,3 @@ in <entity>Washington, D.C.</entity>.'" -d type='agdistis'
 %2 Users can try different inputs at the demo station and tell us, what quality they expect and which languages they want
 %3 finally we will show how the results can be downloaded or seen online and how the annotation of more or less entities changes the behaviour of AGDISTIS
 %benchmarks will be shown as well and people will be invited to use our for free endpoint for their projects so we can store the use case data and improve our approach similar to the feedback API of spotlight and fox
-
-
-\section{Conclusion \& Contributions}
-\label{sec:conclusion}
-%\todo[inline]{Micha: AIDA is missing in the conclusion.}
-We presented AGDISTIS, a novel named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
-Our approach outperforms the state-of-the-art algorithms TagMe 2, AIDA and DBpedia Spotlight while remaining quadratic in its time complexity. 
-Moreover, our evaluation suggests that while the approach performs well in and of itself, it can benefit from being presented with more linguistic information such as surface forms. 
-We presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
-Further, we created the first \ac{NED} system for the Chinese language based on Linked Data.
-%Furthermore, we measured the effect of evolving the structure of the underlying knowledge base.
-%We observed the significance of properties on the \mbox{F-measure} performance of our system.
-%Our results suggest that only a few \ac{RDF} properties contribute significantly to enhancing the performance of AGDISTIS.
-
-We see this work as the first step in a larger research agenda.
-Based on AGDISTIS, we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
-Other than most work, which mainly uses statistics and heuristics, we aim to truly exploit the graph structure and semantics of the background knowledge.
-
-Since AGDISTIS is agnostic of the underlying \ac{KB} and language-independent, it can profit from growing \ac{KB}s as well as multilingual Linked Data.
-In the future, we will thus extend AGDISTIS by using different underlying \ac{KB}s and even more domain-specific datasets.
-%An evaluation of Babelfy against our approach will be published on the project website.
-Moreover, we will implement a sliding-window-based extension of AGDISTIS to account for large amounts of entities per document.
-%A novel avenue of research would be combining AGDISTIS with topic modelling~\cite{Blei:2003:LDA:944919.944937}. Preliminary experiments in this direction show that we can improve the F-measure of our approach by at least 1\% on all datasets.
-%In the future we intend to look for larger, more domain-specific and even more insightful disambiguation datasets to refine and test AGDISTIS.
-%Moreover, a deeper evaluation of ontology structures towards disambiguation accuracies is needed.
-%Answering those research questions will expose possible performance-enhancing extensions.
-%
-
-
-%In future work, we aim to create a single-server multilingual version of the framework that will intrinsically support several languages at the same time.
-%To this end, we will use a graph merging algorithm to combine the different versions of DBpedia to a single graph.
-%The disambiguation steps will then be carried out on this unique graph.
-%expand different knowledge base and 
-%a full dbpedia supported multilingual version
-
-AGDISTIS is integrated into FOX~\cite{FOX}, an ensemble learning based \ac{NER}~framework which can be found at \url{http://fox.aksw.org}. 
-Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
-\todo[inline]{@Axel: Aufrufzahlen nennen?}
