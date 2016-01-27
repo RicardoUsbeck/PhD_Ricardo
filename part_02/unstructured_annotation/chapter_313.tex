@@ -14,13 +14,16 @@ Consequently, extracting type information for emerging and existing entities is 
 
 We present CETUS, a novel pattern based entity type extraction tool for identifying the type of a given entity inside a given text and linking this type to a \ac{KB}, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
 Here the subset refers to \texttt{dul:Person}, \texttt{dul:Place}, \texttt{dul:Organization} and \texttt{dul:Role}.
-CETUS is a fast and easy to implement baseline approach to path a way to novel research insights.
 CETUS' pipeline is divided into three subsequent parts: i) an a-priori pattern extraction, ii) a grammar-based analysis of the input document and iii) a mapping of the type evidence to the DOLCE+DnS Ultra Lite classes. 
-CETUS implements two approaches for the third step using the YAGO ontology as well as the FOX~\cite{FOX} entity recognition tool.
+Our contributions are as follows:
+\begin{itemize}
+\item CETUS is a fast and easy to implement baseline approach to path a way to novel research insights.
+\item Our approach implements two approaches for the third step using the YAGO ontology as well as the FOX~\cite{FOX} \ac{NER} tool.
+\item CETUS outperforms other apprroaches~\cite{okechallenge} w.r.t. the OKE challenge 2015 and thus is able to generate novel \ac{RDF} data from unstructured text.
+\end{itemize}
+
 In the following, we will explain these parts in detail and conclude in Section~\ref{cha321:sec:conclusion}. 
 The open source code of CETUS can be found at \url{https://github.com/AKSW/Cetus}.
-
-
 \section{Pattern Extraction}
 \label{sec:patternExt}
 
@@ -94,19 +97,19 @@ The second assumption contains the definition of a type surface form.
 It might seem to be contradictory w.r.t. the last example of Table~\ref{tab:extParts} but for the extraction it is important that we extract all words that \emph{could} be part of the types surface form.
 Following this assumptions, we can define a type inside the grammar with the rule in Listing~\ref{lst:typeRule}.
 
-%\lstset{
+\lstset{
 %  basicstyle=\footnotesize\ttfamily,
 %  breaklines=true,
 %  captionpos=b,                    % sets the caption-position to bottom
 %  frame=single,
 %  %morecomment=[s][\color{blue}]{<}{>},
 %  morecomment=[s][\color{red}]{"}{"},
-%  numbers=none,
+  numbers=none
 %  
 %%  numbersep=5pt,
 %% numberstyle=\tiny,
 %%  stringstyle=\tiny
-%}
+}
 
 \begin{figure}[htb!]
 \begin{lstlisting}[label=lst:typeRule, caption=The grammar rule defining a type surface form.]{typeRule}
@@ -337,13 +340,3 @@ Thus, the created classes would be defined as subclasses of \texttt{dul:Person} 
 \caption{Resulting type hierarchy that is created based on the results of FOX.}
 \label{fig:localFOXHierarchy}
 \end{figure}
-
-\section{Conclusion}
-\label{cha321:sec:conclusion}
-
-We presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
-Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---have been explained in detail.
-We showed how the first one uses a label matching for determining a super type for the automatically generated classes while the second is based on one of the various, existing entity typing tools.
-
-Finally, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
-CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} w.r.t  micro and macro f-measure of 0.47 and 0.45 respectivly and won task 2.

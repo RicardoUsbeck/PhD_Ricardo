@@ -1,6 +1,6 @@
 \chapter{Introduction}
 \graffito{This chapter is partially based on the authors PhD symposium paper~\cite{combiningLDandIR} and presents the overall motivation, structure and scientific contribution of this thesis.}
-\todo[inline]{@Me: Acronyms}
+
 \todo[inline]{@Axel: Which tense?}
 \section*{Motivation}
 
@@ -15,7 +15,7 @@ While extracting structured data from unstructured data allows the development o
 
 The implementation of such approaches has led to the development of a considerable number of annotation tools. 
 However, most of these tools are not evaluated on the same datasets or using the same measures.
-The resulting \emph{Evaluation Gap} needs to be tackled by concise evaluation framework to foster fine-grained and uniform evaluations of annotation tools over any knowledge bases.
+The resulting \emph{Evaluation Gap} needs to be tackled by concise evaluation framework to foster fine-grained and uniform evaluations of annotation tools over any \ac{KB}s.
 
 Moreover, with the growing amount of data and the ongoing decentralisation of knowledge, intuitive ways for non-experts to access this generated data are required. 
 To access this data, humans adapted their search behaviour using keyword search to be able to retrieve high quality results via input slits and to only expect several web documents in return~\cite{ilprints361}.
@@ -23,7 +23,7 @@ However, humans think and communicate their information needs commonly in their 
 Answering complex information needs often required combining knowledge from various, differently structured data sources.
 To address user's information needs and bridge the \emph{Information Gap}, \ac{QA} systems provide an easy and efficient way to query data via natural language, reducing a possible loss of precision and time while reformulating the search intention to transform it into a machine-readable way.
 Furthermore, QA systems enable answering natural language queries with concise results instead of verbose links to web documents. 
-Additionally, they open access and combine heterogeneous knowledge bases within one answer.
+Additionally, they open access and combine heterogeneous \ac{KB}s within one answer.
 %IBM's Watson~\cite{watson} highlighted several challenges for current and future QA systems.
 
 In this work, three main research gaps will be considered and addressed:
@@ -31,13 +31,13 @@ In this work, three main research gaps will be considered and addressed:
 \item 
 First, the Semantic Gap requires scalable and accurate approaches for the extraction of structured data in \ac{RDF}~\cite{rdfprimer}.
 This research challenge is addressed by several approaches within this thesis.
-This thesis present CETUS~\cite{CETUS_2015}, an approach for recognizing entity types to populate RDF knowledge bases. 
+This thesis present CETUS~\cite{CETUS_2015}, an approach for recognizing entity types to populate \ac{RDF} \ac{KB}s. 
 Furthermore, our knowledge base-agnostic framework AGDISTIS~\cite{agdistis_iswc} can efficiently detect the correct URIs for a given set of named entities.
-Additionally, REX~\cite{rex} is introduced, a web-scale framework for RDF extraction from semi-structured, i.e., templated, website employing consistency checks on the extracted data.
+Additionally, REX~\cite{rex} is introduced, a web-scale framework for \ac{RDF} extraction from semi-structured, i.e., templated, website employing consistency checks on the extracted data.
 \item 
 The ongoing research on closing the Semantic Gap yields a large number of annotation tools.
 However, these tools are currently still hard to compare since the published evaluation results are calculated on diverse datasets and evaluated based on different measures.
-On the one hand, we tackle the Evaluation Gap by introducing three novel datasets, dubbed $\mbox{N}^3$ to leverage the possibility of optimizing NER and NED algorithms via Linked Data and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
+On the one hand, we tackle the Evaluation Gap by introducing three novel datasets, dubbed $\mbox{N}^3$ to leverage the possibility of optimizing NER and NED algorithms via \ac{LD} and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
 On the other hand, the issue of  comparability of results is not to be regarded as being intrinsic to the annotation task. 
 Indeed, it is now well established that scientists spend between 60\% and 80\% of their time preparing data for experiments \cite{GIL2014,jermyn1999preparing,peng2011reproducible}. 
 Data preparation being such a tedious problem in the annotation domain is mostly due to the different formats of the gold standards as well as the different data representations across reference datasets.
@@ -45,8 +45,8 @@ The resulting \emph{Evaluation Gap} is tackled by GERBIL~\cite{GERBIL}, an evalu
 The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation tools on multiple datasets.
 \item 
 The decentral architecture behind the Web has led to pieces of information being distributed across data sources with varying structure. 
-Thus, the required search functionality is \emph{hybrid}, i.e., simultaneously performing a search on full-texts and semantic knowledge bases.
-To close the {Information Gap}, this thesis presents HAWK~\cite{hawk_2015}, a novel entity search approach developed for hybrid \ac{QA} based on combining structured RDF and unstructured full-text data sources.
+Thus, the required search functionality is \emph{hybrid}, i.e., simultaneously performing a search on full-texts and semantic \ac{KB}s.
+To close the {Information Gap}, this thesis presents HAWK~\cite{hawk_2015}, a novel entity search approach developed for hybrid \ac{QA} based on combining structured \ac{RDF} and unstructured full-text data sources.
 \end{enumerate}
 
 From now on, the author will use the we-form as narrative.
@@ -61,13 +61,13 @@ However, if there should be any mistakes or left-out citations the author will i
 In the following, we will explain the thesis structure in more detail.
 
 The aim of the first part is to introduce the reader with the problems and the research challenges of this thesis. 
-First, we discuss drawbacks and research directions towards a novel hybrid question answering system as well as tools for extracting semantic knowledge from non-structured data and benchmarking existing semantic annotation approaches.
+First, we discuss drawbacks and research directions towards a novel hybrid \ac{QA} system as well as tools for extracting semantic knowledge from non-structured data and benchmarking existing semantic annotation approaches.
 Second, we introduce the necessary basic standards, technologies and formal notations to understand the research problems and solutions as well as the notation used throughout this work.
 At the end, the related publications will be analyzed.
 
 Next, we introduce in parts two, three and four the developed solutions to tackle the Semantic, Evaluation and Information Gaps. 
-We  present our approaches to extract RDF data form unstructured and semi-structured sources, as well as datasets and a benchmark framework to achieve comparable evaluations. 
-Afterwards, we detail our hybrid question answering framework and evaluate it on state-of-the-art benchmarks.
+We  present our approaches to extract \ac{RDF} data form unstructured and semi-structured sources, as well as datasets and a benchmark framework to achieve comparable evaluations. 
+Afterwards, we detail our hybrid \ac{QA} framework and evaluate it on state-of-the-art benchmarks.
 In each chapter, we highlight additionally the scientific contributions of this thesis.
 
 We  summarize the presented approaches and contributions to science conclude in part five. 

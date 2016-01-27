@@ -19,11 +19,9 @@ This deductive linking of triples results in a set of SPARQL queries containing 
 In order to reduce operational costs, 9) HAWK discards queries using several rules, e.g., by  discarding not connected query graphs.
 10) HAWK uses a prefix-based classifier to decide whether it is boolean question and depending on the result 11) modifies the SPARQL query or 12) calculated the query modifiers.
 Finally, 13) queries are ranked using extensible feature vectors and cosine similarity.
-
 %%We evaluate HAWK on the \ac{QALD}-4 benchmark\footnote{\url{http://www.sc.cit-ec.uni-bielefeld.de/qald/}} for hybrid question answering. 
 %As data source it uses a triple store containing DBpedia 3.9 as well as full-text information based on the Wikipedia abstracts of all loaded resources.
 %The evaluation sections reports on micro F-measure, and analyzes the influence of different entity annotation systems on the overall question answering performance.
-
 %\todo[inline]{@Axel: Contribs}
 Our main contributions can be summarized as follows:
  \begin{itemize}
@@ -97,7 +95,7 @@ The influence of the entity annotation module is evaluated in Section~\ref{chaha
 HAWK identifies noun phrases, i.e., semantically meaningful word groups, e.g., real-world entities or concepts not captured by the underlying knowledge base or not yet recognized by the entity annotation system, using the result of the POS-tagging step. 
 This step is also know as chunking. 
 Input tokens are combined following manually-crafted linguistic heuristics based on POS-tag sequences derived from the \ac{QALD}-5 benchmark questions and their POS-tag is changed to \texttt{CNN} which we introduce to the system.
-Two domain experts implemented the deduced POS-tag sequences and safeguarded the quality of this algorithm w.r.t. the \ac{QA} pipeline f-measure. 
+Two domain experts implemented the deduced POS-tag sequences and safeguarded the quality of this algorithm w.r.t. the \ac{QA} pipeline F-measure. 
 The full algorithm can be found in Algorithm~\ref{listing:nouncombiner}.
 
 \input{part_03/ESWC_HAWK/algo_nouncombiner.tex}
@@ -264,7 +262,7 @@ While running the \emph{test phase}, the cosine similarity between each SPARQL q
     Finally, the ranker computes how many queries produced a certain answer set. 
     The answer set with the highest number is than returned.
     
-    \item \textbf{Optimal Ranking.} To ensure, we are able to generate hybrid SPARQL queries capable of answering the benchmark questions, the optimal ranker returns always those hybrid SPARQL queries which lead to a maximum f-measure.  
+    \item \textbf{Optimal Ranking.} To ensure, we are able to generate hybrid SPARQL queries capable of answering the benchmark questions, the optimal ranker returns always those hybrid SPARQL queries which lead to a maximum F-measure.  
     Obviously, the optimal ranking can only be used if the answers are know, i.e., HAWK operates on the training data.
     This ranking functions allows to determine the parts of the hybrid question answering pipeline which do not perform. 
 
@@ -289,7 +287,7 @@ To evaluate HAWK, we focused on this hybrid training dataset comprising 25 quest
 The available test dataset comprises only 10 question with 6 entity searches and linguistic structures that are completely different from the training dataset.
 Before evaluation, we had to curate the benchmark datasets regarding, among others, incorrect grammar, typological errors, duplicate resources in the answer set.
 The cleaned datasets can be found in our source code repository.\footnote{\url{https://github.com/AKSW/hawk/tree/master/resources}}
-Without this correction HAWK's f-measure shrinks to nearly zero for questions containing failures.
+Without this correction HAWK's F-measure shrinks to nearly zero for questions containing failures.
 
 \paragraph{Error Analysis}
 
@@ -329,7 +327,7 @@ Dataset           & \multicolumn{1}{l}{Optimal Ranking} & \multicolumn{1}{l}{Fea
 \paragraph{Error Analysis}
 As can be seen in Table~\ref{tab:eval_qald5}, the implemented ranking function do not reach an optimal ranking implementation.
 Moreover, each implementation are not able to discard whole queries, i.e., they are currently not aware of the possibility that the answer could not have been retrieved at all while the optimal ranker discards questions with incorrect answer sets. 
-This does not effect the global f-measure but results in an high computational effort and might lead users to wrong conclusions. 
+This does not effect the global F-measure but results in an high computational effort and might lead users to wrong conclusions. 
 
 Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm. 
 Delving deeper into the results, we color-coded the single mistakes of the HAWK system.

@@ -46,14 +46,12 @@ NED is the task of disambiguating pre-identified named entities towards a certai
 %NED is based on pre-identified named entities and their disambiguation towards a certain KB. %using various methods.
 %RE determines links between entities based on a given context leading to Information Extraction~\cite{fox}.
 These IE steps depend on datasets which need human annotation, and therefore make it a time-consuming and expensive task.
+Approaches like AGDISTIS (Chapter~\ref{cha:agdistis}) or CETUS (Chapter~\ref{cha:cetus}) need to be evaluated against high-quality, easily deployable and diverse datasets.
 %\todo[inline]{Why does RE lead to IE? This formulation seems a little bit strange and does not really fit to the next sentence in which RE is a step of IE.}
 %\todo[inline]{Done, but does it really fit in here? (rewrite that section, mention that NED is done by using DBpedia as KB. DBpedia is the central point of the Linked Open Data movement.)}
 
-We present three novel datasets (called $\mbox{N}^3$) in which named entities have been annotated manually. As \ac{KB}  for this annotation we used DBpedia~\cite{dbpedia-swj} which is the central point of the Linked Open Data movement. These datasets have already been used to evaluate~\cite{AIDA,spotlight} as well as in~\cite{GER+13,agdistis_iswc,GERBIL}.
+Thus, we present three novel datasets (called $\mbox{N}^3$) in which named entities have been annotated manually. As \ac{KB}  for this annotation we used DBpedia~\cite{dbpedia-swj} which is the central point of the Linked Open Data movement. These datasets have already been used to evaluate~\cite{AIDA,spotlight} as well as in~\cite{GER+13,agdistis_iswc,GERBIL}.
 $\mbox{N}^3$ is published using the \ac{NLP} Interchange Format (NIF)~\cite{ISWC2013NIF} ensuring a greater interoperability to overcome the need for corpus-specific parsers. 
-The data can be downloaded from the project homepage \url{http://aksw.org/Projects/N3nernednif}.
-
-
 Our main contributions are as follows:
 \begin{itemize}
 \item The publication of three novel and freely available datasets for \ac{NER} and \ac{NED};
@@ -61,6 +59,8 @@ Our main contributions are as follows:
 \item The transformation of these corpora to NIF providing provenance data.
 \item Finally, our datasets also allow the analysis of coreference resolution~\cite{NgongaNgomo2014,singh} if the entity is not in the \ac{KB}  of the respective corpus.
 \end{itemize}
+The data as well as further information can be found at the project homepage \url{http://aksw.org/Projects/N3nernednif}.
+
 
 \section{Corpora}
 \label{n3:sec:Features}

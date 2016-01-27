@@ -15,18 +15,21 @@ The Web in its current form is made up of at least 4,73  billion indexed Web pag
 %The vision behind the Web of Data is to provide a new machine-readable layer to the Web where the content of Web pages is annotated with structured data (e.g., \ac{RDF}a~\cite{\ac{RDF}a}).
 %Most of these websites are unstructured in nature.
 Thus, realizing the vision of a usable and up-to-date Web of Data requires scalable and accurate \ac{NLP} approaches that allow extracting \ac{RDF} from  unstructured data.
-Three tasks play a central role when extracting \ac{RDF} from unstructured data:  \ac{NER}, \ac{NED}, also known as \ac{EL}~\cite{Mihalcea:2007:WLD:1321440.1321475}, and \ac{RE}.
+In the last chapter, we presented CETUS, a high-quality tool for \ac{RDF} type extraction.  
+However, there are three other tasks which play a central role when extracting \ac{RDF} from unstructured data next to \ac{RDF} type extraction, namely  \ac{NER}, \ac{NED}, also known as \ac{EL}~\cite{Mihalcea:2007:WLD:1321440.1321475}, and \ac{RE}.
 
 For the first sentence of the Example~\ref{ex:obama}, a high-quality \ac{NER} approach would return the strings \texttt{Barack Obama} and \texttt{Washington, D.C.}.
 An accurate \ac{NED} approach would use these already recognized named entities and map the strings \texttt{Barack Obama} resp. \texttt{Washington, D.C.} to \texttt{dbr:Barack\_Obama} and \texttt{dbr:Washington,\_D.C.} which are DBpedia~\cite{dbpedia-swj} resources. 
 Furthermore, any \ac{RE} approach will extract the relation \texttt{wife} and output \texttt{dbr:Barack\_Obama dbo:spouse dbr:Michelle\_Obama} as RDF triple.
+An effective type extraction approach should retrieve \texttt{President} and thus finally infer that Obama is a \texttt{dbo:Person}.
 \begin{ex}
 Barack Obama arrived this afternoon in Washington, D.C.. President Obama's wife Michelle accompanied him.
 \label{ex:obama}
 \end{ex}
+
 While \ac{NER} has been explored extensively over the last decades~\cite{StanfordNER}, the disambiguation of named entities,\,i.e., the assignment of a resource's URI from an existing \ac{KB} to a string that was detected to label an entity, remains a difficult task.
 
-\todo[inline]{@Me: Verbinde das mit dem vorherigen Kapitel}
+%\todo[inline]{@Me: Verbinde das mit dem vorherigen Kapitel}
 Current \ac{NED} approaches suffer from three major drawbacks:
 First, they poorly perform on Web documents~\cite{RatinovRo09}.
 This is due to Web documents containing resources from different domains within a narrow context.
@@ -51,7 +54,7 @@ We address this drawback by presenting AGDISTIS,  a novel \ac{NED} approach. Our
 Based on this combination, AGDISTIS can efficiently detect the correct URIs for a given set of named entities within an input text. 
 \item We show that our approach has a quadratic time complexity. Thus, it scales well enough to be used even on large knowledge bases (English, German and Chinese DBpedia, YAGO2 \ac{KB}~\cite{Yago2}).
 \item We evaluate our approach on nine \emph{well-known and diverse open-source datasets} and four different knowledge bases as well as against four state-of-the-art named entity disambiguation frameworks.
-Our results indicate that we outperform the state-of-the-art approach by up to $29\%$ F-measure.
+Our results indicate that we outperform the state-of-the-art approach by up to $29\%$ F-measure\footnote{See Chapter~\ref{cha:gerbil} for a definition of the measures used throughout this thesis}.
 \item AGDISTIS' demo is presented and deployed on three different languages (English, German and Chinese) and three different knowledge bases (DBpedia, the German DBpedia and the Chinese DBpedia) as well as tested against the YAGO2 \ac{KB}.
 To the best of our knowledge, we therewith provide the first Chinese instantiation of entity linking to DBpedia.
 \item We will also demonstrate the AGDISTIS web services endpoints for German, English and Chinese disambiguation and show how data can be sent to the endpoints.
@@ -579,7 +582,7 @@ The local vector-space model used by Spotlight performs best in this setting.
 
 \begin{tabular}[tb]{@{}lllll@{}}
 \toprule
-Dataset                            & Approach          & \textbf{F1-measure}             & \textbf{Precision} & \textbf{Recall} \\ \midrule
+Dataset                            & Approach          & \textbf{F-measure}             & \textbf{Precision} & \textbf{Recall} \\ \midrule
 \multirow{3}{*}{\begin{minipage}{0.8in}\textbf{AIDA/CO-NLL-TestB}\end{minipage}} & TagMe 2           & 0.565          & 0.58      & 0.551  \\
                                    & DBpedia Spotlight & 0.341          & 0.308     & 0.384  \\
                                    & AGDISTIS          & \textbf{0.596} & \textbf{0.642}     & \textbf{0.556}  \\ \midrule

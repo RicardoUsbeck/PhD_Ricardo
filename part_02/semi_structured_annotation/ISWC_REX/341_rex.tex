@@ -2,14 +2,17 @@
 \label{cha:rex}
 \graffito{This chapter introduces REX, a web-scale extraction framework for semantic data from templated websites which was presented in~\cite{rex}. The author of this thesis was the main author together with Lorenz Bühmann and co-implemented as well as evaluated this novel approach.}
 
-\todo[inline]{@Me: Übergang schreiben: REX is a complementary approach to AGDISTIS to handle the extraction of semantic, structured data also from highly-structured websites without a lot of unstructured text elements. }
+
 
 The \ac{LOD} Cloud has grown from 12 datasets to over 2000 knowledge bases in less than 10 years.\footnote{\url{http://stats.lod2.eu/}}
 %The amount of data now available on the LOD Cloud exceeds 31 billion triples, which pertain to domains as diverse as movies, music, sports, bio-medicine and many others. 
 This steady growth of the \ac{LOD} Cloud promises to continue as very large datasets such as  Linked TCGA~\cite{SAL+13a} with 20.4 billion triples are added to it. 
 However, the \ac{LOD} Cloud still contains only a fraction of the knowledge available on the Web~\cite{GER+13}. 
 This lack of coverage is mainly due to the way the data available on the \ac{LOD} Cloud is extracted. 
+
 Most commonly, the data in the \ac{LOD} Cloud originates from one of two types of sources: structured data (especially databases such as Drugbank,\footnote{\url{http://www.drugbank.ca}} Diseasome,\footnote{\url{http://diseasome.eu}} etc.)~and semi-structured data sources (for example data extracted from the Wikipedia\footnote{\url{http://wikipedia.org}} infoboxes). 
+Furthermore, approaches like CETUS (Chapter~\ref{cha:cetus} and  AGDISTIS (Chapter~\ref{cha:agdistis} provide further means to extract high-quality \ac{RDF} data from unstructured text but are not yet widely to construct \ac{KB}s.
+
 While generating \ac{RDF} triples from structured data (especially databases) is well supported by tools such as Triplify~\cite{DBLP:dblp_conf/www/AuerDLHA09}, D2R~\cite{Bizer04} and SPARQLMap~\cite{DBLP:conf/aswc/UnbehauenSA12}
 , devising automatic means to generate \ac{RDF} from semi-structured data is a more challenging  problem. 
 Currently, this challenge is addressed by ad-hoc or manual (e.g., community-driven) solutions. 
@@ -21,6 +24,7 @@ Moreover, the same  \ac{KB} only contains a fraction of the cast of some of the 
 
 The main aim of this paper is to address the challenge of extracting \ac{RDF} from semi-structured data.
 We introduce REX, an open-source framework for the extraction of \ac{RDF} from highly templated websites (e.g., Wikipedia, IMDB, ESPN, etc.).
+Thus, REX is a complementary approach to CETUS and AGDISTIS to handle the extraction of semantic, structured data  from highly-structured websites without a lot of unstructured text elements.
 %\todo[inline]{From the rebuttal: mention the API they have, and that we are aware of them}
 %With REX which we aim to facilitate reduce the gap between the content of the document Web and the content of the Data Web
 REX addresses the extraction of \ac{RDF} from templated websites by providing a modular and extensible architecture for learning XPath\footnote{\url{https://www.w3.org/TR/xpath-31/}} wrappers and extracting consistent \ac{RDF} data from these web pages.
@@ -408,7 +412,6 @@ Still, for very noisy domains with an inconsistent use of templates, our approac
 %Yet, manually crafting XPath expressions to extract these data is a very tedious task.
 \begin{table}[htb]
 \centering
-\caption{Average evaluation results using all available pairs as training data.} 
 \begin{tabular}{lcccc}
 \toprule
   &  P & R & F-measure & \#Pages \\
@@ -419,6 +422,7 @@ Still, for very noisy domains with an inconsistent use of templates, our approac
 \url{dbo:team}      & 0.32 & 0.43 & 0.35 & 656\\
 \bottomrule
 \end{tabular}
+\caption{Average evaluation results using all available pairs as training data.} 
 \label{tab:overall}
 \end{table}
 
