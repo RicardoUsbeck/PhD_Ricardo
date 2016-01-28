@@ -1,0 +1,61 @@
+\chapter{Knowledge-base agnostic, multilingual entity linking}
+\label{cha:app_agdistis}
+
+First, we present detailed evaluation results of AGDISTIS on the RSS 500 and the \url{news.de} datasets varying the depth of the breadth-first-search and the trigram similarity threshold. Note that the accuracy measure is used here, i.e., number of true positives divided by the number of false-positives, see Figures~\ref{fig:RSS500} and \ref{fig:german}.
+
+\begin{figure}[htb!]   
+    \centering
+        \includegraphics[width=0.55\linewidth]{Appendix/fig/500news.pdf}
+       \caption{Accuracy of AGDISTIS on the \textbf{RSS 500} corpus.}\label{fig:RSS500}
+\end{figure}
+\begin{figure}[htb!]   
+    \centering  
+         \includegraphics[width=0.55\linewidth]{Appendix/fig/german.pdf}
+    \caption{Accuracy of AGDISTIS on the \textbf{news.de} corpus.}\label{fig:german} 
+\end{figure}
+
+Second, we present a comparison on the runtime of AGDISTIS against the state-of-the-art tool AIDA~\cite{AIDA} from March 2013. Especially, AGDISTIS scales well when increasing the number of entities per sentence, see Figure~\ref{fig:runtimeVSentities}.
+\begin{figure}[htb!]    
+    \centering  
+         \includegraphics[width=\linewidth]{Appendix/fig/runtimes.pdf}
+    \caption{Comparison of the average runtime of AGDISTIS and AIDA on Reuters-21578 corpus with respect to the number of entities per sentence. AGDISTIS is cleary more time-efficient than AIDA.}\label{fig:runtimeVSentities} 
+\end{figure}
+
+Finally, Figure~\ref{fig:agdistis:surfaceforms} depicts the influence of using additional surface forms other than \texttt{rdfs:label}. Using a search depth of two, surface forms increase the F-measure by \~4\%.
+\begin{figure}[htb!]    
+    \centering  
+         \includegraphics[width=0.8\linewidth]{Appendix/fig/surface.pdf}
+    \caption{Influence of surface forms.} 
+    \label{fig:agdistis:surfaceforms}
+\end{figure}
+
+%\section*{Appendix - Quality Rater Tool}
+%
+%\begin{figure}[htb!]    
+%    \centering  
+%         \includegraphics[width=\linewidth]{Appendix/fig/qrtoolnew.png}
+%    \caption{Quality Rater Tool.} 
+%\end{figure}
+%\clearpage
+%\section*{Appendix - Effect of cumulatively removing properties}
+%\begin{table}[htb!]
+%\centering
+%\scriptsize
+%\caption{Effect of cumulatively removing properties, trigram similarity threshold $\sigma=0.835$, Reuters-21578, $d=2$, Prefix: dbpedia-owl.}
+%\begin{tabular}{p{0.85\linewidth}c}
+%\textbf{Property}  & \textbf{Accuracy}\\
+%\toprule
+%owner & 0.675\\\midrule
+%isPartOf & 0.672\\\midrule
+%countySeat & 0.670\\\midrule
+%city & 0.666\\\midrule
+%owningCompany, party, hometown, religion, memberOfParliament, occupation, influencedBy, locationCity, type, deputy, aircraftHelicopter, spouse, usingCountry, architect, knownFor, place, residence, governor, industry, timeZone, influenced, league, division, deathPlace, team, populationPlace, keyPerson, bandMember, operatedBy, officialLanguage, broadcastNetwork, march, education, season, regionalLanguage, battle, aircraftRecon, stylisticOrigin, militaryUnit, predecessor, wikiPageDisambiguates, leaderFunction, youthWing, derivative, fourthCommander, nationality, leaderParty, languageRegulator, leftTributary, parentCompany, language, country, militaryBranch, mayor, athletics, languageFamily, formerBandMember, largestCity, programmeFormat, state, location, territory, musicSubgenre, affiliation, aircraftTransport, associatedBand, garrison, primeMinister, part, otherParty, restingPlace, locationCountry, currency, aircraftElectronic, foundationPlace, related, neighboringMunicipality, award, relation, chairman, foundedBy, distributingLabel, isPartOfMilitaryConflict, colour, secondCommander, commander, ideology, lieutenant, formerTeam, broadcastArea, product, commandStructure, child, ground, routeStart, headquarter, spokenIn, profession, musicFusionGenre, recordLabel, anthem, successor, notableCommander, regionServed, governingBody, operator, service, hubAirport, militaryRank, aircraftTrainer, president & 0.664\\\midrule
+%parent, jurisdiction, vicePresident, district, genre, pictureFormat, capital, birthPlace, region, governmentType, leaderName, leader, ethnicGroup, targetAirport, campus, monarch, thirdCommander, subsidiary, twinCity, almaMater, instrument, internationalAffiliation & 0.661\\\midrule
+%managerClub, manager & 0.663\\\midrule
+%sisterStation & 0.664\\\bottomrule
+%\end{tabular}
+%\label{tab:propertyEval}
+%\end{table}
+
+
+

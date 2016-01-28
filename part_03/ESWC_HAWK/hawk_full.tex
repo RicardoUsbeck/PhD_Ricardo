@@ -329,7 +329,7 @@ As can be seen in Table~\ref{tab:eval_qald5}, the implemented ranking function d
 Moreover, each implementation are not able to discard whole queries, i.e., they are currently not aware of the possibility that the answer could not have been retrieved at all while the optimal ranker discards questions with incorrect answer sets. 
 This does not effect the global F-measure but results in an high computational effort and might lead users to wrong conclusions. 
 
-Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm. 
+Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm, see Chapter~\ref{cha:app_hawk} in the appendix.. 
 Delving deeper into the results, we color-coded the single mistakes of the HAWK system.
 (Yellow) indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
 (Orange) cells point out that one ranking algorithm performs worse than the other. 
@@ -339,9 +339,6 @@ Finally, (Blue) rows describe questions where HAWK is unable to generate at leas
 Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
 Especially, in the test dataset all three ranking algorithms are only able to generate one correct answer while the feature-based and the overlap-based ranker perform differently on the train dataset.
 %To experience the run times for single queries please visit our demo at \url{http://hawk.aksw.org}.
-
-\todo[inline]{@Me: Move this table to appendix and landscape the site}
-\input{part_03/ESWC_HAWK/clef_table}
 
 
 
@@ -383,16 +380,7 @@ Furthermore, the optimal ranker is only able to achieve an F-measure of 0.58 sin
 Against intuition, the Union annotator is the worst annotation system. 
 Merging all annotation results in queries consisting solely of semantic resources eliminating the possibility to match ontology properties and classes to important parts of the query, e.g., matching the word \texttt{author} to resource rather than to a property prevents HAWK from generating the correct SPARQL query.
 Thus, the Union annotator achieves only an F-measure of 0.10.
-
-\todo[inline]{@Me: Put to Appendix and point to it}
-%\begin{figure}
-%\centering
-%\includegraphics[width=\linewidth]{bars}
-%\caption{Entity annotations systems performance with optimal ranking}
-%\label{chahawk:fig:spiderOfEntityAnnotators}
-%\end{figure}
-%\footnote{Details on this evaluation can be found in the supplement on our project homepage.}
-
+See Chapter~\ref{cha:app_hawk} in the appendix for detailed information.
 
 \subsection{Influence of Features while Ranking}
 First, we evaluated the feature-based ranking method and its effectiveness and include an in-depth analysis of the contribution of each feature to the overall result.

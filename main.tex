@@ -136,7 +136,7 @@ HAWK leverages the access to unstructured as well as structured knowledge for en
 \label{part:hybridQA}
 \input{part_03/ESWC_HAWK/hawk_full.tex}
 
-
+\cleardoublepage
 \ctparttext{
 In the last part of the thesis, we summarize the developed approaches, conclude with the lessons learned and point towards future developments. 
 }
@@ -147,11 +147,16 @@ In the last part of the thesis, we summarize the developed approaches, conclude 
 % Backmatter
 %*******************************************************
 
-\pagenumbering{Roman}
+\cleardoublepage
+\makeatletter
+\@openrightfalse
+\makeatother
 \part{Appendix}
-
-\include{FrontBackmatter/CV}
-\include{FrontBackmatter/Contents}
+\pagenumbering{Roman}
+\cleardoublepage\include{FrontBackmatter/CV}
+\cleardoublepage\include{Appendix/AGDISTIS}
+\cleardoublepage\include{Appendix/HAWK}
+\cleardoublepage\include{FrontBackmatter/Contents}
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************

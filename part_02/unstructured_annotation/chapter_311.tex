@@ -149,6 +149,9 @@ We implement this insight by mapping each named entity label, e.g., \texttt{Obam
 If there are several possible expansions, we choose the shortest as a fast coreference resolution heuristic for web documents.
 Without the expansion policy AGDISTIS suffers from a loss of accuracy of $\approx4\%$.
 
+
+
+
 %This is simply due to humans readers being able to carry out a co-reference analysis on the fly.
 
 %Internally, AGDISTIS begins its disambiguation by employing the string expansion policy\footnoterecall{myfootnote}.
@@ -195,16 +198,6 @@ Adding general types will increase the number of candidates and thus decrease th
 Obviously, these classes can be altered by the user as required to fit his purposes. 
 
 
-
-
-The resulting candidate detection approach is explicated in Algorithm~\ref{findingCandidates}.
-%If a \ac{KB} provides redirect and disambiguation URLs, AGDISTIS can benefit from them.
-%\todo[inline]{added  a virtual function in this algorithm 1 for the grammatical functions}
-%For example, it is straightforward to use \texttt{dbo:wikiPageRedirects} for identifying multiple labels for one instance. 
-%Of course AGDISTIS ignores disambiguation entities as they would not help accomplishing the disambiguation goal and finding $\mu^{+}$. 
-%\todo[inline]{AN:What's a disambiguation entity?}
-In its final step, our system compares the heuristically obtained label with the label extracted from the \ac{KB} by using \emph{trigram similarity} which is an n-gram similarity with $n=3$. 
-
 \begin{algorithm}[htb!]
 \KwData{label of a certain named entity $N_i$, $\sigma$ trigram similarity threshold}
 \KwResult{$C$ candidates found}
@@ -236,6 +229,16 @@ $ \displaystyle \bar C \longleftarrow$ {\bf searchIndex(label)}\;
 \caption{Searching candidates for a label.}
 \label{findingCandidates}
 \end{algorithm}
+
+
+
+The resulting candidate detection approach is explicated in Algorithm~\ref{findingCandidates}.
+%If a \ac{KB} provides redirect and disambiguation URLs, AGDISTIS can benefit from them.
+%\todo[inline]{added  a virtual function in this algorithm 1 for the grammatical functions}
+%For example, it is straightforward to use \texttt{dbo:wikiPageRedirects} for identifying multiple labels for one instance. 
+%Of course AGDISTIS ignores disambiguation entities as they would not help accomplishing the disambiguation goal and finding $\mu^{+}$. 
+%\todo[inline]{AN:What's a disambiguation entity?}
+In its final step, our system compares the heuristically obtained label with the label extracted from the \ac{KB} by using \emph{trigram similarity} which is an n-gram similarity with $n=3$. 
 
 \subsection{Computation of Optimal Assignment}
 
@@ -616,8 +619,8 @@ The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of 
 \end{itemize}
 
 
-Overall, our results suggest that $\sigma=0.82$ and $d=2$ is generally usable across datasets and knowledge bases leading to high quality results.\footnote{See also \url{http://139.18.2.164/rusbeck/agdistis/supplementary.pdf} and \url{http://139.18.2.164/rusbeck/agdistis/appendix.pdf}}
-\todo[inline]{@Me: Appendix instead of footnotes}
+Overall, our results suggest that $\sigma=0.82$ and $d=2$ is generally usable across datasets and knowledge bases leading to high quality results.
+Further results, can be found in the Chapter~\ref{cha:app_agdistis} in the appendix.
 
 %This is done by selecting all resources as candidates that are such that the similarity of at least one of its labels and the 
 %The best similarity thresholds $\sigma$ w.r.t. disambiguation \mbox{F-measure} achieved by our approach were determined empirically iterating $\sigma$ between 0 and 1 in steps of 0.01. 
