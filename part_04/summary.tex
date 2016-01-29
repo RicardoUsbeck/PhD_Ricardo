@@ -1,30 +1,76 @@
 \chapter{Synopsis}
 
-\todo[inline]{@Me: Conclusion sections zusammenfassen}
+
+\graffito{This chapter concludes the thesis and is based on the observations from all thesis-relevant publications~	\cite{rex,qasurvey, pool-foundations-lod,n3, gerbil_dev_2015,CETUS_2015, combiningLDandIR, HAWK_CLEF_2015, agdistis_ecai,agdistis_iswc, agdistisdemo,HAWK_NLIWOD_2015, hawk_2015, gerbil_demo_2015, GERBIL}}
 
 
-\section{RDF extraction}
-\label{cha321:sec:conclusion}
 
-We presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
+The main aim of this thesis was to tackle three research challenges, namely to develop means to bridge the Semantic, Evaluation and Information Gap using a combination of statistical methods and Linked Data. 
+First, a summary will point out developed approaches with respect to each challenge and the associated research contributions. 
+Furthermore, this section concludes with the lessons learned from each challenge tackling approach.
+Second, future research avenues based on the conclusions of the presented work will be detailed.
+ 
+\section{Summary}
+\subsection*{Semantic Gap}
+
+The development of an efficient information access leveraging natural language to access complex data for end users demanded novel solutions to extract high-quality, machine-readable semantic data from structured and semi-structured data sources.
+
+First, we presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
 Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---have been explained in detail.
 We showed how the first one uses a label matching for determining a super type for the automatically generated classes while the second is based on one of the various, existing entity typing tools.
+After the initial publication, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
+CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} w.r.t  micro and macro F-measure(F1) of 0.47 and 0.45 respectivly and won task 2~\cite{okechallenge}.	
 
-Finally, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
-CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} w.r.t  micro and macro F-measure(F1) of 0.47 and 0.45 respectivly and won task 2~\cite{okechallenge}.
-
-
- %%%%AGDISTIS
-%\todo[inline]{Micha: AIDA is missing in the conclusion.}
-We presented AGDISTIS, a novel named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
-Our approach outperforms the state-of-the-art algorithms TagMe 2, AIDA and DBpedia Spotlight while remaining quadratic in its time complexity. 
+Next, this thesis presented AGDISTIS, a novel named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
+This approach outperforms the state-of-the-art algorithms TagMe 2, AIDA and DBpedia Spotlight while remaining quadratic in its time complexity. 
 Moreover, our evaluation suggests that while the approach performs well in and of itself, it can benefit from being presented with more linguistic information such as surface forms. 
-We presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
-Further, we created the first \ac{NED} system for the Chinese language based on Linked Data.
-%Furthermore, we measured the effect of evolving the structure of the underlying knowledge base.
-%We observed the significance of properties on the \mbox{F-measure} performance of our system.
-%Our results suggest that only a few \ac{RDF} properties contribute significantly to enhancing the performance of AGDISTIS.
+Furthermore, we presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
+Here,  we emphasize the development the first \ac{NED} system for the Chinese language based on Linked Data.
 
+Finally, we tackled also semi-structured data sources like highly-templated websites. 
+REX is the first framework for the consistent extraction of \ac{RDF} from templates Web pages. 
+This approach is available as open source Java implementation in an easily extendable fashion.
+Our framework uses the \ac{LOD} Cloud as source for training data that are used to learn web wrappers. 
+The output of these wrappers is used to generate \ac{RDF} by the means of a URI disambiguation step as well as a data validation step.
+Our overall results show that although we can extract subject-object pairs with a high accuracy from well-templated websites.
+
+
+\subsection*{Evaluation Gap}
+%%% N3
+Here, we presented three different corpora.
+They can be used for \ac{NER}  and \ac{NED}  benchmarks as well as algorithm tuning.
+We compared these corpora with two already known datasets and showed the advantages of our datasets.
+The usability of these corpora for \ac{NED}  benchmark has been proven in \cite{agdistis_iswc,GER+13}.
+Especially, we aim at providing a structured and standardized language resource for unstructured texts, enabling semantic querying.
+Our datasets link \ac{NLP}  algorithms to the Semantic Web by leveraging the power of NIF and \ac{LD} .
+
+%%%GERBIL
+We presented and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
+Some of the main contributions of GERBIL include the provision of persistent URLs for reproducibility and archiving.
+Furthermore, we implemented a generic adaptor for external datasets as well as a generic interface to integrate remote annotator systems.
+The datasets available for evaluation in the previous benchmarking platforms for annotation was extended by \numberOfadditionalDatasets new datasets. Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
+The evaluation of our framework by contributors suggests that adding an annotator to GERBIL demands 1 to 2 hours of work. Hence, while keeping the implementation effort previously required to evaluate on a single dataset, we allow developers to evaluate on (currently) \overalldatasets times more datasets.
+The presented, web-based frontend allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation tools.
+The persistent URIs enhances the long term quotation in the field of information extraction.
+GERBIL is not just a new framework wrapping existing technology. 
+In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
+
+
+\subsection*{Information Gap}
+
+Having 
+We introduced HAWK, a hybrid \ac{QA} system for the Web of Data and analyzed its performance against the combined \ac{QALD}-5 dataset using the new \texttt{ASK}-query module. 
+We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, 
+\begin{itemize}
+\item HAWK is able to achieve up to 0.68 F-measure on the hybrid \ac{QALD}-4 benchmark using an optimal ranker.
+\item The system is able to achieve an F-measure of up to 0.3 on the \ac{QALD}-5 training benchmark using bucket-based ranking.
+\item Also, HAWK achieves a F-measure of up to 0.35 based on boolean and entiy-centric questions over the combined \ac{QALD}-5 benchmark.
+\end{itemize}
+
+
+
+\section*{Lessons Learned and Future Work}
+\subsection{Semantic Gap}
 We see this work as the first step in a larger research agenda.
 Based on AGDISTIS, we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
 Other than most work, which mainly uses statistics and heuristics, we aim to truly exploit the graph structure and semantics of the background knowledge.
@@ -49,18 +95,13 @@ Moreover, we will implement a sliding-window-based extension of AGDISTIS to acco
 AGDISTIS is integrated into FOX~\cite{FOX}, an ensemble learning based \ac{NER}~framework which can be found at \url{http://fox.aksw.org}. 
 Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
 \todo[inline]{@Axel: Aufrufzahlen nennen?}
-%%%%REX
 
-\section{Conclusions}
-\label{sec:conclusions}
-%\todo[inline]{RU: repetition of "to the best of our knowledge". AN: fixed}
-We presented the first framework for the consistent extraction of \ac{RDF} from templates Web pages. 
-REX is available as open source Java implementation in an easily extendable fashion.
-Our framework uses the \ac{LOD} Cloud as source for training data that are used to learn web wrappers. 
-The output of these wrappers is used to generate \ac{RDF} by the means of a URI disambiguation step as well as a data validation step.
+
+
+%%%%REX
 We studied several sampling strategies and how they affect the F-measure achieved.
-%, and we provided suggestions on how to choose the best sampling strategy. 
-Our overall results show that although we can extract subject-object pairs with a high accuracy from well-templated websites, a lot of work still needs to be done in the area of grounding these strings into an existing ontology.
+, a lot of work still needs to be done in the area of grounding these strings into an existing ontology.
+
 One solution to this problem might be to use more context information during the disambiguation step.
 %Furthermore, we did not consider certain dimensions of data that can influence the quality of the extracted data. For example, we implicitly assumed all triples to be time-independent (which is a basic assumption underlying RDF). Yet, when extracting data from the Web, taking time into consideration can be of central importance.   
 %Time can be a problem due to websites contain current players and knowledge bases contain historical data, thus leading to the induced wrappers being very noisy 
@@ -70,61 +111,16 @@ By these means, we should be able to eradicate some of the sources of error in o
 %Our approach can be extended to use negative examples generated automatically.
 Our approach can be further improved by combining it with crowdsourcing-based approaches for wrapper induction such as ALFRED~\cite{Crescenzi2013} or by learning more expressive wrappers.
 We thus regard this framework as a basis for populating the Web of Data using Web pages by professional end-users.
-%to check the content of knowledge bases by (1) using a sample of the knowledge bases, (2) extracting RDF, (3) checking the most informative triples that are in $K$ but for which we have the least confidence (using the crowd).
 
-%Combine Alfred with refinement operators to enable it to generate more complex classes of rules (IMDB Actors page)
-%Use output of AlfREX as input for Alfred
 
-%Carry out better disambiguation by simply extracting more information on the resources where we are not sure
-%\begin{wrapfigure}[2]{r}{0.18\textwidth}
-% \vspace{-8mm}
-% \includegraphics[width=0.18\textwidth]{esf.pdf}
-%\end{wrapfigure}
-%\textbf{Acknowledgments.} Parts of this work were supported by the ESF and the Free State of Saxony. We thank M.~Speicher \& M.~R\"oder.
-%\todo[inline]{How do we engage the wrapper breakage problem?}
- 
-%\bibliographystyle{abbrv}
-%\bibliography{sigproc}  
-%\balancecolumns
- 
-%\end{document}
+\subsection*{Evaluation Gap}
 
-\section{Evaluation Gap}
-%%% N3
-Here, we presented three different corpora.
-They can be used for \ac{NER}  and \ac{NED}  benchmarks as well as algorithm tuning.
-We compared these corpora with two already known datasets and showed the advantages of our datasets.
-The usability of these corpora for \ac{NED}  benchmark has been proven in \cite{agdistis_iswc,GER+13}.
-Especially, we aim at providing a structured and standardized language resource for unstructured texts, enabling semantic querying.
-Our datasets link \ac{NLP}  algorithms to the Semantic Web by leveraging the power of NIF and \ac{LD} .
+
+%%%%N3
 
 In the future, the enlargement of the corpora and the improvement of their quality through the community are major issues that need to be worked on. 
 Furthermore, converting more existing datasets to NIF and re-bundle them in order to provide even more insightful NER and NED benchmarks is the next step of research in this area.
 
-%%%GERBIL
-
-
-\section{Conclusion and Future Work}
-\label{cha332:sec:conclusion}
-We presented and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
-Some of the main contributions of GERBIL include the provision of persistent URLs for reproducibility and archiving.
-Furthermore, we implemented a generic adaptor for external datasets as well as a generic interface to integrate remote annotator systems.
-The datasets available for evaluation in the previous benchmarking platforms for annotation was extended by \numberOfadditionalDatasets new datasets. Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
-The evaluation of our framework by contributors suggests that adding an annotator to GERBIL demands 1 to 2 hours of work. Hence, while keeping the implementation effort previously required to evaluate on a single dataset, we allow developers to evaluate on (currently) \overalldatasets times more datasets.
-The presented, web-based frontend allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation tools.
-The persistent URIs enhances the long term quotation in the field of information extraction.
-GERBIL is not just a new framework wrapping existing technology. 
-In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
-%GERBIL extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases. 
-%GERBIL is being updated continuously.
-More information about GERBIL and its source code can be found at the project's website. 
-
-%\todo[inline]{AnBo: Currently it sound like a wrapper framework for convenient programming. I would add the functional evolution comparing BAT as well. Suggestion:
-
-%However, GERBIL is not just a new framework wrapping existing technology. 
-%In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
-%AN: Done
-%}
 
 While developing GERBIL, we spotted several flaws in the formal model underlying previous benchmarking frameworks which we aim to tackle in the future. 
 For example, the formal specification underlying current benchmarking frameworks for annotation does not allow using the scores assigned by the annotators for their results. To address this problem, we aim to develop/implement novel measures into GERBIL that make use of scores (e.g., Emerging Entities~\cite{Hoffart:2014:DEE:2566486.2568003}). 
@@ -135,27 +131,11 @@ In the future, we also plan to provide information about the point in time since
 GERBIL has sparked the idea for the succesful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform\footnote{\url{http://project-hobbit.eu/}}. 
 
 
-
-
-
-%%%HAWK 
-\section{Conclusion}
-\label{chahawk:sec:conclusion}
-\subsection*{Summary}
-We introduced HAWK, a hybrid \ac{QA} system for the Web of Data and analyzed its performance against the combined \ac{QALD}-5 dataset using the new \texttt{ASK}-query module. 
-We showed that by using a generic approach to generate SPARQL queries from predicate-argument structures, 
-\begin{itemize}
-\item HAWK is able to achieve up to 0.68 F-measure on the hybrid \ac{QALD}-4 benchmark using an optimal ranker.
-\item The system is able to achieve an F-measure of up to 0.3 on the \ac{QALD}-5 training benchmark using bucket-based ranking.
-\item Also, HAWK achieves a F-measure of up to 0.35 based on boolean and entiy-centric questions over the combined \ac{QALD}-5 benchmark.
-\end{itemize}
-
-\subsection*{Conclusion}
+\subsection*{Information Gap}
 Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
 The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. 
 
-\subsection*{Future Work}
 Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
 The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 
