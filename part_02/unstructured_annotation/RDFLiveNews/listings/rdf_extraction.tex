@@ -1,0 +1,25 @@
+@prefix rln-ont: <http://rdflivenews.aksw.org/ontology/> .
+@prefix rln-res: <http://rdflivenews.aksw.org/resource/> .
+    
+<http://rdflivenews.aksw.org/extraction/0>
+   rln-ont:extractionDate  "2012-08-16"^^xsd:date;
+   rln-ont:subject         dbr:George_Bush_Intercontinental_Airport;
+   rln-ont:property        rln-ont:spokesman;
+   rln-ont:object          rln-res:Marlene_McClinton;
+   rln-ont:foundInSentence """... costs of the Wi-Fi system , '' explains Houston Airports spokesperson Marlene McClinton , `` And charges ..."""@en;
+   rln-ont:sourceUrl       <http://www.usatoday.com/money/industries/energy/environment/2010-02-03-windpower_N.htm> .
+
+rln-res:Marlene_McClinton	
+    rdfs:label  "Marlene McClinton"@en ;
+    rdf:type    dbo:Person .
+
+dbr:George_Bush_Intercontinental_Airport	
+    rdfs:label  "Houston Airport"@en;
+    rdf:type    dbo:Place .
+
+rln-ont:spokesman
+    skos:prefLabel "'s spokesman"@en;
+    skos:altLabel ", spokeswoman for"@en;
+    skos:altLabel ", a spokesman for"@en;
+    rdfs:domain dbo:Organisation;
+    rdfs:range dbo:Person .
