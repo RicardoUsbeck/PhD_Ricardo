@@ -170,7 +170,6 @@ Sc2KB:&(d,K) \rightarrow \{a_1,\ldots,a_n|\\
 \end{comment}
 
 With this extension, our framework can now deal with gold standard datasets and annotators that link to any \ac{KB}, e.g., DBpedia, BabelNet~\cite{NavigliPonzetto:12aij} etc., as long as the necessary identifiers are URIs.
-\todo[inline]{@Micha: Stimmt das noch oder sollte hier ein Link zum Update Chapter hin?}
 We were thus able to implement \numberOfadditionalDatasets new gold standard datasets usable for each experiment type, cf. Section~\ref{sec:datasets}, and \numberOfadditionalAnnotators new annotators linking entities to any \ac{KB} instead of solely Wikipedia like in previous works, cf. Section~\ref{sec:annotators}.
 With this extensible interface, GERBIL can be extended to deal with supplementary experiment types, e.g., entity salience~\cite{cornolti}, entity detection~\cite{FOX}, typing~\cite{rizzo2014}, word sense disambiguation (WSD)~\cite{babelfy} and relation extraction~\cite{FOX}.
 These categories of experiment types will be added to GERBIL in further versions, see Section~\ref{sec:currentNumbersForGERBIL}.
@@ -181,7 +180,6 @@ These categories of experiment types will be added to GERBIL in further versions
 
 A matching defines which conditions the result of an annotator has to fulfill to be a correct result.
 In case of existing redirections, we assume an implicit matching function to account for the many-to-one relation~\cite{cornolti}.
-\todo[inline]{@Micha: Was meint many-to-one?}
 The first matching type $M$ used for the C2KB, Rc2KB and Sc2KB experiments is the \textit{strong entity matching}.
 Here, each mention is mapped to an entity of the knowledge base $K$ via a matching function $f$ with $f(m) \in K \cup \{NIL\}$.
 Following this matching, a single entity mention $m = (s, l, d, c)$ returned by the annotator is correct iff it matches exactly with one of the entity mentions $m' = (s', l', d, c')$ in the gold standard $G(d)$ of d~\cite{cornolti}. Formally,
