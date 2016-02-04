@@ -5,10 +5,8 @@
 
 
 
-The main aim of this thesis was to tackle three research challenges, namely to develop means to bridge the Semantic, Evaluation and Information Gap using a combination of statistical methods and Linked Data. 
-First, a summary will point out developed approaches with respect to each challenge and the associated research contributions. 
-Furthermore, this section concludes with the lessons learned from each challenge tackling approach.
-Second, future research avenues based on the conclusions of the presented work will be detailed.
+The main aim of this thesis was to tackle three research challenges, namely the Semantic, Evaluation and Information Gaps. To this end, we used a combination of statistical methods and Linked Data. Herein, we first give a brief summary of the approaches we developed to tackle each of these three challenges as well as elucidate the associated research contributions. We conclude this summary with the most important lessons learned from tackling each challenge.
+Subsequently, future research avenues based on the aforepresented conclusions are detailed.
  
 \section{Summary}
 \todo[inline]{@Axel: Aufrufzahlen nennen?}
@@ -17,29 +15,29 @@ Second, future research avenues based on the conclusions of the presented work w
 The development of an efficient information access leveraging natural language to access complex data for end users demanded novel solutions to extract high-quality, machine-readable semantic data from structured and semi-structured data sources.
 
 First, we presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
-Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---have been explained in detail.
-We showed how the first one uses a label matching for determining a super type for the automatically generated classes while the second is based on one of the various, existing entity typing tools.
+Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---were explained in detail.
+We showed how CETUS$_{YAGO}$ uses label matching to determine a super-type for automatically generated classes while CETUS$_{FOX} is based on one of the various, existing entity typing tools.
 After the initial publication, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
-CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} w.r.t  micro and macro F-measure(F1) of 0.47 and 0.45 respectivly and won task 2~\cite{okechallenge}.	
+CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} by achieving a  micro resp. macro F-measure(F1) of 0.47 resp. 0.45, therewith winning task 2~\cite{okechallenge}.	
 
-Next, this thesis presented AGDISTIS, a novel named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
+Next, this thesis presented AGDISTIS, a novel approach for named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
 This approach outperforms the state-of-the-art algorithms TagMe 2, AIDA and DBpedia Spotlight while remaining quadratic in its time complexity. 
 Moreover, our evaluation suggests that while the approach performs well in and of itself, it can benefit from being presented with more linguistic information such as surface forms. 
 Furthermore, we presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
-Here,  we emphasize the development the first \ac{NED} system for the Chinese language based on Linked Data.
+Here,  we emphasize that our works led to the development of the first \ac{NED} system for the Chinese language based on Linked Data.
 AGDISTIS is integrated into FOX~\cite{FOX}, an ensemble learning based \ac{NER}~framework which can be found at \url{http://fox.aksw.org}. 
 Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
 
 
-Finally, we tackled also semi-structured data sources like highly-templated websites. 
-REX is the first framework for the consistent extraction of \ac{RDF} from templates Web pages. 
+Finally, we tackled semi-structured data sources by aiming to extract \ac{RDF} from highly-templated websites. 
+REX is the first framework for the consistent extraction of \ac{RDF} from templated Web pages. 
 This approach is available as open source Java implementation in an easily extendable fashion.
 Our framework uses the \ac{LOD} Cloud as source for training data that are used to learn web wrappers. 
 The output of these wrappers is used to generate \ac{RDF} by the means of a URI disambiguation step as well as a data validation step.
-Our overall results show that although we can extract subject-object pairs with a high accuracy from well-templated websites.
+Our overall results show that we can extract subject-object pairs with a high accuracy from well-templated websites.
 
-Thus, we advanced the state of the art by sufficient tooling to enhance knowledge bases and extract high-quality RDF data from unstructured text in a scalable fashion. 
-This data can and partly will be used to feed the underlying knowledge of our own hybrid \ac{QA} system. 
+Overall, our results suggest that this work was able to advance the state of the art by providing novel approaches for the scalable extraction of high-quality RDF data from unstructured text as well as for the enhancement of knowledge bases. 
+The data resulting from these approaches can be (and partly is) used to feed the knowledge bases underlying our own hybrid \ac{QA} system HAWK. 
 
 
 \subsection*{Evaluation Gap}
