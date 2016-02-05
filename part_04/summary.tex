@@ -16,7 +16,7 @@ The development of an efficient information access leveraging natural language t
 
 First, we presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
 Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---were explained in detail.
-We showed how CETUS$_{YAGO}$ uses label matching to determine a super-type for automatically generated classes while CETUS$_{FOX} is based on one of the various, existing entity typing tools.
+We showed how CETUS$_{YAGO}$ uses label matching to determine a super-type for automatically generated classes while CETUS$_{FOX}$ is based on one of the various, existing entity typing tools.
 After the initial publication, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
 CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} by achieving a  micro resp. macro F-measure(F1) of 0.47 resp. 0.45, therewith winning task 2~\cite{okechallenge}.	
 
@@ -31,9 +31,10 @@ Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~
 
 Finally, we tackled semi-structured data sources by aiming to extract \ac{RDF} from highly-templated websites. 
 REX is the first framework for the consistent extraction of \ac{RDF} from templated Web pages. 
-This approach is available as open source Java implementation in an easily extendable fashion.
+This approach is available as open-source Java implementation and can be extended at will.
 Our framework uses the \ac{LOD} Cloud as source for training data that are used to learn web wrappers. 
 The output of these wrappers is used to generate \ac{RDF} by the means of a URI disambiguation step as well as a data validation step.
+%% Consistency checks??
 Our overall results show that we can extract subject-object pairs with a high accuracy from well-templated websites.
 
 Overall, our results suggest that this work was able to advance the state of the art by providing novel approaches for the scalable extraction of high-quality RDF data from unstructured text as well as for the enhancement of knowledge bases. 
@@ -43,13 +44,13 @@ The data resulting from these approaches can be (and partly is) used to feed the
 \subsection*{Evaluation Gap}
 
 As mentioned before, the need for high-quality and efficient RDF data extraction from any unstructured, semi- or structured data sources triggered the development of a multitude of tools. 
-Gaining an oversight to decide on a specific tool for a specific use case or to analyze in detail the behavior of  a system towards a certain kind of data became increasingly difficult.
+Gaining an overview to decide on a specific tool for a specific use case or to analyze in detail the behavior of  a system towards a certain kind of data became increasingly difficult.
 Hence, we wanted to bridge this Evaluation Gap to  support developers, decision makers and end users.
-First, we presented a novel, unstructured dataset collection to leverage reuse and and comparability. 
+First, we presented a novel, unstructured dataset collection to leverage reuse and and comparability dubbed $\mbox{N}^3$~\cite{n3}. 
 Second, we described and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
 
 %%% N3
-The dataset collection $\mbox{N}^3$~\cite{n3} can be used for \ac{NER}  and \ac{NED}  benchmarks as well as algorithm tuning.
+The dataset collection $\mbox{N}^3$ can be used for \ac{NER}  and \ac{NED}  benchmarks as well as algorithm tuning.
 We compared our corpora with two already known datasets and showed the advantages of our datasets.
 The usability of these corpora for \ac{NED}  benchmark has been proven in several other publications~\cite{agdistis_iswc,GER+13,GERBIL}.
 Especially, $\mbox{N}^3$ aims at providing a structured and standardized language resource for unstructured texts, enabling semantic querying.
@@ -57,7 +58,7 @@ Our datasets link \ac{NLP}  algorithms to the Semantic Web by leveraging the pow
 
 %%%GERBIL
 \todo[inline]{@Micha: Update number after written update chapter}
-One of the main contributions of GERBIL include the provision of persistent URLs for reproducibility and archiving.
+One of the main contributions of GERBIL includes the provision of persistent URLs for reproducibility and archiving.
 GERBIL implements a generic adaptor for external datasets as well as a generic interface to integrate remote annotator systems.
 The datasets available for evaluation in the previous benchmarking platforms for annotation was extended by \numberOfadditionalDatasets new datasets. 
 Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
@@ -67,7 +68,7 @@ The presented, web-based frontend allows for several use cases enabling laymen a
 
 The persistent URIs enhances the long term quotation in the field of information extraction.
 GERBIL is not just a new framework wrapping existing technology. 
-In comparison to earlier frameworks, it extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
+In comparison to earlier frameworks, GERBIL extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
 
 We efficiently targeted the Evaluation Gap w.r.t. the domain of semantic annotation systems by providing means to easily reuse datasets as well as whole experiments and publish their results in a machine-readable way.
 
@@ -90,7 +91,7 @@ Thus, laymen can benefit from both the Data and the Document Web to gain answers
 \section{Lessons Learned and Future Work}
 \subsection*{Semantic Gap}
 
-By investigating and developing solutions to enhance un- or semi-structured data sources by means of the presented approaches, our work shed light on several insights and further raised some red flags for future research avenues. 
+By investigating and developing solutions to enhance un- or semi-structured data sources by means of the presented approaches, our work shed light on several insights and further raised some highly interesting questions that will dictate our future research. 
 
 We see CETUS and AGDISTIS as first steps in a larger research agenda.
 The field of type identification on unstructured text is still not well-researched and pattern-based approaches miss the opportunity to benefit from existing string expansions methods and existing knowledge bases like Wordnet~\cite{wordnet}.
@@ -120,7 +121,7 @@ Moreover, more sophisticated approaches can be used for crawling websites offeri
 By these means, we should be able to eradicate some of the sources of error in our extraction process. 
 Our approach can be further improved by combining it with crowdsourcing-based approaches for wrapper induction such as ALFRED~\cite{Crescenzi2013} or by learning more expressive wrappers.
 
-We thus regard this framework as a basis for populating the Web of Data using Web pages by professional end-users.
+We thus regard these frameworks as a basis for populating the Web of Data using Web pages by professional end-users.
 
 
 \subsection*{Evaluation Gap}
@@ -142,27 +143,27 @@ For example, we will consider splitting the Sa2KB and the A2KB tasks into two su
 Those issues are addressed in current GERBIL releases, see Section~\ref{sec:currentNumbersForGERBIL}. 
 In future work, we also aim to provide a new theory for evaluating annotation systems and display this information in the GERBIL interface.
 Also, we plan to provide information about the point in time since when an annotator is stable, i.e., the algorithm underlying the webservice has not changed.
-GERBIL has sparked the idea for the successful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform\footnote{\url{http://project-hobbit.eu/}}. 
+GERBIL has sparked the idea for the successful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform.\footnote{\url{http://project-hobbit.eu/}} 
 
 
 \subsection*{Information Gap}
 
 Providing natural language access to hybrid data sources with HAWK led to an in-depth error analysis and thus captured future open research directions.
 
-Currently, HAWK faces several limitations, such as not capturing the exact semantics due to missing dictionaries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
+Currently, HAWK faces several limitations, such as not always being able to capture the exact semantics of certain resources due to missing dictionary entries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
 The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. 
 
 Furthermore, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. 
 Additionally, we will assess the impact of full-text components over regular LD components for \ac{QA} and partake in the creation of larger benchmarks such as \ac{QALD}-6,
 Another aim is to develop HAWK towards multilingual, schema-agnostic queries.
-Also, negations within questions and improved ranking will also be considered. 
+Moreover, negations within questions and improved ranking will  be considered. 
 Finally, several components of the HAWK pipeline are computationally very complex. 
 Thus, finding more time-efficient algorithms for these steps will be addressed in future works.
-HAWK will be a starting point for the Eurostars projects DIESEL\footnote{\url{http://http://diesel-project.eu/.eu/}} and QAMEL\footnote{\url{http://qamel.eu/}} towards implementing novel search paradigms on large industrial data as well as mobile devices.
+HAWK will be a starting point for the Eurostars projects DIESEL\footnote{\url{http://diesel-project.eu/}} and QAMEL\footnote{\url{http://qamel.eu/}} towards implementing novel search paradigms on large industrial data as well as mobile devices.
 
 \bigskip
 
-Overall, this thesis depicts the first stepping stone towards a longer and exciting research direction. 
-Developing novel, scalable and adaptable \ac{QA} technologies using any kinds of existing data will be in the center of considerations.
-For example, personal data-driven assistant systems for researchers, mechanics, tourists and even crisis managers are lying ahead and pointing out the intriguing fields of future work.
+Overall, this thesis is the first stepping stone towards a longer and exciting research direction. 
+Developing novel, scalable and adaptable \ac{QA} technologies using any kind of existing data will be at the center of considerations.
+For example, personal data-driven assistant systems for researchers, mechanics, tourists and even crisis managers lie  ahead and point out thrilling fields of future work.
