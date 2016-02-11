@@ -13,7 +13,7 @@ This lack of coverage is mainly due to the way the data available on the \ac{LOD
 Most commonly, the data in the \ac{LOD} Cloud originates from one of two types of sources: structured data (especially databases such as Drugbank,\footnote{\url{http://www.drugbank.ca}} Diseasome,\footnote{\url{http://diseasome.eu}} etc.)~and semi-structured data sources, e.g., data extracted from the Wikipedia\footnote{\url{http://wikipedia.org}} infoboxes. 
 Furthermore, approaches like CETUS (Chapter~\ref{cha:cetus} and  AGDISTIS (Chapter~\ref{cha:agdistis} provide further means to extract high-quality \ac{RDF} data from unstructured text but are not yet widely to construct \ac{KB}s.
 
-While generating \ac{RDF} triples from structured data (especially databases) is well supported by tools such as Triplify~\cite{DBLP:dblp_conf/www/AuerDLHA09}, D2R~\cite{Bizer04} and SPARQLMap~\cite{DBLP:conf/aswc/UnbehauenSA12}
+While generating \ac{RDF} triples from structured data (especially databases) is well supported by tools such as Triplify~\cite{triplify_www}, D2R~\cite{Bizer04} and SPARQLMap~\cite{unbehauen-jist-2012-sparqlmap}
 , devising automatic means to generate \ac{RDF} from semi-structured data is a more challenging  problem. 
 Currently, this challenge is addressed by ad-hoc or manual (e.g., community-driven) solutions. 
 For example, the well-known DBpedia~\cite{dbpedia-swj} provides a mapping wiki\footnote{\url{http://mappings.dbpedia.org}} where users can explicate how the content of infoboxes is to be transformed into \ac{RDF}. 
@@ -256,7 +256,7 @@ Thus, our current implementation applies the following set of rules based on the
 \end{enumerate}
 Note that this approach is sound but of course incomplete.
 Although an increasing number of \ac{RDF}  \ac{KB}s are published, many of those consist primarily of instance data and lack sophisticated schemata. 
-To support the application of the above defined rules, we follow the work in \cite{Buehmann2012,pattern_enrichment}, which provides a lightweight and efficient schema creation approach that scales to large  \ac{KB}s. 
+To support the application of the above defined rules, we follow the work in \cite{buhmann2012,pattern_enrichment}, which provides a lightweight and efficient schema creation approach that scales to large  \ac{KB}s. 
 %The creation of the (extended) schema is done in three steps:
 
 %\begin{enumerate}

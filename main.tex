@@ -39,7 +39,7 @@
 %    * [medium] mathbb in section-titles/chapter-titles => disappears somehow in headlines!!!
 % **************************************************************************************************************
 \documentclass[ twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
-                footinclude=true,cleardoublepage=empty,abstractoff,listof=numbered,% <--- obsolete, remove (todo)
+                footinclude=true,cleardoublepage=empty,abstractoff,%listof=numbered,% <--- obsolete, remove (todo)
                 BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
                 american,%
                 ]{scrreprt}
@@ -81,6 +81,7 @@
 \cleardoublepage\include{FrontBackmatter/Publication}
 \cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \cleardoublepage\input{FrontBackmatter/Acronym.tex} 
+\cleardoublepage\include{FrontBackmatter/Contents}
 \cleardoublepage\include{FrontBackMatter/Tableofcontent}
 
 \pagestyle{scrheadings}
@@ -156,7 +157,6 @@ In the last part of the thesis, we summarize the developed approaches, conclude 
 \cleardoublepage\include{FrontBackmatter/CV}
 \cleardoublepage\include{Appendix/AGDISTIS}
 \cleardoublepage\include{Appendix/HAWK}
-\cleardoublepage\include{FrontBackmatter/Contents}
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************

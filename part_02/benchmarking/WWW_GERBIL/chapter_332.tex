@@ -9,7 +9,7 @@ GERBIL won the Best Demo Award 2015 at the Extended Semantic Web Conference.
 \label{cha:gerbil}
 
 The implementation of the original vision behind the Semantic Web demands the development of approaches and frameworks for the seamless extraction of structured data from text. 
-While manifold annotation tools have been developed over the last years to address (some of) the subtasks related to the extraction of structured data from unstructured data \cite{TagMe2,AIDA,spotlight,milne2008learning,babelfy,piccinno2014tagme,rizzo2014,Steinmetz2013,agdistis_iswc}, the provision of comparable results for these tools remains a tedious problem.
+While manifold annotation tools have been developed over the last years to address (some of) the subtasks related to the extraction of structured data from unstructured data \cite{TagMe2,AIDA,spotlight,milne2008learning,babelfy,piccinno2014tagme,rizzo2014,steinmetz-n-2013-statistical,agdistis_iswc}, the provision of comparable results for these tools remains a tedious problem.
 Furthermore, the fair and exhaustive comparison of our own \ac{NED} approach AGDISTIS (Chapter~\ref{cha:agdistis}) to other state-of-the-art tools illustrated the open \emph{Evaluation Gap} faced by this research field.
 The issue of  comparability of results is not to be regarded as being intrinsic to the annotation task. Indeed, it is now well established that scientists spend between 60\% and 80\% of their time preparing data for experiments \cite{GIL2014,jermyn1999preparing,peng2011reproducible}. Data preparation being such a tedious problem in the annotation domain is mostly due to the different formats of the gold standards as well as the different data representations across reference datasets.
 %\todo[inline]{AnBo: --change-- different formatting of the textual data in reference datasets --to-- different data representations in reference datasets. Axel:Done}
@@ -169,7 +169,7 @@ Sc2KB:&(d,K) \rightarrow \{a_1,\ldots,a_n|\\
 \end{align}
 \end{comment}
 
-With this extension, our framework can now deal with gold standard datasets and annotators that link to any \ac{KB}, e.g., DBpedia, BabelNet~\cite{NavigliPonzetto:12aij} etc., as long as the necessary identifiers are URIs.
+With this extension, our framework can now deal with gold standard datasets and annotators that link to any \ac{KB}, e.g., DBpedia, BabelNet~\cite{babelnet} etc., as long as the necessary identifiers are URIs.
 We were thus able to implement \numberOfadditionalDatasets new gold standard datasets usable for each experiment type, cf. Section~\ref{sec:datasets}, and \numberOfadditionalAnnotators new annotators linking entities to any \ac{KB} instead of solely Wikipedia like in previous works, cf. Section~\ref{sec:annotators}.
 With this extensible interface, GERBIL can be extended to deal with supplementary experiment types, e.g., entity salience~\cite{cornolti}, entity detection~\cite{FOX}, typing~\cite{rizzo2014}, word sense disambiguation (WSD)~\cite{babelfy} and relation extraction~\cite{FOX}.
 These categories of experiment types will be added to GERBIL in further versions, see Section~\ref{sec:currentNumbersForGERBIL}.
@@ -296,7 +296,7 @@ NERD-ML has a public webservice which is part of GERBIL\footnote{\url{http://ner
 
 
 %too long in comparision
-\item \textbf{KEA NER/NED}: This approach is the successor of the approach introduced in~\cite{Steinmetz2013} which is based on a fine-granular context model taking into account heterogeneous text sources %, as e.g. user tags, natural language texts, 
+\item \textbf{KEA NER/NED}: This approach is the successor of the approach introduced in~\cite{steinmetz-n-2013-statistical} which is based on a fine-granular context model taking into account heterogeneous text sources %, as e.g. user tags, natural language texts, 
 as well as text created by automated multimedia analysis. %, as e.g. automated speech recognition, optical character recognition, or visual concept detection. 
 The source texts can have different levels of accuracy, completeness, granularity and reliability which influence the determination of the current context. 
 Ambiguity is solved by selecting entity candidates with the highest level of probability according to the predetermined context. 
@@ -320,7 +320,7 @@ Additionally, the library can be used as a D2KB-only system by feeding appropria
 The authors published datasets\footnote{\url{https://github.com/AKSW/n3-collection}} along with their source code and an API\footnote{\url{https://github.com/AKSW/AGDISTIS}}.
 AGDISTIS can only be used for the D2KB task.
 
-\item \textbf{Babelfy}: The core of this approach lies in the use of random walks and a densest subgraph algorithm to tackle the word sense disambiguation and entity linking tasks in a multilingual setting~\cite{babelfy} thanks to the BabelNet semantic network~\cite{NavigliPonzetto:12aij}.
+\item \textbf{Babelfy}: The core of this approach lies in the use of random walks and a densest subgraph algorithm to tackle the word sense disambiguation and entity linking tasks in a multilingual setting~\cite{babelfy} thanks to the BabelNet semantic network~\cite{babelnet}.
 Babelfy has been evaluated using six datasets: three from earlier SemEval tasks \cite{pradhan2007semeval,NavigliLH:2007,Naviglietal:13}, one from a Senseval task \cite{snyder2004english} and two already used for evaluating AIDA \cite{AIDA,HoffartSNTW:2012}.
 All of them are available online but distributed throughout the web. 
 Additionally, the authors offer a webservice limited to 100 requests per day which are extensible for research purposes\footnote{\url{http://babelfy.org}} \cite{BabelfyAPI}.
@@ -356,7 +356,7 @@ However, these algorithms as well as upcoming annotation systems can be integrat
 \cite{TagMe2}						&TagMe 2           	& \haken                 & \haken	& SA2KB\\
 \cite{AIDA}							&AIDA                	& \haken                 & (\haken)	& SA2KB\\
 %&van Erp?                                &                         & ?                         &\\
-\cite{Steinmetz2013}			&KEA                	&                         		& \haken	& SA2KB\\
+\cite{steinmetz-n-2013-statistical}			&KEA                	&                         		& \haken	& SA2KB\\
 \cite{piccinno2014tagme}	&WAT            		&                         		& \haken 	& SA2KB\\
 \cite{agdistis_iswc}				&AGDISTIS           & (\haken)               & \haken	& D2KB\\
 \cite{babelfy}						&Babelfy              &                         		& \haken	& SA2KB\\
