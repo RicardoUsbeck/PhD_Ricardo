@@ -1,6 +1,6 @@
 \chapter{Related Work}
 
-\graffito{This chapter introduces the state of the art in the research areas related to this thesis. This overview is based on the publications	\cite{rex,qasurvey, pool-foundations-lod,n3, gerbil_dev_2015,CETUS_2015, combiningLDandIR, HAWK_CLEF_2015, agdistis_ecai,agdistis_iswc, agdistisdemo,HAWK_NLIWOD_2015, hawk_2015, gerbil_demo_2015, GERBIL}}
+\graffito{This chapter introduces the state of the art in the research areas related to this thesis. This overview is based on the thesis author's publications	\cite{rex,qasurvey, pool-foundations-lod,n3, gerbil_dev_2015,CETUS_2015, combiningLDandIR, HAWK_CLEF_2015, agdistis_ecai,agdistis_iswc, agdistisdemo,HAWK_NLIWOD_2015, hawk_2015, gerbil_demo_2015, GERBIL}. Especially, the \ac{QA} survey~\cite{qasurvey} was co-authored by the author of this thesis.}
 
 
 In this chapter, we give an overview of related research required to bridge the Semantic Gap, i.e., the areas of \ac{RDF} type annotation, \ac{NED} and extraction of semantic data from templated websites, as well as the Evaluation Gap and the Information Gap.
@@ -18,7 +18,7 @@ In difference to CETUS' patterns, the Hearst Patterns have been extracted from a
 As described in Section~\ref{sec:patternExt}, our patterns are defined for matching text parts describing the type relation of a given entity and have been created manually during an iterative, incremental process.
 
 Another approach is FRED~\cite{fred_typing}, which is a machine reader, i.e., a holistic approach towards representing a whole text as \ac{RDF}. 
-Here, FRED reuses various tools like Boxer~\citep{Bos:2008:WSA:1626481.1626503} and TagMe2~\cite{TagMe2} to be able to spot not only the common types like person, organizations and places but also events.
+Here, FRED reuses various frameworks like Boxer~\citep{Bos:2008:WSA:1626481.1626503} and TagMe2~\cite{TagMe2} to be able to spot not only the common types like person, organizations and places but also events.
 
 The third challenge participant was implemented by Gao et al.~\cite{oak_sheffield}. 
 Their unsupervised system for entity typing is based on a rich feature set, e.g., words, named entities, gazetteer tokens and semantic distance, to identify the type evidence string. 
@@ -63,9 +63,9 @@ Specifically, this approach uses dense sub-graphs to identify coherent mentions 
 Additionally, AIDA disambiguates w.r.t.~similarity of contexts, prominence of entities and context windows.
 
 Another approach is DBpedia Spotlight~\cite{spotlight}, a framework for annotating and disambiguating \ac{LD} resources in arbitrary texts.
-In contrast to other tools, Spotlight is able to disambiguate against all classes of the DBpedia ontology.
+In contrast to other approaches, Spotlight is able to disambiguate against all classes of the DBpedia ontology.
 Furthermore, it is well-known in the \ac{LD} community and used in various projects showing its wide-spread adoption.\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Known-uses}}
-Based on a vector-space model and cosine similarity DBpedia Spotlight is publicly available via a web service\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Web-service}}.
+Based on a vector-space model and cosine similarity DBpedia Spotlight is publicly available via a Web service\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Web-service}}.
 
 In 2012, Ferragina et al. published a revised version of their disambiguation system called TagMe 2.
 The authors claim that it is tuned towards smaller texts,\,i.e., comprising around 30 terms.
@@ -99,13 +99,13 @@ We refer the reader to the publications above for an overview of these two resea
 \bigskip
 
 Furthermore, the main related research area is wrapper induction. 
-Early approaches to learning web wrappers were mostly supervised~\cite{flesca2004web,Hogue:2005:TAU:1060745.1060762}. 
+Early approaches to learning Web wrappers were mostly supervised~\cite{flesca2004web,Hogue:2005:TAU:1060745.1060762}. 
 These systems were provided with annotated pages out of which they infer extraction rules that allow extracting data from other unlabeled pages with the same structure as the annotated pages). 
 
 For example, Hogue et al.~\cite{Hogue:2005:TAU:1060745.1060762} presents {Tresher}, a supervised system that allows non-technical end-users to teach their browser how to extract data from the Web. 
 %The approach relies on labeled web pages and a distance function between DOM trees to generate extraction templates based on user annotations.
 %While remaining able to generate high-precision wrappers thanks to the human supervision, 
-Supervised approaches were yet deemed costly due to the human labor necessary to annotate the input web pages. 
+Supervised approaches were yet deemed costly due to the human labor necessary to annotate the input websites. 
 
 Unsupervised wrapper induction methods have thus been explored~\cite{exalg,DBLP:journals/aai/CrescenziM08} to reduce the annotation costs. 
 However, the absence of a supervision often lead these systems to produce wrappers of accuracy not suitable for production level usage.
@@ -122,10 +122,10 @@ However, these novel approaches do not target the generated of \ac{RDF} data.
 For example, Gentile et al.~\cite{Gentile2013} exploits \ac{LD} as a training data to find instances of given classes such as universities and extract the attributes of these instances while relying on the supervised wrapper induction approach presented by Hao et al.~\cite{Hao2011}. However, they require a manual exploration of the \ac{LD} sources to generate their training data, which leads to a considerable amount of manual effort.
 
 The {\sc Deimos} project~\cite{conf/aaaiss/ParundekarKA10} is similar to REX, as it aims at bringing to the Semantic Web the data that are published through the rest of the Web. 
-However, it focuses on the pages behind web forms.
+However, it focuses on the pages behind Web forms.
 
 
-OntoSyphon~\cite{DBLP:journals/ws/McDowellC08} operates in an ontology-driven manner: taking any ontology as input, OntoSyphon uses the ontology to specify web searches that identify possible semantic instances, relations, and taxonomic information, in an unsupervised manner. However, the approach makes use of extraction patterns that work for textual documents rather than structured web pages.
+OntoSyphon~\cite{DBLP:journals/ws/McDowellC08} operates in an ontology-driven manner: taking any ontology as input, OntoSyphon uses the ontology to specify Web searches that identify possible semantic instances, relations, and taxonomic information, in an unsupervised manner. However, the approach makes use of extraction patterns that work for textual documents rather than structured websites.
 
 To the best of our knowledge, none of the existing approaches covers all steps that are required to extract consistent \ac{RDF} from the Web. 
 Especially, only Parundekar et al.'s work~\cite{conf/aaaiss/ParundekarKA10} is able to generate \ac{RDF} but does not check it for consistency.
@@ -249,7 +249,7 @@ Underlying is a SPARQL generation process which means SINA is only capable of de
 
 
 {Treo}~\cite{treo} emphasis the connection between the semantic matching of input queries and the semantic distributions underlying \ac{KB}s.
-The tool provides an entity search, a semantic relatedness measure, and a search based on spreading activation.
+Treo provides an entity search, a semantic relatedness measure, and a search based on spreading activation.
 
 Recently, Peng et al.~\cite{DBLP:journals/corr/PengZZ14} describe an approach for hybrid \ac{QA} mapping keywords as well as resource candidates to modified SPARQL queries. 
 

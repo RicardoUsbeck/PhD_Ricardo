@@ -5,24 +5,24 @@ Most of this full-text data like blogs, news or encyclopaedic information is tex
 However, the increasing amount of structured respectively semantic data\footnote{\url{http://stats.lod2.eu/}} available on the Web fosters new search paradigms.
 These novel paradigms ease the development of natural language interfaces which enable end-users to easily access and benefit from large amounts of data without the need to understand the underlying structures or algorithms.
 
-Building a natural language \ac{QA} system over heterogeneous, web-based knowledge sources requires various building blocks.
-These blocks include knowledge extraction approaches over textual data such as blogs, news or product descriptions to capture the semantic meaning of a particular document.
-However, existing building blocks lack comparable evaluation settings, performance or quality. 
+Building a natural language \ac{QA} system over heterogeneous, Web-based knowledge sources requires various building blocks.
+These blocks include knowledge extraction approaches over textual data such as blogs, news, templated websites or product descriptions to capture the semantic meaning of a particular document.
+However, existing building blocks lack comparable evaluation settings, performance or quality.\footnote{The author will make use of the we-form as narrative.}
 
 In this thesis, three main research challenges are identified and addressed:
 \begin{enumerate}
 \item 
-The ongoing transition from the current \emph{Document Web} of textual data to the structured \emph{Web of Data} requires scalable and accurate approaches for the extraction of structured data in \ac{RDF} from web-based documents.
+The ongoing transition from the current \emph{Document Web} of textual data to the structured \emph{Web of Data} requires scalable and accurate approaches for the extraction of structured data in \ac{RDF} from Web-based documents.
 We address this key step for bridging the \emph{Semantic Gap}, i.e., extracting RDF from text, with three approaches.
 First, this thesis presents CETUS, an approach for recognizing entity types in textual documents to populate RDF knowledge bases. 
 Second, the knowledge base-agnostic, multi-lingual and efficient framework AGDISTIS can accurately detect the correct URIs for a given set of named entities.
 Third, the scalable extraction of consistent \ac{RDF} data from highly templated websites is tackled by the novel framework REX.
 \item 
-The need to bridge between the textual Document Web and the structured data on the Data Web has led to the development of a considerable number of annotation tools. 
-However, these tools are currently hard to compare since the published evaluation results are calculated on diverse datasets and evaluated based on different measures
+The need to bridge between the textual Document Web and the structured data on the Web of Data has led to the development of a considerable number of annotation tools and frameworks. 
+However, these approaches are currently hard to compare since the published evaluation results are calculated on diverse datasets and evaluated based on different measures
 The resulting \emph{Evaluation Gap} is tackled by a novel set of benchmarking corpora as well as with GERBIL, an evaluation framework for semantic entity annotation. 
-The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation tools on multiple datasets.
+The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation approaches on multiple datasets.
 \item 
 The decentral architecture behind the Web has led to a distributed information landscape across data sources with varying structure. 
-To close the \emph{Informtion Gap},  this thesis introduces HAWK, a novel natural language search approach for hybrid \ac{QA} based on combining structured and textual data sources.
+To close the \emph{Informtion Gap},  we introduce HAWK, a novel natural language search approach for hybrid \ac{QA} based on combining structured and textual data sources.
 \end{enumerate}

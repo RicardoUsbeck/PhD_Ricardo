@@ -1,6 +1,6 @@
 \chapter{REX: Web-Scale Extension of RDF Knowledge Bases from Templated Websites}
 \label{cha:rex}
-\graffito{This chapter introduces REX, a web-scale extraction framework for semantic data from templated websites which was presented in~\cite{rex}. The author of this thesis was the main author together with Lorenz Bühmann and co-implemented as well as evaluated this novel approach.}
+\graffito{This chapter introduces REX, a Web-scale extraction framework for semantic data from templated websites which was presented in~\cite{rex}. The author of this thesis was the main author of the corresponding publication~\cite{rex} together with Lorenz Bühmann and co-implemented as well as evaluated this novel approach.}
 
 
 
@@ -13,11 +13,11 @@ This lack of coverage is mainly due to the way the data available on the \ac{LOD
 Most commonly, the data in the \ac{LOD} Cloud originates from one of two types of sources: structured data (especially databases such as Drugbank,\footnote{\url{http://www.drugbank.ca}} Diseasome,\footnote{\url{http://diseasome.eu}} etc.)~and semi-structured data sources, e.g., data extracted from the Wikipedia\footnote{\url{http://wikipedia.org}} infoboxes. 
 Furthermore, approaches like CETUS (Chapter~\ref{cha:cetus} and  AGDISTIS (Chapter~\ref{cha:agdistis} provide further means to extract high-quality \ac{RDF} data from unstructured text but are not yet widely to construct \ac{KB}s.
 
-While generating \ac{RDF} triples from structured data (especially databases) is well supported by tools such as Triplify~\cite{triplify_www}, D2R~\cite{Bizer04} and SPARQLMap~\cite{unbehauen-jist-2012-sparqlmap}
+While generating \ac{RDF} triples from structured data (especially databases) is well supported by systems such as Triplify~\cite{triplify_www}, D2R~\cite{Bizer04} and SPARQLMap~\cite{unbehauen-jist-2012-sparqlmap}
 , devising automatic means to generate \ac{RDF} from semi-structured data is a more challenging  problem. 
 Currently, this challenge is addressed by ad-hoc or manual (e.g., community-driven) solutions. 
 For example, the well-known DBpedia~\cite{dbpedia-swj} provides a mapping wiki\footnote{\url{http://mappings.dbpedia.org}} where users can explicate how the content of infoboxes is to be transformed into \ac{RDF}. 
-On the one hand, manual approaches offer the advantage of leading to high-precision data; on the other hand, they suffer of a limited recall because of the small number of web sources from which the data is extracted. 
+On the one hand, manual approaches offer the advantage of leading to high-precision data; on the other hand, they suffer of a limited recall because of the small number of Web sources from which the data is extracted. 
 For example, DBpedia only contains a fraction of the movies that were published over the last years because it was extracted exclusively from Wikipedia.
 %\footnote{\url{http://wikipedia.org}} 
 Moreover, the same  \ac{KB} only contains a fraction of the cast of some of the movies it describes.
@@ -27,9 +27,9 @@ We introduce REX, an open-source framework for the extraction of \ac{RDF} from h
 Thus, REX is a complementary approach to CETUS and AGDISTIS to handle the extraction of semantic, structured data  from highly-structured websites without a lot of unstructured text elements.
 %\todo[inline]{From the rebuttal: mention the API they have, and that we are aware of them}
 %With REX which we aim to facilitate reduce the gap between the content of the document Web and the content of the Data Web
-REX addresses the extraction of \ac{RDF} from templated websites by providing a modular and extensible architecture for learning XPath\footnote{\url{https://www.w3.org/TR/xpath-31/}} wrappers and extracting consistent \ac{RDF} data from these web pages.
+REX addresses the extraction of \ac{RDF} from templated websites by providing a modular and extensible architecture for learning XPath\footnote{\url{https://www.w3.org/TR/xpath-31/}} wrappers and extracting consistent \ac{RDF} data from these Web pages.
 Our framework is thus complementary to \ac{RDF} extraction frameworks for structured and unstructured data.
-While REX targets the extraction of \ac{RDF} from templated websites in its current version, the architecture of the framework is generic and allows for creating versions of the tool that can extract \ac{RDF} from other sources on websites, for example from unstructured data or from the billions of tables available on the Web.
+While REX targets the extraction of \ac{RDF} from templated websites in its current version, the architecture of the framework is generic and allows for creating versions of the system that can extract \ac{RDF} from other sources on websites, for example from unstructured data or from the billions of tables available on the Web.
 Our framework has the following features:
 \begin{enumerate}
 \item \textbf{Extensibility}: Our framework is open-source, available under the MIT license and can thus be extended and used by any third party;
@@ -56,13 +56,13 @@ The contributions of this paper are consequently as follows:
 \item We present a novel wrapper induction approach for the extraction of subject-object pairs from the Web.
 \item Our approach integrates state-of-the-art disambiguation and schema induction techniques to retrieve high-quality \ac{RDF}. 
 \item We evaluate the first version of REX on three datasets and present both the strengths and weaknesses of our approach.
-\item Overall, we present the (to the best of our knowledge) first web-scale, low-cost, accurate and consistent framework that allows extracting \ac{RDF} from structured websites.
+\item Overall, we present the (to the best of our knowledge) first Web-scale, low-cost, accurate and consistent framework that allows extracting \ac{RDF} from structured websites.
 \end{itemize}
 
 The rest of this chapter is organized as follows. 
 In Section~\ref{sec:notation}, we introduce the notation that underlies this paper and the problems that we tackle. 
 Section~\ref{sec:rex} presents the architecture of REX in more detail as well as the current implementation of each of its components.
-In particular, we illustrate our approach to generate examples from a  \ac{KB} $K$ and we show our algorithm to learn web wrappers from such examples.
+In particular, we illustrate our approach to generate examples from a  \ac{KB} $K$ and we show our algorithm to learn Web wrappers from such examples.
 Subsequently, we give an overview of AGDISTIS~\cite{agdistis_iswc}, see Chapter~\ref{cha:agdistis}, which we use to address the problem of URI disambiguation. 
 Finally, we describe our current solution to ensuring the validity of the data generated by REX. 
 In Section~\ref{sec:evaluation} we present the results of REX on 3 datasets, each containing at least 10,000 pages. 
@@ -82,7 +82,7 @@ Based on this formalisation, we can define the problem that REX addresses as fol
 %\item 
 a predicate $p$ that is contained in a  \ac{KB} $K$ 
 %\item 
-and (2) a set of unlabeled web pages $W = \{w_1, w_2, \ldots, w_{|W|}\}$,
+and (2) a set of unlabeled Web pages $W = \{w_1, w_2, \ldots, w_{|W|}\}$,
 %\end{enumerate}
 extract a set of triples $<s_i, p, o_i>$ from the websites of $W$.
 Several tasks have to be addressed and solved to achieve this goal within the paradigm that we adopt: %machine-learning paradigm automatically supervised with knowledge from the \ac{LOD} Cloud that we adopt.
@@ -101,13 +101,13 @@ Several tasks have to be addressed and solved to achieve this goal within the pa
 %Given a set of examples ${\examples}$ for the predicate $p$ from a knowledge base $K$, ${\examples} = \{(s,o):\ <s,p,o> \in K\}$
 We first require an approach for extracting pairs of resource labels out of unlabelled pages $w_i$. 
 We tackle this problem by means of a wrapper induction algorithm (see~Section~\ref{alfred}). 
-We assume that we are given (1) a set ${\examples} \subseteq \{(s,o):\ <s,p,o> \in K\}$ of positive examples for a predicate $p$ from Linked Data and (2) a set of web pages $W$ without any labeling. 
-Our aim is to generate high-quality wrappers, expressed as pairs of XPath expressions over these unlabeled web pages $W$, that extract a pair of values from each page.
+We assume that we are given (1) a set ${\examples} \subseteq \{(s,o):\ <s,p,o> \in K\}$ of positive examples for a predicate $p$ from Linked Data and (2) a set of Web pages $W$ without any labeling. 
+Our aim is to generate high-quality wrappers, expressed as pairs of XPath expressions over these unlabeled Web pages $W$, that extract a pair of values from each page.
 %Note that this is the core task to address the problem.
 %\todo[inline]{WR at hand. Axel: What does this mean?}
 %\todo[inline]{RU: leave out the distinction between positive and negative examples? so reviewers are not confused. AN: Cannot find a mention of negative examples }
 \paragraph{Problem 2:}
-Once the  pairs of values have been extracted from web pages, we need to ground them in the  \ac{KB} $K$. 
+Once the  pairs of values have been extracted from Web pages, we need to ground them in the  \ac{KB} $K$. 
 In this context, grounding means that for each value extracted by our solution to Problem 1 we have to either (1) find a matching resource or (2) generate a novel resource or literal for this particular value. 
 We address this challenge by using a URI disambiguation approach that combines breadth-first search and graph algorithms to determine a resource that matches a given string. 
 If no URI is found, our approach generates a new resource URI (see~Section~\ref{urigen}). 
@@ -129,7 +129,7 @@ Moreover, we provide means to use RDFS inference to ensure that new knowledge fr
 In the following, we present REX, an integrated  solution to the three problems presented above.
 We begin by giving an overview of its architecture.
 Then, we present each of its components.
-As running example, we use the extraction of movie directors from web pages.
+As running example, we use the extraction of movie directors from Web pages.
 
 \subsection{Overview}
 Figure~\ref{charex:fig:architecture} gives an overview of REX. 
@@ -137,7 +137,7 @@ All modules are interfaces, for which we provide at least one implementation.
 Hence, REX can be ran out of the box.
 Given a predicate $p$ and a  \ac{KB} $K$, REX provides a domain identification interface, which allows for detecting Web domains which pertain to this predicate.
 For example, the predicate \texttt{dbo:actor} leads to the domain \url{http://imdb.com} being retrieved.
-From this domain,  a set $W$ of web pages can be retrieved by using a \emph{crawler}.
+From this domain,  a set $W$ of Web pages can be retrieved by using a \emph{crawler}.
 The results of the crawling are stored in a solution for unstructured data, for example an index. 
 REX then generates a set of examples using an instantiation of the \emph{example generator} interface. 
 The goal here is to generate a sample $\examples$ of all elements of $pairs(p, K)$ that allows learning high-quality pairs of XPath expressions. 
@@ -161,7 +161,7 @@ The top-10 domains for each triple are selected and their rank is averaged over 
 The resulting ranking is returned. 
 Moreover, we provide a manual domain identification module for expert users.
 For our example \texttt{dbo:actor}, we get \url{http://imdb.com} as top-ranked domain.
-The second component consists of a \emph{crawler interface} which allows to gather the web pages that are part of the detected domain and collect them in a storage solution for unstructured data.
+The second component consists of a \emph{crawler interface} which allows to gather the Web pages that are part of the detected domain and collect them in a storage solution for unstructured data.
 Currently, we rely on crawler4j\footnote{\url{https://code.google.com/p/crawler4j/}} for crawling and Apache Lucene\footnote{\url{http://lucene.apache.org/}} for storing the results of the crawling.  
 
 \subsection{Storage Layer}
@@ -174,7 +174,7 @@ As stated above, we rely on a Lucene index that can access the labels of resourc
 The induction layer uses the data in the storage layer to compute wrappers for the website crawled in the first step.
 To this end, it contains two types of modules:
 The \emph{example generation} module implements sampling algorithms that are used to retrieve examples of relevant pairs $(s, o)$ such that $(s, p, o) \in K$. 
-These examples are used to feed the \emph{wrapper induction} module, which learns the wrappers that are finally used to extract data from web pages.
+These examples are used to feed the \emph{wrapper induction} module, which learns the wrappers that are finally used to extract data from Web pages.
 Hereafter, we present the implementations of these modules.
 
 \subsubsection{Generation of Examples}
@@ -182,7 +182,7 @@ Given a  \ac{KB} $K$, the generation of all examples $\examples$ for a predicate
 However, using all triples might lead to poor scalability, especially if $K$ is very large.
 To ensure the scalability of our approach, we thus aimed to ensure that we can provide REX with only a sample of $\examples$ and thus reduce its learning runtime without diminishing its accuracy.  
 Our first intuition was that it is more likely to find resources that stand for well-known real-world entities on the Web. 
-Thus, by selecting the most prominent examples from the knowledge $K$, we should be able to improve the probability of finding web pages that contain both the subject and the object of our examples. 
+Thus, by selecting the most prominent examples from the knowledge $K$, we should be able to improve the probability of finding Web pages that contain both the subject and the object of our examples. 
 This intuition can be regarded as prominence-driven, as it tries to maximize the number of annotated pages used for learning. 
 We implemented this intuition to generating a sample of $\examples$ by implementing a first version of the example generator that ranks the examples $(s, o)$ in $\examples$ in descending order by how prominent they are in the  \ac{KB}. The score $scr$ for ranking the examples was computed by summing up the in- and out-degree of $s$ and $o$:
 \begin{equation}
@@ -192,7 +192,7 @@ We call this example selection \emph{prominence-based}.
 
 The main drawback of this first intuition is that it introduces a skew in the sampling as we only consider a subset of entities with a particular distribution across the pages in $W$. 
 For example, actors in IMDB have different templates depending on how popular they are. 
-Learning only from popular actors would then lead to learning how to extract values only from web pages obeying to particular type of HTML template. 
+Learning only from popular actors would then lead to learning how to extract values only from Web pages obeying to particular type of HTML template. 
 %Thus, as our experiments show, while this approach achieves a high recall when looking for web pages, it can lead to incorrect wrappers if only a small subset of $P$ is selected for learning.
 %maybe we should write here that the correction of this bias is carried out by the learning appraoch?
 While this problem can be by choosing a large number of examples, we revised our sampling approach to still use the ranking but to sample evenly across the whole list of ranked resources. 
@@ -326,7 +326,6 @@ Thus, we expected the results on this dataset to be typical for the worst-case b
 %Since all domains support incremental URLs we randomly sampled valid numbers in the respective range of valid URLs. 
 We randomly sampled 10,000 HTML pages per subdomain for our experiments and manually built reference XPath expressions to evaluate the precision and recall of the generated extraction rules. 
 The precision, recall and F-measure reported below were computed by comparing the output of REX with the output of the reference XPath expressions.
-\todo[inline]{@Axel: Keep such information as below?}
 All extraction runtime experiments were carried out on single nodes of an Amazon EC2.small instance.
 
 %\todo[inline]{State that some of the used properties are uni-directional}
@@ -401,7 +400,7 @@ As expected, the coverage achieved using uniform sampling is clearly smaller in 
 %However, when running on an automatically extracted  \ac{KB} or on a large set of examples, the prominence-based distribution should be used.
 %An exact quantification of this behavior remains part of our future work.
 The results achieved with all the training data available clearly show the importance of sampling, see Table~\ref{tab:overall}. 
-While one could conjecture that using all data for training would be beneficial for our approach, the F-measures achieved by using all the data suggest that sampling can be beneficial for the extraction, especially when the web pages do not follow a rigid template, e.g., in \url{esnpfc.com}, or when the data in the  \ac{KB} is noisy. 
+While one could conjecture that using all data for training would be beneficial for our approach, the F-measures achieved by using all the data suggest that sampling can be beneficial for the extraction, especially when the Web pages do not follow a rigid template, e.g., in \url{esnpfc.com}, or when the data in the  \ac{KB} is noisy. 
 Overall, our results suggest that our approach is accurate, also for pages where entities with different prominence are assigned variable templates as in \url{imdb.com} actors. 
 If multiple occurrences of the same value are present in the same page (as in the case of books, actors and directors), our algorithm is able to detect the most stable one.
 Moreover, our approach seems robust against noisy labels, even when there are many false positive in the page (e.g., book author pages that include many links to different books by the same author).

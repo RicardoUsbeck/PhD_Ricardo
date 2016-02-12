@@ -1,13 +1,13 @@
 \chapter{HAWK -- Hybrid Question Answering using Linked Data}
 \graffito{
-HAWK has been developed to bridge the gap between unstructured and structured knowledge bases in question answering. 
-The approach is published in~\cite{HAWK_CLEF_2015,HAWK_NLIWOD_2015,hawk_2015}.
+HAWK has been developed to bridge the gap between unstructured and structured knowledge bases in \ac{QA}. 
+The approach is described by the corresponding publications~\cite{HAWK_CLEF_2015,HAWK_NLIWOD_2015,hawk_2015} mainly authored by the thesis author.
 HAWK won the 2nd price at the \ac{QALD} challenge, task 2 2015.
 }
 \label{cha:hawk}
-Recent advances in \ac{QA} over \ac{LD} provide end users with more and more sophisticated tools for querying \ac{LD} by allowing users to express their information need in natural language~\cite{SINA_WebSemantic,pythia,template}. 
+Recent advances in \ac{QA} over \ac{LD} provide end users with more and more sophisticated systems for querying \ac{LD} by allowing users to express their information need in natural language~\cite{SINA_WebSemantic,pythia,template}. 
 This allows access to the wealth of semantic data available on the Semantic Web also to non-experts and users unaware of the underlying schema. 
-Linked Data eases the access to structured and semantic meaningful information than unstructured web documents.
+Linked Data eases the access to structured and semantic meaningful information than unstructured Web documents.
 However, a lot of information is still available only in textual form, both on the Document Web and in the form of labels and abstracts in \ac{LD} sources~\cite{GER+13}.
 Therefore, a considerable number of questions can only be answered by using hybrid question answering approaches, which  can find and combine information stored in both structured and textual data sources~\cite{combiningLDandIR}.
 
@@ -31,7 +31,7 @@ Our main contributions can be summarized as follows:
  \item The modular architecture of HAWK allows simple exchanging of pipeline parts to enhance testing and deployment;
  %\item HAWK's implementation is open-source under MIT License\footnote{\url{https://github.com/AKSW/hawk}};
  \item Our evaluation suggests that HAWK is able to achieve F-measures of 0.61 on rather small training datasets.
- \item We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation tools on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
+ \item We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation frameworks on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
  \item Furthermore, HAWK can generate SPARQL queries using \texttt{ASK}. Our results show that these developments lead to HAWK achieving 0.74 F-measure on the ASK queries contained in the Question Answering over Linked Data (\ac{QALD}-5) hybrid query benchmark~\cite{qald5} assuming an given optimal ranking function.
  \end{itemize}
 
@@ -70,17 +70,17 @@ Currently, we rely on \emph{clearNLP}~\cite{choi2011getting} which is a fast and
 %We rely on \emph{clearNLP}~\cite{choi2011getting} which is based on transition-based dependency parsing and sophisticated segmentation algorithm.
 
 \subsection{Entity Annotation}
-HAWK identifies named entities and tries to link them to semantic entities from the underlying knowledge base, in our case DBpedia 2014\footnote{Status of May 2015. The dataset choice is influenced by the benchmark requirements.}, via well-established entity annotation tools, also called entity tagging tools:
+HAWK identifies named entities and tries to link them to semantic entities from the underlying knowledge base, in our case DBpedia 2014\footnote{Status of May 2015. The dataset choice is influenced by the benchmark requirements.}, via well-established entity annotation frameworks, also called entity tagging tools:
 \begin{itemize}
 \item \textbf{Wikipedia Miner}~\cite{milne2008learning} is based on different facts like prior probabilities, context relatedness and quality, which are then combined and tuned using a classifier.
 \item \textbf{DBpedia Spotlight}~\cite{spotlight} %, one of the first semantic entity annotation approaches, 
 was published in 2011. 
-This tool combines named entity recognition and disambiguation based on DBpedia.
+This system combines named entity recognition and disambiguation based on DBpedia.
 \item \textbf{TagMe 2}~\cite{TagMe2} is based on a directory of links, pages and an inlink graph from Wikipedia.
 The approach recognizes entities by matching terms with Wikipedia link texts and disambiguates the match using the in-link graph and the page dataset.
 %Afterwards, TagMe 2 prunes identified named entities which are considered as non-coherent to the rest of the named entities in the input text.  
 \item \textbf{FOX}~\cite{FOX} has been introduced 2014 as an ensemble learning-based approach combining several state-of-the-art named entity recognition approaches. 
-The FOX framework outperforms the current state of the art entity recognizers and relies on the entity linking tool AGDISTIS~\cite{agdistis_iswc}.
+The FOX framework outperforms the current state of the art entity recognizers and relies on the entity linking framework AGDISTIS~\cite{agdistis_iswc}.
 \end{itemize}
 Additionally, we implemented two artificial spotters for evaluation:
 \begin{itemize}
@@ -294,7 +294,7 @@ Without this correction HAWK's F-measure shrinks to nearly zero for questions co
 In the following, we analyze error sources in HAWK based on the training queries failing to reach a higher F-measure.
 Table~\ref{tab:trainqueries} shows for each entity search question from the training dataset its evaluation results.
 \begin{itemize}
-\item \textbf{Entity Annotation: } Queries 1, 11 and 15 cannot be answered by HAWK due to failing entity annotation. None of the tested annotation tools was able to either find the resources  \texttt{Jane\_T.\_Austion} nor \texttt{G8} or \texttt{Los\_Alamos}. 
+\item \textbf{Entity Annotation: } Queries 1, 11 and 15 cannot be answered by HAWK due to failing entity annotation. None of the tested annotation systems was able to either find the resources  \texttt{Jane\_T.\_Austion} nor \texttt{G8} or \texttt{Los\_Alamos}. 
 Without matching entity annotations a full-text search retrieves too many matches for reaching high precision values on limited result set.
 \item \textbf{Missing type information:} Some of the resources of the gold standard do not have appropriate type information leading to a high amount of queries that need to be ranked correctly.
 \item \textbf{Query structure: } Queries like 11 or 15 inherit complex query structures leading to a multitude of interpretations while generating the SPARQL query graph.
@@ -306,7 +306,7 @@ Without matching entity annotations a full-text search retrieves too many matche
 \subsection{QALD-5 Benchmark}
 Similar to QALD-4, the \ac{QALD}-5 benchmark has a training and a test dataset for question answering containing a subset of hybrid benchmark questions.
 Due to the above mentioned restrictions, the \ac{QALD}-5 dataset contains 26 training, respectively 8 test questions, suitable for the current implementation of HAWK.
-Using the online available evaluation tool\footnote{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald/index.php?x=evaltool&q=5}}, Table~\ref{tab:eval_qald5} shows the results for the training and test dataset as well as well as for all three ranking approaches.
+Using the online available evaluation system{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald/index.php?x=evaltool&q=5}}, Table~\ref{tab:eval_qald5} shows the results for the training and test dataset as well as well as for all three ranking approaches.
 Please note, the training data  for the feature-based ranker was taken from \ac{QALD}-4.
 \begin{table}[htb!]
 \centering

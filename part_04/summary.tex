@@ -16,7 +16,7 @@ The development of an efficient information access leveraging natural language t
 
 First, we presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
 Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---were explained in detail.
-We showed how CETUS$_{YAGO}$ uses label matching to determine a super-type for automatically generated classes while CETUS$_{FOX}$ is based on one of the various, existing entity typing tools.
+We showed how CETUS$_{YAGO}$ uses label matching to determine a super-type for automatically generated classes while CETUS$_{FOX}$ is based on one of the various, existing entity typing frameworks.
 After the initial publication, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
 CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} by achieving a  micro resp. macro F-measure(F1) of 0.47 resp. 0.45, therewith winning task 2~\cite{okechallenge}.	
 
@@ -32,9 +32,9 @@ Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~
 Finally, we tackled semi-structured data sources by aiming to extract \ac{RDF} from highly-templated websites. 
 REX is the first framework for the consistent extraction of \ac{RDF} from templated Web pages. 
 This approach is available as open-source Java implementation and can be extended at will.
-Our framework uses the \ac{LOD} Cloud as source for training data that are used to learn web wrappers. 
-The output of these wrappers is used to generate \ac{RDF} by the means of a URI disambiguation step as well as a data validation step.
-%% Consistency checks??
+Our framework uses the \ac{LOD} Cloud as source for training data that are used to learn Web wrappers. 
+The output of these wrappers is used to generate \ac{RDF} by the means of a URI disambiguation step.
+Our framework also includes a consistency layer with which the data extracted by the wrappers can be checked for logical consistency~\cite{buhmann2012}.
 Our overall results show that we can extract subject-object pairs with a high accuracy from well-templated websites.
 
 Overall, our results suggest that this work was able to advance the state of the art by providing novel approaches for the scalable extraction of high-quality RDF data from unstructured text as well as for the enhancement of knowledge bases. 
@@ -43,8 +43,8 @@ The data resulting from these approaches can be (and partly is) used to feed the
 
 \subsection*{Evaluation Gap}
 
-As mentioned before, the need for high-quality and efficient RDF data extraction from any unstructured, semi- or structured data sources triggered the development of a multitude of tools. 
-Gaining an overview to decide on a specific tool for a specific use case or to analyze in detail the behavior of  a system towards a certain kind of data became increasingly difficult.
+As mentioned before, the need for high-quality and efficient RDF data extraction from any unstructured, semi- or structured data sources triggered the development of a multitude of approaches. 
+Gaining an overview to decide on a specific framework for a specific use case or to analyze in detail the behavior of  a system towards a certain kind of data became increasingly difficult.
 Hence, we wanted to bridge this Evaluation Gap to  support developers, decision makers and end users.
 First, we presented a novel, unstructured dataset collection to leverage reuse and and comparability dubbed $\mbox{N}^3$~\cite{n3}. 
 Second, we described and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
@@ -64,7 +64,7 @@ The datasets available for evaluation in the previous benchmarking platforms for
 Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
 The evaluation of our framework by contributors suggests that adding an annotator to GERBIL demands 1 to 2 hours of work. 
 Hence, while keeping the implementation effort previously required to evaluate on a single dataset, we allow developers to evaluate on (currently) \overalldatasets times more datasets.
-The presented, web-based frontend allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation tools.
+The presented, Web-based frontend allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation systems.
 
 The persistent URIs enhances the long term quotation in the field of information extraction.
 GERBIL is not just a new framework wrapping existing technology. 
@@ -113,7 +113,7 @@ Based on AGDISTIS and CETUS, we aim to develop a new paradigm for realizing \ac{
 
 
 %%%%REX
-While the former mentioned approaches worked well on unstructured data we also gained insights from REX, our scalable approach towards web-scale RDF extraction from templated websites. 
+While the former mentioned approaches worked well on unstructured data we also gained insights from REX, our scalable approach towards Web-scale RDF extraction from templated websites. 
 With REX, we studied several sampling strategies and how they affect the F-measure achieved.
 A lot of work still needs to be done in the area of grounding these strings into an existing ontology.
 One solution to this problem might be to use more context information during the disambiguation step.
@@ -128,7 +128,7 @@ We thus regard these frameworks as a basis for populating the Web of Data using 
 
 $\mbox{N}^3$ has shown to be useful to a number of approaches and especially for testing within the GERBIL framework. 
 However, the enlargement of the corpora and the improvement of their quality through the community are major issues that need to be worked on. 
-Gaining insights into the behavior of semantic annotation tools requires a larger dataset.
+Gaining insights into the behavior of semantic annotation frameworks requires a larger dataset.
 Furthermore, converting more existing datasets to NIF and re-bundle them in order to provide even more insightful NER and NED benchmarks is the next step of research in this area.
 
 
@@ -137,12 +137,12 @@ For example, the formal specification underlying current benchmarking frameworks
 To address this problem, we aim to develop/implement novel measures into GERBIL that make use of scores (e.g., Emerging Entities~\cite{Hoffart:2014:DEE:2566486.2568003}).
 Moreover, partial results are not considered within the evaluation. 
 For example, during the disambiguation task, named entities without Wikipedia URIs are not considered. 
-This has a significant impact of the number of true and false positives and thus on the performance of some tools.
+This has a significant impact of the number of true and false positives and thus on the performance of some systems.
 Furthermore, certain tasks seem to be too coarse. 
-For example, we will consider splitting the Sa2KB and the A2KB tasks into two subtasks: The first subtask would measure how well tools perform at finding named entities inside the text (\ac{NER} task) while the second would evaluate how well tools disambiguate those named entities which have been found correctly (similar to the D2KB task).
+For example, we will consider splitting the Sa2KB and the A2KB tasks into two subtasks: The first subtask would measure how well systems perform at finding named entities inside the text (\ac{NER} task) while the second would evaluate how well systems disambiguate those named entities which have been found correctly (similar to the D2KB task).
 Those issues are addressed in current GERBIL releases, see Section~\ref{sec:currentNumbersForGERBIL}. 
 In future work, we also aim to provide a new theory for evaluating annotation systems and display this information in the GERBIL interface.
-Also, we plan to provide information about the point in time since when an annotator is stable, i.e., the algorithm underlying the webservice has not changed.
+Also, we plan to provide information about the point in time since when an annotator is stable, i.e., the algorithm underlying the Web service has not changed.
 GERBIL has sparked the idea for the successful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform.\footnote{\url{http://project-hobbit.eu/}} 
 
 
@@ -150,7 +150,7 @@ GERBIL has sparked the idea for the successful Horizon 2020 proposal HOBBIT and 
 
 Providing natural language access to hybrid data sources with HAWK led to an in-depth error analysis and thus captured future open research directions.
 
-Currently, HAWK faces several limitations, such as not always being able to capture the exact semantics of certain resources due to missing dictionary entries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}) or compound questions. 
+Currently, HAWK faces several limitations, such as not always being able to capture the exact semantics of certain resources due to missing dictionary entries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}). 
 The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. 
 
@@ -166,4 +166,8 @@ HAWK will be a starting point for the Eurostars projects DIESEL\footnote{\url{ht
 
 Overall, this thesis is the first stepping stone towards a longer and exciting research direction. 
 Developing novel, scalable and adaptable \ac{QA} technologies using any kind of existing data will be at the center of considerations.
+Providing means for an data-agnostic information access for every kind of user is about to be one driving factors of future research. 
+We are convinced by the ongoing digitization of smart devices and sensors to be on the border to the next information access paradigm.  
 For example, personal data-driven assistant systems for researchers, mechanics, tourists and even crisis managers lie  ahead and point out thrilling fields of future work.
+Those systems need a thorough understanding of semantics from data as well as from human natural language. 
+By creating the basic technologies, we foresee the development of dialog-driven \ac{QA} systems for faster, more precise and high-quality knowledge access.

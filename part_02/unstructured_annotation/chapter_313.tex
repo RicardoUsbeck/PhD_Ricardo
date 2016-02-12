@@ -2,8 +2,8 @@
 \label{cha:cetus}
 \graffito{
 This chapter presents CETUS, a pattern-based approach for annotating \ac{RDF} type information to entities.
-CETUS has won the OKE challenge 2015~\cite{okechallenge}, task 2, and is published in~\cite{CETUS_2015}.
-The author of this thesis assisted the main author in programming, co-wrote the paper and its poster. 
+CETUS has won the OKE challenge 2015~\cite{okechallenge}, task 2, and is published in the corresponding article~\cite{CETUS_2015}.
+The author of this thesis assisted the main author in programming, co-wrote the paper~\cite{CETUS_2015} and presented its poster. 
 }
 
 
@@ -12,13 +12,13 @@ That is, most known tool chains recognize entities based on linguistic models an
 So far, linking novel entities has only been the concern of a few approaches~\cite{AIDA,agdistis_iswc}.
 Consequently, extracting type information for emerging and existing entities is a novel research avenue so far only tackled by the TAC KBP \ac{EL} challenge 2014\footnote{\url{http://nlp.cs.rpi.edu/kbp/2014/}}, the Micropost workshop series\footnote{\url{http://www.scc.lancs.ac.uk/microposts2015/}} and the OKE challenge 2015~\cite{okechallenge}.
 
-We present CETUS, a novel pattern based entity type extraction tool for identifying the type of a given entity inside a given text and linking this type to a \ac{KB}, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
+We present CETUS, a novel pattern based entity type extraction framework for identifying the type of a given entity inside a given text and linking this type to a \ac{KB}, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
 Here the subset refers to \texttt{dul:Person}, \texttt{dul:Place}, \texttt{dul:Organization} and \texttt{dul:Role}.
 CETUS' pipeline is divided into three subsequent parts: i) an a-priori pattern extraction, ii) a grammar-based analysis of the input document and iii) a mapping of the type evidence to the DOLCE+DnS Ultra Lite classes. 
 Our contributions are as follows:
 \begin{itemize}
 \item CETUS is a fast and easy to implement baseline approach to path a way to novel research insights.
-\item Our approach implements two approaches for the third step using the YAGO ontology as well as the FOX~\cite{FOX} \ac{NER} tool.
+\item Our approach implements two approaches for the third step using the YAGO ontology as well as the FOX~\cite{FOX} \ac{NER} framework.
 \item CETUS outperforms other apprroaches~\cite{okechallenge} w.r.t. the OKE challenge 2015 and thus is able to generate novel \ac{RDF} data from unstructured text.
 \end{itemize}
 
@@ -249,7 +249,7 @@ The linking of the generated classes to a \ac{KB} can be done in two different w
 Our first approach, CETUS$_{YAGO}$,  uses the labels of the automatically generated classes to find a matching class inside another, well-known \ac{KB}.
 CETUS uses the YAGO ontology~\cite{mahdisoltani2014yago3} which comprises a large class hierarchy and, thus, increases the chance to match one of these classes.
 YAGO itself contains more than 10 mio. entities and exceeds 350.000 classes.
-Our second approach serves as a baseline to our own approach and uses the FOX~\cite{FOX} tool.
+Our second approach serves as a baseline to our own approach and uses the FOX~\cite{FOX} framework.
 
 First, we created an index containing the surface forms of the YAGO classes with a mapping to the class URIs.
 Second, CETUS needs to match every generated class using the approach from Section~\ref{sec:docAnalysis} to one of the labels of the YAGO classes.
@@ -314,8 +314,8 @@ The result for our running example can be seen in Figure~\ref{fig:localYAGOHiera
 \end{figure}
 \section{Entity Type Linking using FOX}
 \label{sec:typeLinking}
-A second approach for a type extraction baseline is the usage of one of the various, existing entity typing tools.
-For our second version CETUS$_{FOX}$, we are using FOX, a \ac{NER} and typing tool based on ensemble learning over 8 different tools.
+A second approach for a type extraction baseline is the usage of one of the various, existing entity typing frameworks.
+For our second version CETUS$_{FOX}$, we are using FOX, a \ac{NER} and typing framewrok based on ensemble learning over 8 different tools.
 
 \begin{table}
 \centering
@@ -333,12 +333,12 @@ For our second version CETUS$_{FOX}$, we are using FOX, a \ac{NER} and typing to
 \label{tab:foxclassmatching}
 \end{table}
 
-CETUS$_{FOX}$ sends the given document to the FOX web-service for retrieving annotations.
+CETUS$_{FOX}$ sends the given document to the FOX Web service for retrieving annotations.
 If the entity inside the document is found and typed by FOX, the type is used to choose one of the four DOLCE+DnS Ultra Lite classes, see Table~\ref{tab:foxclassmatching}.
 The chosen class is used as super class for the automatically created classes.
 Unfortunately, FOX does not identify roles in its current version.
 
-With respect to our running example, the FOX tool marks "Albert Einstein" as a person.
+With respect to our running example, FOX marks "Albert Einstein" as a person.
 Thus, the created classes would be defined as subclasses of \texttt{dul:Person} as shown in Figure~\ref{fig:localFOXHierarchy}.
 
 

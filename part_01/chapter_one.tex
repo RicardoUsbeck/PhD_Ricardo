@@ -1,58 +1,55 @@
 \chapter{Introduction}
 \graffito{This chapter is partially based on the authors PhD symposium paper~\cite{combiningLDandIR} and presents the overall motivation, structure and scientific contribution of this thesis.}
 
-\todo[inline]{@Axel: Which tense?}
 \section*{Motivation}
 
-Since the proposal of hypertext by Tim-Berners Lee to his employer CERN on March 12, 1989\footnote{\url{http://www.w3.org/People/Berners-Lee/Longer.html}} the World Wide Web has grown more than one billion web pages and still grows\footnote{\url{http://www.internetlivestats.com/total-number-of-websites/}}.
+Since the proposal of hypertext by Tim-Berners Lee to his employer CERN on March 12, 1989\footnote{\url{http://www.w3.org/People/Berners-Lee/Longer.html}} the World Wide Web has grown more than one billion Web pages and still grows\footnote{\url{http://www.internetlivestats.com/total-number-of-websites/}}.
 With the later proposed Semantic Web vision~\cite{bernerslee2001semantic}, Lee et al. suggested an extension of the existing (Document) Web to allow better reuse, sharing and understanding of data.
 
 Both the Document and the implementation of the Semantic Web, the Web of Data, grow continuously. 
 This is a mixed blessing, as the two forms of the Web grow concurrently and most commonly contain different forms of information. 
-Modern information systems must thus bridge a \emph{Semantic Gap} to allow a holistic access to the Web. 
-One way to bridge the gap between the two forms of the Web is the extraction of structured data from the growing amount of unstructured and semi-structured information on the Document Web. 
+Modern information systems must thus bridge a \emph{Semantic Gap} to allow a holistic and unified access to information about a particular information independent of the representation of the data.
+One way to bridge the gap between the two forms of the Web is the extraction of structured data, i.e., \ac{RDF}, from the growing amount of unstructured and semi-structured information on the Document Web like news, blogs or respectively tables and XML.
 Note, that unstructured data stands for any type of textual information like news, blogs or tweets. 
 While extracting structured data from unstructured data allows the development of powerful information system, it requires high-quality and scalable knowledge extraction frameworks to lead to useful results. 
 
-The dire need for such approaches has led to the development of a multitude of annotation tools. 
-However, most of these tools are not evaluated on the same datasets or using the same measures.
-The resulting \emph{Evaluation Gap} needs to be tackled by a concise evaluation framework to foster fine-grained and uniform evaluations of annotation tools over any \ac{KB}s.
+The dire need for such approaches has led to the development of a multitude of annotation frameworks and tools. 
+However, most of these approaches are not evaluated on the same datasets or using the same measures.
+The resulting \emph{Evaluation Gap} needs to be tackled by a concise evaluation framework to foster fine-grained and uniform evaluations of annotation tools and frameworks over any \ac{KB}s.
 
-Moreover, with the growing amount of data and the ongoing decentralisation of knowledge, intuitive ways for non-experts to access this generated data are required. 
-Humans adapted their search behaviour to current Web data access paradigms by using keyword search so as to retrieve high-quality results. Hence, most Web users only expect Web documents in return~\cite{ilprints361}.
+Moreover, with the growing amount of data and the ongoing decentralization of knowledge, intuitive ways for non-experts to access this generated data are required. 
+Humans adapted their search behavior to current Web data access paradigms by using keyword search so as to retrieve high-quality results. Hence, most Web users only expect Web documents in return~\cite{ilprints361}.
 However, humans think and most commonly communicate their information needs  in their natural language rather than using keyword phrases~\cite{woods1973progress}. 
 Answering complex information needs often requires the combination of knowledge from various, differently structured data sources.
-We call the gap between natural-language questions and current keyword-based search paradigms the  \emph{Information Gap}.
-\ac{QA} systems provide an easy and efficient way to bridge this gap by allowing to query data via natural language, thus reducing (1) a possible loss of precision and (2) potential losts of time while reformulating the search intention to transform it into a machine-readable way.
-Furthermore, QA systems enable answering natural language queries with concise results instead of  links to verbose web documents. 
+We call the gap between natural-language questions and current keyword-based search paradigms, which in addition do not make use of the available structured and unstructured data sources, an \emph{Information Gap}.
+\ac{QA} systems provide an easy and efficient way to bridge this gap by allowing to query data via natural language, thus reducing (1) a possible loss of precision and (2) potential loss of time while reformulating the search intention to transform it into a machine-readable way.
+Furthermore, QA systems enable answering natural language queries with concise results instead of  links to verbose Web documents. 
 Additionally, they allow for the access  to and the combination of knowledge from heterogeneous \ac{KB}s within one answer.
 %IBM's Watson~\cite{watson} highlighted several challenges for current and future QA systems.
 
 Consequently, three main research gaps will be considered and addressed in this work:
 \begin{enumerate}
 \item 
-First, adressing the Semantic Gap requires the development of scalable and accurate approaches for the extraction of structured data in \ac{RDF}~\cite{rdfprimer}.
+First, addressing the Semantic Gap between the unstructured Document Web and the Semantic Gap requires the development of scalable and accurate approaches for the extraction of structured data in \ac{RDF}~\cite{rdfprimer}.
 This research challenge is addressed by several approaches within this thesis.
 This thesis presents CETUS~\cite{CETUS_2015}, an approach for recognizing entity types to populate \ac{RDF} \ac{KB}s. 
 Furthermore, our knowledge base-agnostic disambiguation framework AGDISTIS~\cite{agdistis_iswc} can efficiently detect the correct URIs for a given set of named entities.
-Additionally, we introduce REX~\cite{rex}, a web-scale framework for \ac{RDF} extraction from semi-structured (i.e., templated) websites which makes use of the semantics of the reference knowledge based to check the extracted data.
+Additionally, we introduce REX~\cite{rex}, a Web-scale framework for \ac{RDF} extraction from semi-structured (i.e., templated) websites which makes use of the semantics of the reference knowledge based to check the extracted data.
 \item 
-The ongoing research on closing the Semantic Gap has already yielded a large number of annotation tools.
-However, these tools are currently still hard to compare since the published evaluation results are calculated on diverse datasets and evaluated based on different measures.
-We tackle the Evaluation Gap in two ways: First, we introduce a collection of three novel datasets, dubbed $\mbox{N}^3$, to leverage the possibility of optimizing NER and NED algorithms via \ac{LD} and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
-\todo[inline]{Fix eval gap definition and position}
+The ongoing research on closing the Semantic Gap has already yielded a large number of annotation tools and frameworks.
+However, these approaches are currently still hard to compare since the published evaluation results are calculated on diverse datasets and evaluated based on different measures.
 On the other hand, the issue of  comparability of results is not to be regarded as being intrinsic to the annotation task. 
 Indeed, it is now well established that scientists spend between 60\% and 80\% of their time preparing data for experiments \cite{GIL2014,jermyn1999preparing,peng2011reproducible}. 
 Data preparation being such a tedious problem in the annotation domain is mostly due to the different formats of the gold standards as well as the different data representations across reference datasets.
-The resulting \emph{Evaluation Gap} is tackled by GERBIL~\cite{GERBIL}, an evaluation framework for semantic entity annotation. 
-The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation tools on multiple datasets.
+We tackle the resulting \emph{Evaluation Gap} in two ways: First, we introduce a collection of three novel datasets, dubbed $\mbox{N}^3$, to leverage the possibility of optimizing NER and NED algorithms via \ac{LD} and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
+Second, GERBIL~\cite{GERBIL} is an evaluation framework for semantic entity annotation. 
+The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation tools and frameworks on multiple datasets.
 \item 
 The decentral architecture behind the Web has led to pieces of information being distributed across data sources with varying structure. 
 Thus, the required search functionality is \emph{hybrid}, i.e., simultaneously performing a search on full-texts and semantic \ac{KB}s.
 To close the {Information Gap}, this thesis presents HAWK~\cite{hawk_2015}, a novel entity search approach developed for hybrid \ac{QA} based on combining structured \ac{RDF} and unstructured full-text data sources.
 \end{enumerate}
 
-From now on, the author will use the we-form as narrative.
 
 
 \section*{Thesis Structure}
@@ -64,7 +61,7 @@ However, the author will swiftly publish an online erratum addressing any mistak
 In the following, we will explain the thesis structure in more detail.
 
 The aim of the first part is to introduce the problems and the research challenges of this thesis to the reader. 
-First, we discuss drawbacks and research directions towards a novel hybrid \ac{QA} system as well as tools for extracting semantic knowledge from non-structured data and benchmarking existing semantic annotation approaches.
+First, we discuss drawbacks and research directions towards a novel hybrid \ac{QA} system as well as frameworks for extracting semantic knowledge from non-structured data and benchmarking existing semantic annotation approaches.
 Second, we introduce the basic standards, technologies and symbols necessary to understand the research problems and solutions as well as the formal framework used throughout this work.
 At the end, related publications are analyzed.
 

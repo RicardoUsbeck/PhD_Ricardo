@@ -2,8 +2,9 @@
 
 \chapter{Knowledge-base Agnostic, Multilingual Entity Linking}
 \graffito{
-This chapter presents AGDISTIS, a novel approach towards graph-based, knowledge base-agnostic entity linking using Linked Data which won the ISWC Best Research Paper Award in 2014. 
-AGDISTIS' has been published in~\cite{agdistis_ecai, agdistis_iswc,agdistisdemo}.
+This chapter presents AGDISTIS, a novel approach towards graph-based, knowledge base-agnostic entity linking using Linked Data.
+This thesis author published AGDISTIS in several publications~\cite{agdistis_ecai, agdistis_iswc,agdistisdemo}.
+The main research article~\cite{agdistis_iswc} won the ISWC Best Research Paper Award in 2014. 
 The author of this thesis implemented and co-evaluated AGDISTIS as well as its demo. 
 Furthermore, he is the main author of the above mentioned publications. 
 } 	
@@ -15,7 +16,7 @@ The Web in its current form is made up of at least 4,73  billion indexed Web pag
 %The vision behind the Web of Data is to provide a new machine-readable layer to the Web where the content of Web pages is annotated with structured data (e.g., \ac{RDF}a~\cite{\ac{RDF}a}).
 %Most of these websites are unstructured in nature.
 Thus, realizing the vision of a usable and up-to-date Web of Data requires scalable and accurate \ac{NLP} approaches that allow extracting \ac{RDF} from  unstructured data.
-In the last chapter, we presented CETUS, a high-quality tool for \ac{RDF} type extraction.  
+In the last chapter, we presented CETUS, a high-quality framework for \ac{RDF} type extraction.  
 However, there are three other tasks which play a central role when extracting \ac{RDF} from unstructured data next to \ac{RDF} type extraction, namely  \ac{NER}, \ac{NED}, also known as \ac{EL}~\cite{Mihalcea:2007:WLD:1321440.1321475}, and \ac{RE}.
 
 For the first sentence of the Example~\ref{ex:obama}, a high-quality \ac{NER} approach would return the strings \texttt{Barack Obama} and \texttt{Washington, D.C.}.
@@ -57,7 +58,7 @@ Based on this combination, AGDISTIS can efficiently detect the correct URIs for 
 Our results indicate that we outperform the state-of-the-art approach by up to $29\%$ F-measure\footnote{See Chapter~\ref{cha:gerbil} for a definition of the measures used throughout this thesis}.
 \item AGDISTIS' demo is presented and deployed on three different languages (English, German and Chinese) and three different knowledge bases (DBpedia, the German DBpedia and the Chinese DBpedia) as well as tested against the YAGO2 \ac{KB}.
 To the best of our knowledge, we therewith provide the first Chinese instantiation of entity linking to DBpedia.
-\item We will also demonstrate the AGDISTIS web services endpoints for German, English and Chinese disambiguation and show how data can be sent to the endpoints.
+\item We will also demonstrate the AGDISTIS Web service endpoints for German, English and Chinese disambiguation and show how data can be sent to the endpoints.
 %(1) We present AGDISTIS, an accurate and scalable framework for disambiguating named entities that is agnostic to the underlying knowledge base (KB) and show that we are able to outperform the state of the art by up to $29\%$ F-measure on these datasets.
 %\todo[inline]{description of datasets? multilingual, multi-domain}
 %We show the results of the framework on texts pertaining to manifold domains including news, sports, automobiles and e-commerce.
@@ -70,7 +71,7 @@ To the best of our knowledge, we therewith provide the first Chinese instantiati
 
 The rest of this chapter is organized as follows: 
 %First, a brief overview of related work is presented in Section~\ref{sec:relatedwork}.
-We introduce the AGDISTIS approach in Section~\ref{sec:approach} and evaluate it in Section~\ref{sec:eval} against state-of-the-art tools, nine diverse datasets, four knowledge bases and three languages. 
+We introduce the AGDISTIS approach in Section~\ref{sec:approach} and evaluate it in Section~\ref{sec:eval} against state-of-the-art approaches, nine diverse datasets, four knowledge bases and three languages. 
 %\todo{surface form richtig erklärt?}
 %We analyze the contribution of certain properties to our disambiguation approach in the same section. 
 %We conclude in Section~\ref{sec:conclusion} by highlighting research questions that emerged from this work.
@@ -143,10 +144,10 @@ The string normalization is based on eliminating plural and genitive forms, remo
 For example, the genitive \texttt{New York's} is transformed into \texttt{New York}, the postfix of \texttt{Microsoft Ltd.} is reduced to \texttt{Microsoft} and the time information of \texttt{London 2013} is ignored.
 
 Our \emph{expansion policy} is a time-efficient approach to coreference resolution, which plays a central role when dealing with text from the Web, cf.~Singh et al.~\cite{singh}. 
-In web and news documents, named entities are commonly mentioned in their full length the first time they appear, while the subsequent mentions only consist of a substring of the original mention due to the brevity of most news data.
+In Web and news documents, named entities are commonly mentioned in their full length the first time they appear, while the subsequent mentions only consist of a substring of the original mention due to the brevity of most news data.
 For example, a text mentioning Barack Obama's arrival in Washington D.C. will commonly contain \texttt{Barack Obama} in the first mention of the entity and use strings such as \texttt{Obama} or \texttt{Barack} later in the same text, see Example~\ref{ex:obama}.
 We implement this insight by mapping each named entity label, e.g., \texttt{Obama}, which is a substring of another named entity label that was recognized previously, e.g., \texttt{Barack Obama}, to the same resource, i.e., \texttt{dbr:Barack\_Obama}.
-If there are several possible expansions, we choose the shortest as a fast coreference resolution heuristic for web documents.
+If there are several possible expansions, we choose the shortest as a fast coreference resolution heuristic for Web documents.
 Without the expansion policy AGDISTIS suffers from a loss of accuracy of $\approx4\%$.
 
 
@@ -448,7 +449,7 @@ The corpus does not annotate ticker symbols of companies, e.g., \textit{GOOG} fo
 %Finally, we generated a default URI for instances which could not be identified within a 5-minute Web search while annotating. 
 
 \item \textbf{\url{news.de} Dataset.}
-This real-world dataset is the second of the N3 datasets and was collected from 2009 to 2011 from the German web news portal \url{news.de} ensuring that each message contains the German word \emph{Golf}.
+This real-world dataset is the second of the N3 datasets and was collected from 2009 to 2011 from the German Web news portal \url{news.de} ensuring that each message contains the German word \emph{Golf}.
 This word is a homonym that can semantically mean a geographical gulf, a car model or the sport discipline.
 This dataset contains 53 texts comprising over 600 named entities that were annotated manually by a domain expert.
 Although some meanings of Golf are not within the class range of our evaluation, they are kept for evaluation purposes.
@@ -618,7 +619,7 @@ The iteration of $\sigma$ between $0.7$ and $0.9$ can lead to an improvement of 
 \end{itemize}
 
 
-Overall, our results suggest that $\sigma=0.82$ and $d=2$ is generally usable across datasets and knowledge bases leading to high quality results.
+Overall, our results suggest that $\sigma=0.82$ and $d=2$ is generally usable across datasets and knowledge bases leading to high-quality results.
 Further results, can be found in the Chapter~\ref{cha:app_agdistis} in the appendix.
 
 %This is done by selecting all resources as candidates that are such that the similarity of at least one of its labels and the 
@@ -748,10 +749,10 @@ We first report the disambiguation accuracies by assuming the named entities are
 Within our demonstration, we aim to show how AGDISTIS can be used by non-expert as well as expert users. \footnote{An online version of the demo is available at \url{http://agdistis.aksw.org/demo}.}
 Another aim of this demo is to present the English, German and Chinese version of our framework based on DBpedia.
 For non-experts, we provide a graphical user interface (GUI).
-Experts can choose to use the REST interfaces provided by the tool. % or use a Java snippet to call the REST interface.
+Experts can choose to use the REST interfaces provided by our system. % or use a Java snippet to call the REST interface.
 The whole of this functionality, which will be described in more details in the following. % sections, will also be demonstrated at the conference.
 
-\subsection{AGDISTIS for non-expert users}
+\paragraph{AGDISTIS for non-expert users}
 A screenshot of the AGDISTIS GUI is shown in Figure~\ref{fig:gui}.
 This GUI supports the following workflow.
 
@@ -793,13 +794,13 @@ We will demonstrate the output of the entity linking by using the examples shown
 The output of the system will be shown both in a HTML version and made available as a download in JSON. 
 %Moreover, we will allow interested participants to enter their own examples and view the output of the tool.
 
-\subsection{AGDISTIS for expert users}
+\paragraph{AGDISTIS for expert users}
 
 %To support different languages, we set up a REST URI for each of the language versions.
 %those\footnote{\url{http://139.18.2.164:8080/AGDISTIS_DE}}\footnote{\url{http://139.18.2.164:8080/AGDISTIS_ZH}}\footnote{\url{http://139.18.2.164:8080/AGDISTIS}}.
 Each of these endpoints understands two mandatory parameters: (1) \texttt{text} which is an UTF-8 and URL encoded string with entities annotated with XML-tag \texttt{<entity>} and (2) \texttt{type='agdistis'} to disambiguate with the AGDISTIS algorithm.
 In the future, several wrappers will be implemented to use different entity linking algorithms for comparison.
-Following, a CURL\footnote{\url{http://curl.haxx.se/}} snippet shows how to address the web service, see also \url{http://agdistis.aksw.org}:
+Following, a CURL\footnote{\url{http://curl.haxx.se/}} snippet shows how to address the Web service, see also \url{http://agdistis.aksw.org}:
 \begin{verbatim}
 curl --data-urlencode "text='<entity>Barack Obama</entity> arrives 
 in <entity>Washington, D.C.</entity>.'" -d type='agdistis' 

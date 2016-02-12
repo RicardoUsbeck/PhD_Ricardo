@@ -72,7 +72,7 @@
 % Frontmatter
 %*******************************************************
 
-\listoftodos
+%\listoftodos
 
 
 \include{FrontBackmatter/Titlepage}
@@ -108,7 +108,7 @@ At the end, this part examines the state of the art related to this thesis' topi
 In the following part, we introduce several novel approaches tackling the \textit{Semantic Gap}.
 First, we present a pattern-based algorithm for the annotation of type information from unstructured text.
 Second, we describe AGDISTIS -- a knowledge base agnostic state of the art system for named entity disambiguation. 
-Finally, we explain our approach towards web-scale extraction of RDF knowledge from strongly templated websites.  
+Finally, we explain our approach towards Web-scale extraction of RDF knowledge from strongly templated websites.  
 }
 \part{Semantic Gap}
 \input{part_02/unstructured_annotation/chapter_313.tex} %type annotation
@@ -152,7 +152,9 @@ In the last part of the thesis, we summarize the developed approaches, conclude 
 \makeatletter
 \@openrightfalse
 \makeatother
+\appendix
 \part{Appendix}
+\renewcommand\thechapter{\Alph{chapter}}
 \pagenumbering{Roman}
 \cleardoublepage\include{FrontBackmatter/CV}
 \cleardoublepage\include{Appendix/AGDISTIS}
