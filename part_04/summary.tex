@@ -9,7 +9,6 @@ The main aim of this thesis was to tackle three research challenges, namely the 
 Subsequently, future research avenues based on the aforepresented conclusions are detailed.
  
 \section{Summary}
-\todo[inline]{@Axel: Aufrufzahlen nennen?}
 \subsection*{Semantic Gap}
 
 The development of an efficient information access leveraging natural language to access complex data for end users demanded novel solutions to extract high-quality, machine-readable semantic data from structured and semi-structured data sources.
@@ -27,6 +26,7 @@ Furthermore, we presented the demo of AGDISTIS for three different languages on 
 Here,  we emphasize that our works led to the development of the first \ac{NED} system for the Chinese language based on Linked Data.
 AGDISTIS is integrated into FOX~\cite{FOX}, an ensemble learning based \ac{NER}~framework which can be found at \url{http://fox.aksw.org}. 
 Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
+Furthermore, we provided a \ac{NED} API serving 4.648.056 calls for the English and 329.358 calls for the German endpoint while the Chinese endpoint was rarely used.
 
 
 Finally, we tackled semi-structured data sources by aiming to extract \ac{RDF} from highly-templated websites. 
@@ -57,18 +57,18 @@ Especially, $\mbox{N}^3$ aims at providing a structured and standardized languag
 Our datasets link \ac{NLP}  algorithms to the Semantic Web by leveraging the power of NIF and \ac{LD} .
 
 %%%GERBIL
-\todo[inline]{@Micha: Update number after written update chapter}
 One of the main contributions of GERBIL includes the provision of persistent URLs for reproducibility and archiving.
-GERBIL implements a generic adaptor for external datasets as well as a generic interface to integrate remote annotator systems.
-The datasets available for evaluation in the previous benchmarking platforms for annotation was extended by \numberOfadditionalDatasets new datasets. 
-Moreover, \numberOfadditionalAnnotators novel annotators were added to the platform. 
+GERBIL implements a generic adapter for external datasets as well as a generic interface to integrate remote annotator systems.
+The datasets available for evaluation in the previous benchmarking platforms for annotation was extended to 19 datasets. 
+Moreover, 15 annotators were added to the platform. 
 The evaluation of our framework by contributors suggests that adding an annotator to GERBIL demands 1 to 2 hours of work. 
-Hence, while keeping the implementation effort previously required to evaluate on a single dataset, we allow developers to evaluate on (currently) \overalldatasets times more datasets.
-The presented, Web-based frontend allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation systems.
+Hence, while keeping the implementation effort previously required to evaluate on a single dataset, we allow developers to evaluate on (currently) 19 times more datasets.
+The presented, Web-based front-end allows for several use cases enabling laymen and expert users to perform informed  comparisons of semantic annotation systems.
 
 The persistent URIs enhances the long term quotation in the field of information extraction.
 GERBIL is not just a new framework wrapping existing technology. 
 In comparison to earlier frameworks, GERBIL extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
+As mentioned in Section~\label{sec:currentNumbersForGERBIL}, GERBIL provides additional value to the community by storing more than 1.824 comparable experiments since its release. 
 
 We efficiently targeted the Evaluation Gap w.r.t. the domain of semantic annotation systems by providing means to easily reuse datasets as well as whole experiments and publish their results in a machine-readable way.
 
@@ -82,6 +82,7 @@ We analyzed its performance against \ac{QALD}-4 and \ac{QALD}-5 datasets.
 By using a generic approach to generate SPARQL queries from predicate-argument structures,   HAWK is able to achieve up to 0.68 F-measure on the hybrid \ac{QALD}-4 benchmark using an optimal ranker.
 The system is also able to achieve an F-measure of up to 0.3 on the \ac{QALD}-5 training benchmark using bucket-based ranking.
 Especially, HAWK achieves a F-measure of up to 0.35 based on boolean and entity-centric questions over the combined \ac{QALD}-5 benchmark.
+HAWK served already more than 600 questions from real users generating organic traffic.
 
 Introducing the HAWK framework enables users ask natural language questions without the need to understand the underlying data scheme or a complex query language. 
 Thus, laymen can benefit from both the Data and the Document Web to gain answers on complex questions. 
@@ -139,9 +140,9 @@ Moreover, partial results are not considered within the evaluation.
 For example, during the disambiguation task, named entities without Wikipedia URIs are not considered. 
 This has a significant impact of the number of true and false positives and thus on the performance of some systems.
 Furthermore, certain tasks seem to be too coarse. 
-For example, we will consider splitting the Sa2KB and the A2KB tasks into two subtasks: The first subtask would measure how well systems perform at finding named entities inside the text (\ac{NER} task) while the second would evaluate how well systems disambiguate those named entities which have been found correctly (similar to the D2KB task).
 Those issues are addressed in current GERBIL releases, see Section~\ref{sec:currentNumbersForGERBIL}. 
 In future work, we also aim to provide a new theory for evaluating annotation systems and display this information in the GERBIL interface.
+Additionally, we will perform a detailed analysis of the benchmarking platform's log files and draw conclusions for future development.
 Also, we plan to provide information about the point in time since when an annotator is stable, i.e., the algorithm underlying the Web service has not changed.
 GERBIL has sparked the idea for the successful Horizon 2020 proposal HOBBIT and will influence the central architecture underlying the HOBBIT Big Linked Data Benchmarking Platform.\footnote{\url{http://project-hobbit.eu/}} 
 
