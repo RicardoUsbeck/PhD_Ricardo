@@ -2,7 +2,7 @@
 
 \graffito{
 This chapter introduces GERBIL--a framework for benchmarking semantic annotation systems with the ultimate goal to provide stable, citable URIs for comparable experiments. 
-The author of this thesis is the main author of the corresponding publications~\cite{gerbil_demo_2015,GERBIL} and co-author of the demonstration paper~\cite{gerbil_dev_2015}.
+The author of this thesis is the main author of the corresponding publications~\cite{gerbil_demo_2015,GERBIL} and co-author of the demonstration paper~\cite{gerbil_dev_2015} and the technical report~\cite{techreport_gerbil}. 
 He co-implemented  and co-evaluated GERBIL together with Michael Röder.
 GERBIL won the Best Demo Award 2015 at the Extended Semantic Web Conference.
 }
@@ -244,7 +244,7 @@ We investigated the effort to implement a BAT-framework adapter in contrast to e
 
 \item \textbf{NIF-based Services}:
 GERBIL provides implementation means to understand NIF-based~\cite{NIF} communication over Web service in two ways.
-First, if the server-side implementation of annotators understands NIF-documents as input and output format, GERBIL and the framework can simply exchange NIF-documents.\footnote{We describe the exact requirements to the structure of the NIF document on our project website's wiki as NIF offers several ways to build a NIF-based document or corpus.}
+First, if the server-side implementation of annotators understands NIF-documents as input and output format, GERBIL and the framework can simply exchange NIF-documents.\footnote{We describe the exact requirements to the structure of the NIF document on our project webpage's wiki as NIF offers several ways to build a NIF-based document or corpus.}
 %we can use a more simple and unified approach to bind new annotators into GERBIL.
 Thus, novel NIF-based annotators can be deployed efficiently into GERBIL and use a more robust communication format compared to the amount of work necessary for deploying and writing a BAT-framework adapter.
 %\todo[inline]{Here, I would argue that the implementation of a single NIF-Web service is faster than deploying the BAT-framework and implementing a BAT-framework adapter.}
@@ -663,10 +663,150 @@ An interesting side-effect of having all these frameworks and datasets in a cent
 %Especially, we are interested in reproducing the results of AGDISTIS~\cite{agdistis_iswc}, TagMe 2~\cite{TagMe2,Cornolti} and Babelfy~\cite{babelfy}.
 \section{Current development of GERBIL}
 \label{sec:currentNumbersForGERBIL}
-\todo[inline]{@Micha: Zahlen vergleichen}
 
-\begin{itemize}
-\item New numbers for datasets, annotators, experiment types, matchings
-\item User numbers public private experiments
-\item describe changes from 1.0 to 1.2
-\end{itemize}
+
+Recently, we released the latest version 1.2.2 of GERBIL~\cite{techreport_gerbil}\footnote{\url{https://github.com/AKSW/gerbil/releases/tag/v1.2.2}}.
+
+\paragraph{Types and Improved Diagnostics}
+Since the initial release of GERBIL, we added four tasks to the list of available experiment types. 
+First, we supported the OKE Challenge 2015~\cite{okechallenge} by adding the first and second task, i.e, named entity recognition, typing and linking as well as entity type annotation (cf. CETUS~\cite{CETUS_2015}), to GERBIL's experiments types.
+Here, we also integrated a hierarchical f-measure for the evaluation of the new typing task. 
+The challenge requirements led to the introduction of the new concept of sub-tasks.
+Thus, users are now able to analyze whether the linking or the recognition step of an annotator caused the most problems.
+Second, we directly derived two tasks, namely Entity Recognition and Entity Typing from the two tasks above. 
+
+In addition, GERBIL now contains improved diagnostic capabilities such as the possibility for runtime measurements.
+Moreover, we added the calculation of correlations of dataset features and annotator performance as well as different measures for better analysis of the annotator performance, such as the distinction between entities known to a knowledge base or emerging entities~\cite{Hoffart:2014:DEE:2566486.2568003}. %  (InKB, EE, with 1.2.2 GSInKB).
+
+We removed the separation between Sa2KB and A2KB as well as between Sc2KB and C2KB.
+The usage of confidence scores is not a part of the A2KB and C2KB experiments.
+If an annotator adds confidence scores to its annotations, GERBIL searches a threshold that optimizes the micro F1-score.
+
+\paragraph{Datasets}
+
+The implementation of the OKE challenge tasks also added six new datasets designed for the challenge, see Table~\ref{tab:corpus_stats_1_2_2}. 
+The datasets were manually created and approved by at least two domain experts and contain NIF-based annotations for RDF entities and classes, cf. the OKE challenge documentation for further details~\cite{okechallenge}. 
+Overall, GERBIL now contains 19 individual datasets available to 7 experiment types, see Table~\ref{tab:novel_datasets_experiments}.
+
+
+\begin{table}[htb!]
+\centering
+ \resizebox{\textwidth}{!}{ 
+    \begin{tabular}{@{}lS[table-format=3.2]SSS@{}}
+    \toprule
+    \textbf{Dataset}                                 & \textbf{Avg. Entities}        &  \textbf{Avg. Document Length}  &  \textbf{\#Documents} &  \textbf{\#Entities} \\ \midrule
+    \textbf{OKE 2015 Task 1}\\
+    Example set          & 4.0                & 22.333333333333332 & 3                 & 12               \\
+    Evaluation dataset   & 6.574257425742574  & 30.336633663366335 & 101               & 664              \\
+    Gold standard sample & 3.5894736842105264 & 20.48421052631579  & 95                & 341              \\
+    \textbf{OKE 2015 Task 2}\\
+    Example set          & 3.0                 & 27.5               & 2                 & 6                \\
+    Evaluation dataset   & 3.080808080808081   & 36.91919191919192  & 99                & 305              \\
+    Gold standard sample & 3.0303030303030303  & 19.22222222222222  & 99                & 300              \\
+    \bottomrule
+    \end{tabular}}
+    \caption[Features of novel datasets and their documents.]{Features of novel datasets and their documents. As the names suggest, the different datasets can be used either for Task 1 or Task 2 of the OKE Challenge.}
+	\label{tab:corpus_stats_1_2_2}
+\end{table}
+
+
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\begin{table}[htb!]
+\centering
+\resizebox{\textwidth}{!}{ 
+\begin{tabular}{@{}lP{2.5cm}ccc@{}}
+\toprule
+                                     & \textbf{A2KB, C2KB, D2KB, Entity Recognition} & \textbf{Entity Typing} & \textbf{OKE Task 1} & \textbf{OKE Task2} \\ \midrule
+AIDA/CoNLL-Complete                  & \haken                                  &               &            &           \\
+AIDA/CoNLL-Test A                    & \haken                                  &               &            &           \\
+AIDA/CoNLL-Test B                    & \haken                                  &               &            &           \\
+AIDA/CoNLL-Training                  & \haken                                  &               &            &           \\
+AQUAINT                              & \haken                                  &               &            &           \\
+DBpediaSpotlight                     & \haken                                  &               &            &           \\
+IITB                                 & \haken                                  &               &            &           \\
+KORE50                               & \haken                                  &               &            &           \\
+MSNBC                                & \haken                                  &               &            &           \\
+Microposts 2014-Test                  & \haken                                  &               &            &           \\
+Microposts 2014-Train                 & \haken                                  &               &            &           \\
+N3-RSS-500                           & \haken                                  &               &            &           \\
+N3-Reuters-128                       & \haken                                  &               &            &           \\
+OKE 2015 Task 1 evaluation dataset   & \haken                                  & \haken           & \haken        &           \\
+OKE 2015 Task 1 example set          & \haken                                  & \haken           & \haken        &           \\
+OKE 2015 Task 1 gold standard sample & \haken                                  & \haken           & \haken        &           \\
+OKE 2015 Task 2 evaluation dataset   &                                      &               &            & \haken       \\
+OKE 2015 Task 2 example set          &                                      &               &            & \haken       \\
+OKE 2015 Task 2 gold standard sample &                                      &               &            & \haken       \\ \bottomrule
+\end{tabular}}
+\caption{Novel datasets and their availability to the experiments types.}
+\label{tab:novel_datasets_experiments}
+\end{table}
+
+\paragraph{Annotators}
+With this version, we added six new annotators compared to the initial GERBIL version 1.0, see Table~\ref{tab:annotators_new}. 
+While CETUS, CETUS\_FOX and FRED were added due to the OKE challenge 2015, FREME e-Entity\footnote{\url{https://github.com/freme-project/e-Entity}}, \url{entityclassifier.eu} and AIDA were added to enhance the spectrum of A2KB annotators.
+
+
+\begin{table}[htb!]
+\centering
+\resizebox{\textwidth}{!}{ 
+\begin{tabular}{@{}llccc@{}}
+\toprule
+                                    &                   & \textbf{BAT-Framework}& \textbf{GERBIL 1.0}   & \textbf{GERBIL 1.2.1}\\
+\midrule
+\cite{milne2008learning}		    &Wikipedia Miner	& \haken 				& \haken	            &	\haken\\
+\cite{rat:rot}						&Illionois Wikifier	& \haken 				&                   	& 	\\
+\cite{spotlight}					&Spotlight          & \haken                & \haken                & \haken\\
+\cite{TagMe2}						&TagMe 2           	& \haken                & \haken	            & \haken\\
+\cite{steinmetz-n-2013-statistical}			    &KEA                &                       & \haken	            & \haken\\
+\cite{piccinno2014tagme}	        &WAT            	&                       & \haken 	            & \haken\\
+\cite{agdistis_iswc}				&AGDISTIS           & (\haken)              & \haken	            & \haken\\
+\cite{babelfy}						&Babelfy            &                       & \haken	            & \haken\\
+\cite{rizzo2014}					&NERD-ML          	&                       & \haken 	            & \haken\\
+                                    &NIF-based Annotator&             	        & \haken                & \haken\\\midrule
+                                    
+\cite{AIDA}							&AIDA               & \haken                &	                    & \haken\\
+\cite{Dojchinovski:2013:ECMLPKDD13}	& \url{entityclassifier.eu}	&          		& \haken 	            & \haken\\
+&FREME e-Entity &     &  	                    & \haken\\
+\cite{CETUS_2015}                   &CETUS/CETUS\_FOX   &                       &                       & \haken\\
+\cite{fred_typing}                  &FRED               &                       &                       & \haken\\
+
+\bottomrule
+\end{tabular}
+}
+\caption[Overview of annotators in GERBIL 1.2.2.]{Overview of implemented annotators. Brackets indicate the existence of the implementation of the adapter but also the inability to use it in the live system.}
+\label{tab:annotators_new}
+\end{table}
+
+\paragraph{Contribution to the Community}
+
+One of GERBIL's main goals was to provide the community with an online benchmarking tool that provides archivable and comparable experiment URIs. 
+Thus, the impact of the framework can be measure by analyzing the interactions on the platform itself. 
+Since its first public release on the 17th October 2014 until the 15th February 2015, 1.824 experiments were started on the platform containing more than 12.466 tasks for annotator-dataset pairs which were reduce by week-long caching to 9906 task executions.
+One interesting aspect is the usage of the different systems, especially the heavy exploitation of the possibility to test NIF-based Web services, see Table~\ref{tab:webservices}.
+
+
+\begin{table}[htb!]
+\centering
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Annotator}      & \textbf{Number of Tasks} \\ \midrule
+NIF-based Annotators   & 2519                     \\
+Babelfy                 & 958                      \\
+DBpedia Spotlight       & 922                      \\
+TagMe 2                 & 811                      \\
+WAT                     & 787                      \\
+Kea                     & 763                      \\
+Wikipedia Miner         & 714                      \\
+NERD-ML                 & 639                      \\
+Dexter                  & 587                      \\
+AGDISTIS                & 443                      \\
+Entityclassifier.eu NER & 410                      \\
+FOX                     & 352                      \\
+Cetus                   & 1                        \\ 
+\bottomrule
+\end{tabular}
+\caption[Number of tasks executed per annotator.]{Number of tasks executed per annotator.}
+\label{tab:webservices}
+\end{table}
