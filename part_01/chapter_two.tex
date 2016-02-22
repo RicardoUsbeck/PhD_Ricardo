@@ -7,6 +7,7 @@ It is based on a simple set of rules and a number of widely adopted standards.
 This introductory chapter aims at capturing the simplicity of Linked Data, and the concepts behind the related standards.
 It will help the reader to get familiar with the basic elements of Linked Data and its related technologies required to understand this thesis.
 %Using the example of a calendar app, we will highlight the practical advantages of using Linked Data for writing apps and publishing data in a completely decoupled way.
+
 Linked Data is a method to publish data on the Web, so that it can be connected to other datasets and create a Web of Data.
 Four rules need to be followed in order to publish data as Linked Data~\cite{linkeddata-rules}:
 
@@ -29,12 +30,12 @@ if the user enters a meeting like \textit{"Meeting at 9am in Atlanta"} the calen
 
 The chapter is structured as follows:
 Section~\ref{semanticweb} explains the connection between Linked Data and the Semantic Web Vision.
-Section~\ref{rdf} introduces the basic notions of RDF, especially the idea of an RDF graph and RDF triples.
+Section~\ref{rdf} introduces the basic notions of \ac{RDF}, especially the idea of an \ac{RDF} graph and \ac{RDF} triples.
 Section~\ref{uri} describes URIs, the basic building blocks for such triples, and how they refer to the Web.
 Section~\ref{http} then discusses how the Web is used for the distributed publishing of knowledge using the HTTP standard.
-Secton~\ref{rdfs} extends the very simple expressivity of RDF, and discusses how languages like RDFS, OWL, and RIF are layered on top of it.
-Section~\ref{sparql} introduces SPARQL, a query language for RDF graphs.
-In Section~\ref{rdfa} we then go into more detail about the question how RDF is and can be serialized.
+Secton~\ref{rdfs} extends the very simple expressivity of \ac{RDF}, and discusses how languages like RDFS, OWL, and RIF are layered on top of it.
+Section~\ref{sparql} introduces SPARQL, a query language for \ac{RDF} graphs.
+In Section~\ref{rdfa} we then go into more detail about the question how \ac{RDF} is and can be serialized.
 %before we devote Section~\ref{xml} to the sometimes confusing relationship of RDF and XML.
 We close in Section~\ref{conclusions} with a resum\'{e} on the state of Linked Data and an outlook on current developments.
 
@@ -47,7 +48,7 @@ The Semantic Web~\cite{bernerslee2001semantic} is a movement from the \texttt{We
 The intention is to develop a Web that enables humans as well as machines to interact and work on existing data in way that creates an additional value.
 To achieve this the data needs to be machine understandable, human manageable, linkable and storable in a standardized way.
 It is foreseen that this technology will foster richer information access methods like Semantic Search or Question Answering~\cite{combiningLDandIR}.
-Linked Data is the materialized implementation of the Semantic Web vision, executed by technologies like RDF, SPARQL, ontologies and many more described below.
+Linked Data is the materialized implementation of the Semantic Web vision, executed by technologies like \ac{RDF}, SPARQL, ontologies and many more described below.
 
 \medskip
 
@@ -57,30 +58,31 @@ To get to know more about the Semantic Web vision we refer to the book~\cite{swb
 \section{RDF: The basics}
 \label{rdf}
 
-RDF is a standardized model used for representing knowledge on the Web.
-Knowledge representation in general enables to separate what a system does from what it knows~\cite{brachmannKR}, i.e., to make its knowledge explicit and not simply implicit in the program.
-Decoupling knowledge from a program has several advantages, for example, it allows the knowledge base to be maintained externally, so that changes in the world may not even affect the code.
+\ac{RDF} is a standardized model used for representing knowledge on the Web.
+Knowledge representation separates what a system does from what it knows~\cite{brachmannKR}, i.e., divides the knowledge of a system from its utilization.
+Decoupling knowledge, e.g., from a program, has several advantages.
+For instance, it allows the \ac{KB} to be maintained externally, so that changes in the world may not even affect the code.
 
-Using the example of a calendar app, we will highlight the practical advantages of using Linked Data and RDF for writing apps and publishing data in a completely decoupled way.
-In the calendar app, one approach to deal with the different time zones would be to code the information into the program itself. 
+Using the example of a calendar app, we will highlight the practical advantages of using Linked Data and \ac{RDF} for writing apps and publishing data in a completely decoupled manner.
+In the calendar app, one way to deal with the different time zones would be to code the information into the program itself. 
 We could simply have a function that, given a country or city name, returns the offset, implemented with a lot of \texttt{switch} or \texttt{if then else} statements.
-A change in the timezone of a country would require rewriting the function and recompiling the whole application.
+Additionally, a change in the timezone of a country would require rewriting the function and recompiling the whole application.
 Instead, we could externalize the knowledge about countries and cites and their time zones.
-The application would then load the knowledge base whenever it is needed, and behave accordingly.
+The application would then load the \ac{KB} whenever it is needed, and behave accordingly.
 
-There are many different ways to represent the knowledge in a way that the application can read it.
+There are many different forms of representing the knowledge .
 For example, we could have a database with tables of cities and countries and associated time zones.
 We could have comma separated lists of cities for each time zone.
 Or we could gather a consortium and define a standard for expressing time zone information, so that different developers can independently access this knowledge in their apps.%
-For time zones, this is roughly what happened, in form of the timezone database \url{https://www.iana.org/time-zones}.
+%For time zones, this is roughly what happened, in form of the timezone database \url{https://www.iana.org/time-zones}.
 
-RDF provides a generic, standardized model for representing knowledge.
-That is, it can be used in any domain, be it time zones, geographic data, genes, books, or anything else.
-Standardized means that RDF has been specified in an explicit, reimplementable way, so that everyone can create software that can correctly read and write RDF documents.
+\ac{RDF} provides a generic, standardized model for representing knowledge.
+That is, it can be used in any domain, such as time zones, geographic data, genes, books, or anything else.
+Standardized means that \ac{RDF} has been specified in an explicit, re-implementable way, so that everyone can create software that can correctly read and write \ac{RDF} documents.
 
-The basic notions of RDF are triples and graphs.
-Triples are used to express the given knowledge, piece by piece.
-Each triple is built of three elements: a subject, a predicate, and an object.
+The basic components of \ac{RDF} are triples and graphs.
+Triples are used to express the given knowledge.
+Each triple has three elements: a subject, a predicate, and an object.
 In our example, a piece of knowledge could be expressed with the following triple:
 
 \begin{verbatim}
@@ -91,7 +93,8 @@ The subject in this triple is \texttt{Turkey}, the predicate is \texttt{timezone
 The triple can intuitively be understood as having the same meaning as the English sentence \textit{"Turkey is in the timezone EET."}.
 
 A graph consists of a set of triples.
-It is called a graph, because the subjects and objects can be understood as nodes, connected with directed edges labeled with the given property.
+The nodes consists of the set of subjects and objects which are connected with directed edges labeled by the corresponding property.
+Subject nodes are also known as entities.
 The following example graph is visualized in Figure~\ref{fig:graph}.
 \begin{verbatim}
  Turkey timezone EET .
@@ -109,25 +112,24 @@ The following example graph is visualized in Figure~\ref{fig:graph}.
 \end{figure}
 
 The last two triples in the example graph demonstrate the use of literal values in the object position: instead of a named node, that refers to an entity, we have a typed literal value.
-The type in this case is \texttt{int}, which means that the values should be interpreted as integers.
-The types available in RDF cover numbers, strings, booleans, dates, time durations, URIs, XML, and others.
+In this case, the type is \texttt{int} and thus values should be interpreted as integers.
+The types available in \ac{RDF} include numbers, strings, booleans, dates, time durations, URIs, XML, and others.
 
 \medskip
 
 \textbf{Further readings}:
-If you want to get deeper into the formalisms behind RDF have a look at the the RDF specification~\cite{rdf-spec}, 
-the RDF primer~\cite{rdfprimer}, 
+To deepen your knowledge w.r.t. the formalisms of \ac{RDF} you may read the \ac{RDF} specification~\cite{rdf-spec}, 
+the \ac{RDF} primer~\cite{rdfprimer} or 
 the specification for XSD datatype~\cite{xsd-part2}.
 Relevant concepts we did not introduce are blank nodes, reification, named graphs and extensible datatypes~cf.~\cite{namedgraphs,rdfprimer}.
 
 \section{URIs: The words of the language}
 \label{uri}
 
-The big advantage of a graph-based model is that they can be easily be merged, by simply regarding a merger as a union of the triples in both graphs.
-Many other models for knowledge representations, like tables or XML files, do not allow for such a generic merging.
+The major advantage of a graph-based model is its ability to be merged by simply regarding a merger as a union of the triples in both graphs.
+Many other models for knowledge representations, like tables or XML files, do not allow such a generic merging.
 But in order to provide a knowledge representation language that allows these kind of mergers, naming conflicts must be avoided.
-In our example, \texttt{Georgia} refers to the caucasian country.
-But now consider a second knowledge base about U.S. states:
+In contrast to our example above where \texttt{Georgia} refers to a caucasian country, consider a second \ac{KB} about U.S. states:
 
 \begin{verbatim}
  Georgia timezone EST .
@@ -135,49 +137,47 @@ But now consider a second knowledge base about U.S. states:
  EST offset "-5"^^int .
 \end{verbatim}
 
-Since both Georgias -- the caucasian country and the U.S. state -- are named the same, we would not be able to differentiate them.
+Since both Georgias -- the caucasian country and the U.S. state -- have the same name, we are not able to differentiate between them.
 Georgia now seems to be both in the timezone \texttt{GET} and \texttt{EST}!
 
 To avoid this situation, all entities in Linked Data have to be referred to by unique names.
 To achieve this, the names are given as URIs, most often HTTP URIs (just like websites).
-The advantage of URIs is that anyone can register a prefix, and then create new names with this prefix.
-The owner of the prefix is responsible for what the given name means.
+The main advantage of URIs is that anyone can register a prefix, and then create a set of new names with this prefix.
+The owner of the prefix is responsible for the interpretation of the given name.
 Thus, the country Georgia could be named \url{http://example.org/countries\#Georgia} and the U.S. state could be \url{http://example.org/usstates\#Georgia}.
-As long as everyone defines new names in their own namespace only, naming conflicts can be avoided without constant coordination between all parties.
+The basic intuition behind the idea is that everyone can define their own namespace so that naming conflicts can be avoided without constant coordination between different parties.
 
-As URIs can be quite lengthy, often qualified names (or \textit{QNames}) are used.
+As URIs can be lengthy, often qualified names (or \textit{QNames}) are used.
 They have the form \texttt{prefix:localName}.
-Prefixes are defined locally to expand to a certain namespace, e.g., in our example we could define that the prefix \texttt{us} means the namespace \url{http://example.org/usstates\#}, and thus we could use the qualified name \texttt{us:Georgia} to refer to the complete URI \url{http://example.org/usstates\#Georgia}.
+Prefixes are defined locally to expand to a certain namespace, e.g., in our example we could define that the prefix \texttt{us} refers to the namespace \url{http://example.org/usstates\#}, and thus we could use the qualified name \texttt{us:Georgia} to refer to the complete URI \url{http://example.org/usstates\#Georgia}.
 
 \medskip
 
 \textbf{Further readings}:
-To find more about the specification of URIs, see~\cite{uri} and for to get to know how to register a new URI scheme, have a look at~\cite{uri-registration}.
-We did not speak about IRIs~\cite{iri} and other protocols besides HTTP, like FTP~\cite{ftp} or URN~\cite{urn}.
+For deeper insights, please refer to the specification of URIs~\cite{uri} and the URI registration scheme~\cite{uri-registration}.
+We did not cover IRIs~\cite{iri} and other protocols besides HTTP, like FTP~\cite{ftp} or URN~\cite{urn}.
 
 \section{HTTP: Distributed knowledge}
 \label{http}
 
 The second rule for publishing Linked Data is to use HTTP URIs.
-The advantage is, that HTTP is a widely implemented protocol, that can be used over the Internet for accessing resources with a given HTTP URI.
-For example, the above knowledge base could have itself the name \url{http://example.org/countries}.
-Now a simple HTTP \texttt{GET} command like
-
+HTTP is a widely implemented protocol, that can be used over Internet for accessing resources with a given HTTP URI.
+For example, the above \ac{KB} could have the name \url{http://example.org/countries}.
+Now a simple HTTP command like 
 \begin{verbatim}
- GET http://example.org/countries
+GET http://example.org/countries
 \end{verbatim}
+will return the \ac{KB} (it can be tried by entering the URI in a browser, but it is suggested for later as the result might be confusing at this point).
 
-will return the knowledge base (it can be tried by entering the URI in a browser, but it is suggested for later as the result might be confusing at this point).
+All \ac{RDF} entities are identified by URIs, and the third rule of Linked Data demands to return information about the entity identified with a given URI when the URI is being dereferenced via HTTP.
+This way, the Web can be used as vast knowledge space, where everyone can publish their knowledge about a given entity.
 
-All entities are named with URIs, and the third rule of Linked Data asks to return information about the entity identified with a given URI when the URI is being dereferenced via HTTP.
-This way, the Web can be used as vast knowledge space, where everyone can publish what they know about a given entity.
-
-We can also use the URIs of others -- we do not have to publish URIs for all entities that we want to use ourselves.
+Since entities are uniquely identified, we can avoid to publish our own URIs for existing entities.
 For example, DBpedia is a widely used resource that publishes Linked Data based on Wikipedia's infoboxes~\cite{dbpedia-swj}.
 DBpedia offers URIs for all entities that have a Wikipedia page.
-For example, Greece' Wikipedia page is \url{http://en.wikipedia.org/wiki/Greece} and, based on that, DBpedia defines the URI for Greece to be \url{http://dbpedia.org/resource/Greece}.
-If this is entered into a browser, the browser redirects the user to a Web page about Greece in DBpedia.
-If a Semantic Web application would have asked, DBpedia (prefix dbpedia) would have returned the RDF data instead.
+For example, Greece's Wikipedia page is \url{http://en.wikipedia.org/wiki/Greece} and, based on that, DBpedia defines the URI for Greece to be \url{http://dbpedia.org/resource/Greece}.
+When entering the URI into a browser, the browser redirects the user to a Web page about Greece in DBpedia.
+If a Semantic Web application would have asked, DBpedia (prefix dbpedia) would have returned the \ac{RDF} data instead.
 
 So we could replace
 
@@ -191,22 +191,22 @@ with using the DBpedia URI for Greece and get
  dbpedia:Greece tz:timezone tz:EET .
 \end{verbatim}
 
-This would have the advantage that now we can learn much more about Greece: the name of the country in different languages and alphabets, its population, the name of the head of state, etc.
-Suddenly, our application can use knowledge from all over the Web.
+Following the second Linked Data rule, we can enhance our knowledge about Greece: the name of the country in different languages and alphabets, its population, the name of the head of state, etc.
+Thus, our application can use knowledge from all over the Web.
 
-Instead of simply replacing the URI, in our case we actually state that the URIs refer to the same entity, like this:
+Instead of simply replacing the URI, in our case we actually state that the URIs refer to the same entity:
 
 \begin{verbatim}
  countries:Greece owl:sameAs dbpedia:Greece .
 \end{verbatim}
 
-We see, that also properties can be reused from all over the Web.
-In this case we use the term \texttt{sameAs} from the OWL vocabulary~\cite{owl} which we will look at in the next section.
+Note, properties can be reused from all over the Web.
+In this case, we use the term \texttt{sameAs} from the OWL vocabulary~\cite{owl} which we will look at in the next section.
 
-One advantage of using the Web as a knowledge base is that much knowledge is already published:
+One advantage of using the Web as a \ac{KB} is that much knowledge is already published,
 whereas our knowledge bases had information on some countries.
-Websites like LinkedGeoData~\cite{linkedgeodata} or DBpedia offer lists of cities, and in which countries or U.S. states they are located.
-Regarding the cities, we mentioned in the beginning of the article, the Web already offers the following pieces of knowledge:
+Websites like LinkedGeoData~\cite{linkedgeodata} or DBpedia offer lists of cities, and information about the countries or states they are located.
+Regarding cities, the Web already offers the following pieces of knowledge:
 
 \begin{verbatim}
  dbpedia:Istanbul dbo:country dbpedia:Turkey .
@@ -214,7 +214,7 @@ Regarding the cities, we mentioned in the beginning of the article, the Web alre
  dbpedia:Atlanta dbo:isPartOf dbpedia:Georgia_(U.S._state) .
 \end{verbatim}
 
-This allows us to just reuse the knowledge about cities from the Web of Data, for very little cost.
+This allows to reuse the knowledge about cities from the Web of Data in a non-costly manner.
 
 \medskip
 
@@ -224,39 +224,38 @@ For a deeper introduction of the HTTP protocol have a look at the HTTP specifica
 \section{RDFS, OWL and others: Adding expressivity}
 \label{rdfs}
 
-RDF allows us to express triples directly.
-A very powerful method is to allow for implicit triples, by using more expressive semantics than simple triples.
-We have seen one example already: \texttt{owl:sameAs} states that two URIs refer to the same entity.
+So far we have seen that \ac{RDF} allows us to express triples directly.
+A very powerful method is the use of implicit triples by using more expressive semantics than simple triples.
+We have introduced one example already: \texttt{owl:sameAs} states that two URIs refer to the same entity.
 That is, anything we say about \texttt{dbpedia:Greece} is also true about \texttt{countries:Greece}.
-We learnt that \texttt{dbpedia:Athens} is in \texttt{dbpedia:Greece}, thus we know that it is also in our own \texttt{countries:Greece}.
+We learnt that \texttt{dbpedia:Athens} is in \texttt{dbpedia:Greece}, thus we know that it is also in \texttt{countries:Greece}.
 
-A number of languages build on top of RDF and extend it with more expressive semantics.
-We will look at three of them, that are standardized by the W3C: RDFS and OWL. %, and RIF.
+A number of languages are built on top of \ac{RDF} and extend it with more expressive semantics.
+We will look at two of them, that are standardized by the W3C: RDFS and OWL. %, and RIF.
 
-RDFS is the simplest one of them.
-It allows us to describe class and property hierarchies.
-For example, we have found on the Web cities connected to countries respectively U.S. states.
-The connection to the country was done using the \texttt{dbo:country}, to the state with \texttt{dbo:isPartOf}.
-Now we can also define that everything that is connected via the former should also be connected through the latter.
-In RDFS, we express it with the following triple:
+RDFS allows us to describe class and property hierarchies.
+For example, we have found on the Web cities connected to countries, resp. U.S. states.
+The connection to a country was done by using the property \texttt{dbo:country} and to the state by \texttt{dbo:isPartOf}.
+Now, we can also define that everything that is connected via the former should also be connected through the latter.
+With RDFS, it is expressed by:
 
 \begin{verbatim}
  dbo:country rdfs:subPropertyOf dbo:isPartOf .
 \end{verbatim}
 
-Now a reasoner who follows the RDFS semantics can infer that
+Now a reasoner that follows the RDFS semantics can infer that
 
 \begin{verbatim}
  dbpedia:Istanbul dbo:isPartOf dbpedia:Turkey .
 \end{verbatim}
 
-is true, even though it was never stated explicitly.
+is true, even though it had never been stated explicitly.
 
 OWL is much more expressive regarding the description of classes and properties.
-For example, we can state that every city has to be in exactly one time zone, or that nothing can be both a U.S. state and a country, which could have helped to discover the error with the two Georgias automatically.
+For example, we can state that every city has to be in exactly one time zone or that no entity can be both a U.S. state and a country, which could have helped to discover the error with the two Georgias automatically.
 
-Since RDF allows only triples, such more complex statements need to be broken down to triples.
-The statement \textit{"Every city is in exactly one time zone."} translates in RDF to the following four triples:
+Since \ac{RDF} allows only triples, more complex statements need to be dissolved into triples.
+The statement \textit{"Every city is in exactly one time zone."} translates in \ac{RDF} to the following four triples:
 
 \begin{verbatim}
 x:statement1 rdf:type owl:Restriction .
@@ -283,15 +282,15 @@ Although this might seem a bit daunting, in reality these kind of triples are hi
 %\end{verbatim}
 
 %RDFS, OWL, and RIF can, at least in theory, be all used together.
-RDFS and OWL can at least in theory, be all used together.
+RDFS and OWL can be used together theoretically.
 However, it depends on the used tools if a given semantics is understood: some reasoners support parts of OWL (so called fragments), some support only RDFS and a very few claim to support interesting combinations of all three languages (including the RIF Rule language), and sometimes beyond.
 
 \medskip
 
 \textbf{Further readings}:
-The whole formalism can be found in the specifications for RDFS~\cite{rdfs}, OWL~\cite{owl}, and RIF~\cite{rif}.
-We did not discuss questions of how to reason and about the complexity and decidability of reasoning. 
-This is a big research topic, and in the last few years, it was advanced tremendously. 
+Full formalism can be found in the specifications for RDFS~\cite{rdfs}, OWL~\cite{owl}, and RIF~\cite{rif}.
+%We did not discuss questions of how to reason and about the complexity and decidability of reasoning. 
+%This is a big research topic, and in the last few years, it was advanced tremendously. 
 We point to the DL Handbook as an entry point into this topic~\cite{dl-handbook}.
 We also did not mention the different fragments of OWL, RIF, and the differences between OWL and OWL2, which can all be found in detail in the respective standards.
 Besides the languages presented here, other languages like SKOS~\cite{skos} or WSML~\cite{wsml} exist, that can define other semantics.
@@ -299,12 +298,12 @@ Besides the languages presented here, other languages like SKOS~\cite{skos} or W
 \section{SPARQL: Querying RDF}
 \label{sparql}
 
-So far, we have described how to express knowledge: both simple facts (with RDF) and more expressive statements that enrich the knowledge base (in the previous section).
-SPARQL provides a structured query language for RDF knowledge bases.
+So far, we have described how to express knowledge: simple facts (with \ac{RDF}) and more expressive statements that enrich the \ac{KB} (in the previous section).
+SPARQL provides a structured query language for \ac{RDF} knowledge bases.
 
-For example, assume that we have all the triples, we have mentioned so far, in one graph that we can query via SPARQL.
-Let's also assume that the system providing the SPARQL endpoint understands the semantics of RDFS, OWL, and RIF.
-Now we can ask for the offset for Athens:
+For example, assume that all the triples mentioned so far are in one graph that can be queried via SPARQL.
+Assume also that the system providing the SPARQL endpoint interprets the semantics of RDFS, OWL, and RIF.
+Now we can retrieve the time offset for Athens as follows:
 
 \begin{verbatim}
  SELECT ?offset WHERE {
@@ -314,11 +313,10 @@ Now we can ask for the offset for Athens:
 \end{verbatim}
 
 The system will return as a result the integer $2$.
-
-Athens is in the country Greece. We know that from the Web.
-Due to the OWL subproperty triple, we also know that to be in a country means to be part of it.
-Because of the RIF rule, we can infer that if something is part of something, it also has the same timezone.
-Based on this, the following two triples, the first one implicit, the second given explicitly, are in our knowledge base:
+The web provides us with the data that Athens is a city located in the country Greece.
+Due to the OWL sub-property triple, we also know that to be in a country means to be part of it.
+Because of the RIF rule, we can infer that if something is part of something else, it also has the same timezone.
+Based on this, the following two triples, the first one implicitly, the second given explicitly, are in our \ac{KB}:
 
 \begin{verbatim}
  dbpedia:Athens tz:timezone tz:EET .
@@ -327,14 +325,14 @@ Based on this, the following two triples, the first one implicit, the second giv
 
 A SPARQL query describes a triple pattern (similar to the one in the \textit{if}-part of RIF),
 where symbols with a leading question mark are variables.
-A SPARQL processor now tries to find values for the variables, so that the whole SPARQL pattern can be fulfilled by the knowledge base.
-The SPARQL processors then returns a list of all possible answers for the selected variables, i.e., in this case for all values that \texttt{?offset} can have so that the SPARQL query pattern matches in the knowledge base.
+A SPARQL processor now tries to find values for the variables, so that the whole SPARQL pattern can be fulfilled by the \ac{KB}.
+The SPARQL processors then returns a list of all possible answers for the selected variables, i.e., in this case for all values that \texttt{?offset} can have so that the SPARQL query pattern matches in the \ac{KB}.
 That is, all variables following the introductory \texttt{SELECT} keyword, in this case \texttt{?offset}.
 
-Given our query pattern, the two triples above are the only match in our knowledge base, and thus the result, \texttt{"2"\texttt{\char`\^}\texttt{\char`\^}xsd:int } will be returned as the only possible value for \texttt{?offset}.
+Given our query pattern, the two triples above are the only match in our \ac{KB}, and thus the result, \texttt{"2"\texttt{\char`\^}\texttt{\char`\^}xsd:int } will be returned as the only possible value for \texttt{?offset}.
 
 SPARQL can be regarded as the main interface for machines to access knowledge on the Web of Data.
-The usual workflow to work with Linked Data is to find and gather trustworthy data from the Web, include some knowledge created for the task or tying together the data from the Web, put it all in one knowledge base, and then use SPARQL to get answers to the queries of interest to the given task.
+The usual workflow to query Linked Data is to find and gather trustworthy data from the Web, include some knowledge created for the task or tying together the data from the Web, put it all in one \ac{KB}, and then use SPARQL to get answers to the queries of interest to the given task.
 Currently, we observe an upcoming trend of natural language interfaces to provide also laymen the possibility to access the Web of Data without knowing any of the underlying systems, see~\url{https://www.w3.org/community/nli/}.
 
 \medskip
@@ -347,15 +345,15 @@ We also did not discuss other types of queries: \texttt{DESCRIBE}, \texttt{ASK},
 \section{Serializations of RDF}
 \label{rdfa}
 What is a serialization?
-To send around RDF graphs through the Web, we need somehow to write them down in documents, i.e., to serialize them in a sequence of tokens.
-Throughout this chapter we have used a slightly simplified, triple-based serialization, N3~\cite{n3-tech}.
-N3 has the advantage, that the triple structure of the graph is very obvious.
+In order to provide \ac{RDF} graphs through the Web, we need to serialize them in a sequence of tokens.
+Throughout this chapter, we have used a slightly simplified, triple-based serialization, N3~\cite{n3-tech}.
+N3 has the advantage, that the triple structure of the graph can be easily inferred.
 Although, it is widely used, it has the disadvantage of not being standard.
 
-There are a confusing number of serializations of RDF around, mostly due to the fact that the originally standardized serialization in RDF/XML is considered to be not very pleasing.
-Soon, further syntaxes were created, some of them also in XML (like TriX~\cite{trix}), some of them not (like N3 and its constrained version N-Triples~\cite{ntriples}.
-Expressions in other languages like OWL and RIF were often very cumbersome to be translated to RDF (as shown in Section~\ref{rdfs}), and thus introduced serializations of their own, like the OWL Functional Syntax~\cite{owl2}, the OWL XML presentation syntax (a serialization of OWL directly in XML, instead of going through RDF~\cite{owl3}), the RIF syntaxes~\cite{rif}, etc.
-Lately, JSON-LD became a more prominent serialization format on the Web, and standards to represent the RDF data model in JSON are being worked on~\cite{json-ld}.
+There are a number of serializations of \ac{RDF} around, mostly due to the fact that the originally standardized serialization in RDF/XML is considered to be not very convenient.
+Soon, further syntaxes were created, some of them also in XML (like TriX~\cite{trix}) or in even novel formats like N3 and its constrained version N-Triples~\cite{ntriples}.
+Expressions in other languages like OWL and RIF are often hard to translate to \ac{RDF} (as shown in Section~\ref{rdfs}), and thus introduced serializations of their own, like the OWL Functional Syntax~\cite{owl2}, the OWL XML presentation syntax (a serialization of OWL directly in XML, instead of going through \ac{RDF}~\cite{owl3}), the RIF syntaxes~\cite{rif}, etc.
+Lately, JSON-LD became a more prominent serialization format on the Web, and standards to represent the \ac{RDF} data model in JSON are being worked on~\cite{json-ld}.
 
 %Besides serializations for pure RDF, there has been a second strand of embedding RDF in other file formats.
 %One of the main use cases for RDF is to provide flexible metadata about a file.
@@ -367,7 +365,7 @@ Lately, JSON-LD became a more prominent serialization format on the Web, and sta
 %This allows a tool understanding RDFa to directly extract structured data out of a Website:
 %a page about an event can be pulled into a calendar,
 %a restaurant can be automatically filtered with the allergies of the user,
-%different shopping Websites can be thrown into one knowledge base and be compared directly, etc.
+%different shopping Websites can be thrown into one \ac{KB} and be compared directly, etc.
 
 \medskip
 
@@ -404,16 +402,17 @@ Also relevant is the ongoing conversation between the communities supporting Mic
 \section{Conclusions and outlook}
 \label{conclusions}
 
-RDF is increasingly becoming the standard way to share data on the Web, especially in embedded-HTML formats\footnote{\url{https://www.similartech.com/categories/schema}}.
-Using and publishing RDF is not an academic exercise anymore.
-The flexibility and extensibility of RDF, together with the possibility to merge arbitrary RDF graphs, gives it a unique advantage compared to other wide spread data models.
-Confusions surrounding its several serializations, especially the ill-received standard RDF/XML-serialization, a maybe too early focus on OWL, and the late availability of SPARQL, have probably hampered uptake.
-Meanwhile, simple standards like Microformats and JSON-LD have received considerable uptake.
+\ac{RDF} is increasingly becoming the standard way to share data on the Web, especially in embedded-HTML formats\footnote{\url{https://www.similartech.com/categories/schema}}.
+Using and publishing \ac{RDF} is not an academic privilege anymore.
+The flexibility and extensibility of \ac{RDF}, along with the possibility to merge arbitrary \ac{RDF} graphs, gives it a unique advantage compared to other wide spread data models.
+The plurality of serializations, especially the ill-received standard RDF/XML-serialization, a over-emphasized focus on OWL, and the delayed availability of SPARQL hindered the early growth of \ac{RDF}.
+Meanwhile, simple standards, like Microformats and JSON-LD, have received considerable uptake.
 
-The advantages and the genericity of Linked Data standards are being increasingly recognized.
-Instead of introducing hundreds, if not thousands of APIs and heterogeneous formats, one common data model and query language can substantially decrease costs of data integration and data reuse.
+The advantages and the availability of Linked Data standards are being increasingly recognized.
+Instead of introducing hundreds of APIs and heterogeneous formats, one common data model and query language can substantially decrease costs of data integration and data reuse.
+Thus, recent approaches such as Triplify~\cite{triplify_www}, D2R~\cite{Bizer04} and SPARQLMap~\cite{unbehauen-jist-2012-sparqlmap} try to built a \ac{RDF} layer on top of heterogeneous data sources.
 
-End user interfaces to the Web of Data are still missing.
+End user interfaces to the Web of Data are still limited.
 %$Maybe the role of Linked Data is to be background technology:
 %no one asks for generic interfaces for end-users to SQL databases.
 %Maybe the Web of Data has a similar fate.
@@ -423,10 +422,10 @@ Thus, laymen and professional users can benefit from the wealth of knowledge ris
 Still several practical issues remain unresolved:
 \begin{itemize}
 %\item In general, SPARQL is too powerful and too expensive for the Web. It is far too easy to bring a SPARQL endpoint down with a few queries.
-\item The multitude of serialization formats in practical use combined with the lack of standard formats besides RDF/XML hampers teaching about RDF and its uptake.
-\item For a number of wide-spread use cases, no standards or even widely acknowledged best practices exist: how to express numbers with units, especially imperial units? How to express data that was valid at a given point in time? How to express time spans? How to deal with numerical precision? How to work with simple geographical and temporal reasoning, like inclusion?
-\item Currently, most standards allow fine-grained provenance information only through reification, a method, that is often strongly discouraged for several reasons.
-\item The semantics break down under inconsistencies. There is currently no accepted way to deal with diversity in knowledge bases, even though this will play a crucial role on the Web. This ties in with questions of trust that have not yet been sufficiently tackled: given diverse data about an entity, maybe even contradictions, how to choose which sources to trust? How to make this trust transferable to the user?
+\item The multitude of serialization formats in practical use combined with the lack of standard formats besides RDF/XML hampers teaching about \ac{RDF} and its uptake.
+\item For a number of wide-spread use cases, no standards or widely accepted practices exists: how to express numbers with units, especially imperial units? How to express data that was valid at a given point in time? %How to express time spans? How to deal with numerical precision? How to work with simple geographical and temporal reasoning, like inclusion?
+%\item Currently, most standards allow fine-grained provenance information only through reification, a method, that is often strongly discouraged for several reasons.
+\item The semantics can break down under inconsistencies. There is currently no accepted way to deal with diversity in knowledge bases, even though this will play a crucial role on the Web. This ties in with questions of trust that have not yet been sufficiently tackled: given diverse data about an entity, maybe even contradictions, how to choose which sources to trust? %How to make this trust transferable to the user?
 \end{itemize}
 
 The Web of Data, as part of the Web, is getting increasingly tangled with all aspects of our lives.
