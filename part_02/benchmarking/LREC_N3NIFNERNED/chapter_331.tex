@@ -29,7 +29,7 @@ NED is the task of disambiguating pre-identified named entities towards a certai
 %NED is based on pre-identified named entities and their disambiguation towards a certain KB. %using various methods.
 %RE determines links between entities based on a given context leading to Information Extraction~\cite{fox}.
 These IE steps depend on datasets which need human annotation, and therefore make it a time-consuming and expensive task.
-Approaches like AGDISTIS (Chapter~\ref{cha:agdistis}) or CETUS (Chapter~\ref{cha:cetus}) need to be evaluated against high-quality, easily deployable and diverse datasets.
+Approaches like AGDISTIS (Chapter~\ref{cha:agdistis}) or CETUS (Chapter~\ref{cha:cetus}) need to be evaluated against high-quality, easy to deploy and diverse datasets.
 %\todo[inline]{Why does RE lead to IE? This formulation seems a little bit strange and does not really fit to the next sentence in which RE is a step of IE.}
 %\todo[inline]{Done, but does it really fit in here? (rewrite that section, mention that NED is done by using DBpedia as KB. DBpedia is the central point of the Linked Open Data movement.)}
 
@@ -40,7 +40,7 @@ Our main contributions are as follows:
 \item The publication of three novel and freely available datasets for \ac{NER} and \ac{NED};
 \item An analysis of the underlying corpora;
 \item The transformation of these corpora to NIF providing provenance data.
-\item Finally, our datasets also allow the analysis of coreference resolution~\cite{NgongaNgomo2014,singh} if the entity is not in the \ac{KB}  of the respective corpus.
+\item Finally, our datasets also allow the analysis of co-reference resolution~\cite{NgongaNgomo2014,singh} if the entity is not in the \ac{KB}.
 \end{itemize}
 The data as well as further information can be found at the project homepage \url{http://aksw.org/Projects/N3nernednif}.
 
@@ -55,10 +55,10 @@ In the following section, we present the annotation process as well as specific 
 
 During the annotation, we focused on recognizing three main classes of NEs: persons, places and organizations. 
 Each identified NE has been manually disambiguated to the DBpedia 3.9  if possible.
-In case there was no matching resource from a \ac{KB}  we created an URI\footnote{\url{http://www.w3.org/TR/cooluris/}} using the \url{http://aksw.org/notInWiki/} namespace (see Section~\ref{n3:NIF}).
-Additionaly, we resolved coreferences for every named entity, especially, for entities that are not yet in the \ac{KB} . %\todo[inline]{coreference resolved?}
+In case there was no matching resource in a \ac{KB}  we created an URI\footnote{\url{http://www.w3.org/TR/cooluris/}} using the \url{http://aksw.org/notInWiki/} namespace (see Section~\ref{n3:NIF}).
+Additionally, we resolved co-references for every named entity, especially, for entities that are not yet in the \ac{KB} . %\todo[inline]{co-reference resolved?}
 
-Furthermore, the collection of datasets is annotated by the version and language of the \ac{KB} , hence any change of the underlying database can be analysed.
+Furthermore, the collection of datasets is annotated by the version and language of the \ac{KB} , hence any change of the underlying database can be analyzed.
 In order to spread the corpora, we publish them under the Creative Commons BY-NC-SA license\footnote{\url{http://creativecommons.org/licenses/by-nc-sa/4.0/}}.
 
 In general, our corpora contain more documents then any published NIF corpora (\texttt{KORE50} and \texttt{DBpedia Spotlight}) so far.
@@ -104,15 +104,13 @@ Moreover, Table~\ref{n3:tab:entity_counts} describes the number of entities and 
 	\label{n3:tab:entity_counts}
 \end{table}
 
-
-The distribution of NEs over the texts is shown in Figure \ref{n3:fig:nePerDoc}. 
 \begin{figure}[htb!]
   \centering
   \includegraphics[width=\linewidth]{part_02/benchmarking/LREC_N3NIFNERNED/NE_per_doc.pdf}
   \caption{Distribution of NEs per document. We omitted two outliers from the News-100 corpus containing 55 and 63 NEs.}
   \label{n3:fig:nePerDoc}
 \end{figure}
-
+The distribution of NEs over the texts is shown in Figure \ref{n3:fig:nePerDoc}. 
 \texttt{RSS-500} has been left out because all of its documents comprise exactly two entities. 
 As depicted in the diagram, all documents of the \texttt{KORE50} corpus have less than six NEs. 
 The documents from \texttt{DBpedia Spotlight} corpus reveal a larger context and thus more NEs. 
