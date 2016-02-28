@@ -6,12 +6,12 @@ HAWK won the 2nd price at the \ac{QALD} challenge, task 2 2015.
 }
 \label{cha:hawk}
 Recent advances in \ac{QA} over \ac{LD} provide end users with more and more sophisticated systems for querying \ac{LD} by allowing users to express their information need in natural language~\cite{SINA_WebSemantic,pythia,template}. 
-This allows access to the wealth of semantic data available on the Semantic Web also to non-experts and users unaware of the underlying schema. 
-Linked Data eases the access to structured and semantic meaningful information than unstructured Web documents.
+This allows access to the wealth of semantic data available on the Semantic Web to non-experts and users unaware of the underlying schema. 
+Linked Data simplifies the access to structured and semantic meaningful information more than unstructured Web documents can.
 However, a lot of information is still available only in textual form, both on the Document Web and in the form of labels and abstracts in \ac{LD} sources~\cite{GER+13}.
 Therefore, a considerable number of questions can only be answered by using hybrid question answering approaches, which  can find and combine information stored in both structured and textual data sources~\cite{combiningLDandIR}.
 
-In this chapter, we present HAWK, the (to best of our knowledge) first full-fledged hybrid \ac{QA} framework for entity search over \ac{LD} and textual data. 
+In this chapter, we present HAWK, the first full-fledged hybrid \ac{QA} framework\footnote{To the best of our knowledge.} for entity search over \ac{LD} and textual data. 
 %To the best of our knowledge, this is the first hybrid question answering system, combining information from structured and unstructured data.
 Given a textual input query $q$, HAWK implements a 13-step pipeline, which comprises 1) input segmentation 2) part-of-speech tagging, 3) detecting entities, 4) spotting noun phrases, 5) dependency parsing and 6) applying linguistic pruning heuristics for an in-depth analysis of the natural language input. 
 The results of these first six steps is a predicate-argument graph annotated with resources from Linked Data. HAWK then 7) assigns semantic meaning to nodes and 8) generates basic triple patterns for each component of the input query with respect to a multitude of features. 
@@ -27,10 +27,10 @@ Our main contributions can be summarized as follows:
  \begin{itemize}
  \item We present the first \ac{QA} framework for answering hybrid questions;
  \item HAWK analyses input queries based on predicate-argument trees to deeply understand and match semantic resources;
- \item Our framework is generic as it does not rely on templates. It is thus inherently able to cover a wide variety of natural language questions. % as well as knowledge bases with various topologies;
+ \item Our framework is generic, as it does not rely on templates. Thus, it is inherently able to cover a wide variety of natural language questions. % as well as knowledge bases with various topologies;
  \item The modular architecture of HAWK allows simple exchanging of pipeline parts to enhance testing and deployment;
  %\item HAWK's implementation is open-source under MIT License\footnote{\url{https://github.com/AKSW/hawk}};
- \item Our evaluation suggests that HAWK is able to achieve F-measures of 0.61 on rather small training datasets.
+ \item Our evaluation suggests that HAWK is able to achieve F-measures of 0.61 on a rather small (<50 questions) training datasets.
  \item We present a thorough evaluation of the framework, including an analysis of the influence of entity annotation frameworks on the generation process of the hybrid queries and a study of the overall accuracy of the system. 
  \item Furthermore, HAWK can generate SPARQL queries using \texttt{ASK}. Our results show that these developments lead to HAWK achieving 0.74 F-measure on the ASK queries contained in the Question Answering over Linked Data (\ac{QALD}-5) hybrid query benchmark~\cite{qald5} assuming an given optimal ranking function.
  \end{itemize}
@@ -46,7 +46,7 @@ Additional information can be found at our project home page \url{http://aksw.or
 \label{chahawk:sec:method}
 
 In the following, we describe the architecture and methodology of HAWK. 
-Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture. In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
+Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture. %In the following we describe the depicted steps in more detail.%: POS-tagging, entity annotation, dependency parsing, linguistic pruning, semantic annotation, SPARQL query generation, pruning and ranking.
 
 \begin{figure}[tb!]
 \centering
@@ -60,7 +60,7 @@ To be generic with respect to the language of the input question, HAWK uses a mo
 For English input questions our system relies on the \emph{clearNLP}-framework~\cite{choi2011getting} which provides a.o. a white space tokenizer, POS-tagger and transition-based dependency parsing.
 
 \subsection{Part-of-Speech (POS)-Tagging.} 
-HAWK annotates each token with its POS-tag which will be later used to identify possible semantic annotations. 
+HAWK annotates each token with its POS-tag, which will be later used to identify possible semantic annotations. 
 A large number of frameworks have been developed for these purposes over the last years. 
 Currently, we rely on \emph{clearNLP}~\cite{choi2011getting} which is a fast and robust framework~\cite{choi-palmer:2012:ACL2012short}.
 
@@ -96,7 +96,7 @@ HAWK identifies noun phrases, i.e., semantically meaningful word groups, e.g., r
 This step is also know as chunking. 
 Input tokens are combined following manually-crafted linguistic heuristics based on POS-tag sequences derived from the \ac{QALD}-5 benchmark questions and their POS-tag is changed to \texttt{CNN} which we introduce to the system.
 Two domain experts implemented the deduced POS-tag sequences and safeguarded the quality of this algorithm w.r.t. the \ac{QA} pipeline F-measure. 
-The full algorithm can be found in Algorithm~\ref{listing:nouncombiner}.
+The full process can be found in Algorithm~\ref{listing:nouncombiner}.
 
 \input{part_03/ESWC_HAWK/algo_nouncombiner.tex}
 
@@ -105,21 +105,21 @@ The full algorithm can be found in Algorithm~\ref{listing:nouncombiner}.
 
 Subsequently, in order to capture linguistic and semantic relations, HAWK parses the query using dependency parsing~\cite{choi2011getting}.
 The dependency parser is given the chunked question. 
-The generated pre\-dicate-argument tree is directed, acyclic, and all its nodes contain their POS-tags as well as their labels.
+The generated pre\-dicate-argument tree is directed, acyclic and all its nodes contain their POS-tags as well as their labels.
 HAWK's modular structure allows for an easy exchange of the POS-tagger or dependency parser.
 
 \subsection{Linguistic Pruning}
 
 The natural language input can contain tokens that are meaningless for retrieving the target information or even introduce noise in the process.
 HAWK therefore prunes nodes from the predicate-argument tree based on their POS-tags, e.g., deleting all \texttt{DET} nodes, interrogative phrases such as \texttt{Give me} or \texttt{List}, and auxiliary tokens such as \texttt{did}.
-Algorithm~\ref{listing:lingpruning} details the algorithm for removing nodes.
+Algorithm~\ref{listing:lingpruning} details the process for removing nodes.
 
 \input{part_03/ESWC_HAWK/algo_treepruner.tex}
 
 
 \subsection{Semantic Annotation}
 After linguistic pruning, HAWK annotates each node in the tree with possible concepts from the knowledge base and its underlying ontology.
-To this end, our framework uses information about possible verbalizations of ontology concepts, based on both \texttt{rdfs:label} information from the ontology itself and (if available) verbalization information contained in lexica.
+To this end, our framework uses information about possible verbalizations of ontology concepts based on both \texttt{rdfs:label} information from the ontology itself and (if available) verbalization information contained in lexica.
 %lexiconexisting manually crafted English lexicon\footnote{\url{https://github.com/cunger/lemon.dbpedia}} for DBpedia. 
 % we generated triples of the form $\langle$\emph{reference},\,\texttt{rdfs:label},\,\texttt{"}\emph{form}\texttt{"}$\rangle$, that link an ontology element (\emph{reference}) to its written representation (\emph{form}) in the lexicon. 
 In general, such lexica offer a range of lexical variants beyond the labels present in DBpedia. For example, for the property \texttt{dbo:spouse}, the DBpedia English lexicon\footnote{\url{https://github.com/cunger/lemon.dbpedia}}~\cite{dbpedia-lemon} provides the noun entries \texttt{wife} and \texttt{husband} as well as the verb entry \texttt{to marry}.
@@ -287,12 +287,12 @@ To evaluate HAWK, we focus on this hybrid training dataset comprising 25 questio
 The available test dataset comprises only 10 question with 6 entity searches and linguistic structures that are completely different from the training dataset.
 Before evaluation, we had to curate the benchmark datasets regarding, among others, incorrect grammar, typological errors, duplicate resources in the answer set.
 The cleaned datasets can be found in our source code repository.\footnote{\url{https://github.com/AKSW/hawk/tree/master/resources}}
-Without this correction HAWK's F-measure shrinks to nearly zero for questions containing failures.
+Without these corrections HAWK's F-measure shrinks to nearly zero for questions containing failures.
 
 \paragraph{Error Analysis}
 
 In the following, we analyze error sources in HAWK based on the training queries failing to reach a higher F-measure.
-Table~\ref{tab:trainqueries} shows for each entity search question from the training dataset its evaluation results.
+Table~\ref{tab:trainqueries} shows the evaluation results for each entity search question from the training dataset.
 \begin{itemize}
 \item \textbf{Entity Annotation: } Queries 1, 11 and 15 cannot be answered by HAWK due to failing entity annotation. None of the tested annotation systems was able to either find the resources  \texttt{Jane\_T.\_Austion} nor \texttt{G8} or \texttt{Los\_Alamos}. 
 Without matching entity annotations a full-text search retrieves too many matches for reaching high precision values on limited result set.
@@ -325,8 +325,8 @@ Dataset           & \multicolumn{1}{l}{Optimal Ranking} & \multicolumn{1}{l}{Fea
 
 
 \paragraph{Error Analysis}
-As can be seen in Table~\ref{tab:eval_qald5}, the implemented ranking function do not reach an optimal ranking implementation.
-Moreover, each implementation are not able to discard whole queries, i.e., they are currently not aware of the possibility that the answer could not have been retrieved at all while the optimal ranker discards questions with incorrect answer sets. 
+As can be seen in Table~\ref{tab:eval_qald5}, the implemented ranking functions do not reach the optimal ranking score.
+Moreover, non of the implementations is able to discard whole queries, i.e., they are currently not aware of the possibility that the answer could not have been retrieved at all while the optimal ranker discards questions with incorrect answer sets. 
 This does not effect the global F-measure but results in an high computational effort and might lead users to wrong conclusions. 
 
 Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm, see Chapter~\ref{cha:app_hawk} in the appendix.. 
