@@ -95,8 +95,10 @@
 \cleardoublepage
 \ctparttext{
 In the first part, we introduce the core topic of this thesis and motivate its relevance to the research community. 
-Furthermore, the required preliminaries to comprehend the underlying technologies are detailed.
-At the end, this part examines the state of the art related to this thesis' topic.  
+That is, we want to tackle three research challenges to overcome the separation of the Document Web and the Web of Data to allow users to search both knowledge sources via asking natural language questions. 
+Furthermore, we introduce the required preliminaries to comprehend the underlying technologies.
+At the end, this part examines the state of the art related to this thesis' topic.
+This part covers a wide range of research topics from information extraction and retrieval, to open-science benchmarking and question answering.   
 }
 \part{Introduction}
 \input{part_01/chapter_one.tex}
@@ -105,10 +107,12 @@ At the end, this part examines the state of the art related to this thesis' topi
 
 
 \ctparttext{
-In the following part, we introduce several novel approaches tackling the \textit{Semantic Gap}.
+In the following part, we introduce three novel approaches tackling the \textit{Semantic Gap}.
 First, we present a pattern-based algorithm for the annotation of type information from unstructured text.
-Second, we describe AGDISTIS -- a knowledge base agnostic state of the art system for named entity disambiguation. 
-Finally, we explain our approach towards Web-scale extraction of RDF knowledge from strongly templated websites.  
+Second, we describe AGDISTIS -- a knowledge base-agnostic, state-of-the-art system for \acf{NED}. 
+Finally, we explain our approach towards Web-scale extraction of \acf{RDF} knowledge from templated websites.  
+Those approaches to extract semantic data are designed to form building blocks of even larger information systems.
+For example, AGDISTIS is a part of the process pipeline of our hybrid QA system HAWK, introduced in Chapter~\ref{cha:hawk}.
 }
 \part{Semantic Gap}
 \input{part_02/unstructured_annotation/chapter_313.tex} %type annotation
@@ -120,7 +124,7 @@ Finally, we explain our approach towards Web-scale extraction of RDF knowledge f
 \ctparttext{
 The last part explained, how to extract high-quality semantic data from unstructured and semi-structured data sources with scalable algorithms.
 However, the multitude of diverse algorithms, especially in the area of semantic annotation of unstructured text, lead to a lack of easily deployable datasets as well as a lack of experiment comparability, repeatability  and archivability.
-To close the \textit{Evaluation Gap}, we present an interchangable dataset for \ac{NER} and \ac{NED} as well as an open-science-enabling benchmarking platform for semantic annotation approaches.
+To close this \textit{Evaluation Gap}, we present an interchangable dataset for \ac{NER} and \ac{NED} as well as an open-science-enabling benchmarking platform for semantic annotation approaches.
 Thus, we are able to deliver easily reusable datasets, repeatable experiments and publishable results to our community.
 }
 \part{Evaluation Gap}
@@ -131,8 +135,10 @@ Thus, we are able to deliver easily reusable datasets, repeatable experiments an
 \cleardoublepage
 \ctparttext{
 In this part of the thesis, we introduce HAWK, a novel approach for hybrid question answering. 
-With this approach, we aim at closing the \textit{Information Gap}. 
-HAWK leverages the access to unstructured as well as structured knowledge for end-users and non-experts.
+With this approach, we aim at closing the \textit{Information Gap}.
+First, HAWK eliminates the barriers between the structured Web of Data and the Document Web by using both data sources to answer information needs.
+Second, HAWK is able to understand natural-language questions which allows users to formulate complex questions without knowing difficult query languages or the underlying data schema.
+Thus, our framework leverages the access to unstructured as well as structured knowledge for end-users, laymen and experts as well as non-experts.
 }
 \part{Information Gap}
 \label{part:hybridQA}
@@ -141,6 +147,7 @@ HAWK leverages the access to unstructured as well as structured knowledge for en
 \cleardoublepage
 \ctparttext{
 In the last part of the thesis, we summarize the developed approaches, conclude with the lessons learned and point towards future developments. 
+We describe our future research directions which are a natural extension of our previous work.
 }
 \part{Synopsis}
 \input{part_04/summary.tex}

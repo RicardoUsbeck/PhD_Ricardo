@@ -2,14 +2,19 @@
 \label{cha:app_hawk}
 
 
-First, we present the evaluation of HAWK towards the  \ac{QALD}-5 benchmark.
-
+We present the evaluation of HAWK towards the \ac{QALD}-5 benchmark. The color codes can be resolved as follows:
+\begin{itemize}
+\item Yellow indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
+\item Orange cells point out that one ranking algorithm performs worse than the other. 
+\item Red indicates the inability to retrieve correct answer sets.
+That is, HAWK is able to generate a set of SPARQL queries but among them none retrieves a correct answer set.
+\item Blue rows describe questions where HAWK is unable to generate at least one SPARQL query. Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
+\end{itemize}
 {
 \scriptsize
 \input{part_03/ESWC_HAWK/clef_table}
 }
-\clearpage
-Second, we show the detailed evaluation of the influence of different entity annotation systems towards the \ac{QALD}-4 benchmark, task hybrid questions, training on our hybrid \ac{QA} system, see Figure~\ref{chahawk:fig:EntityAnnotators}.
+Additionally, we show the detailed evaluation of the influence of different entity annotation systems towards the \ac{QALD}-4 benchmark, task hybrid questions, training on our hybrid \ac{QA} system, see Figure~\ref{chahawk:fig:EntityAnnotators}.
 \begin{figure}[htb!]
 \centering
 \includegraphics[width=\linewidth]{Appendix/fig/bars}

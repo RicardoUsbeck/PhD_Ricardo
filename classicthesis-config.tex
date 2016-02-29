@@ -52,7 +52,7 @@
 \newcommand{\myDepartment}{Abteilung f\"ur Betriebliche Informationssysteme\xspace}
 \newcommand{\myUni}{Universit\"at Leipzig\xspace}
 \newcommand{\myLocation}{Universit\"at Leipzig\xspace}
-\newcommand{\myTime}{January 2013 - February 2016\xspace}
+\newcommand{\myTime}{January 2013 - March 2016\xspace}
 %\newcommand{\myVersion}{version 4.1\xspace}
 
 % ********************************************************************
@@ -432,6 +432,7 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 \newcommand{{\overallNrOfMatchingTypes}}{3\xspace}
 %Strong Annotation Matching, Weak Annotation Matching, Strong Entity Matching
 
+\usepackage{enumitem} %spacing between enumerations in abstract
 
 \usepackage{epstopdf}
 \usepackage{epsfig}
@@ -485,3 +486,16 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 %% count pages
 \usepackage{lastpage}
 \usepackage{pageslts}
+
+
+%%%do not color acronym links
+\makeatletter
+\AtBeginDocument{%
+  \renewcommand*{\AC@hyperlink}[2]{%
+    \begingroup
+      \hypersetup{hidelinks}%
+      \hyperlink{#1}{#2}%
+    \endgroup
+  }%
+}
+\makeatother

@@ -1,41 +1,31 @@
 \section{Explaining HAWK via examples}
 \label{sec:hawkexample}
-In this section, we explain our approach and its mechanics towards entity-centric question answering by using three different  examples. 
-
+In this section, we explain our approach and its mechanics towards entity-centric \ac{QA} by three different examples. 
+These examples focus on different aspects such as the linguistic analysis of the query, the generation of SPARQL query from the identified structure and the extension of HAWK towards boolean questions.
 \paragraph{Linguistic Phase} The first example will detail the linguistic phase w.r.t. the  example \emph{Which recipients of the Victoria Cross died in the Battle of Arnhem?}
 While this question cannot be answered by using solely DBpedia or Wikipedia abstracts, combining knowledge from DBpedia and Wikipedia abstracts allows deriving an answer to this question.
  More specifically, DBpedia allows to retrieve all recipients of the Victoria Cross using the triple pattern \texttt{?uri dbo:award dbr:Victoria\_Cross.}
-In order to find out whether the returned resources died in the Battle of Arnhem, the free text abstract of those resources need to be checked. 
+In order to find out whether the returned resources died in the Battle of Arnhem, the free text abstract of those resources needs to be checked. 
 For example, the abstract for John Hollington Grayburn contains the following information: 
 `he went into action in the Battle of Arnhem [...] but was killed after standing up in full view of a German tank'. 
-
-Afterwards, the following POS-tags are generated:
-\texttt{Which(WDT) recipients(NNS) of(IN) the(DT) Victoria(NNP) Cross(NNP) died(VBN) in(IN) the(DT) \\Battle(NNP) of(IN) Arnhem(NNP)?(PUNCT)}
-
-An optimal spotter would identify\texttt{Victoria\_Cross} and \texttt{Battle\_of\_Arnhem} as resources form DBpedia.
-
-
+First, HAWK generates the following POS-tags:
+\texttt{Which(WDT) recipients(NNS) of(IN) the(DT) Victoria(NNP) Cross(NNP) died(VBN) in(IN) the(DT) Battle(NNP) of(IN) Arnhem(NNP)?(PUNCT)}
+Next, we would identify via an optimal spotter \texttt{Victoria\_Cross} as resource form DBpedia as well as the noun phrase \texttt{Battle\_of\_Arnhem}.
+In the following, we generate dependency trees from the input question where we already replace identified entities with their respective URLs.
+The generated dependency tree can be found in Figure~\ref{chahawk:fig:dependency_tree}.
+Furthermore, Figure~\ref{chahawk:fig:prunedtree} depicts the predicate-argument tree after pruning.
 \begin{figure}[htb!]
 \centering
 \includegraphics[scale=0.4]{part_03/ESWC_HAWK/hawk_tree_full}
 \captionof{figure}{Predicate-argument tree for the example question `Which recipients of the Victoria Cross died in the Battle of Arnhem?'}
 \label{chahawk:fig:dependency_tree}
 \end{figure}
-\begin{figure}[htb!]
-\centering
-\includegraphics[trim={0 3cm  0 0},clip,scale=0.4]{part_03/ESWC_HAWK/hawk_tree_pruned}
-\captionof{figure}{Tree after pruning. Argument edges are ordered from left to right.}
-\label{chahawk:fig:prunedtree}
-\end{figure}
 
 
-The generated dependency tree can be found in Figure~\ref{chahawk:fig:dependency_tree}.
-Figure~\ref{chahawk:fig:prunedtree} depicts the predicate-argument tree after pruning.% of unnecessary nodes.
-
-The nodes \texttt{died (VB)} will be annotated with \texttt{dbo:deathPlace} and \texttt{dbo:deathDate} and the node \texttt{recipients (NNS)} with \texttt{dbo:award}.
+Now, we annotate the rest of the nodes with semantically meaningful properties ans classes. 
+The node \texttt{died (VB)} will be annotated with \texttt{dbo:deathPlace} and \texttt{dbo:deathDate} and the node \texttt{recipients (NNS)} with \texttt{dbo:award}.
 Table~\ref{tab:exact_fuzzy} depicts the two possibilities for full-text look ups on \texttt{CNN}-nodes while Table~\ref{tab:triple_patterns_example} shows the generated triple patterns for parts of the example query.
- 
- After generating every possible combination of the triple patterns and pruning them, an optimal ranker would generate and choose the following SPARQL query:
+After generating every possible combination of the triple patterns and pruning them, an optimal ranker would generate and choose the following SPARQL query:
 \begin{itemize}
 \item \texttt{
 SELECT ?proj \{
@@ -43,7 +33,12 @@ SELECT ?proj \{
 ?proj  dbo:award res:Victoria\_Cross . \}}
 \end{itemize}
 
-
+\begin{figure}[htb!]
+\centering
+\includegraphics[trim={0 3cm  0 0},clip,scale=0.4]{part_03/ESWC_HAWK/hawk_tree_pruned}
+\captionof{figure}{Tree after pruning. Argument edges are ordered from left to right.}
+\label{chahawk:fig:prunedtree}
+\end{figure}
 \begin{table}[htb!]
 \centering
 \begin{tabular}{l@{\quad}l@{\quad}l}
@@ -57,8 +52,6 @@ Fuzzy & \texttt{?var text:query ('Battle\textasciitilde1 AND Arnhem\textasciitil
 \caption{Examples for full-text query types.}
 \label{tab:exact_fuzzy}
 \end{table}
-
-
 \begin{table}[htb!]
 \centering
 \begin{tabular}{l@{\quad}l}
@@ -83,15 +76,12 @@ Fuzzy & \texttt{?var text:query ('Battle\textasciitilde1 AND Arnhem\textasciitil
 
 
 %%%%%%%%%Ranking example
-\paragraph{SPARQL phase} Using the following  example, here we will detail the SPARQL execution phase of HAWK: \emph{Which anti-apartheid activist was born in Mvezo?}.
-
-
-After segmenting the input, POS-tagging on the  example will result in the following: \texttt{Which(WDT) anti-apartheid(JJ) activist(NN) was(VBD) born(VBN) in(IN) Mvezo(NNP)?}
-An optimal annotator would annotate our  example \texttt{Mvezo} with \url{http://dbpedia.org/resource/Mvezo}.
-Addtionally, the \texttt{anti-apartheid activist} would be detected as noun phrase.
-The linguistically pruned dependency tree with combined noun phrases for our  example would only contain \texttt{born} as a root node with two children, namely \texttt{anti-apartheid activist} and \url{http://dbpedia.org/resource/Mvezo}.
-With respect to the  example \texttt{born} would be annotated with the properties \texttt{dbo:birthPlace} and \texttt{dbo:birthDate}.
-
+\paragraph{SPARQL phase} Here we will detail the SPARQL execution phase of HAWK using the following running example: \emph{Which anti-apartheid activist was born in Mvezo?}.
+After segmenting the input, POS-tagging the example will result in the following: \texttt{Which(WDT) anti-apartheid(JJ) activist(NN) was(VBD) born(VBN) in(IN) \\ Mvezo(NNP)?(PUNCT)}
+An optimal annotator would annotate \texttt{Mvezo} with the DBpedia resource \texttt{dbr:Mvezo} 
+Additionally, \texttt{anti-apartheid activist} is detected as noun phrase by HAWK.
+The linguistically pruned dependency tree with combined noun phrases contains only \texttt{born} as a root node with two children, namely \texttt{anti-apartheid activist} and \texttt{dbr:Mvezo}.
+Next, \texttt{born} would be annotated with the properties \texttt{dbo:birthPlace} and \texttt{dbo:birthDate}.
 Among others, HAWK generates for the  example the following three hybrid SPARQL queries:
 \begin{enumerate}
 \item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}
@@ -100,36 +90,36 @@ Among others, HAWK generates for the  example the following three hybrid SPARQL 
 \item \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?const dbo:birthPlace ?proj.\}}
 \end{enumerate}
 
-The final semantic pruning module would discard the second query from this list because \texttt{dbo:birthDate} demands a literal in the object position of the second triple pattern due to the \texttt{rdfs:range} restrictions.
-
-An optimal ranking will reveal that the optimal SPARQL query for our example is \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}.
+Then, the semantic pruning module discards the second query from this list because \texttt{dbo:birthDate} demands a literal in the object position of the second triple pattern due to the \texttt{rdfs:range} restrictions.
+Moreover, an optimal ranking reveals that the correct SPARQL query for our example is \texttt{SELECT ?proj  \{?proj text:query 'anti-apartheid activist'.\\ ?proj dbo:birthPlace dbr:Mvezo.\}}.
 Depending on a large enough training set, the method of the feature-based ranker should also return a small cosine similarity between the optimal SPARQL query and the training vector. 
 However, this ranking method does not consider contextual influences and is thus only useful to restrict the search space for correct queries.
-Finally, the bucket-based ranker fills one bucket (\url{http://dbpedia.org/resource/Nelson_Mandela}) with two votes from queries one and three and one bucket with one vote from query three. 
+The bucket-based ranker fills one bucket (\texttt{dbr:Nelson\_Mandela}) with two votes from queries one and three and one bucket with one vote from query three. 
 Thus, the bucket-based ranking would choose any of the queries one or three which leads to a correct answer.
-
+However, finding a good ranking method for real-life applications is a central aim of future research.
 
 
 %%%%%%%%%% NLIWOD
-\paragraph{Boolean questions} At the last example, we will explain how easily boolean questions can be handled by HAWK based on the example: \emph{Napoleon's first wife die in France?}
-
-First the input is segmented and then the POS-tagging module generates the following sequence: \texttt{Did(VBD) Napoleon(NNP) 's(POS) first(JJ) wife(NN) die(VB) in(IN) France(NNP) ?(.)}
-Further, an optimal entity annotation system will identify \texttt{Napoleon} with \url{http://dbpedia.org/resource/Napoleon} and \texttt{France} with \url{http://dbpedia.org/resource/France}.
-Next, the tokens \texttt{first wife} are detected as noun phrase and the the linguistically pruned dependency tree with combined noun phrases contains only  \texttt{die} as a root node with two children, namely \texttt{first-wife} and \url{http://dbpedia.org/resource/Napoleon}.
-The semantic annotation module then identifies \texttt{die} with the properties \texttt{dbo:deathPlace} and \texttt{dbo:dbo:deathDate}.
-
-Amongst others, HAWK generates for the  example the following three hybrid SPARQL queries:
+\paragraph{Boolean questions} We will explain how boolean questions can be handled by HAWK based on the example: \emph{Napoleon's first wife die in France?}
+First the input is segmented and then the POS-tagging module generates the following sequence: \texttt{Did(VBD) Napoleon(NNP) 's(POS) first(JJ) wife(NN) die(VB) in(IN) France\\(NNP) ?(PUNCT)}
+Further, an optimal entity annotation system identifies \texttt{Napoleon} with \texttt{dbr:Napoleon} and \texttt{France} with \texttt{dbr:France}.
+Next, the multi-word unit \texttt{first wife} is detected as a noun phrase.
+The generated, linguistically pruned dependency tree with already combined noun phrases and named entities contains only \texttt{die} as a root node with two children, namely \texttt{first-wife} and \texttt{dbr:Napoleon}.
+Afterwards, the semantic annotation module then identifies \texttt{die} with the properties \texttt{dbo:deathPlace} and \texttt{dbo:dbo:deathDate}.
+In the SPARQL generation step, HAWK generates the following three hybrid SPARQL queries:
 \begin{enumerate}
 \item \texttt{SELECT ?proj  \{?proj text:query 'first wife'.\\ ?proj dbo:deathPlace dbr:France.\\ ?proj ?pbridge dbr:Napoleon.\}}
 \item \texttt{SELECT ?proj  \{?proj text:query 'first wife'.\\ ?proj dbo:deathDate dbr:France.\\ ?proj ?pbridge dbr:Napoleon.\}}
 \item \texttt{SELECT ?proj  \{?proj text:query 'first wife'.\\ ?const pbridge dbr:France.\\ ?proj ?pbridge dbr:Napoleon.\}}
 \end{enumerate}
-
-
-Based on the generated SPARQL queries, the semantic pruning discards query two from above because it violates the range restriction of the \texttt{dbo:deathDate} predicate.
-Our  example is classified as \texttt{ASK} demanding respectively boolean question based on Table~\ref{tab:indicator_words}.
-An optimal ranking will reveal that the correct SPARQL queries could be:
+Based on the generated SPARQL queries, the semantic pruning discards the second query from above because it violates the range restriction of the \texttt{dbo:deathDate} predicate.
+Finally, our  example is classified as \texttt{ASK} demanding respectively boolean question based on Table~\ref{tab:indicator_words}.
+Thus, the projection modifier \texttt{SELECT ?proj} is replaced by \texttt{ASK}.
+An optimal ranking will reveal that the correct SPARQL queries could be one of the following:
 \begin{enumerate}
 \item \texttt{ASK \{?proj text:query 'first wife'. \\?proj dbo:deathPlace dbr:France. \\?proj ?pbridge dbr:Napoleon\}} or 
 \item \texttt{ASK \{?proj text:query ('first wife' AND 'Napoleon') .\\ ?proj dbo:deathPlace dbr:France.\}}.
 \end{enumerate} 
+Here, it is not necessary to identify Napoleon as named entity since he appears in the abstract of his first wife Joséphine de Beauharnais.
+
+However, this small extension enables HAWK to also answer boolean question based on a full-understanding of the user input and hybrid data sources.

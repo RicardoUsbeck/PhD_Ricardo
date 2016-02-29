@@ -1,4 +1,4 @@
-\chapter{HAWK -- Hybrid Question Answering using Linked Data}
+\chapter[HAWK -- Hybrid Question Answering using Linked Data]{HAWK -- Hybrid Question Answering}
 \graffito{
 HAWK has been developed to bridge the gap between unstructured and structured knowledge bases in \ac{QA}. 
 The approach is described by the corresponding publications~\cite{HAWK_CLEF_2015,HAWK_NLIWOD_2015,hawk_2015} mainly authored by the thesis author.
@@ -57,7 +57,7 @@ Figure~\ref{fig:hawk_pipeline} gives an overview of the architecture. %In the fo
 
 \subsection{Input Segmentation.} 
 To be generic with respect to the language of the input question, HAWK uses a modular system that is able of tokenizing even languages without clear separation like Chinese\footnote{\url{https://github.com/clir/clearnlp}}.
-For English input questions our system relies on the \emph{clearNLP}-framework~\cite{choi2011getting} which provides a.o. a white space tokenizer, POS-tagger and transition-based dependency parsing.
+For English input questions our system relies on the \emph{clearNLP}-framework~\cite{choi2011getting} which provides a.o. a white space tokenizer, Part-of-Speech (POS)-tagger and transition-based dependency parsing.
 
 \subsection{Part-of-Speech (POS)-Tagging.} 
 HAWK annotates each token with its POS-tag, which will be later used to identify possible semantic annotations. 
@@ -277,11 +277,11 @@ While running the \emph{test phase}, the cosine similarity between each SPARQL q
 \section{Evaluation}
 \label{chahawk:sec:evaluation}
 
-In this section, we present the evaluation ofHAWK against two benchmarks as well as analyze the performance of different sub-modules.
+In this section, we present the evaluation of HAWK against two benchmarks as well as analyze the performance of different sub-modules.
 
 \subsection{QALD-4 Benchmark}
 
-We evaluate HAWK against the \ac{QALD} 4~\cite{qald4} benchmark which has been used widely to evaluate question answering systems. 
+First, we evaluate HAWK against the \ac{QALD} 4~\cite{qald4} benchmark which has been used widely to evaluate question answering systems. 
 In the fourth installment of \ac{QALD}, hybrid questions on structured and unstructured data became a part of the benchmark.
 To evaluate HAWK, we focus on this hybrid training dataset comprising 25 questions, 17 out of which are entity searches using only DBpedia type information, no aggregation process and require only \texttt{SELECT}-queries. 
 The available test dataset comprises only 10 question with 6 entity searches and linguistic structures that are completely different from the training dataset.
@@ -306,7 +306,7 @@ Without matching entity annotations a full-text search retrieves too many matche
 \subsection{QALD-5 Benchmark}
 Similar to QALD-4, the \ac{QALD}-5 benchmark has a training and a test dataset for question answering containing a subset of hybrid benchmark questions.
 Due to the above mentioned restrictions, the \ac{QALD}-5 dataset contains 26 training, respectively 8 test questions, suitable for the current implementation of HAWK.
-Using the online available evaluation system{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald/index.php?x=evaltool&q=5}}, Table~\ref{tab:eval_qald5} shows the results for the training and test dataset as well as well as for all three ranking approaches.
+Using the online available evaluation system\footnote{\url{http://greententacle.techfak.uni-bielefeld.de/~cunger/qald/index.php?x=evaltool&q=5}}, Table~\ref{tab:eval_qald5} shows the results for the training and test dataset as well as well as for all three ranking approaches.
 Please note, the training data  for the feature-based ranker was taken from \ac{QALD}-4.
 \begin{table}[htb!]
 \centering
@@ -329,16 +329,16 @@ As can be seen in Table~\ref{tab:eval_qald5}, the implemented ranking functions 
 Moreover, non of the implementations is able to discard whole queries, i.e., they are currently not aware of the possibility that the answer could not have been retrieved at all while the optimal ranker discards questions with incorrect answer sets. 
 This does not effect the global F-measure but results in an high computational effort and might lead users to wrong conclusions. 
 
-Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm, see Chapter~\ref{cha:app_hawk} in the appendix.. 
-Delving deeper into the results, we color-coded the single mistakes of the HAWK system.
-(Yellow) indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
-(Orange) cells point out that one ranking algorithm performs worse than the other. 
-(Red) indicates the inability to retrieve correct answer sets.
-That is, HAWK is able to generate a set of SPARQL queries but amongst them none retrieves a correct answer set.
-Finally, (Blue) rows describe questions where HAWK is unable to generate at least one SPARQL query.
-Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
-Especially, in the test dataset all three ranking algorithms are only able to generate one correct answer while the feature-based and the overlap-based ranker perform differently on the train dataset.
-%To experience the run times for single queries please visit our demo at \url{http://hawk.aksw.org}.
+Table~\ref{tab:eval_qal5_detail} shows a detailed description of achieved measures per question and algorithm, see Chapter~\ref{cha:app_hawk} in the appendix.
+Especially, in the test dataset all three ranking algorithms are only able to generate one correct answer while the feature-based and the overlap-based ranker perform differently on the train dataset. 
+%%Delving deeper into the results, we color-coded the single mistakes of the HAWK system.
+%%(Yellow) indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
+%%(Orange) cells point out that one ranking algorithm performs worse than the other. 
+%(%Red) indicates the inability to retrieve correct answer sets.
+%%That is, HAWK is able to generate a set of SPARQL queries but amongst them none retrieves a correct answer set.
+%%Finally, (Blue) rows describe questions where HAWK is unable to generate at least one SPARQL query.
+%%Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
+%%To experience the run times for single queries please visit our demo at \url{http://hawk.aksw.org}.
 
 
 
@@ -383,7 +383,7 @@ Thus, the Union annotator achieves only an F-measure of 0.10.
 See Chapter~\ref{cha:app_hawk} in the appendix for detailed information.
 
 \subsection{Influence of Features while Ranking}
-First, we evaluated the feature-based ranking method and its effectiveness and include an in-depth analysis of the contribution of each feature to the overall result.
+Furthermore, we evaluated the feature-based ranking method and its effectiveness and include an in-depth analysis of the contribution of each feature to the overall result.
 Thus, we calculated the power set of the set of features and evaluated each feature group using the F-measure reached by the top-n queries. 
 Figures~\ref{chahawk:fig:ranking_1} and ~\ref{chahawk:fig:ranking_2} show the F-measure@N for all query result sets of size $N$ from all 17 questions. 
 %\todo[inline]{What exactly is shown in Figure 4 - i.e. there are F1/Precision/Recall scores for each of the 17 questions the system could answer, but how is the score calculated? I.e. either the systems get the right answer or not? Or is this based on top-N answers? Or based on how many correct answers from all the candidate queries?}
