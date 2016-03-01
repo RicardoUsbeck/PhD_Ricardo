@@ -5,13 +5,18 @@
 
 
 
-The main aim of this thesis was to tackle three research challenges, namely the Semantic, Evaluation and Information Gaps. To this end, we used a combination of statistical methods and Linked Data. Herein, we first give a brief summary of the approaches we developed to tackle each of these three challenges as well as elucidate the associated research contributions. We conclude this summary with the most important lessons learned from tackling each challenge.
+The main aim of this thesis was to address three research challenges in the Semantic Web, namely the Semantic, Evaluation and Information Gap. In In our approaches, we focused on a combination of statistical methods on Linked Data. 
+In this chapter, we first give a brief summary of the approaches and methodologies we developed to address each of these three challenges while referencing the associated research contributions.
+Hereby, we collect the most import conclusions and discoveries resulting from our entanglement with these challenges.
 Subsequently, future research avenues based on the afore presented conclusions are detailed.
  
 \section{Summary}
 \subsection*{Semantic Gap}
 
-The development of an efficient information access leveraging natural language to access complex data for end users demanded novel solutions to extract high-quality, machine-readable semantic data from structured and semi-structured data sources.
+The overall goal is the development of an efficient information access leveraging natural language.
+This should enable the access to complex data for end users.
+However, such an approach demands novel solutions to extract high-quality, machine-readable semantic data from structured and semi-structured data sources. 
+In the following, we present our solutions to these requirements.
 
 First, we presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
 Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---were explained in detail.
@@ -45,7 +50,7 @@ The data resulting from these approaches can be (and partly is) used to feed the
 
 As mentioned before, the need for high-quality and efficient RDF data extraction from any unstructured, semi- or structured data sources triggered the development of a multitude of approaches. 
 Gaining an overview to decide on a specific framework for a specific use case or to analyze in detail the behavior of  a system towards a certain kind of data became increasingly difficult.
-Hence, we wanted to bridge this Evaluation Gap to  support developers, decision makers and end users.
+Hence, we wanted to bridge the Evaluation Gap to  support developers, decision makers and end users.
 First, we presented a novel, unstructured dataset collection to leverage reuse and and comparability dubbed $\mbox{N}^3$~\cite{n3}. 
 Second, we described and evaluated GERBIL, a platform for the evaluation of annotation frameworks. With GERBIL, we aim to push annotation system developers to better quality and wider use of their frameworks.
 
@@ -67,15 +72,16 @@ The presented, Web-based front-end allows for several use cases enabling laymen 
 
 The persistent URIs enhances the long term quotation in the field of information extraction.
 GERBIL is not just a new framework wrapping existing technology. 
-In comparison to earlier frameworks, GERBIL extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes and the ability of dealing with data sets and annotators that link to different knowledge bases.
+In comparison to earlier frameworks, GERBIL extends the state-of-the-art benchmarks by the capability of considering the influence of NIL attributes.
+Additionally, we are able to deal with datasets and annotators that link to different knowledge bases.
 As mentioned in Section~\ref{sec:currentNumbersForGERBIL}, GERBIL provides additional value to the community by storing more than 1.824 comparable experiments since its release. 
 
 We efficiently targeted the Evaluation Gap w.r.t. the domain of semantic annotation systems by providing means to easily reuse datasets as well as whole experiments and publish their results in a machine-readable way.
 
 \subsection*{Information Gap}
 
-As pointed out before several times, the growing amount of data, both in the Data and the Document Web is a bilateral risk. 
-To efficiently access and understand this increasing data volume one can benefit from the machine-readable and straightforward semantics underlying the structured RDF knowledge source. 
+As mentioned previously, the increasing amount of data, both in the Data and the Document Web is a bilateral risk. 
+To efficiently access and understand this constantly growing data volume one can benefit from the machine-readable and straightforward semantics underlying the structured RDF knowledge source. 
 
 To provide easy and natural language-based access to end-users and laymen, we introduced HAWK, a hybrid \ac{QA} system for the Web of Data.
 We analyzed its performance against \ac{QALD}-4 and \ac{QALD}-5 datasets.
@@ -89,10 +95,10 @@ Thus, laymen can benefit from both the Data and the Document Web to gain answers
 
 
 
-\section{Lessons Learned and Future Work}
+\section{Conclusion and Future Work}
 \subsection*{Semantic Gap}
 
-By investigating and developing solutions to enhance un- or semi-structured data sources by means of the presented approaches, our work shed light on several insights and further raised some highly interesting questions that will dictate our future research. 
+By investigating and developing solutions to enhance un- or semi-structured data sources by means of the presented approaches, our work shed light on several insights and further raised some highly interesting questions that serve as seed to our future research. 
 
 We see CETUS and AGDISTIS as first steps in a larger research agenda.
 The field of type identification on unstructured text is still not well-researched and pattern-based approaches miss the opportunity to benefit from existing string expansions methods and existing knowledge bases like Wordnet~\cite{wordnet}.
@@ -108,7 +114,7 @@ Preliminary experiments in this direction show that we can improve the F-measure
 Furthermore, we intend to look for larger, more domain-specific and even more insightful disambiguation datasets to refine and test AGDISTIS.
 Also, a deeper evaluation of ontology structures towards disambiguation accuracies is needed.
 
-Based on AGDISTIS and CETUS, we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
+Regarding AGDISTIS and CETUS, we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
 %Other than most work, which mainly uses statistics and heuristics, we aim to truly exploit the graph structure and semantics of the background knowledge.
 
 
@@ -133,7 +139,7 @@ Gaining insights into the behavior of semantic annotation frameworks requires a 
 Furthermore, converting more existing datasets to NIF and re-bundle them in order to provide even more insightful NER and NED benchmarks is the next step of research in this area.
 
 
-Next, while developing GERBIL, we spotted several flaws in the formal model underlying previous benchmarking frameworks which we aim to tackle in the future. 
+Next, while developing GERBIL, we discovered several short-comings in the formal model underlying previous benchmarking frameworks which we aim to explore in the future. 
 For example, the formal specification underlying current benchmarking frameworks for annotation does not allow using the scores assigned by the annotators for their results. 
 To address this problem, we aim to develop/implement novel measures into GERBIL that make use of scores (e.g., Emerging Entities~\cite{Hoffart:2014:DEE:2566486.2568003}).
 Moreover, partial results are not considered within the evaluation. 
@@ -150,7 +156,6 @@ GERBIL has sparked the idea for the successful Horizon 2020 proposal HOBBIT and 
 \subsection*{Information Gap}
 
 Providing natural language access to hybrid data sources with HAWK led to an in-depth error analysis and thus captured future open research directions.
-
 Currently, HAWK faces several limitations, such as not always being able to capture the exact semantics of certain resources due to missing dictionary entries (e.g., vice-president), the ability to use \texttt{FILTER} and SPARQL aggregation functions (\texttt{FILTER (?high > 100)}). 
 The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. 

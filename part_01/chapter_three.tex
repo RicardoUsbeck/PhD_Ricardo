@@ -10,19 +10,19 @@ In this chapter, we give an overview of related research required to bridge the 
 \subsection{RDF Type Annotation}
 
 In 2015, the {Open Knowledge Extraction Challenge} had its first installation at the Extended Semantic Web Conference~\cite{okechallenge}.
-Within this challenge, the second task was to identify entity types (\texttt{rdf:type} information) for a given entity inside a given text and linking this type to a \ac{KB}, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
+As part of this challenge, the goal of the second task was to identify entity types (\texttt{rdf:type} information) given an entity included in a given text and to link this type to a \ac{KB}, i.e., to the subset of the DOLCE+DnS Ultra Lite ontology classes\footnote{\url{http://www.ontologydesignpatterns.org/ont/dul/DUL.owl}}.
 
-The winner of the challenge was CETUS~\cite{CETUS_2015}, a pattern-based approach inspired by  Hearst Patterns~\cite{Hearst1992} and presented in Chapter~\ref{cha:cetus}.
-Those Hearst Patterns match text parts describing hyponym relations between two nouns.
-In difference to CETUS' patterns, the Hearst Patterns have been extracted from a large corpus using a bootstrapping approach.
+The winner of the challenge was CETUS~\cite{CETUS_2015}, a pattern-based approach inspired by  Hearst Patterns~\cite{Hearst1992}, presented in Chapter~\ref{cha:cetus}.
+The foretold Hearst Patterns match text parts describing hyponym relations between two nouns.
+In contrast to CETUS' patterns, the Hearst Patterns have been extracted from a large corpus using a bootstrapping approach.
 As described in Section~\ref{sec:patternExt}, our patterns are defined for matching text parts describing the type relation of a given entity and have been created manually during an iterative, incremental process.
 
-Another approach is FRED~\cite{fred_typing}, which is a machine reader, i.e., a holistic approach towards representing a whole text as \ac{RDF}. 
-Here, FRED reuses various frameworks like Boxer~\citep{Bos:2008:WSA:1626481.1626503} and TagMe2~\cite{TagMe2} to be able to spot not only the common types like person, organizations and places but also events.
+Another approach is FRED~\cite{fred_typing}, which is a machine reader, i.e., a holistic approach towards representing  the text as \ac{RDF}. 
+FRED reuses various frameworks like Boxer~\citep{Bos:2008:WSA:1626481.1626503} and TagMe2~\cite{TagMe2} to spot not only the common types like person, organizations and places but also events.
 
 The third challenge participant was implemented by Gao et al.~\cite{oak_sheffield}. 
 Their unsupervised system for entity typing is based on a rich feature set, e.g., words, named entities, gazetteer tokens and semantic distance, to identify the type evidence string. 
-Next, they match and align the string to DBpedia before transferring this information to the DOLCE+DnS Ultra Lite ontology.
+They match and align the string to DBpedia before transferring this information to the DOLCE+DnS Ultra Lite ontology.
 For non-matchable entities, the authors compute a semantic distance and match the closest possible type class.  
 
 
@@ -33,33 +33,39 @@ For non-matchable entities, the authors compute a semantic distance and match th
 \subsection{Named Entity Disambiguation}
 
 The research area of Information Extraction~\cite{nad:sek} in general and to \ac{NED} in particular.
-Several approaches have been developed to tackle \ac{NED}.
+We will briefly present several approaches towards \ac{NED} and highly their novel contributions to the field.
+
+
 \bigskip
-
-
-Cucerzan presents an approach based on extracted Wikipedia data towards disambiguation of named entities~\cite{Cucerzan07}.
-The author aims to maximize the agreement between contextual information of Wikipedia pages and the input text by using a local approach.
-%\todo{What's a local approach?}
-
-%{Epiphany}~\cite{epiphany} identifies, disambiguates and annotates entities in a given HTML page with RDFa. 
-
-Ratinov et al.~\cite{rat:rot} described an approach for disambiguating entities from Wikipedia. 
-The authors argue that using Wikipedia or other ontologies can lead to better global approaches than using traditional local algorithms which disambiguate each mention separately using,\,e.g., text similarity. %for word sense disambiguation.
-
-Kleb et al.~\cite{Kleb11WIMS,KlebESWC10} developed and improved an approach using ontologies to mainly identify geographical entities but also people and organizations in an extended version. 
-These approaches use Wikipedia and other \ac{LD} \ac{KB}s.
-
-LINDEN~\cite{LINDEN} is an \ac{EL} framework that aims at linking identified named entities to a \ac{KB}.
-To achieve this goal, LINDEN collects a dictionary of the surface forms of entities from different Wikipedia sources, storing their count information.
 
 Wikipedia Miner~\cite{milne2008learning} is the oldest approach in the field of {wikification}.
 Based on different machine learning algorithms, the systems disambiguates w.r.t. prior probabilities, relatedness of concepts in a certain window and context quality. 
 The authors evaluated their approach based on a Wikipedia as well as an AQUAINT subset. 
 Unfortunately, the authors do not use the opportunities provided by \ac{LD} like DBpedia.
 
+Cucerzan presents an approach based on extracted Wikipedia data towards disambiguation of named entities~\cite{Cucerzan07}.
+The author aims to maximize the agreement between contextual information of Wikipedia pages and the input text.
+This approach uses only a local algorithm, i.e., is based only document features but not on features present in the document collection.
+%\todo{What's a local approach?}
+
+%{Epiphany}~\cite{epiphany} identifies, disambiguates and annotates entities in a given HTML page with RDFa. 
+
+Ratinov et al.~\cite{rat:rot} describe an approach for disambiguating entities from Wikipedia. 
+They introduce the notion of global approaches, i.e., using information from corpus data such as document context or interlinks. 
+The authors argue that using global approaches improves performance significantly. 
+They discuss that local algorithms, which disambiguate each mention separately, e.g., using string similarity, miss important information and thus loose quality. 
+  %for word sense disambiguation.
+
+Kleb et al.~\cite{Kleb11WIMS,KlebESWC10} develop and improve an approach using ontologies to mainly identify geographical entities but also people and organizations in an extended version. 
+Their approaches are based Wikipedia and other \ac{LD} \ac{KB}s. 
+
+LINDEN~\cite{LINDEN} is an \ac{EL} framework that aims at linking identified named entities to a \ac{KB}.
+To achieve this goal, LINDEN collects a dictionary of the surface forms of entities from different Wikipedia sources, storing their count information.
 Using this data the approach constructs candidate lists and assigns link probabilities and global coherence for each resource candidate.
+
+One of the most 
 The AIDA approach~\cite{AIDA} for \ac{NED} tasks is based on the YAGO2 \ac{KB} and relies on sophisticated graph algorithms. 
-Specifically, this approach uses dense sub-graphs to identify coherent mentions using a greedy algorithm enabling Web scalability. 
+More precisely, this approach uses dense sub-graphs to identify coherent mentions using a greedy algorithm enabling Web scalability. 
 Additionally, AIDA disambiguates w.r.t.~similarity of contexts, prominence of entities and context windows.
 
 Another approach is DBpedia Spotlight~\cite{spotlight}, a framework for annotating and disambiguating \ac{LD} resources in arbitrary texts.
@@ -67,18 +73,22 @@ In contrast to other approaches, Spotlight is able to disambiguate against all c
 Furthermore, it is well-known in the \ac{LD} community and used in various projects showing its wide-spread adoption.\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Known-uses}}
 Based on a vector-space model and cosine similarity DBpedia Spotlight is publicly available via a Web service\footnote{\url{https://github.com/dbpedia-spotlight/dbpedia-spotlight/wiki/Web-service}}.
 
-In 2012, Ferragina et al. published a revised version of their disambiguation system called TagMe 2.
+Ferragina et al. described a revised version of their disambiguation system called TagMe 2 in 2012.
 The authors claim that it is tuned towards smaller texts,\,i.e., comprising around 30 terms.
 TagMe 2 is based on an anchor catolog (\texttt{<a>} tags on Wikipedia pages with a certain frequency), a page catalogue (comprising all original Wikipedia pages,\,i.e., no disambiguations, lists or redirects) and an in-link graph (all links to a certain page within Wikipedia).
 First, TagMe 2 identifies named entities by matching terms with the anchor catalog and second disambiguates the match using the in-link graph and the page catalog via a collective agreement of identified anchors. 
 Last, the approach discards identified named entities considered as non-coherent to the rest of the named entities in the input text.  
 
-In 2014, Babelfy~\cite{babelfy} has been presented to the community.
+The approach of Babelfy~\cite{babelfy} is multilingual.
 Based on random walks and densest subgraph algorithms Babelfy tackles \ac{NED} and is evaluated with six datasets, one of them the later here used AIDA dataset. 
+Babelfy clearly differentiates between word sense disambiguation, i.e., resolution of polysemous lexicographic entities like \texttt{play}, and \ac{EL}, i.e., matching strings or substrings to \ac{KB} resources.
+%However, this definition is different from our 
+%Due to its recent publication Babelfy is not evaluated in this paper.
 
-In constrast to AGDISTIS, Babelfy differentiates between word sense disambiguation, i.e., resolution of polysemous lexicographic entities like \texttt{play}, and \ac{EL}, i.e., matching strings or substrings to \ac{KB} resources.
-Due to its recent publication Babelfy is not evaluated in this paper.
-We present our approach, dubbed AGDISTIS~\cite{agdistis_iswc}, in Chapter~\ref{cha:agdistis}. 
+Unfortunately, the approaches are hard to compare and lack repeatability w.r.t. experiments.
+For a deeper analysis, please refer to Usbeck et al.~\cite{GERBIL} where we try to improve the comparability of approaches.
+Furthermore, we present our approach, dubbed AGDISTIS~\cite{agdistis_iswc}, in Chapter~\ref{cha:agdistis}. 
+
 %Recently, Cornolti et al.~\cite{cornolti} presented a benchmark for \ac{NED} approaches.
 %The authors compared six existing approaches, also using DBpedia Spotlight, AIDA and TagMe 2, against five well-known datasets. % on different tasks and with different measures.
 %Furthermore, the authors defined different classes of named entity annotation task, e.g. \emph{`D2W'}, that is the disambiguation to Wikipedia task which is the formal task AGDISITS tries to solve.
@@ -90,31 +100,29 @@ We present our approach, dubbed AGDISTIS~\cite{agdistis_iswc}, in Chapter~\ref{c
 
 \subsection{RDF Extraction from Semi-Structured Websites and Wrapper Induction}
 
-In Chapter~\ref{cha:rex}, we present our approach, dubbed REX, towards \ac{RDF} extraction from templated websites which relies on \ac{NED}, see above, and data validation based on automatically extracted axioms~\cite{buhmann2012}. 
+In Chapter~\ref{cha:rex}, we present our approach, dubbed REX, towards \ac{RDF} extraction from templated websites which relies on \ac{NED}, see above, and data validation based on automatically extracted axioms~\cite{buhmann2012} and wrapper induction. 
+
 \bigskip
 
-The extraction of axioms from \ac{KB}s using statistical information~\cite{buhmann2012,pattern_enrichment} as also flourished over the last years. 
-The main idea underlying these approaches is to use instance knowledge from  \ac{KB}s without expressive schemas to compute the axioms which underlie the said  \ac{KB}s. 
-We refer the reader to the publications above for an overview of these two research areas.
-\bigskip
 
-Furthermore, the main related research area is wrapper induction. 
+First, the extraction of axioms from \ac{KB}s using statistical information~\cite{buhmann2012,pattern_enrichment} has also flourished over the last years. 
+The main idea underlying these approaches is to use instance knowledge from  \ac{KB}s, without expressive schemas to compute the axioms which underlie the said  \ac{KB}s. 
+For further reading, the reader should take a look at the publications mentioned above for an overview of these two research areas.
+
+Second, we have a look at the main research area of REX which is wrapper induction. 
 Early approaches to learning Web wrappers were mostly supervised~\cite{flesca2004web,Hogue:2005:TAU:1060745.1060762}. 
 These systems were provided with annotated pages out of which they infer extraction rules that allow extracting data from other unlabeled pages with the same structure as the annotated pages). 
-
 For example, Hogue et al.~\cite{Hogue:2005:TAU:1060745.1060762} presents {Tresher}, a supervised system that allows non-technical end-users to teach their browser how to extract data from the Web. 
 %The approach relies on labeled web pages and a distance function between DOM trees to generate extraction templates based on user annotations.
 %While remaining able to generate high-precision wrappers thanks to the human supervision, 
-Supervised approaches were yet deemed costly due to the human labor necessary to annotate the input websites. 
-
-Unsupervised wrapper induction methods have thus been explored~\cite{exalg,DBLP:journals/aai/CrescenziM08} to reduce the annotation costs. 
+Supervised approaches were yet deemed costly due to the human effort needed to annotate the input websites. 
+Thus, unsupervised wrapper induction methods have been explored~\cite{exalg,DBLP:journals/aai/CrescenziM08} to reduce the annotation costs. 
 However, the absence of a supervision often lead these systems to produce wrappers of accuracy not suitable for production level usage.
-
-Novel approaches thus aim to minimize the annotation costs while keeping a high precision.
+Therefore, novel approaches aim to minimize the annotation costs while keeping a high precision.
 For example, the approach presented by Davi et al.~\cite{Dalvi:2011:AWL:1938545.1938547} relies on the availability of a  \ac{KB} in the form of dictionaries and regular expressions to automatically obtain training data. 
 %They present an inference algorithm to learn wrappers in presence of noise in the input data but neglect any issue that could arise from the presence of biased samples.
 
-Recently, Crescenzi et al.~\cite{Crescenzi2013}describes a supervised framework that is able to profit from crowd-provided training data. 
+Recently, Crescenzi et al.~\cite{Crescenzi2013} describes a supervised framework that is able to profit from crowd-provided training data. 
 The learning algorithm controls the cost of the crowd sourcing campaign w.r.t. quality of the output wrapper.
 However, these novel approaches do not target the generated of \ac{RDF} data.
 
@@ -123,7 +131,6 @@ For example, Gentile et al.~\cite{Gentile2013} exploits \ac{LD} as a training da
 
 The {\sc Deimos} project~\cite{conf/aaaiss/ParundekarKA10} is similar to REX, as it aims at bringing to the Semantic Web the data that are published through the rest of the Web. 
 However, it focuses on the pages behind Web forms.
-
 
 OntoSyphon~\cite{DBLP:journals/ws/McDowellC08} operates in an ontology-driven manner: taking any ontology as input, OntoSyphon uses the ontology to specify Web searches that identify possible semantic instances, relations, and taxonomic information, in an unsupervised manner. However, the approach makes use of extraction patterns that work for textual documents rather than structured websites.
 
@@ -137,18 +144,18 @@ In contrast, REX~\cite{rex} is the first approach that is scalable, low-cost, ac
 
 \section{Evaluation Gap - Benchmarking Semantic Annotation Systems}
 
-\ac{NER} and \ac{EL} have gained significant momentum with the growth of \ac{LD} and structured \ac{KB}s. 
+\ac{NER} and \ac{EL} respectively \ac{NED} gained significant momentum with the growth of \ac{LD} and structured \ac{KB}s. 
 Over the last few years, the problem of result comparability has thus led to the development of more than a dozen datasets and a hand full of frameworks.
-\bigskip
-
 However, most of the datasets are not freely available, e.g., the full CoNLL 2003 shared task~\cite{conll2003} used in~\cite{AIDA}.
 Others are not yet annotated with \ac{LD} from DBpedia like the WePS (Web people search) evaluation dataset~\cite{WEPS}.
 
-In 2013, Steinmetz et al.~\cite{steinmetz-n-2013-statistical} published a statistical benchmark evaluation.
-Three datasets are described there of which two are freely available\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}}.
-The authors also analyze the aim of each dataset according to four baseline algorithms and respective underlying dictionaries for NED.
+\bigskip
+
+Steinmetz et al.~\cite{steinmetz-n-2013-statistical} describe a statistical benchmark evaluation already in 2013.
+Three datasets are described of which two are freely available\footnote{\url{http://www.yovisto.com/labs/ner-benchmarks/}}.
+The authors analyze the aim of each dataset according to four baseline algorithms and respective underlying dictionaries for NED.
 Furthermore, the two available datasets, \texttt{KORE50} and \texttt{DBpedia Spotlight}, are published using NLP interchange format (NIF)~\cite{ISWC2013NIF} and have been part of the original benchmarks of~\cite{AIDA,spotlight}. 
-Both datasets do not inherit a clear license nor do they contain a large number of documents typically needed for optimization problems.
+Both datasets do not inherit a clear license or contain a large number of documents typically needed for optimization problems.
 \texttt{KORE50} comprises 50 sentences overall whereas \texttt{DBpedia Spotlight} consists of 58 sentences only. 
 
 In contrast,  $\mbox{N}^3$ provides larger and more insightful datasets, published\footnote{\url{http://aksw.org/Projects/N3nernednif}} in NIF, to leverage the possibility of optimizing NER and NED algorithms via \ac{LD} and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
@@ -160,7 +167,7 @@ We present $\mbox{N}^3$ in more detail in Chapter~\ref{cha:N3}.
 %%%%%%%GERBIL
 \bigskip
 
-Over the course of the last 25 years several challenges, workshops and conference dedicated themselves to the comparable evaluation of information extraction (IE) systems. 
+Over the course of the last 25 years, several challenges, workshops and conferences focused on the comparable evaluation of information extraction (IE) systems. 
 Starting in 1993, the Message Understanding Conference (MUC) introduced a first systematic comparison of information extraction approaches~\cite{Sundheim:1993:TIE:1072017.1072023}.
 Ten years later, the Conference on Computational Natural Language Learning (CoNLL) started to offer a shared task on \ac{NER} and published the CoNLL corpus~\cite{conll2003}.
 In addition, the Automatic Content Extraction (ACE) challenge~\cite{doddington2004automatic}, organized by NIST, evaluated several approaches but was discontinued in 2008. 
@@ -170,7 +177,8 @@ The Making Sense of Microposts workshop series (MSM) established in 2013 an enti
 However, nearly each event chose a different set of benchmark datasets and settings. 
 Lately, several benchmark frameworks were introduced.
 
-In 2014, Carmel et al.~\cite{ERD2014} introduced one of the first Web-based evaluation systems for NER and NED and the centerpiece of the entity recognition and disambiguation (ERD) challenge. Here, all frameworks are evaluated against the same unseen dataset and provided with corresponding results. 
+Carmel et al.~\cite{ERD2014} introduce one of the first Web-based evaluation systems for NER and NED and the centerpiece of the entity recognition and disambiguation (ERD) challenge. 
+Here, all frameworks are evaluated against the same unseen dataset and provided with corresponding results. 
 
 The BAT-framework~\cite{cornolti} is designed to facilitate the benchmarking of \ac{NER}, \ac{NED} -- also known as \ac{EL} -- and concept tagging approaches.
 BAT compares seven existing entity annotation approaches using Wikipedia as reference.
@@ -191,35 +199,36 @@ In Chapter~\ref{cha:gerbil}, this thesis presents GERBIL in more detail.
 \section{Information Gap - Hybrid Question Answering}
 
 Hybrid \ac{QA} is related to the fields of hybrid search and \ac{QA} over structured data. 
-In the following, we thus give a brief overview of the state of the art in these two areas of research.
-
+In the following, we give a brief overview of the state of the art in these two areas of research.
 First, we present hybrid search approaches which use a combination of structured as well as unstructured data to satisfy an user's information need. 
+
+\bigskip
+
 Semplore~\cite{Zhang:2007a} is the first known hybrid search engine by IBM.
 It combines existing information retrieval index structures and functions to index \ac{RDF} data as well as textual data. 
 Semplore focuses on scalable algorithms and is evaluated on an early \ac{QALD} dataset.
+However, its development was discontinued.
 
 Bhagdev et al.~\cite{Bhagdev:2008:HSE} describe an approach to hybrid search combining keyword searches, Semantic Web inferencing and querying. 
 The proposed K-Search outperforms both keyword search and pure semantic search strategies.
 Additionally, an user study reveals the acceptance of the Hybrid Search paradigm by end users.
 K-Search retrieves only documents where a full-text match and an ontology match via SPARQL is available, loosing possible matching documents.
 
-A personalized hybrid search implementing a  hotel search service as use case is presented in~\cite{DBLP:journals/kbs/Yoo12}. 
+A personalized hybrid search implementing a hotel search service as use case is presented in~\cite{DBLP:journals/kbs/Yoo12}. 
 By combining rule-based personal knowledge inference over subjective data, such as expensive locations, and reasoning, the personalized hybrid search has been proven to return a smaller amount of data thus resulting in more precise answers. 
 Additionally, Yoo presents an architectures for hybrid search and a novel hotel ontology derived from crowd data. 
 Unfortunately, the paper does not present any qualitative evaluation and it lacks source code and test data for reproducibility. 
 
 All presented approaches fail to answer natural-language questions.
 Besides keyword-based search queries, some search engines already understand natural language questions. \ac{QA} is more difficult than keyword-based searches since retrieval algorithms need to understand complex grammatical constructs.
-
-
 Second, we explain several \ac{QA} approaches in the following.
 
-Already in 1961, the Baseball system~\cite{green1961baseball} by Green et al. identified natural language as the most effective and convenient way for men to communicate with the growing amount of computer-centered systems. 
+Already in 1961, the Baseball system~\cite{green1961baseball} by Green et al. identified natural language as the most effective and convenient way for people to communicate with the growing amount of computer-centered systems. 
 
-{Schlaefer et al.~\cite{ephyra2007}} describe {Ephyra}, an open-source \ac{QA} system and its extension with factoid and list questions via semantic technologies.
-Using Wordnet as well as an answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules. The disadvantage of this system lies in the hand-coded answer type hierarchy. % which prohibits its multi-lingual use.
+More recently, {Schlaefer et al.~\cite{ephyra2007}} describe {Ephyra}, an open-source \ac{QA} system and its extension with factoid and list questions via semantic technologies.
+The 2007 approach uses Wordnet~\cite{wordnet} as well as an answer type classifier to combine statistical, fuzzy models and previously developed, manually refined rules. The disadvantage of this system lies in the hand-coded answer type hierarchy. % which prohibits its multi-lingual use.
 
-Cimiano et al.~\cite{orakel} developed {ORAKEL} to work on structured \ac{KB}s.
+Cimiano et al.~\cite{orakel} present {ORAKEL} to work on structured \ac{KB}s.
 The system is capable of adjusting its natural language interface using a refinement process on unanswered questions. 
 Using F-logic and SPARQL as transformation objects for natural language user queries it fails to make use of Semantic Web technologies such entity disambiguation.
 
@@ -227,14 +236,14 @@ Using F-logic and SPARQL as transformation objects for natural language user que
 It detects on-the-fly the needed ontologies to answer a certain question, maps the users query to Semantic Web vocabulary and composes the retrieved (fragment-)information to an answer. 
 
 {Damljanovic et al.~\cite{freya}} present {FREyA} to tackle ambiguity problems when using natural language interfaces. 
-Many ontologies in the Semantic Web contain hard to map relations, e.g., questions starting with 'How long$\ldots$' can be disambiguated to a time or a distance. 
+Many ontologies in the Semantic Web contain hard to map relations, e.g., questions starting with ''How long$\ldots$'' can be disambiguated to a time or a distance. 
 By incorporating user feedback and syntactic analysis FREyA is able to learn the users query formulation preferences increasing the systems \ac{QA} precision. 
 
 {Cabrio et al.~\cite{qakis}} present a demo of {QAKiS}, an agnostic \ac{QA} system grounded in ontology-relation matches. 
 The relation matches are based on surface forms extracted from Wikipedia to enforce a wide variety of context matches, e.g., a relation birthplace(person, place) can be explicated by X was born in Y or Y is the birthplace of X. 
 Unfortunately, QAKiS matches only one relation per query and moreover relies on basic heuristics which do not account for the variety of natural language in general.
 
-{Unger et al.~\cite{pythia}} describe {Pythia}, a \ac{QA} system based on two steps.
+{Unger et al.~\cite{pythia}} describe {Pythia}, a \ac{QA} system that consists of a two step pipeline.
 First, it uses a domain-independent representation of a query such as verbs, determiners and wh-words.
 Second, Pythia is based on a domain-dependent, ontology-based interface to transform queries into F-logic.
 

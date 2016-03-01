@@ -401,7 +401,7 @@ Spotlight Corpus && news        && NIF/RDF   &&   58 &&   5.69\\
 	\bottomrule
 	\end{tabular}}
 	\centering
-    \caption{Features of the data sets and their documents. Every dataset can be used for the Sa2KB experiment except Meij which is only suitable for the Rc2KB experiment family.}
+    \caption{Features of the datasets and their documents. Every dataset can be used for the Sa2KB experiment except Meij which is only suitable for the Rc2KB experiment family.}
 	\label{tab:corpus_stats}
 \end{table}
 
@@ -495,20 +495,20 @@ The paramount position of NIF amongst corpora serialisation formats is evident b
 %Figure \ref{cha334:fig:architecture} shows the architecture of GERBIL with the data sets at the bottom, the annotators in the top and the user interface as well as user defined annotator and data set at the right.
 %A GERBIL session starts at the configuration screen, see Figure~\ref{cha333:fig:screenshot}, with which a user defines the experiment he is interested in.
 Each experiment is divided into tasks.
-A task comprises the evaluation of a single annotator using a single data set, is encapsulated into a fault-tolerant class and runs inside an own thread.
+A task comprises the evaluation of a single annotator using a single dataset, is encapsulated into a fault-tolerant class and runs inside an own thread.
 Our fault-tolerance classes at two types of errors: (1) an annotator may return error codes for single documents, e.g., because of the missing ability to handle special characters.
 While other evaluation frameworks tend to cancel the experiments after an exception thrown by the annotator, GERBIL counts these smaller errors and reports them as part of the evaluation result.
-The second type of fault tolerance aims at (2) larger errors, e.g., the data set couldn't be loaded or the annotator is unreachable via its Web service.
+The second type of fault tolerance aims at (2) larger errors, e.g., the dataset couldn't be loaded or the annotator is unreachable via its Web service.
 These run-time errors are handled by storing one of the predefined error codes inside the experiment database.
 Therewith, we ensure that the user gets instant feedback if some parts of the experiment couldn't be performed as expected.
 
-During a task, the single documents of a data set are sent to the annotator.
+During a task, the single documents of a dataset are sent to the annotator.
 After finishing the last document, the responses are evaluated.
 Currently, the evaluation is focused on the quality, i.e., precision, recall, F1-score and error counts, but can be extended.
 Moreover, a runtime is also available~\cite{GERBIL}.
 For some experiment types, e.g., the entity-linking tasks, the evaluation needs additional information.
-GERBIL is able to search for \texttt{owl:sameAs} links to close the gap between data sets and annotators that are based on different knowledge bases.
-Currently, this search is mainly based on the information inside the data set and retrieval of the entity mentioned by the annotator.
+GERBIL is able to search for \texttt{owl:sameAs} links to close the gap between datasets and annotators that are based on different knowledge bases.
+Currently, this search is mainly based on the information inside the dataset and retrieval of the entity mentioned by the annotator.
 The search could be extended by using local search indexes that contain mappings between well-known knowledge bases, e.g., DBpedia and Freebase.
 %The results are currently written to an HSQL database\footnote{\url{http://hsqldb.org/}}.
 
@@ -598,7 +598,7 @@ An example JSON-LD is depicted in Listing~\ref{lst:jsonld}.
 \begin{figure}[htb!]
 \centering
 \includegraphics[trim=10 400 10 40,clip,scale=0.7]{part_02/benchmarking/WWW_GERBIL/new_spider_features.pdf}
-\caption{Example spider diagram of correlations between annotation results and data set features.}
+\caption{Example spider diagram of correlations between annotation results and dataset features.}
 \label{cha333:fig:spidercorrelations}
 \end{figure}
 
@@ -606,8 +606,8 @@ Offering such detailed and structured experimental results opens new research av
 Next to individual configurable experiments, GERBIL offers an overview of recent experiment results belonging to the same experiment and matching type in the form of a table as well as sophisticated visualizations\footnote{\url{http://gerbil.aksw.org/gerbil/overview}}, for instance see Figure~\ref{cha333:fig:spiderfmeasure}. 
 This allows for a quick comparison of frameworks and datasets on recently run experiments without additional computational effort.
 
- As shown in Figure~\ref{cha333:fig:spiderfmeasure}, these results are displayed using interactive spider diagrams that allow the user to easily (1) get an overview of the performance of single tools, (2) compare tools with each other and (3) gather information on the performance on tools on particular data sets.
-Furthermore, end users can make use of these results to select the right system for their current requirements. Currently, we display correlations with the following data set features: (1) number of documents and (2) number of entities in the data set, (3) entities per document, (4) entities per token, (5) average length of a document as well as (6) the number  of entities of the different types (persons, locations, organizations, etc.). The interface provides these scores by using spider diagrams akin to those used to display the evaluation metrics, see Figure~\ref{cha333:fig:spidercorrelations}.
+ As shown in Figure~\ref{cha333:fig:spiderfmeasure}, these results are displayed using interactive spider diagrams that allow the user to easily (1) get an overview of the performance of single tools, (2) compare tools with each other and (3) gather information on the performance on tools on particular datasets.
+Furthermore, end users can make use of these results to select the right system for their current requirements. Currently, we display correlations with the following dataset features: (1) number of documents and (2) number of entities in the dataset, (3) entities per document, (4) entities per token, (5) average length of a document as well as (6) the number  of entities of the different types (persons, locations, organizations, etc.). The interface provides these scores by using spider diagrams akin to those used to display the evaluation metrics, see Figure~\ref{cha333:fig:spidercorrelations}.
 
 
 
