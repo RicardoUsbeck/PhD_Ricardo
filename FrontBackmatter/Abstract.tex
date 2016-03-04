@@ -6,8 +6,8 @@ However, the increasing amount of structured respectively semantic data\footnote
 These novel paradigms ease the development of natural language interfaces which enable end-users to easily access and benefit from large amounts of data without the need to understand the underlying structures or algorithms.
 
 Building a natural language \ac{QA} system over heterogeneous, Web-based knowledge sources requires various building blocks.
-These building components include knowledge extraction approaches over textual data such as blogs, news, templated websites or product descriptions to capture the semantic meaning of a particular document.
-However, existing building blocks lack comparable evaluation settings, performance or quality.{\let\thefootnote\relax\footnote{The author will make use of the we-form as narrative.}}
+These building components include (a) knowledge extraction approaches over textual data such as blogs, news, templated websites or product descriptions to capture the semantics of the content of a document, (b) linguistic parsing modules for natural language and (c) efficient query execution and ranking functions.
+However, existing knowledge extraction building  blocks lack comparable evaluation settings, performance or quality.{\let\thefootnote\relax\footnote{The author will make use of the we-form as narrative.}}
 In this thesis, three main research challenges are identified and addressed:
 \begin{enumerate}[topsep=0pt,itemsep=-1ex,partopsep=1ex,parsep=1ex]
 \item 
@@ -24,5 +24,8 @@ The rationale behind our framework is to provide developers, end users and resea
 \item 
 The decentral architecture behind both Webs generated a distributed information landscape across data sources with varying structure. 
 Furthermore, current keyword-based search paradigms contradict the human demand for expressing information needs in natural language.
-To close this \emph{Informtion Gap}, i.e., demand for natural language interfaces based on both Webs, we introduce HAWK, a novel natural language search approach for hybrid \ac{QA} based on combining structured and textual data sources.
+Especially, complex information relationships are often expressed as complex questions by humans.
+These observations describe an \emph{Information Gap}, i.e., the user generated demand for natural language interfaces based on the structured Web of Data and the Document Web.
+Thus, we introduce HAWK, a novel natural language search framework for hybrid \ac{QA}. 
+Our framework is able to combine structured and textual data sources to answer complex natural language questions.
 \end{enumerate}
