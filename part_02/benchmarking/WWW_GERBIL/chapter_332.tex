@@ -300,7 +300,7 @@ NERD-ML has a public Web service which is part of GERBIL\footnote{\url{http://ne
 \item \textbf{KEA NER/NED}: This approach is the successor of the approach introduced in~\cite{steinmetz-n-2013-statistical} which is based on a fine-granular context model taking into account heterogeneous text sources %, as e.g. user tags, natural language texts, 
 as well as text created by automated multimedia analysis. %, as e.g. automated speech recognition, optical character recognition, or visual concept detection. 
 The source texts can have different levels of accuracy, completeness, granularity and reliability which influence the determination of the current context. 
-Ambiguity is solved by selecting entity candidates with the highest level of probability according to the predetermined context. 
+The disambiguation problem is solved by selecting entity candidates with the highest level of probability according to the predetermined context. 
 The new implementation begins with the detection of groups of consecutive words (n-gram analysis) and a lookup of all potential DBpedia candidate entities for each n-gram. 
 The disambiguation of candidate entities is based on a scoring cascade. % including the analysis of connected components in the entity candidates' spanning sub-graphs in DBpedia, co-occurrence analysis with Wikipedia article texts, graph popularity measures (in-degree, pagerank)~\cite{dbpedia-graphmeasures}, as well as statistical and string distance metrics. 
 %The final decision on the most likely entity candidate is determined with the help of machine learning classifiers, which is subject of current research. 

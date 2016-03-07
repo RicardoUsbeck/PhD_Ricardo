@@ -380,7 +380,13 @@ Furthermore, the optimal ranker is only able to achieve an F-measure of 0.58 sin
 Against intuition, the Union annotator is the worst annotation system. 
 Merging all annotation results in queries consisting solely of semantic resources eliminating the possibility to match ontology properties and classes to important parts of the query, e.g., matching the word \texttt{author} to resource rather than to a property prevents HAWK from generating the correct SPARQL query.
 Thus, the Union annotator achieves only an F-measure of 0.10.
-See Chapter~\ref{cha:app_hawk} in the appendix for detailed information.
+A detailed evaluation of the influence of different entity annotation systems can be found in Figure~\ref{chahawk:fig:EntityAnnotators}.
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=\linewidth]{Appendix/fig/bars}
+\caption{Entity annotations systems performance with optimal ranking.}
+\label{chahawk:fig:EntityAnnotators}
+\end{figure}
 
 \subsection{Influence of Features while Ranking}
 Furthermore, we evaluated the feature-based ranking method and its effectiveness and include an in-depth analysis of the contribution of each feature to the overall result.

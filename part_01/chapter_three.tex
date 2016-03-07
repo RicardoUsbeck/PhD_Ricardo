@@ -185,7 +185,7 @@ BAT compares seven existing entity annotation approaches using Wikipedia as refe
 Moreover, it defines six different task types, five different matchings and six evaluation measures providing five datasets.
 
 Rizzo et al.~\cite{rizzo2014}  present a state-of-the-art study of NER and NEL systems for annotating newswire and micropost documents using well-known benchmark datasets, namely CoNLL2003 and Microposts 2013 for NER as well as AIDA/CoNLL and Microposts2014~\cite{Cano2014} for NED. 
-The authors propose a common schema, named the NERD ontology\footnote{\url{http://nerd.eurecom.fr/ontology}}, to align the different taxonomies used by various extractors. To tackle the disambiguation ambiguity, they propose a method to identify the closest DBpedia resource by (exact-)matching the entity mention.
+The authors propose a common schema, named the NERD ontology\footnote{\url{http://nerd.eurecom.fr/ontology}}, to align the different taxonomies used by various extractors. They propose a method to identify the closest DBpedia resource by (exact-)matching the entity mention.
 
 GERBIL~\cite{GERBIL} goes beyond the state of the art by extending the BAT-framework as well as~\cite{rizzo2014} in several dimensions to enhance reproducibility, diagnostics and publishability of entity annotation systems. 
 In particular, GERBIL provides \numberOfadditionalDatasets additional datasets and \numberOfadditionalAnnotators additional annotators compared to the BAT-Framework. 
@@ -235,8 +235,8 @@ Using F-logic and SPARQL as transformation objects for natural language user que
 {Lopez et al.~\cite{poweraqua}} introduce {PowerAqua}, another open source system, which is agnostic of the underlying yet heterogeneous sets of \ac{KB}s. 
 It detects on-the-fly the needed ontologies to answer a certain question, maps the users query to Semantic Web vocabulary and composes the retrieved (fragment-)information to an answer. 
 
-{Damljanovic et al.~\cite{freya}} present {FREyA} to tackle ambiguity problems when using natural language interfaces. 
-Many ontologies in the Semantic Web contain hard to map relations, e.g., questions starting with ''How long$\ldots$'' can be disambiguated to a time or a distance. 
+{Damljanovic et al.~\cite{freya}} present {FREyA} to tackle the disambiguation problem	 when using natural language interfaces. 
+That is, many ontologies in the Semantic Web contain hard to map relations, e.g., questions starting with ''How long$\ldots$'' can be disambiguated to a time or a distance. 
 By incorporating user feedback and syntactic analysis FREyA is able to learn the users query formulation preferences increasing the systems \ac{QA} precision. 
 
 {Cabrio et al.~\cite{qakis}} present a demo of {QAKiS}, an agnostic \ac{QA} system grounded in ontology-relation matches. 
