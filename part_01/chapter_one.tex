@@ -6,12 +6,10 @@
 Since the proposal of hypertext by Tim-Berners Lee to his employer CERN on March 12, 1989\footnote{\url{http://www.w3.org/People/Berners-Lee/Longer.html}} the World Wide Web has grown to more than one billion Web pages and still grows.\footnote{\url{http://www.internetlivestats.com/total-number-of-websites/}}
 With the later proposed Semantic Web vision~\cite{bernerslee2001semantic}, Lee et al. suggested an extension of the existing (Document) Web to allow better reuse, sharing and understanding of data.
 
-Both the Document and the implementation of the Semantic Web, the Web of Data, grow continuously. 
-This is a mixed blessing, as the two forms of the Web grow concurrently and most commonly contain different forms of information. 
+Both the Document Web and the Web of Data (which is the current implementation of the Semantic Web) grow continuously. 
+This is a mixed blessing, as the two forms of the Web grow concurrently and most commonly contain different pieces of information. 
 Modern information systems must thus bridge a \emph{Semantic Gap} to allow a holistic and unified access to information about a particular information independent of the representation of the data.
-One way to bridge the gap between the two forms of the Web is the extraction of structured data, i.e., \ac{RDF}, from the growing amount of unstructured and semi-structured information on the Document Web like news, blogs or respectively tables and XML.
-Note, that unstructured data stands for any type of textual information like news, blogs or tweets. 
-While extracting structured data from unstructured data allows the development of powerful information system, it requires high-quality and scalable knowledge extraction frameworks to lead to useful results. 
+One way to bridge the gap between the two forms of the Web is the extraction of structured data, i.e., RDF, from the growing amount of unstructured\footnote{Note, that unstructured data stands for any type of textual information like news, blogs or tweets.} and semi-structured information (e.g., tables and XML) on the Document Web.
 
 The dire need for such approaches has led to the development of a multitude of annotation frameworks and tools. 
 However, most of these approaches are not evaluated on the same datasets or using the same measures.
@@ -22,7 +20,7 @@ Humans adapted their search behavior to current Web data by access paradigms suc
 Hence, most Web users only expect Web documents in return~\cite{ilprints361}.
 However, humans think and most commonly express their information needs  in their natural language rather than using keyword phrases~\cite{woods1973progress}. 
 Answering complex information needs often requires the combination of knowledge from various, differently structured data sources.
-Thus, we observe an \emph{Information Gap} gap between natural-language questions and current keyword-based search paradigms, which in addition do not make use of the available structured and unstructured data sources.
+Thus, we observe an \emph{Information Gap} between natural-language questions and current keyword-based search paradigms, which in addition do not make use of the available structured and unstructured data sources.
 \ac{QA} systems provide an easy and efficient way to bridge this gap by allowing to query data via natural language, thus reducing (1) a possible loss of precision and (2) potential loss of time while reformulating the search intention to transform it into a machine-readable way.
 Furthermore, QA systems enable answering natural language queries with concise results instead of  links to verbose Web documents. 
 Additionally, they allow as well as encourage the access  to and the combination of knowledge from heterogeneous \ac{KB}s within one answer.
@@ -43,7 +41,7 @@ On the other hand, the issue of  comparability of results is not to be regarded 
 Indeed, it is now well established that scientists spend between 60\% and 80\% of their time preparing data for experiments \cite{GIL2014,jermyn1999preparing,peng2011reproducible}. 
 Data preparation being such a tedious problem in the annotation domain is mostly due to the different formats of the gold standards as well as the different data representations across reference datasets.
 We tackle the resulting \emph{Evaluation Gap} in two ways: First, we introduce a collection of three novel datasets, dubbed $\mbox{N}^3$, to leverage the possibility of optimizing NER and NED algorithms via \ac{LD} and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
-Second, GERBIL~\cite{GERBIL} is an evaluation framework for semantic entity annotation. 
+Second, we present GERBIL~\cite{GERBIL}, an evaluation framework for semantic entity annotation. 
 The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation tools and frameworks on multiple datasets.
 \item 
 The decentral architecture behind the Web has led to pieces of information being distributed across data sources with varying structure. 

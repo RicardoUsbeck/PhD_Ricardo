@@ -1,15 +1,14 @@
-\chapter{HAWK- Hybrid Question Answering using Linked Data}
+\chapter{HAWK - Hybrid Question Answering using Linked Data}
 \label{cha:app_hawk}
 
 
 We present the evaluation of HAWK towards the \ac{QALD}-5 benchmark. The color codes can be resolved as follows:
-\begin{itemize}
-\item Yellow indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
-\item Orange cells point out that one ranking algorithm performs worse than the other. 
-\item Red indicates the inability to retrieve correct answer sets.
+(1) Yellow indicates that the ranking algorithms are not able to retrieve the correct SPARQL query out of the set of generated SPARQL queries. 
+(2) Orange cells describe that one ranking algorithm performs worse one other.
+(3) Red indicates the inability to retrieve correct answer sets.
 That is, HAWK is able to generate a set of SPARQL queries but among them none retrieves a correct answer set.
-\item Blue rows describe questions where HAWK is unable to generate at least one SPARQL query. Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
-\end{itemize}
+(4) Blue rows describe questions where HAWK is unable to generate at least one SPARQL query. Thus, those questions semantics cannot be captured by the system yet due to missing surface forms for individuals, classes and properties or missing indexed full-text information.
+
 {
 \scriptsize
 \input{part_03/ESWC_HAWK/clef_table}
