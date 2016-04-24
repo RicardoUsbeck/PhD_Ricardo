@@ -1,0 +1,38 @@
+pdf(file="annotatorsOverTime_msnbc.pdf",height=7,width=12)
+
+par(mar=c(4,4,1,0.5)+0.1)
+
+#data = read.table("/Users/ricardousbeck/Dropbox/PhD_Ricardo/callingNumbers/gerbil_ace2004_time.tsv", header = TRUE, sep = "\t")
+
+data = read.table("/Users/ricardousbeck/Dropbox/PhD_Ricardo/callingNumbers/gerbil_msnbc_time.tsv", header = TRUE, sep = "\t")
+
+# Annotator   Micro.F1       Date
+
+# get the range for the x and y axis 
+xrange <- range(as.Date(data$Date))
+yrange <- range(data$Micro.F1,na.rm=TRUE)
+legends <- names(data$Annotator)
+
+# convert factor to numeric for convenience 
+Sannotators <- unique(data$Annotator)
+Nannotators <- max(as.numeric(data$Annotator))
+
+
+# set up the plot 
+plot(xrange, yrange, type="n", xlab="Date", ylab="Micro F1") 
+colors <- rainbow(Nannotators) 
+linetype <- c(1:Nannotators) 
+plotchar <- seq(10+1,10+Nannotators,1)
+
+for (i in 1:Nannotators) { 
+  annotator <- subset(data, Annotator==Sannotators[i]) 
+  lines(as.Date(annotator$Date), annotator$Micro.F1, type="b", lwd=1.5,
+    lty=linetype[i], col=colors[i], pch=plotchar[i]) 
+} 
+
+
+# add a legend 
+legend(xrange[1], yrange[2], Sannotators, cex=0.8, col=colors, pch=plotchar, lty=linetype, title="Annotator",ncol=2)
+
+
+dev.off()
