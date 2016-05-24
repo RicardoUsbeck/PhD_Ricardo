@@ -14,6 +14,7 @@
 % 1. Configure classicthesis for your needs here, e.g., remove "drafting" below 
 % in order to deactivate the time-stamp on the pages
 % ****************************************************************************************************
+\RequirePackage{atveryend}
 \PassOptionsToPackage{table}{xcolor}
 
 \PassOptionsToPackage{eulerchapternumbers,%
@@ -443,6 +444,31 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 %%% resumes the counting of enumerate vie [resume] option 
 \usepackage{enumitem}
+
+%%count citations
+\usepackage{totcount}
+
+\newtotcounter{citnum} %From the package documentation
+\def\oldbibitem{} \let\oldbibitem=\bibitem
+\def\bibitem{\stepcounter{citnum}\oldbibitem}
+
+%% count pages
+\usepackage{lastpage}
+\usepackage{pageslts}
+
+
+%%%do not color acronym links
+\makeatletter
+\AtBeginDocument{%
+  \renewcommand*{\AC@hyperlink}[2]{%
+    \begingroup
+      \hypersetup{hidelinks}%
+      \hyperlink{#1}{#2}%
+    \endgroup
+  }%
+}
+\makeatother
+
 \usepackage{etoolbox}
 %% Acronyms start new in each chapter
 \preto\chapter\acresetall
@@ -475,27 +501,3 @@ morekeywords={version,owl,rdf,rdfs,xml,xsd,dbo,str,sso,scms,ld, fise, dcterms, i
 
 %\pretocmd{\chapter}{\addtocounter{totfigures}{\value{figure}}\setcounter{figure}{0}}{}{}
 %\pretocmd{\chapter}{\addtocounter{tottables}{\value{table}}\setcounter{table}{0}}{}{}
-
-%%count citations
-\usepackage{totcount}
-
-\newtotcounter{citnum} %From the package documentation
-\def\oldbibitem{} \let\oldbibitem=\bibitem
-\def\bibitem{\stepcounter{citnum}\oldbibitem}
-
-%% count pages
-\usepackage{lastpage}
-\usepackage{pageslts}
-
-
-%%%do not color acronym links
-\makeatletter
-\AtBeginDocument{%
-  \renewcommand*{\AC@hyperlink}[2]{%
-    \begingroup
-      \hypersetup{hidelinks}%
-      \hyperlink{#1}{#2}%
-    \endgroup
-  }%
-}
-\makeatother

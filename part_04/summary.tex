@@ -5,7 +5,8 @@
 
 
 
-The main aim of this thesis was to address three research challenges in the Semantic Web, namely the Semantic, Evaluation and Information Gap. In In our approaches, we focused on a combination of statistical methods on Linked Data. 
+The main aim of this thesis was to address three research challenges in the Semantic Web, namely the Semantic, Evaluation and Information Gap.
+
 In this chapter, we first give a brief summary of the approaches and methodologies we developed to address each of these three challenges while referencing the associated research contributions.
 Hereby, we collect the most import conclusions and discoveries resulting from our entanglement with these challenges.
 Subsequently, future research avenues based on the afore presented conclusions are detailed.
@@ -21,7 +22,7 @@ In the following, we present our solutions to these requirements.
 First, we presented CETUS---a pattern based type extraction that can be used as baseline for other approaches.
 Both versions---CETUS$_{YAGO}$ and CETUS$_{FOX}$---were explained in detail.
 We showed how CETUS$_{YAGO}$ uses label matching to determine a super-type for automatically generated classes while CETUS$_{FOX}$ is based on one of the various, existing entity typing frameworks.
-After the initial publication, CETUS participated in the Open Knowledge Extraction challenge~\cite{okechallenge}.
+After the initial publication, CETUS participated in the Open Knowledge Extraction challenge 2015~\cite{okechallenge}.
 CETUS outperformed two other approaches~\cite{fred_typing,oak_sheffield} by achieving a  micro resp. macro F-measure(F1) of 0.47 resp. 0.45, therewith winning task 2~\cite{okechallenge}.	
 
 Next, this thesis presented AGDISTIS, a novel approach for named entity disambiguation that combines the scalable \ac{HITS} algorithm and breadth-first search with linguistic heuristics.
@@ -30,7 +31,7 @@ Moreover, our evaluation suggests that while the approach performs well in and o
 Furthermore, we presented the demo of AGDISTIS for three different languages on three different DBpedia-based knowledge bases.
 Here,  we emphasize that our works led to the development of the first \ac{NED} system for the Chinese language based on Linked Data.
 AGDISTIS is integrated into FOX~\cite{FOX}, an ensemble learning based \ac{NER}~framework which can be found at \url{http://fox.aksw.org}. 
-Furthermore, AGDISTIS is integrated in to the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
+Furthermore, AGDISTIS is integrated into the entity evaluation platform GERBIL~\cite{GERBIL}, see \url{http://gerbil.aksw.org/gerbil/}.
 Furthermore, we provided a \ac{NED} API serving 4.648.056 calls for the English and 329.358 calls for the German endpoint while the Chinese endpoint was rarely used.
 
 
@@ -83,11 +84,12 @@ We efficiently targeted the Evaluation Gap w.r.t. the domain of semantic annotat
 As mentioned previously, the increasing amount of data, both in the Data and the Document Web is a bilateral risk. 
 To efficiently access and understand this constantly growing data volume one can benefit from the machine-readable and straightforward semantics underlying the structured RDF knowledge source. 
 
-To provide easy and natural language-based access to end-users and laymen, we introduced HAWK, a hybrid \ac{QA} system for the Web of Data.
-We analyzed its performance against \ac{QALD}-4 and \ac{QALD}-5 datasets.
+To provide easy and natural language-based access to end-users and laymen, we introduced HAWK, the first hybrid \ac{QA} system for the Web of Data.
+We analyzed its performance against \ac{QALD} in the instances of \ac{QALD}-4 and \ac{QALD}-5.
 By using a generic approach to generate SPARQL queries from predicate-argument structures,   HAWK is able to achieve up to 0.68 F-measure on the hybrid \ac{QALD}-4 benchmark using an optimal ranker.
 The system is also able to achieve an F-measure of up to 0.3 on the \ac{QALD}-5 training benchmark using bucket-based ranking.
 Especially, HAWK achieves a F-measure of up to 0.35 based on boolean and entity-centric questions over the combined \ac{QALD}-5 benchmark.
+Thus, HAWK is the first hybrid QA system achieving high-quality results.
 HAWK served already more than 600 questions from real users generating organic traffic.
 
 Introducing the HAWK framework enables users ask natural language questions without the need to understand the underlying data scheme or a complex query language. 
@@ -124,7 +126,7 @@ By these means, we should be able to eradicate some of the sources of error in o
 Our approach can be further improved by combining it with crowdsourcing-based approaches for wrapper induction such as ALFRED~\cite{Crescenzi2013} or by learning more expressive wrappers.
 
 
-Regarding our novel approaches---CETUS, AGDISTIS and REX-- we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
+Regarding our novel approaches---CETUS, AGDISTIS and REX--- we aim to develop a new paradigm for realizing \ac{NLP} services which employ community-generated, multilingual and evolving Linked Open Data background knowledge.
 %Other than most work, which mainly uses statistics and heuristics, we aim to truly exploit the graph structure and semantics of the background knowledge.
 We thus regard these frameworks as a basis for populating the Web of Data using Web pages by professional end-users.
 
@@ -159,8 +161,8 @@ Currently, HAWK faces several limitations, such as not always being able to capt
 The most important open issue lies in finding the correct ranking approach to map a predicate-argument tree to a possible interpretation. 
 So far, our experiments reveal that the mere finding of the right features for this endeavor remains a challenging problem. 
 
-Furthermore, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. 
-Additionally, we will assess the impact of full-text components over regular LD components for \ac{QA} and partake in the creation of larger benchmarks such as \ac{QALD}-6,
+Among other research directions, we aim to integrate HAWK in domain-specific information systems where the more specialized context will most probably lead to higher F-measures. 
+Additionally, we will assess the impact of full-text components over regular LD components for \ac{QA} and partake in the creation of larger benchmarks such as \ac{QALD}-6.
 Another aim is to develop HAWK towards multilingual, schema-agnostic queries.
 Moreover, negations within questions and improved ranking will  be considered. 
 Finally, several components of the HAWK pipeline are computationally very complex. 

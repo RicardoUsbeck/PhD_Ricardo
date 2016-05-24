@@ -13,14 +13,14 @@ One way to bridge the gap between the two forms of the Web is the extraction of 
 
 The dire need for such approaches has led to the development of a multitude of annotation frameworks and tools. 
 However, most of these approaches are not evaluated on the same datasets or using the same measures.
-The resulting \emph{Evaluation Gap} needs to be tackled by a concise evaluation framework to foster fine-grained and uniform evaluations of annotation tools and frameworks over any \ac{KB}s.
+The resulting \emph{Evaluation Gap} needs to be tackled by a concise evaluation framework to foster fine-grained and uniform evaluations of annotation tools and frameworks over any \ac{KB}.
 
 Moreover, with the constant growth of data and the ongoing decentralization of knowledge, intuitive ways for non-experts to access the generated data are required. 
 Humans adapted their search behavior to current Web data by access paradigms such as keyword search so as to retrieve high-quality results.
 Hence, most Web users only expect Web documents in return~\cite{ilprints361}.
 However, humans think and most commonly express their information needs  in their natural language rather than using keyword phrases~\cite{woods1973progress}. 
 Answering complex information needs often requires the combination of knowledge from various, differently structured data sources.
-Thus, we observe an \emph{Information Gap} between natural-language questions and current keyword-based search paradigms, which in addition do not make use of the available structured and unstructured data sources.
+Thus, we observe an \emph{Information Gap}, i.e., a user-generated demand for natural language interfaces based on the structured Web of Data and the Document Web, between natural-language questions and current keyword-based search paradigms, which do not make use of the available structured and unstructured data sources.
 \ac{QA} systems provide an easy and efficient way to bridge this gap by allowing to query data via natural language, thus reducing (1) a possible loss of precision and (2) potential loss of time while reformulating the search intention to transform it into a machine-readable way.
 Furthermore, QA systems enable answering natural language queries with concise results instead of  links to verbose Web documents. 
 Additionally, they allow as well as encourage the access  to and the combination of knowledge from heterogeneous \ac{KB}s within one answer.
@@ -32,7 +32,7 @@ Consequently, three main research gaps will be considered and addressed in this 
 First, addressing the Semantic Gap between the unstructured Document Web and the Semantic Gap requires the development of scalable and accurate approaches for the extraction of structured data in \ac{RDF}~\cite{rdfprimer}.
 This research challenge is addressed by several approaches within this thesis.
 This thesis presents CETUS~\cite{CETUS_2015}, an approach for recognizing entity types to populate \ac{RDF} \ac{KB}s. 
-Furthermore, our knowledge base-agnostic disambiguation framework AGDISTIS~\cite{agdistis_iswc} can efficiently detect the correct URIs for a given set of named entities.
+Furthermore, our knowledge base-agnostic disambiguation framework AGDISTIS~\cite{agdistis_iswc} can efficiently detect, i.e., in polynomial run-time, the correct URIs for a given set of named entities.
 Additionally, we introduce REX~\cite{rex}, a Web-scale framework for \ac{RDF} extraction from semi-structured (i.e., templated) websites which makes use of the semantics of the reference knowledge based to check the extracted data.
 \item 
 The ongoing research on closing the Semantic Gap has already yielded a large number of annotation tools and frameworks.
@@ -40,13 +40,13 @@ However, these approaches are currently still hard to compare since the publishe
 On the other hand, the issue of  comparability of results is not to be regarded as being intrinsic to the annotation task. 
 Indeed, it is now well established that scientists spend between 60\% and 80\% of their time preparing data for experiments \cite{GIL2014,jermyn1999preparing,peng2011reproducible}. 
 Data preparation being such a tedious problem in the annotation domain is mostly due to the different formats of the gold standards as well as the different data representations across reference datasets.
-We tackle the resulting \emph{Evaluation Gap} in two ways: First, we introduce a collection of three novel datasets, dubbed $\mbox{N}^3$, to leverage the possibility of optimizing NER and NED algorithms via \ac{LD} and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
+We tackle the resulting \emph{Evaluation Gap}---large number of systems, unavailable datasets and incomparable experiments as well as metrics---in two ways: First, we introduce a collection of three novel datasets, dubbed $\mbox{N}^3$, to leverage the possibility of optimizing NER and NED algorithms via \ac{LD} and to ensure a maximal interoperability to overcome the need for corpus-specific parsers. 
 Second, we present GERBIL~\cite{GERBIL}, an evaluation framework for semantic entity annotation. 
 The rationale behind our framework is to provide developers, end users and researchers with easy-to-use interfaces that allow for the agile, fine-grained and uniform evaluation of annotation tools and frameworks on multiple datasets.
 \item 
 The decentral architecture behind the Web has led to pieces of information being distributed across data sources with varying structure. 
 Moreover, the increasing the demand for natural-language interfaces\footnote{\url{http://www.forbes.com/sites/jaysondemers/2015/11/10/the-fundamental-guide-to-seo-in-2016}} as depicted by current mobile applications requires systems to deeply understand the underlying user information need.
-In conclusion, the natural language interface for asking questions requires a  \emph{hybrid} approach to data usage, i.e., simultaneously performing a search on full-texts and semantic \ac{KB}s 
+In conclusion, the natural language interface for asking questions requires a  \emph{hybrid} approach to data usage, i.e., simultaneously performing a search on full-texts and semantic \ac{KB}s. 
 To close the {Information Gap}, this thesis presents HAWK~\cite{hawk_2015}, a novel entity search approach developed for hybrid \ac{QA} based on combining structured \ac{RDF} and unstructured full-text data sources.
 \end{enumerate}
 
